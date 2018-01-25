@@ -15,7 +15,7 @@
 				ForEach-Object {
 					$_ -replace "`"", ''
 				}
-			[IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $GetUMSDirectories)
+			[IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $UMSDirectoryStructure)
 			Generates csv File, sorted and without Parenthesis , UTF8 stripped from BOM
 	#>
 	

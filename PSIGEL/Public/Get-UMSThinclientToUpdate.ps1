@@ -7,7 +7,7 @@
       .DESCRIPTION
       Gets thinclients from UMS-DB which have a lower firmware-version than their respective associated (direct or per directory)
       Update-Profile or Universal Firmware Update. Selects those which reported to UMS in specified time, given total and / or per
-      Directory number AND online (Ping).
+      Directory number AND are online (Ping).
       See .NOTES for requirements!
 
       .PARAMETER ServerInstance

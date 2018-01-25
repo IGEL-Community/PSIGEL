@@ -18,11 +18,11 @@
 
       .EXAMPLE
       Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -JobIDColl 513339 -Startdate '2018-01-10 14:47:00'
-      Update Job Startdate on Job with ID 607377
+      Update Job Startdate on Job with ID "607377"
 
       .EXAMPLE
       513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'
-      Sets Comment "Comment" on Jobs with ID 607377 and 680819
+      Update Job Startdate on Jobs with ID "607377" and "680819"
   #>
   
   [cmdletbinding()]

@@ -14,15 +14,15 @@
       JobIDs to search for
 
       .EXAMPLE
-      Get-UMSJob -ServerInstance 'SRVSQL03\RMDB'
+      Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'
       Gets all Jobs
       
       .EXAMPLE
-      Get-UMSJob -ServerInstance 'SRVSQL03\RMDB' -JobIDColl 513339
-      Gets Jobs with JobID "513333"
+      Get-UMSJob -ServerInstance 'SQLSERVER\RMDB' -JobIDColl 513339
+      Gets Job with JobID "513333"
       
       .EXAMPLE
-      515266, 513339 | Get-UMSJob -ServerInstance 'SRVSQL03\RMDB'
+      515266, 513339 | Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'
       Gets Jobs with JobID "513934" and "513333" 
   #>
   

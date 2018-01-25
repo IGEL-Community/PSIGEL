@@ -15,11 +15,11 @@
 
       .EXAMPLE
       Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB' -Comment Update
-      Gets thinclient with Comment "Update"
+      Gets thinclients with Comment "Update"
       
       .EXAMPLE
       'Comment' | Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB'
-      Gets thinclient with Comment "Comment"
+      Gets thinclients with Comment "Comment"
   #>
   
   [cmdletbinding()]

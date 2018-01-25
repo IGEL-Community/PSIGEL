@@ -19,7 +19,7 @@
       
       .EXAMPLE
       Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -ViewIDColl 525870
-      Gets Views with ViewID "525870"
+      Gets View with ViewID "525870"
       
       .EXAMPLE
       513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'
