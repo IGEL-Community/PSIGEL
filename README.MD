@@ -29,7 +29,7 @@ Gets Thinclient Directory Structure from UMS-DB
 
     Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | Out-Gridview
 
-![GetUMSDirectoryStructureOutGridview](/docs/imsages/GetUMSDirectoryStructureOutGridview.png)
+![GetUMSDirectoryStructureOutGridview](/docs/images/GetUMSDirectoryStructureOutGridview.png)
 
 **Get Directory Structure, Generates csv File, sorted and without Parenthesis , UTF8 stripped from BOM**
 
@@ -98,7 +98,7 @@ Please ensure, that associated Update-Profiles are used rational, since concurre
 
     Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB' -NumberTotal 10 -NumberPerDirName 2 | Out-GridView
 
-![GetUMSThinclientToUpdateGridview](/docs/imsages/GetUMSThinclientToUpdateGridview.png)
+![GetUMSThinclientToUpdateGridview](/docs/images/GetUMSThinclientToUpdateGridview.png)
 
 ## Get-UMSThinclientWithComment
 Get Thinclient with Comment from UMS-DB
