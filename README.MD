@@ -126,7 +126,7 @@ Get View from UMS-DB
 
     513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'
     
-## Update-UMSJobStartDate.ps1
+## Update-UMSJobStartDate
 Update Job Startdate in UMS-DB
 
 **Update Job Startdate on Job with ID 607377**
@@ -137,7 +137,7 @@ Update Job Startdate in UMS-DB
 
     513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'
 
-## Update-UMSThinclientComment.ps1
+## Update-UMSThinclientComment
 Set Comment on Thinclient in UMS-DB
 
 **Set Comment "Comment" on thinclient with TCID 607377**
