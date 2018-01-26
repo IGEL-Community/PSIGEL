@@ -17,13 +17,13 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 
 * Determine Update-Comment
 * Create View for all Thinclients with Update-Comment
-![CommentUpdateView](/images/CommentUpdateView.png)
+![CommentUpdateView](/docs/images/CommentUpdateView.png)
 * Create Job for the Update-Comment View to execute "Update on Shutdown"
-![CommentUpdateJobShutDownOnUpdate](/imsages/CommentUpdateJobShutDownOnUpdate.png)
+![CommentUpdateJobShutDownOnUpdate](/docs/imsages/CommentUpdateJobShutDownOnUpdate.png)
 * Create View for all Firmware-Update-Buddies (via profile  assigment)
-![BuddyUpdateProfileView](/images/BuddyUpdateProfileView.png)
+![BuddyUpdateProfileView](/docs/images/BuddyUpdateProfileView.png)
 * Create Job for the Update-Buddies to execute "WakeUp"
-![BuddyUpdateProfileJob](/images/BuddyUpdateProfileJob.png)
+![BuddyUpdateProfileJob](/docs/images/BuddyUpdateProfileJob.png)
 * Remove Update-Comment on all Thinclients
 * Get all the Thinclients which are eligable for an update and are online
     * Parameterize number Thinclients to update in total
@@ -34,7 +34,7 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 
 **Get the ID of Views and Jobs**
 
-![GetViewID](/images/GetViewID.png)
+![GetViewID](/docs/images/GetViewID.png)
 
 **Invoke-UMSThinclientUpdate for a total of 10 devices and 2 devices per directory**
 
