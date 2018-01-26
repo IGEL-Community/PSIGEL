@@ -24,8 +24,8 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 ![BuddyUpdateProfileView](/docs/images/BuddyUpdateProfileView.png)
 * Create Job for the Update-Buddies to execute "WakeUp"
 ![BuddyUpdateProfileJob](/docs/images/BuddyUpdateProfileJob.png)
-
 * Get the ID of Views and Jobs
+
 ![GetViewID](/docs/images/GetViewID.png)
 
 **Procedure**
