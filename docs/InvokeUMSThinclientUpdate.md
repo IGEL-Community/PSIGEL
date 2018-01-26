@@ -25,6 +25,9 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 * Create Job for the Update-Buddies to execute "WakeUp"
 ![BuddyUpdateProfileJob](/docs/images/BuddyUpdateProfileJob.png)
 
+* Get the ID of Views and Jobs
+![GetViewID](/docs/images/GetViewID.png)
+
 **Procedure**
 
 * Remove Update-Comment on all Thinclients
@@ -34,10 +37,6 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
     * Parameterize minutes to delay execution of the Jobs
 * Set Update-Comment on these Thinclients
 * Set Start Time for the "Update on Shutdown" and "WakeUp" Jobs
-
-**Get the ID of Views and Jobs**
-
-![GetViewID](/docs/images/GetViewID.png)
 
 **Invoke-UMSThinclientUpdate for a total of 10 devices and 2 devices per directory**
 
