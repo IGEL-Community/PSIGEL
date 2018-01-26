@@ -53,4 +53,4 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 
 **Scheduling**
 
-You can use [Register-ScheduledJob](https://docs.microsoft.com/en-us/powershell/module/psscheduledjob/register-scheduledjob?view=powershell-5.1) to schedule this fuction.
+You can use [Register-ScheduledJob](https://docs.microsoft.com/en-us/powershell/module/psscheduledjob/register-scheduledjob?view=powershell-5.1) to schedule this function.
