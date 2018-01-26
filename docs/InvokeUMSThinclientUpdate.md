@@ -39,15 +39,15 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 **Invoke-UMSThinclientUpdate for a total of 10 devices and 2 devices per directory**
 
       $Props = @{
-          ServerInstance           = 'SQLSERVER\RMDB'
-          UpdateViewID           = 513333
-          UpdateJobID             = 513339
-          WakeupViewID          = 513934
-          WakeupJobID            = 515266
-          NumberTotal             = 10
+          ServerInstance    = 'SQLSERVER\RMDB'
+          UpdateViewID      = 513333
+          UpdateJobID       = 513339
+          WakeupViewID      = 513934
+          WakeupJobID       = 515266
+          NumberTotal       = 10
           NumberPerDirName  = 2
-          Comment                  = 'Update'
-          JobDelay                   = 2
+          Comment           = 'Update'
+          JobDelay          = 2
         }
       Invoke-UMSThinclientUpdate @Props
 
