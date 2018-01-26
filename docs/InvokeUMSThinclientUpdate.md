@@ -19,7 +19,7 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 * Create View for all Thinclients with Update-Comment
 ![CommentUpdateView](/docs/images/CommentUpdateView.png)
 * Create Job for the Update-Comment View to execute "Update on Shutdown"
-![CommentUpdateJobShutDownOnUpdate](/docs/imsages/CommentUpdateJobShutDownOnUpdate.png)
+![CommentUpdateJobShutDownOnUpdate](/docs/images/CommentUpdateJobShutDownOnUpdate.png)
 * Create View for all Firmware-Update-Buddies (via profile  assigment)
 ![BuddyUpdateProfileView](/docs/images/BuddyUpdateProfileView.png)
 * Create Job for the Update-Buddies to execute "WakeUp"
