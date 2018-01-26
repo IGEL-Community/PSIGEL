@@ -13,7 +13,7 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 
 *Since we only just started using Windows-Devices and use less than 25 of them, those devices are not considered here.*
 
-**Procedure**
+**Preparations**
 
 * Determine Update-Comment
 * Create View for all Thinclients with Update-Comment
@@ -24,6 +24,9 @@ Most of our Thinclients are Linux-Devices, connected via WLAN and a large part o
 ![BuddyUpdateProfileView](/docs/images/BuddyUpdateProfileView.png)
 * Create Job for the Update-Buddies to execute "WakeUp"
 ![BuddyUpdateProfileJob](/docs/images/BuddyUpdateProfileJob.png)
+
+**Procedure**
+
 * Remove Update-Comment on all Thinclients
 * Get all the Thinclients which are eligable for an update and are online
     * Parameterize number Thinclients to update in total
