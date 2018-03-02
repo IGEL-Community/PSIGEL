@@ -1,0 +1,22 @@
+
+SELECT *
+  FROM [rmdb].[igelums].[ADMINTASK]
+   where ADMINTASKID = '709698'
+
+SELECT *
+  FROM [rmdb].[igelums].[ADMINTASK_PARAM]
+  where ADMINTASKID = '709698'
+
+
+SELECT *
+  FROM [rmdb].[igelums].[THINCLIENTHASPROFILE]
+  --where PROFILEID = '707611'
+  where PROFILEID = '710625'
+
+SELECT *
+  FROM [rmdb].[igelums].[PROFILESETTINGS]
+  where PROFILEID = '710625'
+  
+SELECT *
+  FROM [rmdb].[igelums].[PROFILESETTINGS]
+  where PROFILEID = '707611'
