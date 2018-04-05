@@ -2,10 +2,25 @@
 {
   <#
       .Synopsis
-      Gets Thinclient from UMS-DB
+      Gets Thinclient from API or MSSQL
 
       .DESCRIPTION
-      Gets Thinclient from UMS-DB
+      Gets Thinclient from API or MSSQL
+
+      .PARAMETER Computername
+      Computername of the UMS Server
+      
+      .PARAMETER TCPPort
+      TCP Port API (Default: 8443)
+
+      .PARAMETER ApiVersion
+      API Version to use (2 or 3, Default: 3)
+
+      .Parameter WebSession
+      Websession Cookie
+
+      .Parameter Details
+      Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short').
 
       .PARAMETER ServerInstance
       SQL ServerInstance  for the UMS-DB (e.g. 'SQLSERVER\RMDB')
@@ -13,43 +28,80 @@
       .PARAMETER Database
       SQL Database  for the UMS-DB (e.g. 'RMDB')
 
-      .PARAMETER DatabaseUser
-      SQL DatabaseUser  for the UMS-DB (e.g. 'igelums')
+      .PARAMETER Schema
+      SQL Schema  for the UMS-DB (e.g. 'igelums')
 
-      .PARAMETER TCIDColl
-      ThinclientIDs to search for
+      .PARAMETER TCID
+      ThinclientID to search for
 
       .EXAMPLE
-      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -DatabaseUser 'igelums' | Out-GridView
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
+      Gets detailed information on all online thin clients.
+
+      .EXAMPLE
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+      Gets short information on thin clients with TCID 2433.
+      
+      .EXAMPLE
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
+      Gets shadow-information on Thinclient with TCID 2433.
+
+      .EXAMPLE
+      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView
       Gets all Thinclients
       
       .EXAMPLE
-      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -DatabaseUser 'igelums' -TCIDColl 2433
-      Gets Thinclient with TCID "607377"
+      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433
+      Gets Thinclient with TCID 2433
       
       .EXAMPLE
-      607377, 680819 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -DatabaseUser 'igelums'
-      Gets Thinclient with TCID "607377" and "680819" 
+      2433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+      Gets Thinclient with TCID 2433
   #>
   
   [cmdletbinding()]
   param
   ( 
-    [Parameter(Mandatory)]
+    [Parameter( Mandatory, ParameterSetName = 'API')]
+    [String]
+    $Computername,
+
+    [Parameter( ParameterSetName = 'API')]
+    [ValidateRange(0,49151)]
+    [Int]
+    $TCPPort = 8443,
+   
+    [Parameter( ParameterSetName = 'API')]
+    [ValidateSet(2,3)]
+    [Int]
+    $ApiVersion = 3,
+    
+    [Parameter(Mandatory, ParameterSetName = 'API')]
+    $WebSession,
+    
+    [Parameter( ParameterSetName = 'API')]
+    [ValidateSet('short','full','online','shadow')]
+    [String]
+    $Details = 'short',
+    
+    [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $ServerInstance,
     
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Database,
     
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
-    $DatabaseUser,
+    $Schema,
     
     [Parameter(ValueFromPipeline)]
     [int]
-    $TCIDColl = 0
+    $TCID = 0
   )
 	
   Begin
@@ -57,35 +109,86 @@
   }
   Process
   {
-    switch ($TCIDColl)
+    switch ($PSCmdlet.ParameterSetName)
     {
-      0
+      API
       {
-        $Query = @"
+        Switch ($Details)
+        {
+          'short'
+          {
+            $URLEnd = ''
+          }
+          'full'
+          {
+            $URLEnd = '?facets=details'
+          }
+          'online'
+          {
+            $URLEnd = '?facets=online'
+          }
+          'shadow'
+          {
+            $URLEnd = '?facets=shadow'
+          }   
+        }
+
+        Switch ($TCID)
+        {
+          0
+          {
+            $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
+          }
+          default
+          {
+            $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd
+          }
+
+        }
+
+        $ThinclientsJSONCollParams = @{
+          Uri         = $SessionURL
+          Headers     = @{}
+          ContentType = 'application/json; charset=utf-8'
+          Method      = 'Get'
+          WebSession  = $WebSession
+        }
+
+        $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
+        $ThinclientsJSONColl
+      }
+      SQL
+      {
+        switch ($TCID)
+        {
+          0
+          {
+
+            #HARDWARE_INFORMATION          
+        
+            $Query = @"
 SELECT *
-FROM [$Database].[$DatabaseUser].[THINCLIENT] TC, [$Database].[$DatabaseUser].[THINCLIENTISINDIRECTORY] TD, [$Database].[$DatabaseUser].[FIRMWARE] FW
+FROM [$Database].[$Schema].[THINCLIENT] TC, [$Database].[$Schema].[THINCLIENTISINDIRECTORY] TD, [$Database].[$Schema].[FIRMWARE] FW
 WHERE TC.TCID = TD.TCID
 AND TC.FIRMWAREID = FW.FIRMWAREID
-AND MOVEDTOBIN IS NULL
 "@
-        Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Query $Query
-      }
-      default
-      {
-        Foreach ($TCID in $TCIDColl)
-        {
-          $Query = (@"
+            Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Query $Query
+          }
+          default
+          {
+            $Query = (@"
 SELECT *
-FROM [$Database].[$DatabaseUser].[THINCLIENT] TC, [$Database].[$DatabaseUser].[THINCLIENTISINDIRECTORY] TD, [$Database].[$DatabaseUser].[FIRMWARE] FW
+FROM [$Database].[$Schema].[THINCLIENT] TC, [$Database].[$Schema].[THINCLIENTISINDIRECTORY] TD, [$Database].[$Schema].[FIRMWARE] FW
 WHERE TC.TCID = TD.TCID
 AND TC.FIRMWAREID = FW.FIRMWAREID
 AND TC.TCID = '{0}'
-AND MOVEDTOBIN IS NULL
 "@ -f $TCID)
-          Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Query $Query
+            Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Query $Query
+          }
         }
       }
     }
+
   }
   End
   {
