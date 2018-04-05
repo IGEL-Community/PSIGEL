@@ -12,7 +12,7 @@
 RootModule = 'PSIGEL.psm1'
 
 # Die Versionsnummer dieses Moduls
-ModuleVersion = '1.0.1'
+ModuleVersion = '1.0.2'
 
 # Unterstuetzte PSEditions
 # CompatiblePSEditions = @()
@@ -78,6 +78,9 @@ FunctionsToExport = @(
     'Get-UMSView'
     'Invoke-UMSThinclientUpdate'
     'New-UMSAPICookie'
+    'Start-UMSThinclient'
+    'Stop-UMSThinclient'
+    'Restart-UMSThinclient'
     'Update-UMSJobStartDate'
     'Update-UMSThinclientComment'
   )
