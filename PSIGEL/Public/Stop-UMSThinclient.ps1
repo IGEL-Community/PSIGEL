@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Shuts Down Thinclients (WOL) via API
+      Shuts Down Thinclients via API
 
       .DESCRIPTION
-      Shuts Dow Thinclients (WOL) via API
+      Shuts Down Thinclients via API
 
       .PARAMETER Computername
       Computername of the UMS Server
