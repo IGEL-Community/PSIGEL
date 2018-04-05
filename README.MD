@@ -1,11 +1,47 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS MSSQL-Database.
-
-Most functions are wrappers for sql-queries. 
+This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
 
 ## Invoke-UMSThinclientUpdate
 [automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
+
+## New-UMSAPICookie
+Creates Websession Cookie for IGEL UMS API
+
+**Asks for Password and creates Cookie-Object for use in API-Functions**
+
+    New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3
+
+## Get-UMSThinclient
+Gets Thinclient from UMS API and/or MSSQL-Database
+
+**Gets detailed information on all online thin clients**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
+
+**Gets short information on thin clients with TCID 2433**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+
+**Gets shadow-information on Thinclient with TCID 2433**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
+
+**Gets all Thinclients**
+   
+    Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView
+      
+**Gets Thinclient with TCID 2433**
+    
+    Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433
+
+**Gets Thinclient with TCID 2433**
+    
+    433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+     
 
 ## Get-UMSDirectory
 Gets Directory from UMS-DB
@@ -69,21 +105,6 @@ Get Job with JobID "513333"
 Get Jobs with JobID "513934" and "513333" 
 
     515266, 513339 | Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'
-
-## Get-UMSThinclient
-Gets Thinclient from UMS-DB
-
-**Get all Thinclients**
-
-    Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB'
-
-**Get Thinclient with TCID "607377"**
-
-    Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -TCIDColl 607377
-    
-**Get Thinclients with TCID "607377" and "680819"**
-    
-    607377, 680819 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB'
   
 ## Get-UMSThinclientToUpdate
 Get thinclients from UMS-DB which have a lower firmware-version than their respective associated (direct or per directory) Update-Profile or Universal Firmware Update. Select those which reported to UMS in specified time, given total and / or per Directory number AND are online (Ping).
