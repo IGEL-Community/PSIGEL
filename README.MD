@@ -42,7 +42,45 @@ Gets Thinclient from UMS API and/or MSSQL-Database
     
     433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
      
+## Restart-UMSThinclient
+Restarts Thinclients (WOL) via API
 
+**Restarts thin client with TCID 2433**
+    
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+      
+**Restarts thin clients with TCID 2433 and 2435**      
+      
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+      
+## Start-UMSThinclient
+Wakes Up Thinclients (WOL) via API
+
+**Wakes up thin client with TCID 2433**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+     
+**Wakes up thin clients with TCID 2433 and 2435**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+
+## Stop-UMSThinclient
+Shuts Down Thinclients via API
+
+**Shuts down thin client with TCID 2433**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+      
+**Shuts down thin clients with TCID 2433 and 2435**   
+ 
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    2433, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+      
 ## Get-UMSDirectory
 Gets Directory from UMS-DB
 
