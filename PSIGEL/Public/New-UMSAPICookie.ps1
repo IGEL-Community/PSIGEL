@@ -21,7 +21,7 @@ function New-UMSAPICookie
       API Version to use (1,2 or3, Default: 3)
 
       .EXAMPLE
-      New-UMSAPICookie -Computername SRVUMS02 -TCPPort 8443 -Username rmdb -ApiVersion 3
+      New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3
 
       .OUTPUTS
       Object for use in Invoke-RestMethod -WebSession Parameter (Cookie)
