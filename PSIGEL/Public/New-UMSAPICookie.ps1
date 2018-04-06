@@ -64,9 +64,9 @@ function New-UMSAPICookie
   }
   Process
   {
-    $Credentials = Get-Credential -UserName $Username -Message 'Enter your credentials'
-    $RESTAPIUser = $Credentials.UserName
-    $RESTAPIPassword = $Credentials.GetNetworkCredential().password
+    $Credential = Get-Credential -UserName $Username -Message 'Enter your credentials'
+    $RESTAPIUser = $Credential.UserName
+    $RESTAPIPassword = $Credential.GetNetworkCredential().password
 
     [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
     
