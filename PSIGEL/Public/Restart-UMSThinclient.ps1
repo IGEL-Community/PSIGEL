@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Restarts Thinclients (WOL) via API
+      Restarts Thinclients via API
 
       .DESCRIPTION
-      Restarts Thinclients (WOL) via API
+      Restarts Thinclients via API
 
       .PARAMETER Computername
       Computername of the UMS Server
