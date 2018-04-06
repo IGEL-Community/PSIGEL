@@ -42,7 +42,20 @@ Gets Thinclient from UMS API and/or MSSQL-Database
 **Gets Thinclient with TCID 2433**
     
     433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
-     
+
+## Get-UMSThinclientAssignment
+Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
+
+**Gets the profile and master profile assignments for Thinclient with TCID 243**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433 | Out-GridView
+
+**Gets the profile and master profile assignments for Thinclient with TCID 2433**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
+
 ## Restart-UMSThinclient
 Restarts Thinclients (WOL) via API
 
