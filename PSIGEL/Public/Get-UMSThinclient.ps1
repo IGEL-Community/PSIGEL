@@ -31,6 +31,10 @@
       .PARAMETER Schema
       SQL Schema  for the UMS-DB (e.g. 'igelums')
 
+      .PARAMETER Credential
+      Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
+      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
+
       .PARAMETER TCID
       ThinclientID to search for
 
@@ -54,8 +58,9 @@
       Gets all Thinclients
       
       .EXAMPLE
-      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433
-      Gets Thinclient with TCID 2433
+      $Credential = Get-Credential -Message 'Enter your credentials'
+      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
+      Asks for Credentialand gets Thinclient with TCID 2433
       
       .EXAMPLE
       2433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
@@ -98,6 +103,10 @@
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Schema,
+    
+    [Parameter( ParameterSetName = 'SQL')]
+    [PSCredential]
+    $Credential,
     
     [Parameter(ValueFromPipeline)]
     [int]
@@ -159,20 +168,33 @@
       }
       SQL
       {
+        if ($Credential)
+        {
+          $InvokeSqlcmd2Params = @{
+            ServerInstance = $ServerInstance
+            Database       = $Database
+            Credential     = $Credential
+          }
+        }
+        else
+        {
+          $InvokeSqlcmd2Params = @{
+            ServerInstance = $ServerInstance
+            Database       = $Database
+          }
+        }
+        
         switch ($TCID)
         {
           0
           {
-
-            #HARDWARE_INFORMATION          
-        
             $Query = @"
 SELECT *
 FROM [$Database].[$Schema].[THINCLIENT] TC, [$Database].[$Schema].[THINCLIENTISINDIRECTORY] TD, [$Database].[$Schema].[FIRMWARE] FW
 WHERE TC.TCID = TD.TCID
 AND TC.FIRMWAREID = FW.FIRMWAREID
 "@
-            Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Query $Query
+            Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
           default
           {
@@ -183,7 +205,7 @@ WHERE TC.TCID = TD.TCID
 AND TC.FIRMWAREID = FW.FIRMWAREID
 AND TC.TCID = '{0}'
 "@ -f $TCID)
-            Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Query $Query
+            Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
         }
       }
