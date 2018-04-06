@@ -60,7 +60,7 @@
       .EXAMPLE
       $Credential = Get-Credential -Message 'Enter your credentials'
       Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
-      Asks for Credentialand gets Thinclient with TCID 2433
+      Asks for Credential and gets Thinclient with TCID 2433
       
       .EXAMPLE
       2433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
