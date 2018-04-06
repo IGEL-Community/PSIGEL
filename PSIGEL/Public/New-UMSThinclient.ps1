@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
+      Creates a new thinclient from Rest API.
 
       .DESCRIPTION
-      Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
+      Creates a new thinclient from Rest API.
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -64,7 +64,7 @@
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       $NewUMSThinclientParams = @{
       Computername  = 'UMSSERVER'
-      WebSession    = $WebSession
+      WebSession    =  $WebSession
       Mac           = '012345678910'
       FirmwareID    = '9'
       Name          = 'TC012345'
