@@ -34,10 +34,11 @@ Gets Thinclient from UMS API and/or MSSQL-Database
    
     Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView
       
-**Gets Thinclient with TCID 2433**
+**Asks for Credential and gets Thinclient with TCID 2433**
     
-    Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433
-
+    $Credential = Get-Credential -Message 'Enter your credentials'
+    Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
+      
 **Gets Thinclient with TCID 2433**
     
     433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
