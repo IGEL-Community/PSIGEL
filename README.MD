@@ -56,6 +56,35 @@ Gets the profile and master profile assignments for the specified thin client, i
     $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
     2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
 
+## New-UMSThinclient
+Creates a new thinclient from Rest API
+
+**Creates new thinclient with mac and firmareid (minimal requirements) in the root directory**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
+
+**Creates new thinclient with all possible attributes**
+
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    $NewUMSThinclientParams = @{
+      Computername  = 'UMSSERVER'
+      WebSession    =  $WebSession
+      Mac           = '012345678910'
+      FirmwareID    = '9'
+      Name          = 'TC012345'
+      ParentID      = '772'
+      Site          = 'Leipzig'
+      Department    = 'Marketing'
+      CostCenter    = '50100'
+      LastIP        = '192.168.0.10'
+      Comment       = 'New Thinclient'
+      AssetID       = '012345'
+      InserviceDate = '01.01.2018'
+      SerialNumber  = '12A3B4C56B12345A6BC'
+     }
+    New-UMSThinclient @NewUMSThinclientParams
+
 ## Restart-UMSThinclient
 Restarts Thinclients (WOL) via API
 
