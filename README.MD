@@ -86,7 +86,7 @@ Creates a new thinclient from Rest API
     New-UMSThinclient @NewUMSThinclientParams
 
 ## Restart-UMSThinclient
-Restarts Thinclients (WOL) via API
+Restarts Thinclients via API
 
 **Restarts thin client with TCID 2433**
     
