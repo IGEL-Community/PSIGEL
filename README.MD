@@ -71,7 +71,7 @@ $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 ## New-UMSThinclient
 Creates a new thinclient from Rest API
 
-**Creates new thinclient with mac and firmareid (minimal requirements) in the root directory**
+**Creates new thinclient with mac and firmwareid (minimal requirements) in the root directory**
 
 ```
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
@@ -83,10 +83,10 @@ New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 01234
 ```
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 $NewUMSThinclientParams = @{
-		Computername  = 'UMSSERVER'
-		WebSession    =  $WebSession
-		Mac           = '012345678910'
-		FirmwareID    = '9'
+	Computername  = 'UMSSERVER'
+	WebSession    =  $WebSession
+	Mac           = '012345678910'
+	FirmwareID    = '9'
 	Name          = 'TC012345'
 	ParentID      = '772'
 	Site          = 'Leipzig'
