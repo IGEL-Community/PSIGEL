@@ -83,20 +83,20 @@ New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 01234
 ```
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 $NewUMSThinclientParams = @{
-	Computername  = 'UMSSERVER'
-	WebSession    =  $WebSession
-	Mac           = '012345678910'
-	FirmwareID    = '9'
-	Name          = 'TC012345'
-	ParentID      = '772'
-	Site          = 'Leipzig'
-	Department    = 'Marketing'
-	CostCenter    = '50100'
-	LastIP        = '192.168.0.10'
-	Comment       = 'New Thinclient'
-	AssetID       = '012345'
-	InserviceDate = '01.01.2018'
-	SerialNumber  = '12A3B4C56B12345A6BC'
+		Computername  = 'UMSSERVER'
+		WebSession    =  $WebSession
+		Mac           = '012345678910'
+		FirmwareID    = '9'
+		Name          = 'TC012345'
+		ParentID      = '772'
+		Site          = 'Leipzig'
+		Department    = 'Marketing'
+		CostCenter    = '50100'
+		LastIP        = '192.168.0.10'
+		Comment       = 'New Thinclient'
+		AssetID       = '012345'
+		InserviceDate = '01.01.2018'
+		SerialNumber  = '12A3B4C56B12345A6BC'
 	}
 New-UMSThinclient @NewUMSThinclientParams
 ```
