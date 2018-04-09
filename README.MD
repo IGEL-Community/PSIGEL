@@ -14,7 +14,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
   * [New-UMSAPICookie](#new-umsapicookie)
   * [New-UMSThinclient](#new-umsthinclient)
-  * [Remove-UMSThinclient](#remove-umsthinclient)]
+  * [Remove-UMSThinclient](#remove-umsthinclient)
   * [Reset-UMSThinclient](#reset-umsthinclient)
   * [Restart-UMSThinclient](#restart-umsthinclient)
   * [Send-UMSThinclientSettings](#send-umsthinclientsettings)
