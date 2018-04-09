@@ -14,7 +14,10 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
   * [New-UMSAPICookie](#new-umsapicookie)
   * [New-UMSThinclient](#new-umsthinclient)
+  * [Remove-UMSThinclient](#remove-umsthinclient)]
+  * [Reset-UMSThinclient](#reset-umsthinclient)
   * [Restart-UMSThinclient](#restart-umsthinclient)
+  * [Send-UMSThinclientSettings](#send-umsthinclientsettings)
   * [Start-UMSThinclient](#start-umsthinclient)
   * [Stop-UMSThinclient](#stop-umsthinclient)
   * [Update-UMSJobStartDate](#update-umsjobstartdate)
@@ -185,23 +188,6 @@ Get View from UMS-DB
 
 `513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'`
 
-##Remove UMS-Thinclient 
-Removes a thinclient from Rest API
-
-**Removes Thinclient with TCID 100**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
-```
-
-**Removes Thinclient with TCID 100**
-
-```   
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
-```  
-
 ## Invoke-UMSThinclientUpdate
 [automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
 
@@ -245,6 +231,37 @@ $NewUMSThinclientParams = @{
 New-UMSThinclient @NewUMSThinclientParams
 ```
 
+## Remove UMS-Thinclient 
+Removes a thinclient from Rest API
+
+**Removes Thinclient with TCID 100**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
+```
+
+**Removes Thinclient with TCID 100**
+
+```   
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
+```  
+## Reset-UMSThinclient
+Resets all thin clients listed in the request body to factory defaults
+
+**Resets thin client with TCID 100 to factory defaults**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Reset-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
+```
+      
+**Resets thin clients with TCID 100 and 101 to factory defaults*
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+100, 101 | Reset-UMSThinclient -Computername $Computername -WebSession $WebSession
+```      
+
 ## Restart-UMSThinclient
 Restarts Thinclients via API
 
@@ -260,6 +277,22 @@ Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 24
 ```   
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
+## Send-UMSThinclientSettings
+Sends settings modified in the UMS database to all thin clients listed in the request body immediately
+
+**Sends settings modified in the UMS database to thin client with TCID 100 immediately**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession -TCID 100
+```
+
+**Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+100, 101 | Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession
 ```
 
 ## Start-UMSThinclient
