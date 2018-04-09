@@ -23,6 +23,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Start-UMSThinclient](#start-umsthinclient)
   * [Stop-UMSThinclient](#stop-umsthinclient)
   * [Update-UMSJobStartDate](#update-umsjobstartdate)
+  * [Update-UMSProfileName](#update-umsprofilename)
   * [Update-UMSThinclient](#update-umsthinclient)
   * [Update-UMSThinclientComment](#update-umsthinclientcomment)
   * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
@@ -374,6 +375,29 @@ Update Job Startdate in UMS-DB
 **Update Job Startdate on Jobs with ID "607377" and "680819"**
 
 `513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'`
+
+## Update-UMSProfileName
+Updates a profile name
+
+**Updates profile name to 'NewProfileName'**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Update-UMSProfileName -Computername $Computername -WebSession $WebSession -ProfileID 100 -Name 'NewProfileName'
+```      
+
+**Updates profile name to 'NewProfileName'**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+$UpdateUMSProfileNameParams = @{
+    Computername  = 'UMSSERVER'
+    WebSession    = $WebSession
+    ProfileID     = 100
+    Name          = 'NewProfileName'
+  }
+Update-UMSProfileName @UpdateUMSProfileNameParams
+```
 
 ## Update-UMSThinclient
 Updates a thinclient from Rest API
