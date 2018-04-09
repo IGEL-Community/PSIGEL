@@ -67,7 +67,7 @@
     {
       @{
         id = $TCID
-        Typ = "tc"
+        type = "tc"
       } | ConvertTo-Json
     }
 

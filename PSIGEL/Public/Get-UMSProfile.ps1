@@ -1,17 +1,17 @@
-﻿function Restart-UMSThinclient
+﻿function Get-UMSProfile
 {
   <#
       .Synopsis
-      Restarts Thinclients via API
+      Gets information on profiles on the UMS instance.
 
       .DESCRIPTION
-      Restarts Thinclients via API
+      Gets information on profiles on the UMS instance.
 
       .PARAMETER Computername
       Computername of the UMS Server
       
       .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
+      TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
       API Version to use (2 or 3, Default: 3)
@@ -19,18 +19,18 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER TCID
-      ThinclientIDs to wake up
-
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-      Restarts thin client with TCID 2433.
+      .PARAMETER ProfileID
+      ThinclientID to search for
       
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-      Restarts thin clients with TCID 2433 and 2435.
+      Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
+      Gets information on all profiles on the UMS instance to Out-Gridview.
+
+      .EXAMPLE
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
+      Gets information on the profile with ProfileID 100.
 
   #>
   
@@ -52,34 +52,35 @@
     [Parameter(Mandatory)]
     $WebSession,
     
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $ProfileID = 0
   )
 	
   Begin
   {
   }
   Process
-  {
+  {   
   
-    $Body = foreach ($TCID in $TCIDColl)
+    Switch ($ProfileID)
     {
-      @{
-        id = $TCID
-        type = "tc"
-      } | ConvertTo-Json
-    }
+      0
+      {
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles' -f $Computername, $TCPPort, $ApiVersion
+      }
+      default
+      {
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+      }
 
-    $URLEnd = '?command=reboot'
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
+    }
 
     $ThinclientsJSONCollParams = @{
       Uri         = $SessionURL
       Headers     = @{}
-      Body        = '[{0}]' -f $Body
-      ContentType = 'application/json'
-      Method      = 'Post'
+      ContentType = 'application/json; charset=utf-8'
+      Method      = 'Get'
       WebSession  = $WebSession
     }
 

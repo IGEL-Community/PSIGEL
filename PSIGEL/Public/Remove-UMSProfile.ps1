@@ -1,17 +1,17 @@
-﻿function Restart-UMSThinclient
+﻿function Remove-UMSProfile
 {
   <#
       .Synopsis
-      Restarts Thinclients via API
+      Deletes profile.
 
       .DESCRIPTION
-      Restarts Thinclients via API
+      Deletes profile.
 
       .PARAMETER Computername
       Computername of the UMS Server
       
       .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
+      TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
       API Version to use (2 or 3, Default: 3)
@@ -19,19 +19,18 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER TCID
-      ThinclientIDs to wake up
-
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-      Restarts thin client with TCID 2433.
+      .PARAMETER ProfileID
+      ProfileID of the thinclient to remove
       
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-      Restarts thin clients with TCID 2433 and 2435.
-
+      Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID 100
+      Removes Profile with ProfileID 100
+      
+      .EXAMPLE
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
+      Removes Profile with ProfileID 100
   #>
   
   [cmdletbinding()]
@@ -54,38 +53,27 @@
     
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $ProfileID
   )
 	
   Begin
   {
   }
   Process
-  {
+  {   
   
-    $Body = foreach ($TCID in $TCIDColl)
-    {
-      @{
-        id = $TCID
-        type = "tc"
-      } | ConvertTo-Json
-    }
-
-    $URLEnd = '?command=reboot'
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
 
     $ThinclientsJSONCollParams = @{
       Uri         = $SessionURL
       Headers     = @{}
-      Body        = '[{0}]' -f $Body
       ContentType = 'application/json'
-      Method      = 'Post'
+      Method      = 'Delete'
       WebSession  = $WebSession
     }
 
     $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
     $ThinclientsJSONColl
-
   }
   End
   {

@@ -1,17 +1,17 @@
-﻿function Restart-UMSThinclient
+﻿function Send-UMSThinclientSettings
 {
   <#
       .Synopsis
-      Restarts Thinclients via API
+      Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
       .DESCRIPTION
-      Restarts Thinclients via API
+      Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
       .PARAMETER Computername
       Computername of the UMS Server
       
       .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
+      TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
       API Version to use (2 or 3, Default: 3)
@@ -19,18 +19,18 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER TCID
-      ThinclientIDs to wake up
-
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-      Restarts thin client with TCID 2433.
+      .PARAMETER TCIDColl
+      ThinclientIDs of the thinclients send settings to.
       
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-      Restarts thin clients with TCID 2433 and 2435.
+      Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession -TCID 100
+      Sends settings modified in the UMS database to thin client with TCID 100 immediately.
+      
+      .EXAMPLE
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      100, 101 | Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession
+      Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately.
 
   #>
   
@@ -61,8 +61,8 @@
   {
   }
   Process
-  {
-  
+  {   
+    
     $Body = foreach ($TCID in $TCIDColl)
     {
       @{
@@ -70,9 +70,8 @@
         type = "tc"
       } | ConvertTo-Json
     }
-
-    $URLEnd = '?command=reboot'
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
+        
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=settings2tc' -f $Computername, $TCPPort, $ApiVersion
 
     $ThinclientsJSONCollParams = @{
       Uri         = $SessionURL
@@ -85,7 +84,7 @@
 
     $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
     $ThinclientsJSONColl
-
+    
   }
   End
   {
