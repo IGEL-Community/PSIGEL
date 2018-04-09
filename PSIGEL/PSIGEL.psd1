@@ -82,6 +82,7 @@ FunctionsToExport = @(
     'Start-UMSThinclient'
     'Stop-UMSThinclient'
     'Restart-UMSThinclient'
+    'Remove-UMSThinclient'
     'Update-UMSJobStartDate'
     'Update-UMSThinclient'
     'Update-UMSThinclientComment'
