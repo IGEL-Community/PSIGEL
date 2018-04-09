@@ -20,7 +20,7 @@
       Websession Cookie
 
       .PARAMETER TCIDColl
-      ThinclientIDs of the thinclients to update
+      ThinclientIDs of the thinclients send settings to.
       
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
