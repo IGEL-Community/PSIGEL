@@ -18,9 +18,6 @@
 
       .Parameter WebSession
       Websession Cookie
-
-      .PARAMETER TCID
-      ThinclientID to search for
       
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
