@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Gets the thin clients the profile is assigned to.
+      Gets the thinclients and directories the profile is assigned to.
 
       .DESCRIPTION
-      Gets the thin clients the profile is assigned to.
+      Gets the thinclients and directories the profile is assigned to.
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -25,12 +25,12 @@
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
-      Gets the thin clients the profile with ProfileID 471 is assigned to.
+      Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
       
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
-      Gets the thin clients the profile with ProfileID 471 is assigned to.
+      Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
   #>
   
   [cmdletbinding()]
@@ -61,25 +61,59 @@
   }
   Process
   {   
+    
+    <#switch ($PSCmdlet.ParameterSetName)
+        {
+        TC
+        {
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+        }
+        Dir
+        {
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+        }
+        }
+    #>
+    
+    $SessionURLEndColl = ('thinclients', 'tcdirectories')
 
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+    $TCIDColl = foreach ($SessionURLEnd in $SessionURLEndColl)
+    {
+      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $SessionURLEnd
 
+      $ThinclientsJSONCollParams = @{
+        Uri         = $SessionURL
+        Headers     = @{}
+        ContentType = 'application/json; charset=utf-8'
+        Method      = 'Get'
+        WebSession  = $WebSession
+      }
 
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'Get'
-      WebSession  = $WebSession
-    }
-
-    $HrefColl = (Invoke-RestMethod @ThinclientsJSONCollParams).links |
+      $HrefColl = (Invoke-RestMethod @ThinclientsJSONCollParams).links |
       Where-Object -Property rel -EQ 'receiver' | 
       Select-Object -Property href
       
-    $TCIDColl = foreach ($Href in $HrefColl)
-    {
-      ([regex]::match(($Href.href),"\d{1,}\s*$")).Value
+      Switch ($SessionURLEnd)
+      {
+        'thinclients'
+        {
+          $Type = 'tc'
+        }
+        'tcdirectories'
+        {
+          $Type = 'tcdirectory'
+        }
+      }
+      
+      foreach ($Href in $HrefColl)
+      {
+        $Properties = @{
+          id = ([regex]::match(($Href.href),"\d{1,}\s*$")).Value
+          type = $Type
+        }
+        
+        New-Object -TypeName PsObject -Property $Properties
+      }
     }
     
     $TCIDColl
