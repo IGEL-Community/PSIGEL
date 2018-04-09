@@ -16,6 +16,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
   * [New-UMSAPICookie](#new-umsapicookie)
   * [New-UMSThinclient](#new-umsthinclient)
+  * [Remove-UMSProfile](#remove-umsprofile)
   * [Remove-UMSThinclient](#remove-umsthinclient)
   * [Reset-UMSThinclient](#reset-umsthinclient)
   * [Restart-UMSThinclient](#restart-umsthinclient)
@@ -268,6 +269,19 @@ $NewUMSThinclientParams = @{
 New-UMSThinclient @NewUMSThinclientParams
 ```
 
+##Remove-UMSProfile
+Deletes profile
+
+**Removes Profile with ProfileID 100**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID 100
+```     
+```  
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
+```
+
 ## Remove UMS-Thinclient 
 Removes a thinclient from Rest API
 
@@ -276,8 +290,6 @@ Removes a thinclient from Rest API
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
 ```
-
-**Removes Thinclient with TCID 100**
 
 ```   
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
@@ -292,7 +304,7 @@ $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Reset-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
 ```
       
-**Resets thin clients with TCID 100 and 101 to factory defaults*
+**Resets thin clients with TCID 100 and 101 to factory defaults**
 ```
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100, 101 | Reset-UMSThinclient -Computername $Computername -WebSession $WebSession

@@ -86,6 +86,7 @@ FunctionsToExport = @(
     'Stop-UMSThinclient'
     'Reset-UMSThinclient'
     'Restart-UMSThinclient'
+    'Remove-UMSProfile'
     'Remove-UMSThinclient'
     'Update-UMSJobStartDate'
     'Update-UMSProfileName'
