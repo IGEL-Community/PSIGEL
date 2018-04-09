@@ -1,3 +1,23 @@
+- [PSIGEL](#psigel)
+  * [Get-UMSDirectory](#get-umsdirectory)
+  * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
+  * [Get-UMSJob](#get-umsjob)
+  * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
+  * [Get-UMSThinclient](#get-umsthinclient)
+  * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
+  * [Get-UMSThinclientWithComment](#get-umsthinclientwithcomment)
+  * [Get-UMSView](#get-umsview)
+  * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
+  * [New-UMSAPICookie](#new-umsapicookie)
+  * [New-UMSThinclient](#new-umsthinclient)
+  * [Restart-UMSThinclient](#restart-umsthinclient)
+  * [Start-UMSThinclient](#start-umsthinclient)
+  * [Stop-UMSThinclient](#stop-umsthinclient)
+  * [Update-UMSJobStartDate](#update-umsjobstartdate)
+  * [Update-UMSThinclient](#update-umsthinclient)
+  * [Update-UMSThinclientComment](#update-umsthinclientcomment)
+  * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
+
 # PSIGEL
 
 This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
