@@ -75,6 +75,7 @@ FunctionsToExport = @(
     'Get-UMSThinclient'
     'Get-UMSThinclientToUpdate'
     'Get-UMSThinclientWithComment'
+    'Get-UMSStatus'
     'Get-UMSView'
     'Invoke-UMSThinclientUpdate'
     'New-UMSAPICookie'

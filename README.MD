@@ -10,6 +10,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Get-UMSThinclient](#get-umsthinclient)
   * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
   * [Get-UMSThinclientWithComment](#get-umsthinclientwithcomment)
+  * [Get-UMSStatus](#get-umsstatus)
   * [Get-UMSView](#get-umsview)
   * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
   * [New-UMSAPICookie](#new-umsapicookie)
@@ -173,6 +174,23 @@ Get Thinclient with Comment from UMS-DB
     
 `'Comment' | Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB'`
 
+## Get-UMSStatus
+Gets diagnostic information about the UMS instance
+
+````
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Get-UMSStatus -Computername 'UMSSERVER' -WebSession $WebSession
+````
+Output:
+
+    rmGuiServerVersion : 5.08.100
+    buildNumber        : 33604
+    activeMQVersion    : 5.6.0
+    derbyVersion       : 10.12.1.1
+    serverUUID         : 482dc573-49d2-44dc-2565-c1471c598434
+    server             : UMSSERVER.domain.com:8443
+    links              : {}
+
 ## Get-UMSView
 Get View from UMS-DB
 
@@ -235,7 +253,6 @@ New-UMSThinclient @NewUMSThinclientParams
 Removes a thinclient from Rest API
 
 **Removes Thinclient with TCID 100**
-
 ```
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
