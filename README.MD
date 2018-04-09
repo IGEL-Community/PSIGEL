@@ -6,6 +6,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Get-UMSDirectory](#get-umsdirectory)
   * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
   * [Get-UMSJob](#get-umsjob)
+  * [Get-UMSProfile](#get-umsprofile)
   * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
   * [Get-UMSThinclient](#get-umsthinclient)
   * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
@@ -91,7 +92,24 @@ Get Job with JobID "513333"
 Get Jobs with JobID "513934" and "513333" 
 
 `515266, 513339 | Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'`
-  
+
+## Get-UMSProfile
+Gets information on profiles on the UMS instance.
+
+**Gets information on all profiles on the UMS instance to Out-Gridview**
+
+````
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
+````
+
+**Gets information on the profile with ProfileID 100**
+
+````
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
+````     
+
 ## Get-UMSThinclientToUpdate
 Get thinclients from UMS-DB which have a lower firmware-version than their respective associated (direct or per directory) Update-Profile or Universal Firmware Update. Select those which reported to UMS in specified time, given total and / or per Directory number AND are online (Ping).
 Other than the associated Universal Firmware Update, the Update Profiles in use for Updates (System -> Updates -> Firmwareupdate / Buddy Update) must have the provided Firmwareversion in their Profilename recognizable per regex word boundaries (e.g. "07|Update_FirmwareUpdate_V4_10.10.1.1_FTP|4.14.300|UDLXV4").
