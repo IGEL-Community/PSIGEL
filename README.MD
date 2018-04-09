@@ -1,157 +1,7 @@
 # PSIGEL
 
 This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
-
-## Invoke-UMSThinclientUpdate
-[automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
-
-## New-UMSAPICookie
-Creates Websession Cookie for IGEL UMS API
-
-**Asks for Password and creates Cookie-Object for use in API-Functions**
-
-`New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3`
-
-## Get-UMSThinclient
-Gets Thinclient from UMS API and/or MSSQL-Database
-
-**Gets detailed information on all online thin clients**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
-```
-
-**Gets short information on thin clients with TCID 2433**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-```
-
-**Gets shadow-information on Thinclient with TCID 2433**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
-```
-
-**Gets all Thinclients**
-   
-`Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView`
-      
-**Asks for Credential and gets Thinclient with TCID 2433**
-  
-```  
-$Credential = Get-Credential -Message 'Enter your credentials'
-Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
-```
-      
-**Gets Thinclient with TCID 2433**
-    
-`433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'`
-
-## Get-UMSThinclientAssignment
-Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
-
-**Gets the profile and master profile assignments for Thinclient with TCID 243**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433 | Out-GridView
-```
-
-**Gets the profile and master profile assignments for Thinclient with TCID 2433**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
-```
-
-## New-UMSThinclient
-Creates a new thinclient from Rest API
-
-**Creates new thinclient with mac and firmwareid (minimal requirements) in the root directory**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
-```
-
-**Creates new thinclient with all possible attributes**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-$NewUMSThinclientParams = @{
-		Computername  = 'UMSSERVER'
-		WebSession    =  $WebSession
-		Mac           = '012345678910'
-		FirmwareID    = '9'
-		Name          = 'TC012345'
-		ParentID      = '772'
-		Site          = 'Leipzig'
-		Department    = 'Marketing'
-		CostCenter    = '50100'
-		LastIP        = '192.168.0.10'
-		Comment       = 'New Thinclient'
-		AssetID       = '012345'
-		InserviceDate = '01.01.2018'
-		SerialNumber  = '12A3B4C56B12345A6BC'
-	}
-New-UMSThinclient @NewUMSThinclientParams
-```
-
-## Restart-UMSThinclient
-Restarts Thinclients via API
-
-**Restarts thin client with TCID 2433**
-    
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-```
-
-**Restarts thin clients with TCID 2433 and 2435**      
-
-```   
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-```
-      
-## Start-UMSThinclient
-Wakes Up Thinclients (WOL) via API
-
-**Wakes up thin client with TCID 2433**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-```
-     
-**Wakes up thin clients with TCID 2433 and 2435**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-```
-
-## Stop-UMSThinclient
-Shuts Down Thinclients via API
-
-**Shuts down thin client with TCID 2433**
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-```
-      
-**Shuts down thin clients with TCID 2433 and 2435**   
-
-```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-2433, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-```
-      
+       
 ## Get-UMSDirectory
 Gets Directory from UMS-DB
 
@@ -232,6 +82,62 @@ Please ensure, that associated Update-Profiles are used rational, since concurre
 
 ![GetUMSThinclientToUpdateGridview](/docs/images/GetUMSThinclientToUpdateGridview.png)
 
+## Get-UMSThinclient
+Gets Thinclient from UMS API and/or MSSQL-Database
+
+**Gets detailed information on all online thin clients**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
+```
+
+**Gets short information on thin clients with TCID 2433**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+```
+
+**Gets shadow-information on Thinclient with TCID 2433**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
+```
+
+**Gets all Thinclients**
+   
+`Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView`
+      
+**Asks for Credential and gets Thinclient with TCID 2433**
+  
+```  
+$Credential = Get-Credential -Message 'Enter your credentials'
+Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
+```
+      
+**Gets Thinclient with TCID 2433**
+    
+`433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'`
+
+## Get-UMSThinclientAssignment
+Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
+
+**Gets the profile and master profile assignments for Thinclient with TCID 243**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433 | Out-GridView
+```
+
+**Gets the profile and master profile assignments for Thinclient with TCID 2433**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
 ## Get-UMSThinclientWithComment
 Get Thinclient with Comment from UMS-DB
 
@@ -257,7 +163,118 @@ Get View from UMS-DB
 **Get Views with ViewID "513934" and "513333"**
 
 `513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'`
+
+##Remove UMS-Thinclient 
+Removes a thinclient from Rest API
+
+**Removes Thinclient with TCID 100**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
+```
+
+**Removes Thinclient with TCID 100**
+
+```   
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
+```  
+
+## Invoke-UMSThinclientUpdate
+[automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
+
+## New-UMSAPICookie
+Creates Websession Cookie for IGEL UMS API
+
+**Asks for Password and creates Cookie-Object for use in API-Functions**
+
+`New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3`
+ 
+ ## New-UMSThinclient
+Creates a new thinclient from Rest API
+
+**Creates new thinclient with mac and firmwareid (minimal requirements) in the root directory**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
+```
+
+**Creates new thinclient with all possible attributes**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+$NewUMSThinclientParams = @{
+		Computername  = 'UMSSERVER'
+		WebSession    =  $WebSession
+		Mac           = '012345678910'
+		FirmwareID    = '9'
+		Name          = 'TC012345'
+		ParentID      = '772'
+		Site          = 'Leipzig'
+		Department    = 'Marketing'
+		CostCenter    = '50100'
+		LastIP        = '192.168.0.10'
+		Comment       = 'New Thinclient'
+		AssetID       = '012345'
+		InserviceDate = '01.01.2018'
+		SerialNumber  = '12A3B4C56B12345A6BC'
+	}
+New-UMSThinclient @NewUMSThinclientParams
+```
+
+## Restart-UMSThinclient
+Restarts Thinclients via API
+
+**Restarts thin client with TCID 2433**
     
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+```
+
+**Restarts thin clients with TCID 2433 and 2435**      
+
+```   
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
+## Start-UMSThinclient
+Wakes Up Thinclients (WOL) via API
+
+**Wakes up thin client with TCID 2433**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+```
+     
+**Wakes up thin clients with TCID 2433 and 2435**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
+## Stop-UMSThinclient
+Shuts Down Thinclients via API
+
+**Shuts down thin client with TCID 2433**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+```
+      
+**Shuts down thin clients with TCID 2433 and 2435**   
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+2433, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
 ## Update-UMSJobStartDate
 Update Job Startdate in UMS-DB
 
@@ -268,6 +285,38 @@ Update Job Startdate in UMS-DB
 **Update Job Startdate on Jobs with ID "607377" and "680819"**
 
 `513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'`
+
+## Update-UMSThinclient
+Updates a thinclient from Rest API
+
+**Upates site of the thinclient to Berlin**
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Update-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100 -Site 'Berlin'
+```
+
+**Updates thinclient with all possible attributes**     
+      
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+$UpdateUMSThinclientParams = @{
+    Computername  = 'UMSSERVER'
+    WebSession    = $WebSession
+    TCID          = 100
+    Name          = 'TC012345'
+    ParentID      = '772'
+    Site          = 'Leipzig'
+    Department    = 'Marketing'
+    CostCenter    = '50100'
+    LastIP        = '192.168.0.10'
+    Comment       = 'New Thinclient'
+    AssetID       = '012345'
+    InserviceDate = '01.01.2018'
+    SerialNumber  = '12A3B4C56B12345A6BC'
+  }
+Update-UMSThinclient @UpdateUMSThinclientParams
+```
 
 ## Update-UMSThinclientComment
 Set Comment on Thinclient in UMS-DB
