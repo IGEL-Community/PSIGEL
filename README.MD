@@ -1,4 +1,8 @@
-- [PSIGEL](#psigel)
+# PSIGEL
+
+This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
+
+
   * [Get-UMSDirectory](#get-umsdirectory)
   * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
   * [Get-UMSJob](#get-umsjob)
@@ -18,9 +22,6 @@
   * [Update-UMSThinclientComment](#update-umsthinclientcomment)
   * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
 
-# PSIGEL
-
-This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
        
 ## Get-UMSDirectory
 Gets Directory from UMS-DB
