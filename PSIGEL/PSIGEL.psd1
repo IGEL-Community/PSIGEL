@@ -78,10 +78,12 @@ FunctionsToExport = @(
     'Get-UMSView'
     'Invoke-UMSThinclientUpdate'
     'New-UMSAPICookie'
+    'New-UMSThinclient'
     'Start-UMSThinclient'
     'Stop-UMSThinclient'
     'Restart-UMSThinclient'
     'Update-UMSJobStartDate'
+    'Update-UMSThinclient'
     'Update-UMSThinclientComment'
   )
 
