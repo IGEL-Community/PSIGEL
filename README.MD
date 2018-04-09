@@ -7,6 +7,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
   * [Get-UMSJob](#get-umsjob)
   * [Get-UMSProfile](#get-umsprofile)
+  * [Get-UMSProfileAssignment](#get-umsprofileassignment)
   * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
   * [Get-UMSThinclient](#get-umsthinclient)
   * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
@@ -111,6 +112,20 @@ Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
 ````     
+
+## Get-UMSProfileAssignment
+Gets the thin clients the profile is assigned to
+
+**Gets the thin clients the profile with ProfileID 471 is assigned to**
+```
+Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
+```
+
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
 
 ## Get-UMSThinclientToUpdate
 Get thinclients from UMS-DB which have a lower firmware-version than their respective associated (direct or per directory) Update-Profile or Universal Firmware Update. Select those which reported to UMS in specified time, given total and / or per Directory number AND are online (Ping).

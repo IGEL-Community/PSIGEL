@@ -73,6 +73,7 @@ FunctionsToExport = @(
     'Get-UMSDirectoryStructure'
     'Get-UMSJob'
     'Get-UMSProfile'
+    'Get-UMSProfileAssignment'
     'Get-UMSThinclient'
     'Get-UMSThinclientToUpdate'
     'Get-UMSThinclientWithComment'
