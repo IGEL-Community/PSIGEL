@@ -118,6 +118,7 @@ Gets the thinclients and directories the profile is assigned to
 
 **Gets the thin clients and the directories the profile with ProfileID 471 is assigned to**
 ```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
 ```
 
