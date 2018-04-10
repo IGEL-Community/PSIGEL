@@ -26,6 +26,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Start-UMSThinclient](#start-umsthinclient)
   * [Stop-UMSThinclient](#stop-umsthinclient)
   * [Update-UMSJobStartDate](#update-umsjobstartdate)
+  * [Update-UMSProfileAssignment](#update-umsprofileAssignment)
   * [Update-UMSProfileName](#update-umsprofilename)
   * [Update-UMSThinclient](#update-umsthinclient)
   * [Update-UMSThinclientComment](#update-umsthinclientcomment)
@@ -419,6 +420,22 @@ Update Job Startdate in UMS-DB
 **Update Job Startdate on Jobs with ID "607377" and "680819"**
 
 `513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'`
+
+## Update-UMSProfileAssignment
+Assigns a profile to a thin clients or a thin client directory
+
+**Assigns the profile with ProfilID 471 to thin client with TCID 100**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCIDColl (100, 102)
+```
+
+**Assigns the profile with ProfilID 471 to thin client directory with DirID 300**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirIDColl 300
+```
+
 
 ## Update-UMSProfileName
 Updates a profile name

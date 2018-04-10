@@ -91,6 +91,7 @@ FunctionsToExport = @(
     'Remove-UMSProfileAssignment'
     'Remove-UMSThinclient'
     'Update-UMSJobStartDate'
+    'Update-UMSProfileAssignment'
     'Update-UMSProfileName'
     'Update-UMSThinclient'
     'Update-UMSThinclientComment'
