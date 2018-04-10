@@ -18,6 +18,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [New-UMSAPICookie](#new-umsapicookie)
   * [New-UMSThinclient](#new-umsthinclient)
   * [Remove-UMSProfile](#remove-umsprofile)
+  * [Remove-UMSProfileAssignment](#remove-umsprofileassignment)
   * [Remove-UMSThinclient](#remove-umsthinclient)
   * [Reset-UMSThinclient](#reset-umsthinclient)
   * [Restart-UMSThinclient](#restart-umsthinclient)
@@ -296,6 +297,21 @@ Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID
 ```  
 $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
+```
+
+## Remove-UMSProfileAssignment
+Deletes assignment of the specified profile to the specified thin cient or thin client directory.
+
+**Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
+```      
+
+**Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300**
+```
+$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
 ```
 
 ## Remove UMS-Thinclient 
