@@ -2,19 +2,29 @@
 
 This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
 
+The API uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie). In the examples below it is assumed that you have created it as **$Websession** :
+```
+$Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3
+```
 
-  * [Get-UMSDirectory](#get-umsdirectory)
-  * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
-  * [Get-UMSJob](#get-umsjob)
+To connect to the MSQL Database it may be required to provide credentials. In the examples below it is assumed that you have created it as **$Credential** :
+
+```
+$Credential = Get-Credential -Message 'Enter your credentials'
+```
+
+My goal is to support all the [API-functionalities](#http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm) and to combine them were possible with MSSQL-Queries in to one function. If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function (suggestions are welcome).
+
+## API + MSSQL
+
+  * [Get-UMSThinclient](#get-umsthinclient)
+
+## API
+
   * [Get-UMSProfile](#get-umsprofile)
   * [Get-UMSProfileAssignment](#get-umsprofileassignment)
-  * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
-  * [Get-UMSThinclient](#get-umsthinclient)
   * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
-  * [Get-UMSThinclientWithComment](#get-umsthinclientwithcomment)
   * [Get-UMSStatus](#get-umsstatus)
-  * [Get-UMSView](#get-umsview)
-  * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
   * [New-UMSAPICookie](#new-umsapicookie)
   * [New-UMSThinclient](#new-umsthinclient)
   * [Remove-UMSProfile](#remove-umsprofile)
@@ -25,15 +35,27 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-D
   * [Send-UMSThinclientSettings](#send-umsthinclientsettings)
   * [Start-UMSThinclient](#start-umsthinclient)
   * [Stop-UMSThinclient](#stop-umsthinclient)
-  * [Update-UMSJobStartDate](#update-umsjobstartdate)
   * [Update-UMSProfileAssignment](#update-umsprofileAssignment)
   * [Update-UMSProfileName](#update-umsprofilename)
   * [Update-UMSThinclient](#update-umsthinclient)
+
+## MSSQL
+
+  * [Get-UMSDirectory](#get-umsdirectory)
+  * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
+  * [Get-UMSJob](#get-umsjob)
+  * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
+  * [Get-UMSThinclientWithComment](#get-umsthinclientwithcomment)
+  * [Get-UMSView](#get-umsview)
+  * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
+  * [Update-UMSJobStartDate](#update-umsjobstartdate)
   * [Update-UMSThinclientComment](#update-umsthinclientcomment)
+
+## Other
+
   * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
 
-       
-## Get-UMSDirectory
+### Get-UMSDirectory
 Gets Directory from UMS-DB
 
 **Get all Directories**
@@ -48,7 +70,7 @@ Gets Directory from UMS-DB
     
 `34858, 34859 | Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'`
 
-## Get-UMSDirectoryStructure
+### Get-UMSDirectoryStructure
 Gets Thinclient Directory Structure from UMS-DB
 
 **Get Directory Structure and outputs it to Gridview (ISE only)**
@@ -83,7 +105,7 @@ $UMSDirectoryStructure = Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RM
     UDC3;A_Computers;A_CP_H1;A_RA_2019
     ...
 
-## Get-UMSJob
+### Get-UMSJob
 Gets Job from UMS-DB
 
 **Get all jobs**
@@ -98,39 +120,33 @@ Get Jobs with JobID "513934" and "513333"
 
 `515266, 513339 | Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'`
 
-## Get-UMSProfile
+### Get-UMSProfile
 Gets information on profiles on the UMS instance.
 
 **Gets information on all profiles on the UMS instance to Out-Gridview**
 
 ````
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
 ````
 
 **Gets information on the profile with ProfileID 100**
 
 ````
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
 ````     
 
-## Get-UMSProfileAssignment
+### Get-UMSProfileAssignment
 Gets the thinclients and directories the profile is assigned to
 
 **Gets the thin clients and the directories the profile with ProfileID 471 is assigned to**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
 ```
-
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
-
-## Get-UMSThinclientToUpdate
+### Get-UMSThinclientToUpdate
 Get thinclients from UMS-DB which have a lower firmware-version than their respective associated (direct or per directory) Update-Profile or Universal Firmware Update. Select those which reported to UMS in specified time, given total and / or per Directory number AND are online (Ping).
 Other than the associated Universal Firmware Update, the Update Profiles in use for Updates (System -> Updates -> Firmwareupdate / Buddy Update) must have the provided Firmwareversion in their Profilename recognizable per regex word boundaries (e.g. "07|Update_FirmwareUpdate_V4_10.10.1.1_FTP|4.14.300|UDLXV4").
 Please ensure, that associated Update-Profiles are used rational, since concurrent profiles are not evaluated (e.g two associated profiles with different higher firmware versions).
@@ -145,27 +161,24 @@ Please ensure, that associated Update-Profiles are used rational, since concurre
 
 ![GetUMSThinclientToUpdateGridview](/docs/images/GetUMSThinclientToUpdateGridview.png)
 
-## Get-UMSThinclient
+### Get-UMSThinclient
 Gets Thinclient from UMS API and/or MSSQL-Database
 
 **Gets detailed information on all online thin clients**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
 ```
 
 **Gets short information on thin clients with TCID 2433**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
 
 **Gets shadow-information on Thinclient with TCID 2433**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
 ```
 
@@ -176,7 +189,6 @@ $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 **Asks for Credential and gets Thinclient with TCID 2433**
   
 ```  
-$Credential = Get-Credential -Message 'Enter your credentials'
 Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
 ```
       
@@ -184,24 +196,22 @@ Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'ige
     
 `433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'`
 
-## Get-UMSThinclientAssignment
+### Get-UMSThinclientAssignment
 Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
 
 **Gets the profile and master profile assignments for Thinclient with TCID 243**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433 | Out-GridView
 ```
 
 **Gets the profile and master profile assignments for Thinclient with TCID 2433**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
-## Get-UMSThinclientWithComment
+### Get-UMSThinclientWithComment
 Get Thinclient with Comment from UMS-DB
 
 **Get Thinclients with Comment "Update"**
@@ -212,13 +222,13 @@ Get Thinclient with Comment from UMS-DB
     
 `'Comment' | Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB'`
 
-## Get-UMSStatus
+### Get-UMSStatus
 Gets diagnostic information about the UMS instance
 
-````
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+```
 Get-UMSStatus -Computername 'UMSSERVER' -WebSession $WebSession
-````
+```
+
 Output:
 
     rmGuiServerVersion : 5.08.100
@@ -229,7 +239,7 @@ Output:
     server             : UMSSERVER.domain.com:8443
     links              : {}
 
-## Get-UMSView
+### Get-UMSView
 Get View from UMS-DB
 
 **Get all Views**
@@ -244,30 +254,28 @@ Get View from UMS-DB
 
 `513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'`
 
-## Invoke-UMSThinclientUpdate
+### Invoke-UMSThinclientUpdate
 [automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
 
-## New-UMSAPICookie
+### New-UMSAPICookie
 Creates Websession Cookie for IGEL UMS API
 
 **Asks for Password and creates Cookie-Object for use in API-Functions**
 
 `New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3`
  
- ## New-UMSThinclient
+ ### New-UMSThinclient
 Creates a new thinclient from Rest API
 
 **Creates new thinclient with mac and firmwareid (minimal requirements) in the root directory**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
 ```
 
 **Creates new thinclient with all possible attributes**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 $NewUMSThinclientParams = @{
 		Computername  = 'UMSSERVER'
 		WebSession    =  $WebSession
@@ -287,130 +295,114 @@ $NewUMSThinclientParams = @{
 New-UMSThinclient @NewUMSThinclientParams
 ```
 
-##Remove-UMSProfile
+### Remove-UMSProfile
 Deletes profile
 
 **Removes Profile with ProfileID 100**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID 100
 ```     
 ```  
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
 ```
 
-## Remove-UMSProfileAssignment
+### Remove-UMSProfileAssignment
 Deletes assignment of the specified profile to the specified thin cient or thin client directory.
 
 **Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
 ```      
 
 **Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
 ```
 
-## Remove-UMSThinclient 
+### Remove-UMSThinclient 
 Removes a thinclient from Rest API
 
 **Removes Thinclient with TCID 100**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
 ```
 
 ```   
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
 ```  
-## Reset-UMSThinclient
+### Reset-UMSThinclient
 Resets all thin clients listed in the request body to factory defaults
 
 **Resets thin client with TCID 100 to factory defaults**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Reset-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
 ```
       
 **Resets thin clients with TCID 100 and 101 to factory defaults**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100, 101 | Reset-UMSThinclient -Computername $Computername -WebSession $WebSession
 ```      
 
-## Restart-UMSThinclient
+### Restart-UMSThinclient
 Restarts Thinclients via API
 
 **Restarts thin client with TCID 2433**
     
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
 
 **Restarts thin clients with TCID 2433 and 2435**      
 
 ```   
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
-## Send-UMSThinclientSettings
+### Send-UMSThinclientSettings
 Sends settings modified in the UMS database to all thin clients listed in the request body immediately
 
 **Sends settings modified in the UMS database to thin client with TCID 100 immediately**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession -TCID 100
 ```
 
 **Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 100, 101 | Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession
 ```
 
-## Start-UMSThinclient
+### Start-UMSThinclient
 Wakes Up Thinclients (WOL) via API
 
 **Wakes up thin client with TCID 2433**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
      
 **Wakes up thin clients with TCID 2433 and 2435**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
-## Stop-UMSThinclient
+### Stop-UMSThinclient
 Shuts Down Thinclients via API
 
 **Shuts down thin client with TCID 2433**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
       
 **Shuts down thin clients with TCID 2433 and 2435**   
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 2433, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
-## Update-UMSJobStartDate
+### Update-UMSJobStartDate
 Update Job Startdate in UMS-DB
 
 **Update Job Startdate on Job with ID 607377**
@@ -421,36 +413,32 @@ Update Job Startdate in UMS-DB
 
 `513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'`
 
-## Update-UMSProfileAssignment
+### Update-UMSProfileAssignment
 Assigns a profile to a thin clients or a thin client directory
 
 **Assigns the profile with ProfilID 471 to thin client with TCID 100**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCIDColl (100, 102)
 ```
 
 **Assigns the profile with ProfilID 471 to thin client directory with DirID 300**
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirIDColl 300
 ```
 
 
-## Update-UMSProfileName
+### Update-UMSProfileName
 Updates a profile name
 
 **Updates profile name to 'NewProfileName'**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Update-UMSProfileName -Computername $Computername -WebSession $WebSession -ProfileID 100 -Name 'NewProfileName'
 ```      
 
 **Updates profile name to 'NewProfileName'**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 $UpdateUMSProfileNameParams = @{
     Computername  = 'UMSSERVER'
     WebSession    = $WebSession
@@ -460,20 +448,18 @@ $UpdateUMSProfileNameParams = @{
 Update-UMSProfileName @UpdateUMSProfileNameParams
 ```
 
-## Update-UMSThinclient
+### Update-UMSThinclient
 Updates a thinclient from Rest API
 
 **Upates site of the thinclient to Berlin**
 
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Update-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100 -Site 'Berlin'
 ```
 
 **Updates thinclient with all possible attributes**     
       
 ```
-$WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 $UpdateUMSThinclientParams = @{
     Computername  = 'UMSSERVER'
     WebSession    = $WebSession
@@ -492,7 +478,7 @@ $UpdateUMSThinclientParams = @{
 Update-UMSThinclient @UpdateUMSThinclientParams
 ```
 
-## Update-UMSThinclientComment
+### Update-UMSThinclientComment
 Set Comment on Thinclient in UMS-DB
 
 **Set Comment "Comment" on thinclient with TCID 607377**
@@ -507,7 +493,7 @@ Set Comment on Thinclient in UMS-DB
 
 `607377,680819 | Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB'`
     
-## Invoke-Sqlcmd2
+### Invoke-Sqlcmd2
 
 used for SQL queries
 
