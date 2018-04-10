@@ -315,7 +315,7 @@ $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
 Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
 ```
 
-## Remove UMS-Thinclient 
+## Remove-UMSThinclient 
 Removes a thinclient from Rest API
 
 **Removes Thinclient with TCID 100**
