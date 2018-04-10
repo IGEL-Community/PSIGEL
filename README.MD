@@ -13,7 +13,7 @@ To connect to the **MSSQL** Database it may be required to provide credentials. 
 $Credential = Get-Credential -Message 'Enter your credentials'
 ```
 
-My goal is to support all the [API-functionalities] (http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm) and to combine them were possible with MSSQL-Queries in to one function. If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function (suggestions are welcome).
+My goal is to support all the [API-functionalities](http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm) and to combine them were possible with MSSQL-Queries in to one function. If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function (suggestions are welcome).
 
 ## API + MSSQL
 
