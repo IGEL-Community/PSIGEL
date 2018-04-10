@@ -2,18 +2,18 @@
 
 This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
 
-The API uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie). In the examples below it is assumed that you have created it as **$Websession** :
+The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie). In the examples below it is assumed that you have created it as **$Websession** :
 ```
 $Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3
 ```
 
-To connect to the MSQL Database it may be required to provide credentials. In the examples below it is assumed that you have created it as **$Credential** :
+To connect to the **MSSQL** Database it may be required to provide credentials. In the examples below it is assumed that you have created it as **$Credential** :
 
 ```
 $Credential = Get-Credential -Message 'Enter your credentials'
 ```
 
-My goal is to support all the [API-functionalities](#http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm) and to combine them were possible with MSSQL-Queries in to one function. If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function (suggestions are welcome).
+My goal is to support all the [API-functionalities] (http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm) and to combine them were possible with MSSQL-Queries in to one function. If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function (suggestions are welcome).
 
 ## API + MSSQL
 
@@ -21,6 +21,7 @@ My goal is to support all the [API-functionalities](#http://edocs.igel.com/manua
 
 ## API
 
+  * [Get-UMSFirmware](#get-umsfirmware)
   * [Get-UMSProfile](#get-umsprofile)
   * [Get-UMSProfileAssignment](#get-umsprofileassignment)
   * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
@@ -55,27 +56,48 @@ My goal is to support all the [API-functionalities](#http://edocs.igel.com/manua
 
   * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
 
+### Get-UMSFirmware
+Gets information on all firmwares known to the UMS
+
+**Gets information on all firmwares known to the UMS to Out-Gridview**
+```
+Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
+```
+
+**Gets information on firmwares with FirmwareIDs 9 and 7**
+```
+9, 7 | Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
+```
+
 ### Get-UMSDirectory
 Gets Directory from UMS-DB
 
 **Get all Directories**
       
-`Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'`
+```
+Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'
+```
 
 **Get Directory with DIRID**
 
-`Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB' -DIRIDColl 34858`
+```
+Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB' -DIRIDColl 34858
+```
 
 **Get Directories with DIRID "34858" and "34859"**
     
-`34858, 34859 | Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'`
+```
+34858, 34859 | Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'
+```
 
 ### Get-UMSDirectoryStructure
 Gets Thinclient Directory Structure from UMS-DB
 
 **Get Directory Structure and outputs it to Gridview (ISE only)**
 
-`Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | Out-Gridview`
+```
+Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | Out-Gridview
+```
 
 ![GetUMSDirectoryStructureOutGridview](/docs/images/GetUMSDirectoryStructureOutGridview.png)
 
@@ -451,7 +473,7 @@ Update-UMSProfileName @UpdateUMSProfileNameParams
 ### Update-UMSThinclient
 Updates a thinclient from Rest API
 
-**Upates site of the thinclient to Berlin**
+**Updates site of the thinclient to Berlin**
 
 ```
 Update-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100 -Site 'Berlin'
