@@ -266,15 +266,21 @@ Get View from UMS-DB
 
 **Get all Views**
 
-`Get-UMSView -ServerInstance 'SQLSERVER\RMDB`
+```
+Get-UMSView -ServerInstance 'SQLSERVER\RMDB -Credential $Credential
+```
     
 **Get View with ViewID "525870"**
 
-`Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -ViewIDColl 525870`
+```
+Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 525870
+```
 
 **Get Views with ViewID "513934" and "513333"**
 
-`513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'`
+```
+513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+```
 
 ### Invoke-UMSThinclientUpdate
 [automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
