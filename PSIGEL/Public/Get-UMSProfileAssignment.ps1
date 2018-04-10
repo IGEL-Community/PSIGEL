@@ -62,19 +62,6 @@
   Process
   {   
     
-    <#switch ($PSCmdlet.ParameterSetName)
-        {
-        TC
-        {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
-        }
-        Dir
-        {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
-        }
-        }
-    #>
-    
     $SessionURLEndColl = ('thinclients', 'tcdirectories')
 
     $TCIDColl = foreach ($SessionURLEnd in $SessionURLEndColl)
