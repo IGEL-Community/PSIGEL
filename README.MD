@@ -267,7 +267,7 @@ Get View from UMS-DB
 **Get all Views**
 
 ```
-Get-UMSView -ServerInstance 'SQLSERVER\RMDB -Database 'RMDB' -Schema 'igelums'  -Credential $Credential
+Get-UMSView -ServerInstance 'SQLSERVER\RMDB -Database 'RMDB' -Schema 'igelums' -Credential $Credential
 ```
     
 **Get View with ViewID "525870"**
