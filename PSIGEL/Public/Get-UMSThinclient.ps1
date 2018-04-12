@@ -70,16 +70,16 @@
   [cmdletbinding()]
   param
   ( 
-    [Parameter( Mandatory, ParameterSetName = 'API')]
+    [Parameter(Mandatory, ParameterSetName = 'API')]
     [String]
     $Computername,
 
-    [Parameter( ParameterSetName = 'API')]
+    [Parameter(ParameterSetName = 'API')]
     [ValidateRange(0,49151)]
     [Int]
     $TCPPort = 8443,
    
-    [Parameter( ParameterSetName = 'API')]
+    [Parameter(ParameterSetName = 'API')]
     [ValidateSet(2,3)]
     [Int]
     $ApiVersion = 3,
@@ -87,7 +87,7 @@
     [Parameter(Mandatory, ParameterSetName = 'API')]
     $WebSession,
     
-    [Parameter( ParameterSetName = 'API')]
+    [Parameter(ParameterSetName = 'API')]
     [ValidateSet('short','full','online','shadow')]
     [String]
     $Details = 'short',
@@ -104,7 +104,7 @@
     [String]
     $Schema,
     
-    [Parameter( ParameterSetName = 'SQL')]
+    [Parameter(ParameterSetName = 'SQL')]
     [PSCredential]
     $Credential,
     
