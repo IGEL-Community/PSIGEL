@@ -18,6 +18,7 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 ## API + MSSQL
 
   * [Get-UMSThinclient](#get-umsthinclient)
+  * [Get-UMSThinclientDirectory](#get-umsthinclientdirectory)
 
 ## API
 
@@ -42,7 +43,6 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 
 ## MSSQL
 
-  * [Get-UMSDirectory](#get-umsdirectory)
   * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
   * [Get-UMSJob](#get-umsjob)
   * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
@@ -56,39 +56,6 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 
   * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
 
-### Get-UMSFirmware
-Gets information on all firmwares known to the UMS
-
-**Gets information on all firmwares known to the UMS to Out-Gridview**
-```
-Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
-```
-
-**Gets information on firmwares with FirmwareIDs 9 and 7**
-```
-9, 7 | Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
-```
-
-### Get-UMSDirectory
-Gets Directory from UMS-DB
-
-**Get all Directories**
-      
-```
-Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'
-```
-
-**Get Directory with DIRID**
-
-```
-Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB' -DIRIDColl 34858
-```
-
-**Get Directories with DIRID "34858" and "34859"**
-    
-```
-34858, 34859 | Get-UMSDirectory -ServerInstance 'SQLSERVER\RMDB'
-```
 
 ### Get-UMSDirectoryStructure
 Gets Thinclient Directory Structure from UMS-DB
@@ -126,6 +93,19 @@ $UMSDirectoryStructure = Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RM
     UDC3;A_Computers;A_CP_H1;A_RA_2018
     UDC3;A_Computers;A_CP_H1;A_RA_2019
     ...
+
+### Get-UMSFirmware
+Gets information on all firmwares known to the UMS
+
+**Gets information on all firmwares known to the UMS to Out-Gridview**
+```
+Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
+```
+
+**Gets information on firmwares with FirmwareIDs 9 and 7**
+```
+9, 7 | Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
+```
 
 ### Get-UMSJob
 Gets Job from UMS-DB
@@ -233,6 +213,33 @@ Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -T
 2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
+### Get-UMSThinclientDirectory
+Gets information on Thin Client Directories
+
+**Gets information on all Thin Client Directories to Out-Gridview**
+
+```
+Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
+```
+
+**Gets information on all Thin Client Directories, recursively listing their children to Out-Gridview**
+
+```
+Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children | Out-Gridview
+```
+
+**Gets information on Thin client directories with DirIDs 9 and 7, recursively listing their children**
+
+```
+9, 7 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Children
+```
+
+**Gets information on Thin client directories with FirmwareIDs 9 and 7**
+
+```
+9, 7 | Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+```
+
 ### Get-UMSThinclientWithComment
 Get Thinclient with Comment from UMS-DB
 
@@ -266,15 +273,21 @@ Get View from UMS-DB
 
 **Get all Views**
 
-`Get-UMSView -ServerInstance 'SQLSERVER\RMDB`
+```
+Get-UMSView -ServerInstance 'SQLSERVER\RMDB -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+```
     
 **Get View with ViewID "525870"**
 
-`Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -ViewIDColl 525870`
+```
+Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 525870
+```
 
 **Get Views with ViewID "513934" and "513333"**
 
-`513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB'`
+```
+513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+```
 
 ### Invoke-UMSThinclientUpdate
 [automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)

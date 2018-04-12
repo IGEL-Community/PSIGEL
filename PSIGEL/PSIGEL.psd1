@@ -70,12 +70,12 @@ Description = 'Tools for use with thinclient products of IGEL Technology GmbH'
 # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
 FunctionsToExport = @(
     'Get-UMSFirmware'
-    'Get-UMSDirectory'
     'Get-UMSDirectoryStructure'
     'Get-UMSJob'
     'Get-UMSProfile'
     'Get-UMSProfileAssignment'
     'Get-UMSThinclient'
+    'Get-UMSThinclientDirectory'
     'Get-UMSThinclientToUpdate'
     'Get-UMSThinclientWithComment'
     'Get-UMSStatus'
