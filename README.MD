@@ -222,13 +222,13 @@ Gets information on Thin Client Directories
 Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
 ```
 
-**Gets information on all Thin Client Directories, recursively listing their children to Out-Gridview**
+**Gets information on all Thin Client Directories, listing their children to Out-Gridview**
 
 ```
 Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children | Out-Gridview
 ```
 
-**Gets information on Thin client directories with DirIDs 9 and 7, recursively listing their children**
+**Gets information on Thin client directories with DirIDs 9 and 7, listing their children**
 
 ```
 9, 7 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Children
