@@ -18,12 +18,12 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 
 ## API + MSSQL
 
+* [Get-UMSFirmware](#get-umsfirmware)
 * [Get-UMSThinclient](#get-umsthinclient)
 * [Get-UMSThinclientDirectory](#get-umsthinclientdirectory)
 
 ## API
 
-* [Get-UMSFirmware](#get-umsfirmware)
 * [Get-UMSProfile](#get-umsprofile)
 * [Get-UMSProfileAssignment](#get-umsprofileassignment)
 * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
