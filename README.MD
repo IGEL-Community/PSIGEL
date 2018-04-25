@@ -3,13 +3,14 @@
 This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
 
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie). In the examples below it is assumed that you have created it as **$Websession** :
-```
+
+```powershell
 $Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3
 ```
 
 To connect to the **MSSQL** Database it may be required to provide credentials. In the examples below it is assumed that you have created it as **$Credential** :
 
-```
+```powershell
 $Credential = Get-Credential -Message 'Enter your credentials'
 ```
 
@@ -17,72 +18,72 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 
 ## API + MSSQL
 
-  * [Get-UMSThinclient](#get-umsthinclient)
-  * [Get-UMSThinclientDirectory](#get-umsthinclientdirectory)
+* [Get-UMSThinclient](#get-umsthinclient)
+* [Get-UMSThinclientDirectory](#get-umsthinclientdirectory)
 
 ## API
 
-  * [Get-UMSFirmware](#get-umsfirmware)
-  * [Get-UMSProfile](#get-umsprofile)
-  * [Get-UMSProfileAssignment](#get-umsprofileassignment)
-  * [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
-  * [Get-UMSStatus](#get-umsstatus)
-  * [New-UMSAPICookie](#new-umsapicookie)
-  * [New-UMSThinclient](#new-umsthinclient)
-  * [Remove-UMSProfile](#remove-umsprofile)
-  * [Remove-UMSProfileAssignment](#remove-umsprofileassignment)
-  * [Remove-UMSThinclient](#remove-umsthinclient)
-  * [Reset-UMSThinclient](#reset-umsthinclient)
-  * [Restart-UMSThinclient](#restart-umsthinclient)
-  * [Send-UMSThinclientSettings](#send-umsthinclientsettings)
-  * [Start-UMSThinclient](#start-umsthinclient)
-  * [Stop-UMSThinclient](#stop-umsthinclient)
-  * [Update-UMSProfileAssignment](#update-umsprofileAssignment)
-  * [Update-UMSProfileName](#update-umsprofilename)
-  * [Update-UMSThinclient](#update-umsthinclient)
+* [Get-UMSFirmware](#get-umsfirmware)
+* [Get-UMSProfile](#get-umsprofile)
+* [Get-UMSProfileAssignment](#get-umsprofileassignment)
+* [Get-UMSThinclientAssignment](#get-umsthinclientassignment)
+* [Get-UMSStatus](#get-umsstatus)
+* [New-UMSAPICookie](#new-umsapicookie)
+* [New-UMSThinclient](#new-umsthinclient)
+* [Remove-UMSProfile](#remove-umsprofile)
+* [Remove-UMSProfileAssignment](#remove-umsprofileassignment)
+* [Remove-UMSThinclient](#remove-umsthinclient)
+* [Reset-UMSThinclient](#reset-umsthinclient)
+* [Restart-UMSThinclient](#restart-umsthinclient)
+* [Send-UMSThinclientSettings](#send-umsthinclientsettings)
+* [Start-UMSThinclient](#start-umsthinclient)
+* [Stop-UMSThinclient](#stop-umsthinclient)
+* [Update-UMSProfileAssignment](#update-umsprofileAssignment)
+* [Update-UMSProfileName](#update-umsprofilename)
+* [Update-UMSThinclient](#update-umsthinclient)
 
 ## MSSQL
 
-  * [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
-  * [Get-UMSJob](#get-umsjob)
-  * [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
-  * [Get-UMSThinclientWithComment](#get-umsthinclientwithcomment)
-  * [Get-UMSView](#get-umsview)
-  * [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
-  * [Update-UMSJobStartDate](#update-umsjobstartdate)
-  * [Update-UMSThinclientComment](#update-umsthinclientcomment)
+* [Get-UMSDirectoryStructure](#get-umsdirectorystructure)
+* [Get-UMSJob](#get-umsjob)
+* [Get-UMSThinclientToUpdate](#get-umsthinclienttoupdate)
+* [Get-UMSThinclientWithComment](#get-umsthinclientwithcomment)
+* [Get-UMSView](#get-umsview)
+* [Invoke-UMSThinclientUpdate](#invoke-umsthinclientupdate)
+* [Update-UMSJobStartDate](#update-umsjobstartdate)
+* [Update-UMSThinclientComment](#update-umsthinclientcomment)
 
 ## Other
 
-  * [Invoke-Sqlcmd2](#invoke-sqlcmd2)
-
+* [Invoke-Sqlcmd2](#invoke-sqlcmd2)
 
 ### Get-UMSDirectoryStructure
+
 Gets Thinclient Directory Structure from UMS-DB
 
-**Get Directory Structure and outputs it to Gridview (ISE only)**
+**Get Directory Structure and outputs it to Gridview (ISE only):**
 
-```
+```powershell
 Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | Out-Gridview
 ```
 
 ![GetUMSDirectoryStructureOutGridview](/docs/images/GetUMSDirectoryStructureOutGridview.png)
 
-**Get Directory Structure, Generates csv File, sorted and without Parenthesis , UTF8 stripped from BOM**
+**Get Directory Structure, Generates csv File, sorted and without Parenthesis , UTF8 stripped from BOM:**
 
-```
-$UMSDirectoryStructure = Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | 
-	Select-Object -Property BaseDirName, OrgDirName, CampusDirName, RoomDirName |
-	Sort-Object -Property BaseDirName, OrgDirName, CampusDirName, RoomDirName |
-	ConvertTo-Csv -Delimiter ';' -NoTypeInformation |
-	ForEach-Object {
-		$_ -replace "`"", ''
-	}
+```powershell
+$UMSDirectoryStructure = Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' |
+  Select-Object -Property BaseDirName, OrgDirName, CampusDirName, RoomDirName |
+  Sort-Object -Property BaseDirName, OrgDirName, CampusDirName, RoomDirName |
+  ConvertTo-Csv -Delimiter ';' -NoTypeInformation |
+  ForEach-Object {
+    $_ -replace "`"", ''
+  }
 [IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $UMSDirectoryStructure)
 ```
-	
+
 *UMSDirectories.csv:*
-  
+
     BaseDirName;OrgDirName;CampusDirName;RoomDirName
     UDC3;A_Computers;A_CP_H1;A_RA_2001
     UDC3;A_Computers;A_CP_H1;A_RA_2002
@@ -95,166 +96,208 @@ $UMSDirectoryStructure = Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RM
     ...
 
 ### Get-UMSFirmware
+
 Gets information on all firmwares known to the UMS
 
-**Gets information on all firmwares known to the UMS to Out-Gridview**
-```
+**Gets information on all firmwares known to the UMS to Out-Gridview:**
+
+```powershell
 Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
 ```
 
-**Gets information on firmwares with FirmwareIDs 9 and 7**
-```
+**Gets information on firmwares with FirmwareIDs 9 and 7:**
+
+```powershell
 9, 7 | Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
+**Asks for Credential and gets Firmware with FirmwareID 7:**
+
+```powershell
+Get-UMSFirmware -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -FirmwareID 7 -Credential $Credential
+```
+
+**Gets information on firmwares with FirmwareIDs 9 and 7:**
+
+```powershell
+9, 7 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+```
+
 ### Get-UMSJob
+
 Gets Job from UMS-DB
 
-**Get all jobs**
+**Get all jobs:**
 
-`Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'`
+```powershell
+Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'
+```
 
-Get Job with JobID "513333"
+**Get Job with JobID "513333":**
 
-`Get-UMSJob -ServerInstance 'SQLSERVER\RMDB' -JobIDColl 513339`
+```powershell
+Get-UMSJob -ServerInstance 'SQLSERVER\RMDB' -JobIDColl 513339
+```
 
-Get Jobs with JobID "513934" and "513333" 
+**Get Jobs with JobID "513934" and "513333":**
 
-`515266, 513339 | Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'`
+```powershell
+515266, 513339 | Get-UMSJob -ServerInstance 'SQLSERVER\RMDB'
+```
 
 ### Get-UMSProfile
+
 Gets information on profiles on the UMS instance.
 
-**Gets information on all profiles on the UMS instance to Out-Gridview**
+**Gets information on all profiles on the UMS instance to Out-Gridview:**
 
-````
+```powershell
 Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
-````
+```
 
-**Gets information on the profile with ProfileID 100**
+**Gets information on the profile with ProfileID 100:**
 
-````
+```powershell
 100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
-````     
+```
 
 ### Get-UMSProfileAssignment
+
 Gets the thinclients and directories the profile is assigned to
 
-**Gets the thin clients and the directories the profile with ProfileID 471 is assigned to**
-```
+**Gets the thin clients and the directories the profile with ProfileID 471 is assigned to:**
+
+```powershell
 Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
 ```
-```
+
+```powershell
 471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
 ### Get-UMSThinclientToUpdate
+
 Get thinclients from UMS-DB which have a lower firmware-version than their respective associated (direct or per directory) Update-Profile or Universal Firmware Update. Select those which reported to UMS in specified time, given total and / or per Directory number AND are online (Ping).
 Other than the associated Universal Firmware Update, the Update Profiles in use for Updates (System -> Updates -> Firmwareupdate / Buddy Update) must have the provided Firmwareversion in their Profilename recognizable per regex word boundaries (e.g. "07|Update_FirmwareUpdate_V4_10.10.1.1_FTP|4.14.300|UDLXV4").
 Please ensure, that associated Update-Profiles are used rational, since concurrent profiles are not evaluated (e.g two associated profiles with different higher firmware versions).
 
-**Get all Thinclients to be updated**
+**Get all Thinclients to be updated:**
 
-`Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB'`
+```powershell
+Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB'
+```
 
-**Get a total of 10 Thinclients, max. 2 per Directory to be updated, outputs it to Gridview (ISE only)**
+**Get a total of 10 Thinclients, max. 2 per Directory to be updated, outputs it to Gridview (ISE only):**
 
-`Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB' -NumberTotal 10 -NumberPerDirName 2 | Out-GridView`
+```powershell
+Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB' -NumberTotal 10 -NumberPerDirName 2 | Out-GridView
+```
 
 ![GetUMSThinclientToUpdateGridview](/docs/images/GetUMSThinclientToUpdateGridview.png)
 
 ### Get-UMSThinclient
+
 Gets Thinclient from UMS API and/or MSSQL-Database
 
-**Gets detailed information on all online thin clients**
+**Gets detailed information on all online thin clients:**
 
-```
+```powershell
 Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
 ```
 
-**Gets short information on thin clients with TCID 2433**
+**Gets short information on thin clients with TCID 2433:**
 
-```
+```powershell
 Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
 
-**Gets shadow-information on Thinclient with TCID 2433**
+**Gets shadow-information on Thinclient with TCID 2433:**
 
-```
+```powershell
 2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
 ```
 
-**Gets all Thinclients**
-   
-`Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView`
-      
-**Asks for Credential and gets Thinclient with TCID 2433**
-  
-```  
+**Gets all Thinclients:**
+
+```powershell
+Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView
+```
+
+**Asks for Credential and gets Thinclient with TCID 2433:**
+
+```powershell
 Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
 ```
-      
-**Gets Thinclient with TCID 2433**
-    
-`433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'`
+
+**Gets Thinclient with TCID 2433:**
+
+```powershell
+433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+```
 
 ### Get-UMSThinclientAssignment
+
 Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
 
-**Gets the profile and master profile assignments for Thinclient with TCID 243**
+**Gets the profile and master profile assignments for Thinclient with TCID 243:**
 
-```
+```powershell
 Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433 | Out-GridView
 ```
 
-**Gets the profile and master profile assignments for Thinclient with TCID 2433**
+**Gets the profile and master profile assignments for Thinclient with TCID 2433:**
 
-```
+```powershell
 2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
 ### Get-UMSThinclientDirectory
+
 Gets information on Thin Client Directories
 
-**Gets information on all Thin Client Directories to Out-Gridview**
+**Gets information on all Thin Client Directories to Out-Gridview:**
 
-```
+```powershell
 Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
 ```
 
-**Gets information on all Thin Client Directories, recursively listing their children to Out-Gridview**
+**Gets information on all Thin Client Directories, listing their children to Out-Gridview:**
 
-```
+```powershell
 Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children | Out-Gridview
 ```
 
-**Gets information on Thin client directories with DirIDs 9 and 7, recursively listing their children**
+**Gets information on Thin client directories with DirIDs 9 and 7, listing their children:**
 
-```
+```powershell
 9, 7 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Children
 ```
 
-**Gets information on Thin client directories with FirmwareIDs 9 and 7**
+**Gets information on Thin client directories with FirmwareIDs 9 and 7:**
 
-```
+```powershell
 9, 7 | Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
 
 ### Get-UMSThinclientWithComment
+
 Get Thinclient with Comment from UMS-DB
 
-**Get Thinclients with Comment "Update"**
+**Get Thinclients with Comment "Update":**
 
-`Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB' -Comment Update`
-    
-**or**    
-    
-`'Comment' | Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB'`
+```powershell
+Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB' -Comment Update
+```
+
+```powershell
+'Comment' | Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB'
+```
 
 ### Get-UMSStatus
-Gets diagnostic information about the UMS instance
 
-```
+**Gets diagnostic information about the UMS instance:**
+
+```powershell
 Get-UMSStatus -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
@@ -269,211 +312,242 @@ Output:
     links              : {}
 
 ### Get-UMSView
+
 Get View from UMS-DB
 
-**Get all Views**
+**Get all Views:**
 
-```
+```powershell
 Get-UMSView -ServerInstance 'SQLSERVER\RMDB -Database 'RMDB' -Schema 'igelums' -Credential $Credential
 ```
-    
-**Get View with ViewID "525870"**
 
-```
+**Get View with ViewID "525870":**
+
+```powershell
 Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 525870
 ```
 
-**Get Views with ViewID "513934" and "513333"**
+**Get Views with ViewID "513934" and "513333":**
 
-```
+```powershell
 513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
 ```
 
 ### Invoke-UMSThinclientUpdate
+
 [automates specific Thinclient Update mechanism](/docs/InvokeUMSThinclientUpdate.md)
 
 ### New-UMSAPICookie
+
 Creates Websession Cookie for IGEL UMS API
 
-**Asks for Password and creates Cookie-Object for use in API-Functions**
+**Asks for Password and creates Cookie-Object for use in API-Functions:**
 
-`New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3`
- 
- ### New-UMSThinclient
+```powershell
+New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums -ApiVersion 3
+```
+
+### New-UMSThinclient
+
 Creates a new thinclient from Rest API
 
-**Creates new thinclient with mac and firmwareid (minimal requirements) in the root directory**
+**Creates new thinclient with mac and firmwareid (minimal requirements) in the root directory:**
 
-```
+```powershell
 New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
 ```
 
-**Creates new thinclient with all possible attributes**
+**Creates new thinclient with all possible attributes:**
 
-```
+```powershell
 $NewUMSThinclientParams = @{
-		Computername  = 'UMSSERVER'
-		WebSession    =  $WebSession
-		Mac           = '012345678910'
-		FirmwareID    = '9'
-		Name          = 'TC012345'
-		ParentID      = '772'
-		Site          = 'Leipzig'
-		Department    = 'Marketing'
-		CostCenter    = '50100'
-		LastIP        = '192.168.0.10'
-		Comment       = 'New Thinclient'
-		AssetID       = '012345'
-		InserviceDate = '01.01.2018'
-		SerialNumber  = '12A3B4C56B12345A6BC'
-	}
+    Computername  = 'UMSSERVER'
+    WebSession    =  $WebSession
+    Mac           = '012345678910'
+    FirmwareID    = '9'
+    Name          = 'TC012345'
+    ParentID      = '772'
+    Site          = 'Leipzig'
+    Department    = 'Marketing'
+    CostCenter    = '50100'
+    LastIP        = '192.168.0.10'
+    Comment       = 'New Thinclient'
+    AssetID       = '012345'
+    InserviceDate = '01.01.2018'
+    SerialNumber  = '12A3B4C56B12345A6BC'
+  }
 New-UMSThinclient @NewUMSThinclientParams
 ```
 
 ### Remove-UMSProfile
+
 Deletes profile
 
-**Removes Profile with ProfileID 100**
-```
+**Removes Profile with ProfileID 100:**
+
+```powershell
 Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID 100
-```     
-```  
+```
+
+```powershell
 100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
 ```
 
 ### Remove-UMSProfileAssignment
+
 Deletes assignment of the specified profile to the specified thin cient or thin client directory.
 
-**Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100**
-```
-Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
-```      
+**Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100:**
 
-**Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300**
+```powershell
+Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
 ```
+
+**Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300:**
+
+```powershell
 Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
 ```
 
-### Remove-UMSThinclient 
+### Remove-UMSThinclient
+
 Removes a thinclient from Rest API
 
-**Removes Thinclient with TCID 100**
-```
+**Removes Thinclient with TCID 100:**
+
+```powershell
 Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
 ```
 
-```   
+```powershell
 100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
-```  
+```
+
 ### Reset-UMSThinclient
+
 Resets all thin clients listed in the request body to factory defaults
 
-**Resets thin client with TCID 100 to factory defaults**
-```
+**Resets thin client with TCID 100 to factory defaults:**
+
+```powershell
 Reset-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
 ```
-      
-**Resets thin clients with TCID 100 and 101 to factory defaults**
-```
+
+**Resets thin clients with TCID 100 and 101 to factory defaults:**
+
+```powershell
 100, 101 | Reset-UMSThinclient -Computername $Computername -WebSession $WebSession
-```      
+```
 
 ### Restart-UMSThinclient
+
 Restarts Thinclients via API
 
-**Restarts thin client with TCID 2433**
-    
-```
+**Restarts thin client with TCID 2433:**
+
+```powershell
 Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
 
-**Restarts thin clients with TCID 2433 and 2435**      
+**Restarts thin clients with TCID 2433 and 2435:**
 
-```   
+```powershell
 2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
 ### Send-UMSThinclientSettings
+
 Sends settings modified in the UMS database to all thin clients listed in the request body immediately
 
-**Sends settings modified in the UMS database to thin client with TCID 100 immediately**
+**Sends settings modified in the UMS database to thin client with TCID 100 immediately:**
 
-```
+```powershell
 Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession -TCID 100
 ```
 
-**Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately**
-```
+**Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately:**
+
+```powershell
 100, 101 | Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession
 ```
 
 ### Start-UMSThinclient
+
 Wakes Up Thinclients (WOL) via API
 
-**Wakes up thin client with TCID 2433**
+**Wakes up thin client with TCID 2433:**
 
-```
+```powershell
 Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
-     
-**Wakes up thin clients with TCID 2433 and 2435**
 
-```
+**Wakes up thin clients with TCID 2433 and 2435:**
+
+```powershell
 2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
 ### Stop-UMSThinclient
+
 Shuts Down Thinclients via API
 
-**Shuts down thin client with TCID 2433**
+**Shuts down thin client with TCID 2433:**
 
-```
+```powershell
 Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
 ```
-      
-**Shuts down thin clients with TCID 2433 and 2435**   
 
-```
+**Shuts down thin clients with TCID 2433 and 2435:**
+
+```powershell
 2433, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
 ### Update-UMSJobStartDate
+
 Update Job Startdate in UMS-DB
 
-**Update Job Startdate on Job with ID 607377**
+**Update Job Startdate on Job with ID 607377:**
 
-`Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -JobIDColl 513339 -Startdate '2018-01-10 14:47:00'`
-    
-**Update Job Startdate on Jobs with ID "607377" and "680819"**
+```powershell
+Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -JobIDColl 513339 -Startdate '2018-01-10 14:47:00'
+```
 
-`513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'`
+**Update Job Startdate on Jobs with ID "607377" and "680819":**
+
+```powershell
+513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'
+```
 
 ### Update-UMSProfileAssignment
+
 Assigns a profile to a thin clients or a thin client directory
 
-**Assigns the profile with ProfilID 471 to thin client with TCID 100**
-```
+**Assigns the profile with ProfilID 471 to thin client with TCID 100:**
+
+```powershell
 Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCIDColl (100, 102)
 ```
 
-**Assigns the profile with ProfilID 471 to thin client directory with DirID 300**
-```
+**Assigns the profile with ProfilID 471 to thin client directory with DirID 300:**
+
+```powershell
 Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirIDColl 300
 ```
 
-
 ### Update-UMSProfileName
+
 Updates a profile name
 
-**Updates profile name to 'NewProfileName'**
+**Updates profile name to 'NewProfileName':**
 
-```
+```powershell
 Update-UMSProfileName -Computername $Computername -WebSession $WebSession -ProfileID 100 -Name 'NewProfileName'
-```      
-
-**Updates profile name to 'NewProfileName'**
-
 ```
+
+**Updates profile name to 'NewProfileName':**
+
+```powershell
 $UpdateUMSProfileNameParams = @{
     Computername  = 'UMSSERVER'
     WebSession    = $WebSession
@@ -484,17 +558,18 @@ Update-UMSProfileName @UpdateUMSProfileNameParams
 ```
 
 ### Update-UMSThinclient
+
 Updates a thinclient from Rest API
 
-**Updates site of the thinclient to Berlin**
+**Updates site of the thinclient to Berlin:**
 
-```
+```powershell
 Update-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100 -Site 'Berlin'
 ```
 
-**Updates thinclient with all possible attributes**     
-      
-```
+**Updates thinclient with all possible attributes:**
+
+```powershell
 $UpdateUMSThinclientParams = @{
     Computername  = 'UMSSERVER'
     WebSession    = $WebSession
@@ -514,20 +589,27 @@ Update-UMSThinclient @UpdateUMSThinclientParams
 ```
 
 ### Update-UMSThinclientComment
+
 Set Comment on Thinclient in UMS-DB
 
-**Set Comment "Comment" on thinclient with TCID 607377**
+**Set Comment "Comment" on thinclient with TCID 607377:**
 
-`Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB' -TCIDColl 607377 -Comment Comment`
-    
-**Set Comments "Comment" on thinclients with TCID 607377 and 680819**
+```powershell
+Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB' -TCIDColl 607377 -Comment Comment
+```
 
-`607377,680819 | Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB' -Comment Comment`
-    
-**Removes Comments on thinclients with TCID 607377 and 680819**
+**Set Comments "Comment" on thinclients with TCID 607377 and 680819:**
 
-`607377,680819 | Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB'`
-    
+```powershell
+607377,680819 | Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB' -Comment Comment
+```
+
+**Removes Comments on thinclients with TCID 607377 and 680819:**
+
+```powershell
+607377,680819 | Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB'
+```
+
 ### Invoke-Sqlcmd2
 
 used for SQL queries

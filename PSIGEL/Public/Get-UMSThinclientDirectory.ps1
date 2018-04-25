@@ -44,12 +44,12 @@ function Get-UMSThinclientDirectory
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children | Out-Gridview
-      Gets information on all Thin Client Directories, recursively listing their children to Out-Gridview.
+      Gets information on all Thin Client Directories, listing their children to Out-Gridview.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       9, 7 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession  -Children
-      Gets information on Thin client directories with DirIDs 9 and 7, recursively listing their children.
+      Gets information on Thin client directories with DirIDs 9 and 7, listing their children.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
