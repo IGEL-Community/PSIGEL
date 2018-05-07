@@ -59,12 +59,12 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 
 ### Get-UMSDirectoryStructure
 
-Gets Thinclient Directory Structure from UMS-DB
+Gets Thinclient Directory Structure from MSSQL. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
 
 **Get Directory Structure and outputs it to Gridview (ISE only):**
 
 ```powershell
-Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | Out-Gridview
+Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-Gridview
 ```
 
 ![GetUMSDirectoryStructureOutGridview](/docs/images/GetUMSDirectoryStructureOutGridview.png)
@@ -72,14 +72,20 @@ Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' | Out-Gridview
 **Get Directory Structure, Generates csv File, sorted and without Parenthesis , UTF8 stripped from BOM:**
 
 ```powershell
-$UMSDirectoryStructure = Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' |
-  Select-Object -Property BaseDirName, OrgDirName, CampusDirName, RoomDirName |
-  Sort-Object -Property BaseDirName, OrgDirName, CampusDirName, RoomDirName |
-  ConvertTo-Csv -Delimiter ';' -NoTypeInformation |
-  ForEach-Object {
-    $_ -replace "`"", ''
-  }
-[IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $UMSDirectoryStructure)
+      $GetUMSDirectoryStructureParams = @{
+          ServerInstance = 'SQLSERVER\RMDB'
+          Database       = 'RMDB'
+          Schema         = 'igelums'
+          Credential     = Get-Credential -Message 'Enter your credentials'
+        }
+      $UMSDirectoryStructure = Get-UMSDirectoryStructure @GetUMSDirectoryStructureParams | 
+        Select-Object -Property Tier1Name, Tier2Name, Tier3Name, Tier4Name |
+        Sort-Object -Property Tier1Name, Tier2Name, Tier3Name, Tier4Name |
+        ConvertTo-Csv -Delimiter ';' -NoTypeInformation |
+        ForEach-Object {
+        $_ -replace "`"", ''
+        }
+      [IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $UMSDirectoryStructure)
 ```
 
 *UMSDirectories.csv:*
