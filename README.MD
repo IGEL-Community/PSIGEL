@@ -90,7 +90,7 @@ Get-UMSDirectoryStructure -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Sch
 
 *UMSDirectories.csv:*
 
-    BaseDirName;OrgDirName;CampusDirName;RoomDirName
+    Tier1Name;Tier2Name;Tier3Name;Tier4Name
     UDC3;A_Computers;A_CP_H1;A_RA_2001
     UDC3;A_Computers;A_CP_H1;A_RA_2002
     UDC3;A_Computers;A_CP_H1;A_RA_2003
