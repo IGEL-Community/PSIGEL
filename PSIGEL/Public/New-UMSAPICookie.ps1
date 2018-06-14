@@ -94,7 +94,6 @@ function New-UMSAPICookie
         $Cookie.Path = '/'
         $Cookie.Value = ($SessionResponse.Message).Split('=')[1]
         $Cookie.Domain = $Computername
-        $Cookie.expires = (Get-Date).AddMinutes(10).ToString('d.M.yyyy hh:mm tt', ('en-US' -as [cultureinfo]))
         $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
         $WebSession.Cookies.Add($Cookie)
     
