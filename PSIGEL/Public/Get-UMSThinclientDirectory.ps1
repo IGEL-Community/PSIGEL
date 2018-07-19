@@ -3,10 +3,10 @@ function Get-UMSThinclientDirectory
 {
   <#
       .Synopsis
-      Gets information on Thin Client Directories.
+      Gets information on Thin Client Directories from API or MSSQL.
 
       .DESCRIPTION
-      Gets information on Thin Client Directories.
+      Gets information on Thin Client Directories from API or MSSQL.
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -38,26 +38,25 @@ function Get-UMSThinclientDirectory
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
-      Gets information on all Thin Client Directories to Out-Gridview.
+      Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession
+      Gets information on all Thin Client Directories.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children | Out-Gridview
-      Gets information on all Thin Client Directories, listing their children to Out-Gridview.
+      Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children
+      Gets information on all Thin Client Directories, listing their children.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      9, 7 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession  -Children
-      Gets information on Thin client directories with DirIDs 9 and 7, listing their children.
+      (50 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Children).DirectoryChildren
+      Gets information on Thin client directories with DirID 50, listing their children.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      9, 7 | Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
-      Gets information on Thin client directories with FirmwareIDs 9 and 7.
+      50 | Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+      Gets information on Thin client directories with DirId 50.
   #>
 
-  [cmdletbinding()]
+  [CmdletBinding()]
   param
   (
     [Parameter(Mandatory, ParameterSetName = 'API')]
@@ -74,8 +73,12 @@ function Get-UMSThinclientDirectory
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory, ParameterSetName = 'API')]
+    [Parameter(ParameterSetName = 'API')]
     $WebSession,
+
+    [Parameter(ParameterSetName = 'API')]
+    [switch]
+    $Children,
 
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
@@ -89,12 +92,11 @@ function Get-UMSThinclientDirectory
     [String]
     $Schema,
 
-    [Parameter( ParameterSetName = 'SQL')]
-    [PSCredential]
+    [Parameter(ParameterSetName = 'SQL')]
+    [ValidateNotNull()]
+    [System.Management.Automation.PSCredential]
+    [System.Management.Automation.Credential()]
     $Credential,
-
-    [switch]
-    $Children,
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -106,60 +108,50 @@ function Get-UMSThinclientDirectory
   }
   Process
   {
-
     switch ($PSCmdlet.ParameterSetName)
     {
       API
       {
+        Switch ($WebSession)
+        {
+          $null
+          {
+            $WebSession = New-UMSAPICookie -Computername $Computername
+          }
+        }
         $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories' -f $Computername, $TCPPort, $ApiVersion
-        if (!$Children)
+        Switch ($Children)
         {
-          $URLEnd = ''
-        }
-        else
-        {
-          $URLEnd = '?facets=children'
-        }
-        if (!$DirID)
-        {
-          $SessionURL = '{0}{1}' -f $BaseURL, $URLEnd
-          $InvokeRestMethodParams = @{
-            Uri         = $SessionURL
-            Headers     = @{}
-            ContentType = 'application/json; charset=utf-8'
-            Method      = 'Get'
-            WebSession  = $WebSession
+          $false
+          {
+            $URLEnd = ''
           }
-          (Invoke-RestMethod @InvokeRestMethodParams).SyncRoot
-        }
-        else
-        {
-          $SessionURL = '{0}/{1}{2}' -f $BaseURL, $DirID, $URLEnd
-          $InvokeRestMethodParams = @{
-            Uri         = $SessionURL
-            Headers     = @{}
-            ContentType = 'application/json; charset=utf-8'
-            Method      = 'Get'
-            WebSession  = $WebSession
+          default
+          {
+            $URLEnd = '?facets=children'
           }
-          Invoke-RestMethod @InvokeRestMethodParams
+        }
+        Switch ($DirID)
+        {
+          0
+          {
+            $SessionURL = '{0}{1}' -f $BaseURL, $URLEnd
+            (Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get').SyncRoot
+          }
+          default
+          {
+            $SessionURL = '{0}/{1}{2}' -f $BaseURL, $DirID, $URLEnd
+            Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+          }
         }
       }
       SQL
       {
-        if ($Credential)
+        Switch ($Credential)
         {
-          $InvokeSqlcmd2Params = @{
-            ServerInstance = $ServerInstance
-            Database       = $Database
-            Credential     = $Credential
-          }
-        }
-        else
-        {
-          $InvokeSqlcmd2Params = @{
-            ServerInstance = $ServerInstance
-            Database       = $Database
+          $null
+          {
+            $Credential = (Get-Credential -Message 'Enter your credentials')
           }
         }
         switch ($DirID)
@@ -186,7 +178,6 @@ RIGHT OUTER JOIN
 [{0}].[{1}].DIRECTORIES ON [{0}].[{1}].THINCLIENTISINDIRECTORY.DIRID = [{0}].[{1}].DIRECTORIES.DIRID
 SELECT * FROM @DIRTCDIR
 '@ -f $Database, $Schema)
-            $QueryColl = Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
           default
           {
@@ -211,16 +202,14 @@ RIGHT OUTER JOIN
 SELECT * FROM @DIRTCDIR
 WHERE DIRID = {2}
 '@ -f $Database, $Schema, $DirID)
-            $QueryColl = Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
         }
+        $QueryColl = Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Credential $Credential -Query $Query
         $GroupedQueryColl = $QueryColl | Group-Object -Property DIRID
-
         $UMSThinclientDirectory = foreach ($GroupedQuery in $GroupedQueryColl)
         {
           $TCIDColl = foreach ($TCID in (($GroupedQuery.Group).TCID))
           {
-            #$TCID | Show-Object
             if ($TCID -isnot [DBNull])
             {
               $TCIDCollProperties = @{
@@ -240,7 +229,6 @@ WHERE DIRID = {2}
           }
           New-Object -TypeName PSObject -Property $Properties
         }
-
         $UMSThinclientDirectory
       }
     }
