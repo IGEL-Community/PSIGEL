@@ -10,7 +10,7 @@ function Get-UMSFirmware
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
@@ -34,7 +34,7 @@ function Get-UMSFirmware
 
       .PARAMETER FirmwareID
       ThinclientID to search for
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
@@ -55,10 +55,10 @@ function Get-UMSFirmware
       Gets information on firmwares with FirmwareIDs 9 and 7.
 
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter( Mandatory, ParameterSetName = 'API')]
     [String]
     $Computername,
@@ -67,41 +67,41 @@ function Get-UMSFirmware
     [ValidateRange(0,49151)]
     [Int]
     $TCPPort = 8443,
-   
+
     [Parameter(ParameterSetName = 'API')]
     [ValidateSet(2,3)]
     [Int]
     $ApiVersion = 3,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'API')]
     $WebSession,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Database,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Schema,
-    
+
     [Parameter(ParameterSetName = 'SQL')]
     [PSCredential]
     $Credential,
-    
+
     [Parameter(ValueFromPipeline)]
     [int]
     $FirmwareID = 0
   )
-	
+
   Begin
   {
   }
   Process
-  {   
+  {
     switch ($PSCmdlet.ParameterSetName)
     {
       API
@@ -151,7 +151,7 @@ function Get-UMSFirmware
             Database       = $Database
           }
         }
-         
+
         switch ($FirmwareID)
         {
           0
@@ -172,7 +172,7 @@ WHERE FIRMWAREID = '{0}'
             Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
         }
-      } 
+      }
     }
   }
   End
