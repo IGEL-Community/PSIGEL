@@ -55,10 +55,11 @@
     [String]
     $Schema,
 
-    [PSCredential]
-    $Credential
+    [ValidateNotNull()]
+    [System.Management.Automation.PSCredential]
+    [System.Management.Automation.Credential()]
+    $Credential = (Get-Credential -Message 'Enter your credentials')
   )
-
 
   $Query = @"
 SELECT [DIRID]
@@ -67,22 +68,11 @@ SELECT [DIRID]
 FROM [$Database].[$Schema].[DIRECTORIES]
 "@
 
-  if ($Credential)
-  {
-    $InvokeSqlcmd2Params = @{
-      ServerInstance = $ServerInstance
-      Database       = $Database
-      Credential     = $Credential
-      Query          = $Query
-    }
-  }
-  else
-  {
-    $InvokeSqlcmd2Params = @{
-      ServerInstance = $ServerInstance
-      Database       = $Database
-      Query          = $Query
-    }
+  $InvokeSqlcmd2Params = @{
+    ServerInstance = $ServerInstance
+    Database       = $Database
+    Credential     = $Credential
+    Query          = $Query
   }
 
   $DirColl = Invoke-Sqlcmd2 @InvokeSqlcmd2Params
