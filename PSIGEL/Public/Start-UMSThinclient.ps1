@@ -45,7 +45,7 @@
     [Int]
     $TCPPort = 8443,
 
-    [ValidateSet(2,3)]
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
 

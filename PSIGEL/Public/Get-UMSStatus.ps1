@@ -32,11 +32,11 @@
     [String]
     $Computername,
 
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 49151)]
     [Int]
     $TCPPort = 8443,
 
-    [ValidateSet(2,3)]
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
 

@@ -70,7 +70,7 @@ function Get-UMSThinclientDirectory
     $TCPPort = 8443,
 
     [Parameter(ParameterSetName = 'API')]
-    [ValidateSet(2,3)]
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
 
