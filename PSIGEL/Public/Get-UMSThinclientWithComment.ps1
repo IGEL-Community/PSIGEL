@@ -16,24 +16,24 @@
       .EXAMPLE
       Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB' -Comment Update
       Gets thinclients with Comment "Update"
-      
+
       .EXAMPLE
       'Comment' | Get-UMSThinclientWithComment -ServerInstance 'SQLSERVER\RMDB'
       Gets thinclients with Comment "Comment"
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter(Mandatory)]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory, ValueFromPipeline)]
     [string]
     $Comment
   )
-	
+
   Begin
   {
   }
@@ -41,7 +41,7 @@
   {
     $Query = (@"
 SELECT [TCID]
-FROM   [rmdb].[igelums].[THINCLIENT] 
+FROM   [rmdb].[igelums].[THINCLIENT]
 WHERE  [TCCOMMENT] = '{0}'
 "@ -f $Comment)
     Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Query $Query

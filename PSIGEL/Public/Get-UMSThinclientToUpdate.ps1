@@ -14,51 +14,51 @@
       SQL ServerInstance  for the UMS-DB (e.g. 'SQLSERVER\RMDB')
 
       .PARAMETER NumberTotal
-      [Default: 10] Total number of thinclients to select 
-      
+      [Default: 10] Total number of thinclients to select
+
       .PARAMETER NumberPerDirName
-      [Defalt: 2] Number of thinclients per UMS-Directory to select 
-      
+      [Defalt: 2] Number of thinclients per UMS-Directory to select
+
       .PARAMETER LogTime
       [Default: Today] Specifies the time since the thinclient reported last to the UMS in Format 'yyyy-MM-dd 00:00:00'
 
       .EXAMPLE
       Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB'
-      
+
       .EXAMPLE
       Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB' -NumberTotal 10 -NumberPerDirName 2 | Out-GridView
 
       .NOTES
       Other than the associated Universal Firmware Update, the Update Profiles in use for Updates (System -> Updates -> Firmwareupdate / Buddy Update)
       must have the provided Firmwareversion in their Profilename recognizable per regex word boundaries (e.g. "07|Update_FirmwareUpdate_V4_10.10.1.1_FTP|4.14.300|UDLXV4").
-      Please ensure, that associated Update-Profiles are used rational, since concurrent profiles are not evaluated (e.g two associated profiles with different higher 
+      Please ensure, that associated Update-Profiles are used rational, since concurrent profiles are not evaluated (e.g two associated profiles with different higher
       firmware versions).
   #>
-  
+
   param
-  ( 
+  (
     [Parameter(Mandatory)]
     [String]
     $ServerInstance,
-    
+
     [int]
     $NumberTotal = 10,
-    
+
     [int]
     $NumberPerDirName = 2,
-    
+
     [datetime]
     $LogTime = (Get-Date -Format 'yyyy-MM-dd 00:00:00')
   )
-	
+
   $Query = @'
 DECLARE @TableTC TABLE([MACADDRESS] char(12)
 						,[TCNAME] char (50)
 						,[TCID] char (15)
 						,[LASTKNOWNIP] char(15)
-						,[LOGTIME] datetime 
+						,[LOGTIME] datetime
 						,[PRODUCTID] char (30)
-						,[VERSION] char(15) 
+						,[VERSION] char(15)
 						,[DIRID] char(12)
 						,[DIRNAME] char (50)
 						,[PARDIRID] char (12))
@@ -113,7 +113,7 @@ DECLARE @TablePROFDIR TABLE([ID] char(15)
 
 INSERT INTO @TablePROFDIR
 
-SELECT [DIRECTORYHASPROFILE].[PROFILEID]  
+SELECT [DIRECTORYHASPROFILE].[PROFILEID]
 	  ,[PROFILES].NAME
 	  ,[DIRECTORYHASPROFILE].[DIRID]
   FROM [rmdb].[igelums].[DIRECTORYHASPROFILE], [rmdb].[igelums].[PROFILESETTINGS], [rmdb].[igelums].[PROFILES]
@@ -135,7 +135,7 @@ SELECT [DIRECTORYHASPROFILE].[PROFILEID]
 
 FROM @TableTC TC, @TableFWDIR FWDIR
 WHERE TC.[PARDIRID] = FWDIR.[DIRID]
-) 
+)
 
 UNION
 
@@ -178,7 +178,7 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
   $RegexVERSION = [regex] '\b([0-9]{1}\.[0-9]{2,2}.[0-9]{3,3})\b'
   $regexLASTKNOWNIP = [regex] '\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
 
-  $TCColl = Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Query $Query | 
+  $TCColl = Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Query $Query |
   Where-Object -FilterScript {
     [datetime]$_.LOGTIME -ge $LogTime
   } |
@@ -189,7 +189,7 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
       (($RegexVERSION).Matches(($_.HASVERSION)) |
         ForEach-Object -Process {
           $_.value
-      }) 
+      })
     }
   }, DIRNAME, @{
     Name       = 'GETVERSION'
@@ -197,9 +197,9 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
       (($RegexVERSION).Matches(($_.GETVERSION)) |
         ForEach-Object -Process {
           $_.value
-      }) 
+      })
     }
-  }, DIRID | 
+  }, DIRID |
   Where-Object -FilterScript {
     $_.HASVERSION -lt $_.GETVERSION
   }
@@ -217,10 +217,10 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
     {
       [int]$i = 0
       while (($NumberTotalCount -lt $NumberTotal) -and ($NumberPerDirNameCount -lt $NumberPerDirName) -and ($i -lt 1))
-      { 
+      {
         $Address = (($RegexLASTKNOWNIP).Matches($TCDir.LASTKNOWNIP).Value)
         $StatusCode = (Get-WmiObject -Class Win32_PingStatus -Filter ('Address="{0}"' -f $Address)).StatusCode
-      
+
         if ($StatusCode -eq 0)
         {
           $TCIDCollProps = @{
@@ -244,7 +244,7 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
       }
     }
   }
-  
+
   $UMSThinclientToUpdate
 }
 

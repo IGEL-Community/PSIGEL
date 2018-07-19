@@ -9,7 +9,7 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port API (Default: 8443)
 
@@ -39,7 +39,7 @@
       ThinclientID to search for
 
       .EXAMPLE
-      
+
       Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
       Gets detailed information on all online thin clients.
 
@@ -47,7 +47,7 @@
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
       Gets short information on thin clients with TCID 2433.
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
@@ -56,20 +56,20 @@
       .EXAMPLE
       Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView
       Gets all Thinclients
-      
+
       .EXAMPLE
       $Credential = Get-Credential -Message 'Enter your credentials'
       Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -TCID 2433 -Credential $Credential
       Asks for Credential and gets Thinclient with TCID 2433
-      
+
       .EXAMPLE
       2433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
       Gets Thinclient with TCID 2433
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter(Mandatory, ParameterSetName = 'API')]
     [String]
     $Computername,
@@ -78,41 +78,41 @@
     [ValidateRange(0,49151)]
     [Int]
     $TCPPort = 8443,
-   
+
     [Parameter(ParameterSetName = 'API')]
     [ValidateSet(2,3)]
     [Int]
     $ApiVersion = 3,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'API')]
     $WebSession,
-    
+
     [Parameter(ParameterSetName = 'API')]
     [ValidateSet('short','full','online','shadow')]
     [String]
     $Details = 'short',
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Database,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Schema,
-    
+
     [Parameter(ParameterSetName = 'SQL')]
     [PSCredential]
     $Credential,
-    
+
     [Parameter(ValueFromPipeline)]
     [int]
     $TCID = 0
   )
-	
+
   Begin
   {
   }
@@ -139,7 +139,7 @@
           'shadow'
           {
             $URLEnd = '?facets=shadow'
-          }   
+          }
         }
 
         Switch ($TCID)
@@ -183,7 +183,7 @@
             Database       = $Database
           }
         }
-        
+
         switch ($TCID)
         {
           0

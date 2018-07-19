@@ -9,7 +9,7 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
@@ -21,7 +21,7 @@
 
       .PARAMETER ProfileID
       ThinclientID to search for
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
@@ -33,10 +33,10 @@
       Gets information on the profile with ProfileID 100.
 
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter( Mandatory)]
     [String]
     $Computername,
@@ -44,25 +44,25 @@
     [ValidateRange(0,49151)]
     [Int]
     $TCPPort = 8443,
-   
+
     [ValidateSet(2,3)]
     [Int]
     $ApiVersion = 3,
-    
+
     [Parameter(Mandatory)]
     $WebSession,
-    
+
     [Parameter(ValueFromPipeline)]
     [int]
     $ProfileID = 0
   )
-	
+
   Begin
   {
   }
   Process
-  {   
-  
+  {
+
     Switch ($ProfileID)
     {
       0

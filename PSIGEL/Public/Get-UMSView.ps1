@@ -22,39 +22,39 @@
 
       .PARAMETER ViewIDColl
       ViewIDs to search for
-      
+
       .EXAMPLE
       Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 525870
       Gets View with ViewID "525870"
-      
+
       .EXAMPLE
       513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
-      Gets Views with ViewID "513934" and "513333" 
+      Gets Views with ViewID "513934" and "513333"
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter(Mandatory)]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory)]
     [String]
     $Database,
-    
+
     [Parameter(Mandatory)]
     [String]
     $Schema,
-    
+
     [PSCredential]
     $Credential,
-    
+
     [Parameter(ValueFromPipeline)]
     [int[]]
     $ViewIDColl
   )
-	
+
   Begin
   {
   }
@@ -75,7 +75,7 @@
         Database       = $Database
       }
     }
-    
+
     if (!$ViewIDColl)
     {
       $Query = (@'

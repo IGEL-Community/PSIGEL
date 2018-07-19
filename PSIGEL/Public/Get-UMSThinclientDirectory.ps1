@@ -10,7 +10,7 @@ function Get-UMSThinclientDirectory
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
@@ -35,7 +35,7 @@ function Get-UMSThinclientDirectory
 
       .PARAMETER DirID
       DirID to search for
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
@@ -56,10 +56,10 @@ function Get-UMSThinclientDirectory
       9, 7 | Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
       Gets information on Thin client directories with FirmwareIDs 9 and 7.
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter(Mandatory, ParameterSetName = 'API')]
     [String]
     $Computername,
@@ -68,45 +68,45 @@ function Get-UMSThinclientDirectory
     [ValidateRange(0,49151)]
     [Int]
     $TCPPort = 8443,
-   
+
     [Parameter(ParameterSetName = 'API')]
     [ValidateSet(2,3)]
     [Int]
     $ApiVersion = 3,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'API')]
     $WebSession,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Database,
-    
+
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
     $Schema,
-    
+
     [Parameter( ParameterSetName = 'SQL')]
     [PSCredential]
     $Credential,
-    
+
     [switch]
     $Children,
-    
+
     [Parameter(ValueFromPipeline)]
     [int]
     $DirID
   )
-	
+
   Begin
   {
   }
   Process
-  {   
-    
+  {
+
     switch ($PSCmdlet.ParameterSetName)
     {
       API
@@ -238,7 +238,7 @@ WHERE DIRID = {2}
             movedToBin        = ($GroupedQuery.Group).MOVEDTOBIN | Select-Object -First 1
             objectType        = 'tcdirectory'
           }
-          New-Object -TypeName PSObject -Property $Properties 
+          New-Object -TypeName PSObject -Property $Properties
         }
 
         $UMSThinclientDirectory
