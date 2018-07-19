@@ -131,11 +131,6 @@ function Get-UMSFirmware
       }
       SQL
       {
-        $InvokeSqlcmd2Params = @{
-          ServerInstance = $ServerInstance
-          Database       = $Database
-          Credential     = $Credential
-        }
         switch ($FirmwareID)
         {
           0
@@ -144,7 +139,6 @@ function Get-UMSFirmware
 SELECT *
 FROM [$Database].[$Schema].[FIRMWARE]
 "@
-            Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
           default
           {
@@ -153,9 +147,9 @@ SELECT *
 FROM [$Database].[$Schema].[FIRMWARE]
 WHERE FIRMWAREID = '{0}'
 "@ -f $FirmwareID)
-            Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
         }
+        Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Credential $Credential -Query $Query
       }
     }
   }
