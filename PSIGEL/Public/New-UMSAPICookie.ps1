@@ -27,29 +27,29 @@ function New-UMSAPICookie
       Object for use in Invoke-RestMethod -WebSession Parameter (Cookie)
   #>
 
- 
+
     [cmdletbinding()]
     param
-    ( 
+    (
         [Parameter(Mandatory)]
         [String]
         $Computername,
-    
+
         [ValidateRange(0, 49151)]
         [Int]
         $TCPPort = 8443,
-    
+
         [Parameter(ParameterSetName = 'UseAgentAuthentication')]
         [ValidateNotNull()]
         [System.Management.Automation.PSCredential]
         [System.Management.Automation.Credential()]
         $Credential = (Get-Credential -Message 'Enter your credentials'),
-    
+
         [ValidateSet(1, 2, 3)]
         [Int]
         $ApiVersion = 3
     )
-	
+
     Begin
     {
         Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
@@ -71,24 +71,24 @@ function New-UMSAPICookie
         $RESTAPIPassword = $Credential.GetNetworkCredential().password
 
         [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    
+
         $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $Computername, $TCPPort, $ApiVersion
         $SessionURL = '{0}login' -f $BaseURL
         $Header = @{
             'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($RESTAPIUser + ':' + $RESTAPIPassword))
         }
         $Type = 'application/json; charset=utf-8'
-    
-        Try 
+
+        Try
         {
             $SessionResponse = Invoke-RestMethod -Uri $SessionURL -Headers $Header -Method POST -ContentType $Type
         }
-        Catch 
+        Catch
         {
             $_.Exception.ToString()
             $error[0]
         }
-    
+
         $Cookie = New-Object -TypeName System.Net.Cookie
         $Cookie.Name = ($SessionResponse.Message).Split('=')[0]
         $Cookie.Path = '/'
@@ -96,7 +96,7 @@ function New-UMSAPICookie
         $Cookie.Domain = $Computername
         $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
         $WebSession.Cookies.Add($Cookie)
-    
+
         $WebSession
     }
     End

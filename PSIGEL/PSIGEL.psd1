@@ -83,7 +83,7 @@
         'Invoke-UMSThinclientUpdate'
         'New-UMSAPICookie'
         'New-UMSThinclient'
-        'Send-UMSThinclientSettings'
+        'Send-UMSThinclientSetting'
         'Start-UMSThinclient'
         'Stop-UMSThinclient'
         'Reset-UMSThinclient'

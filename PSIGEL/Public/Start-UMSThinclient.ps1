@@ -9,7 +9,7 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port API (Default: 8443)
 
@@ -26,17 +26,17 @@
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
       Wakes up thin client with TCID 2433.
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
       Wakes up thin clients with TCID 2433 and 2435.
 
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter( Mandatory)]
     [String]
     $Computername,
@@ -44,25 +44,25 @@
     [ValidateRange(0,49151)]
     [Int]
     $TCPPort = 8443,
-   
+
     [ValidateSet(2,3)]
     [Int]
     $ApiVersion = 3,
-    
+
     [Parameter(Mandatory)]
     $WebSession,
-    
+
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
     $TCIDColl
   )
-	
+
   Begin
   {
   }
   Process
   {
-  
+
     $Body = foreach ($TCID in $TCIDColl)
     {
       @{

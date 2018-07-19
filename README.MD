@@ -35,7 +35,7 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 * [Remove-UMSThinclient](#remove-umsthinclient)
 * [Reset-UMSThinclient](#reset-umsthinclient)
 * [Restart-UMSThinclient](#restart-umsthinclient)
-* [Send-UMSThinclientSettings](#send-umsthinclientsettings)
+* [Send-UMSThinclientSetting](#send-umsthinclientsetting)
 * [Start-UMSThinclient](#start-umsthinclient)
 * [Stop-UMSThinclient](#stop-umsthinclient)
 * [Update-UMSProfileAssignment](#update-umsprofileAssignment)
@@ -461,20 +461,20 @@ Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 24
 2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
 ```
 
-### Send-UMSThinclientSettings
+### Send-UMSThinclientSetting
 
 Sends settings modified in the UMS database to all thin clients listed in the request body immediately
 
 **Sends settings modified in the UMS database to thin client with TCID 100 immediately:**
 
 ```powershell
-Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession -TCID 100
+Send-UMSThinclientSetting -Computername $Computername -WebSession $WebSession -TCID 100
 ```
 
 **Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately:**
 
 ```powershell
-100, 101 | Send-UMSThinclientSettings -Computername $Computername -WebSession $WebSession
+100, 101 | Send-UMSThinclientSetting -Computername $Computername -WebSession $WebSession
 ```
 
 ### Start-UMSThinclient

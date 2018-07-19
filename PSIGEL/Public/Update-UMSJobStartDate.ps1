@@ -24,23 +24,23 @@
       513339,515266 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Startdate '2018-01-10 14:47:00'
       Update Job Startdate on Jobs with ID "607377" and "680819"
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter(Mandatory)]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory, ValueFromPipeline)]
     [int[]]
     $JobIDColl,
-    
+
     [Parameter(Mandatory)]
     [datetime]
     $Startdate
   )
-	
+
   Begin
   {
   }
@@ -49,7 +49,7 @@
     foreach ($JobID in $JobIDColl)
     {
       $Query = (@"
-UPDATE [rmdb].[igelums].[JOB] 
+UPDATE [rmdb].[igelums].[JOB]
 SET [STARTDATE] = '{0}'
 WHERE [ID] = '{1}'
 "@ -f $Startdate, $JobID)

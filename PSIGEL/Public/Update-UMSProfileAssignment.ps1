@@ -9,7 +9,7 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
@@ -21,63 +21,63 @@
 
       .PARAMETER ProfileID
       ProfileID to search for
-      
+
       .PARAMETER TCID
       Thinclient ID to apply profile to
-      
+
       .PARAMETER DirID
       Directory ID to apply profile to
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCIDColl (100, 102)
       Assigns the profile with ProfilID 471 to thin client with TCID 100.
-      
+
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirIDColl 300
       Assigns the profile with ProfilID 471 to thin client directory with DirID 300.
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter( Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 49151)]
     [Int]
     $TCPPort = 8443,
-   
-    [ValidateSet(2,3)]
+
+    [ValidateSet(2, 3)]
     [Int]
     $ApiVersion = 3,
-    
+
     [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory)]
     [int]
     $ProfileID,
-    
-    [Parameter(Mandatory, 
-    ParameterSetName = 'TC')]
+
+    [Parameter(Mandatory,
+      ParameterSetName = 'TC')]
     [int]
     $TCID,
-    
+
     [Parameter(Mandatory,
-    ParameterSetName = 'Dir')]
+      ParameterSetName = 'Dir')]
     [int]
     $DirID
   )
-	
+
   Begin
   {
   }
   Process
-  {   
-    
+  {
+
     switch ($PSCmdlet.ParameterSetName)
     {
       'TC'
@@ -86,11 +86,11 @@
           assignee = [ordered]@{
             id   = $ProfileID
             type = 'profile'
-          } 
+          }
           receiver = [ordered]@{
             id   = $TCID
             type = 'tc'
-          } 
+          }
         } | ConvertTo-Json
         $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
       }
@@ -100,16 +100,16 @@
           assignee = [ordered]@{
             id   = $ProfileID
             type = 'profile'
-          } 
+          }
           receiver = [ordered]@{
             id   = $DirID
             type = 'tcdirectory'
-          } 
+          }
         } | ConvertTo-Json
         $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
       }
     }
-    
+
     $InvokeRestMethodParams = @{
       Uri         = $SessionURL
       Headers     = @{}

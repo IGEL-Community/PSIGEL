@@ -28,22 +28,22 @@
       607377,680819 | Update-UMSThinclientComment -ServerInstance 'SQLSERVER\RMDB'
       Removes Comment
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
+  (
     [Parameter(Mandatory)]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory, ValueFromPipeline)]
     [int[]]
     $TCIDColl,
-    
+
     [String]
     $Comment = ''
   )
-	
+
   Begin
   {
   }
@@ -52,7 +52,7 @@
     foreach ($TCID in $TCIDColl)
     {
       $Query = (@"
-UPDATE [rmdb].[igelums].[THINCLIENT] 
+UPDATE [rmdb].[igelums].[THINCLIENT]
 SET [TCCOMMENT] = '{0}'
 WHERE [TCID] = '{1}'
 "@ -f $Comment, $TCID)
