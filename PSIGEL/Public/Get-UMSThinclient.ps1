@@ -39,13 +39,12 @@
       ThinclientID to search for
 
       .EXAMPLE
-
-      Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full' | Out-GridView
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
+      Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full'
       Gets detailed information on all online thin clients.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
+      Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
       Gets short information on thin clients with TCID 2433.
 
       .EXAMPLE
@@ -54,7 +53,7 @@
       Gets shadow-information on Thinclient with TCID 2433.
 
       .EXAMPLE
-      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' | Out-GridView
+      Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
       Gets all Thinclients
 
       .EXAMPLE
@@ -63,8 +62,8 @@
       Asks for Credential and gets Thinclient with TCID 2433
 
       .EXAMPLE
-      2433 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
-      Gets Thinclient with TCID 2433
+      2433, 2629 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+      Gets Thinclient with TCID 2433 and 2629
   #>
 
   [cmdletbinding()]
@@ -84,11 +83,11 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory, ParameterSetName = 'API')]
-    $WebSession,
+    [Parameter(ParameterSetName = 'API')]
+    $WebSession = $false,
 
     [Parameter(ParameterSetName = 'API')]
-    [ValidateSet('short','full','online','shadow')]
+    [ValidateSet('short', 'full', 'online', 'shadow')]
     [String]
     $Details = 'short',
 
@@ -105,8 +104,10 @@
     $Schema,
 
     [Parameter(ParameterSetName = 'SQL')]
-    [PSCredential]
-    $Credential,
+    [ValidateNotNull()]
+    [System.Management.Automation.PSCredential]
+    [System.Management.Automation.Credential()]
+    $Credential = (Get-Credential -Message 'Enter your credentials'),
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -122,6 +123,13 @@
     {
       API
       {
+        Switch ($WebSession)
+        {
+          $false
+          {
+            $WebSession = New-UMSAPICookie -Computername $Computername
+          }
+        }
         Switch ($Details)
         {
           'short'
@@ -141,7 +149,6 @@
             $URLEnd = '?facets=shadow'
           }
         }
-
         Switch ($TCID)
         {
           0
@@ -154,37 +161,11 @@
           }
 
         }
-
-        $ThinclientsJSONCollParams = @{
-          Uri         = $SessionURL
-          Headers     = @{}
-          ContentType = 'application/json; charset=utf-8'
-          Method      = 'Get'
-          WebSession  = $WebSession
-        }
-
-        $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-        $ThinclientsJSONColl
+        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
       }
       SQL
       {
-        if ($Credential)
-        {
-          $InvokeSqlcmd2Params = @{
-            ServerInstance = $ServerInstance
-            Database       = $Database
-            Credential     = $Credential
-          }
-        }
-        else
-        {
-          $InvokeSqlcmd2Params = @{
-            ServerInstance = $ServerInstance
-            Database       = $Database
-          }
-        }
-
-        switch ($TCID)
+        Switch ($TCID)
         {
           0
           {
@@ -194,7 +175,6 @@ FROM [$Database].[$Schema].[THINCLIENT] TC, [$Database].[$Schema].[THINCLIENTISI
 WHERE TC.TCID = TD.TCID
 AND TC.FIRMWAREID = FW.FIRMWAREID
 "@
-            Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
           default
           {
@@ -205,12 +185,11 @@ WHERE TC.TCID = TD.TCID
 AND TC.FIRMWAREID = FW.FIRMWAREID
 AND TC.TCID = '{0}'
 "@ -f $TCID)
-            Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
           }
         }
+        Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Database $Database -Credential $Credential -Query $Query
       }
     }
-
   }
   End
   {
