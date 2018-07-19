@@ -168,7 +168,6 @@
       serialNumber  = $SerialNumber
     } | ConvertTo-Json
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/' -f $Computername, $TCPPort, $ApiVersion
-
     Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
   }
   End

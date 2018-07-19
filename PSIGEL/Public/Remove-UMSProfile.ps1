@@ -24,13 +24,12 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID 100
-      Removes Profile with ProfileID 100
+      Remove-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 28790
+      #Removes Profile with ProfileID 28790
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
-      Removes Profile with ProfileID 100
+      48171 | Remove-UMSProfile -Computername 'UMSSERVER'
+      #Removes Profile with ProfileID 48171
   #>
 
   [cmdletbinding()]
@@ -48,7 +47,6 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
@@ -61,19 +59,15 @@
   }
   Process
   {
-
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json'
-      Method      = 'Delete'
-      WebSession  = $WebSession
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
     }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
   }
   End
   {
