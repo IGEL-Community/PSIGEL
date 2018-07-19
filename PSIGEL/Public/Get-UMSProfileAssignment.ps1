@@ -23,12 +23,12 @@
     ProfileID to search for
 
     .EXAMPLE
-    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
     Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
     Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 
     .EXAMPLE
-    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
     471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
     Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 #>

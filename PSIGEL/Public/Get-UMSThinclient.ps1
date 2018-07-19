@@ -44,12 +44,12 @@
       Gets detailed information on all online thin clients.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
       Gets short information on thin clients with TCID 2433.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
       Gets shadow-information on Thinclient with TCID 2433.
 

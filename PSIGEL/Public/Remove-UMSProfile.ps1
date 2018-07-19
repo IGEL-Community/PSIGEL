@@ -23,12 +23,12 @@
       ProfileID of the thinclient to remove
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Remove-UMSProfile -Computername $Computername -WebSession $WebSession -ProfileID 100
       Removes Profile with ProfileID 100
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       100 | Remove-UMSProfile -Computername $Computername -WebSession $WebSession
       Removes Profile with ProfileID 100
   #>

@@ -23,12 +23,12 @@
       ThinclientIDs to wake up
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
       Shuts down thin client with TCID 2433.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       2433, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
       Shuts down thin clients with TCID 2433 and 2435.
 

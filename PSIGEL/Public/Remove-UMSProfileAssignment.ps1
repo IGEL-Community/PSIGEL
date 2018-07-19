@@ -23,12 +23,12 @@
       ProfileID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
       Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
       Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300.
   #>

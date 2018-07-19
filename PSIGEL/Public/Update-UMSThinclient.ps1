@@ -50,12 +50,12 @@
       Thinclient Attribute SerialNumber
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Update-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100 -Site 'Berlin'
       Upates site of the thinclient to Berlin.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       $UpdateUMSThinclientParams = @{
       Computername  = 'UMSSERVER'
       WebSession    = $WebSession

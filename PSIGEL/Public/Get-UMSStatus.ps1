@@ -20,7 +20,7 @@
       Websession Cookie
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSStatus -Computername 'UMSSERVER' -WebSession $WebSession
 
   #>
@@ -49,21 +49,8 @@
   }
   Process
   {
-
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/serverstatus' -f $Computername, $TCPPort, $ApiVersion
-
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'Get'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
   }
   End
   {

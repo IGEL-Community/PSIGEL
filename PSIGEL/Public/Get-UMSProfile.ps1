@@ -23,12 +23,12 @@
       ThinclientID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
       Gets information on all profiles on the UMS instance to Out-Gridview.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
       Gets information on the profile with ProfileID 100.
 

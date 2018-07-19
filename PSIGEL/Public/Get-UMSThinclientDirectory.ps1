@@ -37,22 +37,22 @@ function Get-UMSThinclientDirectory
       DirID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
       Gets information on all Thin Client Directories to Out-Gridview.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Children | Out-Gridview
       Gets information on all Thin Client Directories, listing their children to Out-Gridview.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       9, 7 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession  -Children
       Gets information on Thin client directories with DirIDs 9 and 7, listing their children.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       9, 7 | Get-UMSThinclientDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
       Gets information on Thin client directories with FirmwareIDs 9 and 7.
   #>

@@ -23,12 +23,12 @@
       ThinclientIDs of the thinclients to reset to factory defaults.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Reset-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
       Resets thin client with TCID 100 to factory defaults.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       100, 101 | Reset-UMSThinclient -Computername $Computername -WebSession $WebSession
       Resets thin clients with TCID 100 and 101 to factory defaults.
 

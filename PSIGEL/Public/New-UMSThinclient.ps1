@@ -56,12 +56,12 @@
       Thinclient Attribute SerialNumber
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
       Creates new thinclient with mac and firmareid (minimal requirements) in the root directory.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       $NewUMSThinclientParams = @{
       Computername  = 'UMSSERVER'
       WebSession    =  $WebSession

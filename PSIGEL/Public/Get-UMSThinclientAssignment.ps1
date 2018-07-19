@@ -23,12 +23,12 @@
       ThinclientID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433 | Out-GridView
       Gets the profile and master profile assignments for Thinclient with TCID 2433.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession
       Gets the profile and master profile assignments for Thinclient with TCID 2433.
   #>

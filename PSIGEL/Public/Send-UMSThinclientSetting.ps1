@@ -23,12 +23,12 @@
       ThinclientIDs of the thinclients send settings to.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Send-UMSThinclientSetting -Computername $Computername -WebSession $WebSession -TCID 100
       Sends settings modified in the UMS database to thin client with TCID 100 immediately.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       100, 101 | Send-UMSThinclientSetting -Computername $Computername -WebSession $WebSession
       Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately.
 

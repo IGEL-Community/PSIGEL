@@ -36,12 +36,12 @@ function Get-UMSFirmware
       ThinclientID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
       Gets information on all firmwares known to the UMS to Out-Gridview.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       9, 7 | Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
       Gets information on firmwares with FirmwareIDs 9 and 7.
 

@@ -23,12 +23,12 @@
       ThinclientID of the thinclient to remove
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
       Removes Thinclient with TCID 100
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
       Removes Thinclient with TCID 100
   #>
