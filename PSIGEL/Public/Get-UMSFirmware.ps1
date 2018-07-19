@@ -37,8 +37,8 @@ function Get-UMSFirmware
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
-      Gets information on all firmwares known to the UMS to Out-Gridview.
+      Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
+      Gets information on all firmwares known to the UMS.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
@@ -51,7 +51,7 @@ function Get-UMSFirmware
       Asks for Credential and gets Firmware with FirmwareID 7
 
       .EXAMPLE
-      9, 7 | Get-UMSThinclient -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+      9, 7 | Get-UMSFirmware -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
       Gets information on firmwares with FirmwareIDs 9 and 7.
 
   #>
@@ -64,7 +64,7 @@ function Get-UMSFirmware
     $Computername,
 
     [Parameter(ParameterSetName = 'API')]
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 49151)]
     [Int]
     $TCPPort = 8443,
 
@@ -89,8 +89,10 @@ function Get-UMSFirmware
     $Schema,
 
     [Parameter(ParameterSetName = 'SQL')]
-    [PSCredential]
-    $Credential,
+    [ValidateNotNull()]
+    [System.Management.Automation.PSCredential]
+    [System.Management.Automation.Credential()]
+    $Credential = (Get-Credential -Message 'Enter your credentials'),
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -111,47 +113,22 @@ function Get-UMSFirmware
           0
           {
             $SessionURL = 'https://{0}:{1}/umsapi/v{2}/firmwares' -f $Computername, $TCPPort, $ApiVersion
-            $InvokeRestMethodParams = @{
-              Uri         = $SessionURL
-              Headers     = @{}
-              ContentType = 'application/json; charset=utf-8'
-              Method      = 'Get'
-              WebSession  = $WebSession
-            }
-            (Invoke-RestMethod @InvokeRestMethodParams).FwResource
+            (Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get').FwResource
           }
           default
           {
             $SessionURL = 'https://{0}:{1}/umsapi/v{2}/firmwares/{3}' -f $Computername, $TCPPort, $ApiVersion, $FirmwareID
-            $InvokeRestMethodParams = @{
-              Uri         = $SessionURL
-              Headers     = @{}
-              ContentType = 'application/json; charset=utf-8'
-              Method      = 'Get'
-              WebSession  = $WebSession
-            }
-            Invoke-RestMethod @InvokeRestMethodParams
+            Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
           }
         }
       }
       SQL
       {
-        if ($Credential)
-        {
-          $InvokeSqlcmd2Params = @{
-            ServerInstance = $ServerInstance
-            Database       = $Database
-            Credential     = $Credential
-          }
+        $InvokeSqlcmd2Params = @{
+          ServerInstance = $ServerInstance
+          Database       = $Database
+          Credential     = $Credential
         }
-        else
-        {
-          $InvokeSqlcmd2Params = @{
-            ServerInstance = $ServerInstance
-            Database       = $Database
-          }
-        }
-
         switch ($FirmwareID)
         {
           0
@@ -179,4 +156,3 @@ WHERE FIRMWAREID = '{0}'
   {
   }
 }
-
