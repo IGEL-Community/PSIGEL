@@ -8,10 +8,10 @@ function Invoke-UMSRestMethodWebSession
     Invoke-RestMethod Wrapper for UMS API
 
     .EXAMPLE
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Method 'Get'
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionUrl $SessionURL -Method 'Get'
 
     .EXAMPLE
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Body -Method 'Get'
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Body -Method 'Get'
 
     .NOTES
      n.a.
