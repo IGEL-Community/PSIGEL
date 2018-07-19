@@ -54,53 +54,53 @@
       Invoke-UMSThinclientUpdate @Props
 
   #>
-  
+
   param
   (
     [string]
     [Parameter(Mandatory)]
     $ServerInstance,
-    
+
     [Parameter(Mandatory)]
     [int]
     $UpdateViewID,
-    
+
     [Parameter(Mandatory)]
     [int]
     $UpdateJobID,
-    
+
     [Parameter(Mandatory)]
     [int]
     $WakeupViewID,
-        
+
     [Parameter(Mandatory)]
     [int]
     $WakeupJobID,
-    
+
     [Parameter(Mandatory)]
     [int]
     $NumberTotal,
-    
+
     [Parameter(Mandatory)]
     [int]
     $NumberPerDirName,
-    
+
     [string]
     [Parameter(Mandatory)]
     $Comment,
-    
+
     [int]
     $JobDelay = 2
   )
-  
+
   [datetime]$LogTime = (Get-Date -Format 'yyyy-MM-dd 00:00:00')
-  
+
   $TCIDColl =  (Get-UMSThinclientWithComment -ServerInstance $ServerInstance -Comment $Comment).TCID
   if ($TCIDColl)
   {
     Update-UMSThinclientComment -ServerInstance $ServerInstance -TCIDColl $TCIDColl
   }
-    
+
   $UMSThinclientToUpdateParams = @{
     ServerInstance   = $ServerInstance
     NumberTotal      = $NumberTotal
@@ -108,14 +108,14 @@
     LogTime          = $LogTime
   }
   $UMSThinclientToUpdate = Get-UMSThinclientToUpdate @UMSThinclientToUpdateParams
-  
+
   if ($UMSThinclientToUpdate)
-  {  
-    $UMSThinclientToUpdate.TCID | 
+  {
+    $UMSThinclientToUpdate.TCID |
     Update-UMSThinclientComment -ServerInstance $ServerInstance -Comment $Comment
-    
+
     $StartDate = (Get-Date -Date ((Get-Date).AddMinutes($JobDelay)) -Format 'yyyy-MM-ddTHH:mm:ss')
-    
+
     $UpdateJobID, $WakeupJobID | Update-UMSJobStartDate -ServerInstance $ServerInstance -Startdate $StartDate
   }
 }
