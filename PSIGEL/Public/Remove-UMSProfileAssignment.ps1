@@ -24,13 +24,12 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
-      Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100.
+      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170 -TCID 4138
+      #Deletes assignment of profile with ProfileID 48170 to the thin cient with the TCID 4138.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
-      Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300.
+      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 48170 -DirID 185
+      #Deletes assignment of profile with ProfileID 48170 to the thin cient directory with the DirID 185.
   #>
 
   [cmdletbinding()]
@@ -48,20 +47,17 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory)]
     [int]
     $ProfileID,
 
-    [Parameter(Mandatory,
-    ParameterSetName = 'TC')]
+    [Parameter(Mandatory, ParameterSetName = 'TC')]
     [int]
     $TCID,
 
-    [Parameter(Mandatory,
-    ParameterSetName = 'Dir')]
+    [Parameter(Mandatory, ParameterSetName = 'Dir')]
     [int]
     $DirID
   )
@@ -71,31 +67,27 @@
   }
   Process
   {
-
-    switch ($PSCmdlet.ParameterSetName)
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
+    Switch ($PSCmdlet.ParameterSetName)
     {
       'TC'
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $TCID
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername,
+        $TCPPort, $ApiVersion, $ProfileID, $TCID
       }
       'Dir'
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $DirID
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername,
+        $TCPPort, $ApiVersion, $ProfileID, $DirID
       }
     }
-
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'DELETE'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
   }
   End
   {
