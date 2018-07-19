@@ -15,7 +15,7 @@ function Get-UMSThinclientDirectory
       TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
-      API Version to use (2 or 3, Default: 3)
+      API Version to use (Default: 3)
 
       .Parameter WebSession
       Websession Cookie
