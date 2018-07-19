@@ -1,6 +1,6 @@
 ﻿function New-UMSThinclient
 {
-    <#
+  <#
       .Synopsis
       Creates a new thinclient from Rest API.
 
@@ -57,8 +57,8 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      New-UMSThinclient -Computername $Computername -WebSession $WebSession -Mac 012345678910 -FirmwareID 9
-      Creates new thinclient with mac and firmareid (minimal requirements) in the root directory.
+      New-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Mac '012345678910' -FirmwareID 9
+      Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
@@ -66,9 +66,9 @@
       Computername  = 'UMSSERVER'
       WebSession    =  $WebSession
       Mac           = '012345678910'
-      FirmwareID    = '9'
+      FirmwareID    = 9
       Name          = 'TC012345'
-      ParentID      = '772'
+      ParentID      = 772
       Site          = 'Leipzig'
       Department    = 'Marketing'
       CostCenter    = '50100'
@@ -82,104 +82,96 @@
       Creates new thinclient with all possible attributes.
   #>
 
-    [cmdletbinding()]
-    param
-    (
-        [Parameter( Mandatory)]
-        [String]
-        $Computername,
+  [cmdletbinding()]
+  param
+  (
+    [Parameter( Mandatory)]
+    [String]
+    $Computername,
 
-        [ValidateRange(0, 65535)]
-        [Int]
-        $TCPPort = 8443,
+    [ValidateRange(0, 65535)]
+    [Int]
+    $TCPPort = 8443,
 
-        [ValidateSet(2, 3)]
-        [Int]
-        $ApiVersion = 3,
+    [ValidateSet(2, 3)]
+    [Int]
+    $ApiVersion = 3,
 
-        [Parameter(Mandatory)]
-        $WebSession,
+    $WebSession,
 
-        [Parameter(Mandatory)]
-        [ValidatePattern('^([0-9a-f]{12})$')]
-        [String]
-        $Mac,
+    [Parameter(Mandatory)]
+    [String]
+    $Mac,
 
-        [Parameter(Mandatory)]
-        [String]
-        $FirmwareID,
+    [Parameter(Mandatory)]
+    [int]
+    $FirmwareID,
 
-        [String]
-        $Name,
+    [String]
+    $Name,
 
-        [String]
-        $ParentID,
+    [int]
+    $ParentID = '-1',
 
-        [String]
-        $Site,
+    [String]
+    $Site,
 
-        [String]
-        $Department,
+    [String]
+    $Department,
 
-        [String]
-        $CostCenter,
+    [String]
+    $CostCenter,
 
-        [ValidateScript( {$_ -match [IPAddress]$_})]
-        [String]
-        $LastIP,
+    [ValidateScript( {$_ -match [IPAddress]$_})]
+    [String]
+    $LastIP,
 
-        [String]
-        $Comment,
+    [String]
+    $Comment,
 
-        [String]
-        $AssetID,
+    [String]
+    $AssetID,
 
-        [String]
-        $InserviceDate,
+    [String]
+    $InserviceDate,
 
-        [ValidateLength(19, 19)]
-        [String]
-        $SerialNumber
-    )
+    [ValidateLength(19, 19)]
+    [String]
+    $SerialNumber
+  )
 
-    Begin
+  Begin
+  {
+  }
+  Process
+  {
+    Switch ($WebSession)
     {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
     }
-    Process
-    {
+    $Body = [ordered]@{
+      mac           = $Mac
+      firmwareID    = $FirmwareID
+      name          = $Name
+      parentID      = $ParentID
+      site          = $Site
+      department    = $Department
+      costCenter    = $CostCenter
+      lastIP        = $LastIP
+      comment       = $Comment
+      assetID       = $AssetID
+      inserviceDate = $InserviceDate
+      serialNumber  = $SerialNumber
+    } | ConvertTo-Json
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/' -f $Computername, $TCPPort, $ApiVersion
 
-        $Body = [ordered]@{
-            mac           = $Mac
-            firmwareID    = $FirmwareID
-            name          = $Name
-            parentID      = $ParentID
-            site          = $Site
-            department    = $Department
-            costCenter    = $CostCenter
-            lastIP        = $LastIP
-            comment       = $Comment
-            assetID       = $AssetID
-            inserviceDate = $InserviceDate
-            serialNumber  = $SerialNumber
-        } | ConvertTo-Json
-
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/' -f $Computername, $TCPPort, $ApiVersion
-
-
-        $ThinclientsJSONCollParams = @{
-            Uri         = $SessionURL
-            Headers     = @{}
-            Body        = '{0}' -f $Body
-            ContentType = 'application/json'
-            Method      = 'Put'
-            WebSession  = $WebSession
-        }
-
-        $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-        $ThinclientsJSONColl
-    }
-    End
-    {
-    }
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+  }
+  End
+  {
+  }
 }
 

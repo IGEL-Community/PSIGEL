@@ -74,7 +74,7 @@ function Get-UMSFirmware
     $ApiVersion = 3,
 
     [Parameter(ParameterSetName = 'API')]
-    $WebSession = $false,
+    $WebSession,
 
     [Parameter(Mandatory, ParameterSetName = 'SQL')]
     [String]
@@ -110,7 +110,7 @@ function Get-UMSFirmware
       {
         Switch ($WebSession)
         {
-          $false
+          $null
           {
             $WebSession = New-UMSAPICookie -Computername $Computername
           }

@@ -17,7 +17,7 @@ function Invoke-UMSRestMethodWebSession
      n.a.
     #>
 
-  [CmdletBinding()]
+  [CmdletBinding(DefaultParameterSetName = 'NoBody')]
   param (
     [Parameter(Mandatory)]
     $WebSession,
@@ -26,8 +26,13 @@ function Invoke-UMSRestMethodWebSession
     [string]
     $SessionURL,
 
-    [switch]
-    $Body,
+    [Parameter(ParameterSetName = 'BodyWavy')]
+    [string]
+    $BodyWavy,
+
+    [Parameter(ParameterSetName = 'BodySquareWavy')]
+    [string]
+    $BodySquareWavy,
 
     [Parameter(Mandatory)]
     [ValidateSet('Get', 'Post', 'Put', 'Delete')]
@@ -40,9 +45,20 @@ function Invoke-UMSRestMethodWebSession
   }
   process
   {
-    switch ($Body)
+    switch ($PSCmdlet.ParameterSetName)
     {
-      $true
+      BodyWavy
+      {
+        $Params = @{
+          Uri         = $SessionURL
+          Headers     = @{}
+          Body        = '{0}' -f $Body
+          ContentType = 'application/json'
+          Method      = $Method
+          WebSession  = $WebSession
+        }
+      }
+      BodySquareWavy
       {
         $Params = @{
           Uri         = $SessionURL
@@ -53,7 +69,7 @@ function Invoke-UMSRestMethodWebSession
           WebSession  = $WebSession
         }
       }
-      Default
+      NoBody
       {
         $Params = @{
           Uri         = $SessionURL

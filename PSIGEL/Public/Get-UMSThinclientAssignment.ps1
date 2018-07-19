@@ -47,7 +47,7 @@
     [Int]
     $ApiVersion = 3,
 
-    $WebSession = $false,
+    $WebSession,
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -61,7 +61,7 @@
   {
     Switch ($WebSession)
     {
-      $false
+      $null
       {
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
