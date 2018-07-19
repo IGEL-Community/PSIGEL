@@ -24,13 +24,12 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
-      Gets information on all profiles on the UMS instance to Out-Gridview.
+      Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
+      Gets information on all profiles on the UMS instance.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
-      Gets information on the profile with ProfileID 100.
+      499, 501 | Get-UMSProfile -Computername 'UMSSERVER'
+      Gets information on the profile with ProfileID 499 and 501.
 
   #>
 
@@ -49,8 +48,7 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
-    $WebSession,
+    $WebSession = $false,
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -62,7 +60,13 @@
   }
   Process
   {
-
+    Switch ($WebSession)
+    {
+      $false
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
     Switch ($ProfileID)
     {
       0
@@ -73,20 +77,8 @@
       {
         $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
       }
-
     }
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'Get'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
   }
   End
   {

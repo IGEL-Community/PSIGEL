@@ -40,8 +40,7 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
-    $WebSession
+    $WebSession = $false
   )
 
   Begin
@@ -49,6 +48,13 @@
   }
   Process
   {
+    Switch ($WebSession)
+    {
+      $false
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/serverstatus' -f $Computername, $TCPPort, $ApiVersion
     Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
   }
