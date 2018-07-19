@@ -58,8 +58,16 @@
     [ValidateNotNull()]
     [System.Management.Automation.PSCredential]
     [System.Management.Automation.Credential()]
-    $Credential = (Get-Credential -Message 'Enter your credentials')
+    $Credential
   )
+
+  Switch ($Credential)
+  {
+    $null
+    {
+      $Credential = (Get-Credential -Message 'Enter your credentials')
+    }
+  }
 
   $Query = @"
 SELECT [DIRID]

@@ -33,7 +33,6 @@
 
       .PARAMETER Credential
       Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
 
       .PARAMETER TCID
       ThinclientID to search for
@@ -84,7 +83,7 @@
     $ApiVersion = 3,
 
     [Parameter(ParameterSetName = 'API')]
-    $WebSession = $false,
+    $WebSession,
 
     [Parameter(ParameterSetName = 'API')]
     [ValidateSet('short', 'full', 'online', 'shadow')]
@@ -107,7 +106,7 @@
     [ValidateNotNull()]
     [System.Management.Automation.PSCredential]
     [System.Management.Automation.Credential()]
-    $Credential = (Get-Credential -Message 'Enter your credentials'),
+    $Credential,
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -125,7 +124,7 @@
       {
         Switch ($WebSession)
         {
-          $false
+          $null
           {
             $WebSession = New-UMSAPICookie -Computername $Computername
           }
@@ -165,6 +164,13 @@
       }
       SQL
       {
+        Switch ($Credential)
+        {
+          $null
+          {
+            $Credential = (Get-Credential -Message 'Enter your credentials')
+          }
+        }
         Switch ($TCID)
         {
           0

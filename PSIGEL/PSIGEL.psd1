@@ -75,6 +75,7 @@
     'Get-UMSProfile'
     'Get-UMSProfileAssignment'
     'Get-UMSThinclient'
+    'Get-UMSThinclientAssignment'
     'Get-UMSThinclientDirectory'
     'Get-UMSThinclientToUpdate'
     'Get-UMSThinclientWithComment'

@@ -92,7 +92,7 @@ function Get-UMSFirmware
     [ValidateNotNull()]
     [System.Management.Automation.PSCredential]
     [System.Management.Automation.Credential()]
-    $Credential = (Get-Credential -Message 'Enter your credentials'),
+    $Credential,
 
     [Parameter(ValueFromPipeline)]
     [int]
@@ -131,6 +131,13 @@ function Get-UMSFirmware
       }
       SQL
       {
+        Switch ($Credential)
+        {
+          $null
+          {
+            $Credential = (Get-Credential -Message 'Enter your credentials')
+          }
+        }
         switch ($FirmwareID)
         {
           0
