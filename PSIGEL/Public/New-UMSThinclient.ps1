@@ -100,6 +100,7 @@
     $WebSession,
 
     [Parameter(Mandatory)]
+    [ValidatePattern('^([0-9a-f]{12})$')]
     [String]
     $Mac,
 
