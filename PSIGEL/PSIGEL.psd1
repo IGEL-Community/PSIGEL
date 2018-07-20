@@ -69,7 +69,6 @@
 
   # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
   FunctionsToExport = @(
-    'Get-UMSDirectoryStructure'
     'Get-UMSFirmware'
     'Get-UMSJob'
     'Get-UMSProfile'
@@ -77,11 +76,8 @@
     'Get-UMSThinclient'
     'Get-UMSThinclientAssignment'
     'Get-UMSThinclientDirectory'
-    'Get-UMSThinclientToUpdate'
-    'Get-UMSThinclientWithComment'
     'Get-UMSStatus'
     'Get-UMSView'
-    'Invoke-UMSThinclientUpdate'
     'New-UMSAPICookie'
     'New-UMSThinclient'
     'Send-UMSThinclientSetting'
@@ -96,7 +92,6 @@
     'Update-UMSProfileAssignment'
     'Update-UMSProfileName'
     'Update-UMSThinclient'
-    'Update-UMSThinclientComment'
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.

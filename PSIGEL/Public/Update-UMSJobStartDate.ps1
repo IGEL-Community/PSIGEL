@@ -25,7 +25,7 @@
       #Update Job Startdate on Jobs with ID "607377" and "680819"
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (
     [Parameter(Mandatory)]
@@ -53,9 +53,11 @@ UPDATE [rmdb].[igelums].[JOB]
 SET [STARTDATE] = '{0}'
 WHERE [ID] = '{1}'
 "@ -f $Startdate, $JobID)
+    }
+    if ($PSCmdlet.ShouldProcess('JobID: {0}' -f $JobID))
+    {
       Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Query $Query
     }
-
   }
   End
   {
