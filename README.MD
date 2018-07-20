@@ -59,3 +59,5 @@ from [RamblingCookieMonster](https://github.com/RamblingCookieMonster/PowerShell
 
  > Runs a T-SQL script. Invoke-Sqlcmd2 runs the whole scipt and only captures the first selected result set, such as the output of PRINT statements when -verbose parameter is specified.
 Paramaterized queries are supported.
+
+* Invoke-UMSRestMethodWebSession
