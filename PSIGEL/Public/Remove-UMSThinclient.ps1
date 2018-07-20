@@ -24,19 +24,18 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
-      Removes Thinclient with TCID 100
+      Remove-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48381
+      #Removes Thinclient with TCID 48381
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      100 | Remove-UMSThinclient -Computername $Computername -WebSession $WebSession
-      Removes Thinclient with TCID 100
+      48381 | Remove-UMSThinclient -Computername 'UMSSERVER'
+      #Removes Thinclient with TCID 48381
   #>
 
   [cmdletbinding()]
   param
   (
-    [Parameter( Mandatory)]
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
@@ -48,7 +47,6 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
@@ -61,19 +59,15 @@
   }
   Process
   {
-
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json'
-      Method      = 'Delete'
-      WebSession  = $WebSession
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
     }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
   }
   End
   {

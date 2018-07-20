@@ -42,7 +42,7 @@
   [cmdletbinding()]
   param
   (
-    [Parameter( Mandatory)]
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
