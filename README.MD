@@ -1,6 +1,6 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS API (via IGEL IMI) and/or MSSQL-Database.
+This is a module to interact with the IGEL UMS API (via IGEL IMI) or MSSQL-Database.
 
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie):
 
