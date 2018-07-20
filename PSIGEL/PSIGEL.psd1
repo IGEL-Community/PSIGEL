@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '1.0.2'
+  ModuleVersion     = '1.1.0'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
