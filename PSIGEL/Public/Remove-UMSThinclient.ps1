@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Removes a thinclient from Rest API.
+      Removes a thinclient completely (without recycle bin) from Rest API.
 
       .DESCRIPTION
-      Removes a thinclient from Rest API.
+      Removes a thinclient completely (without recycle bin) from Rest API.
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -24,15 +24,15 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48381
-      #Removes Thinclient with TCID 48381
+      Remove-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48420
+      #Removes Thinclient with TCID 48420
 
       .EXAMPLE
       48381 | Remove-UMSThinclient -Computername 'UMSSERVER'
       #Removes Thinclient with TCID 48381
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (
     [Parameter(Mandatory)]
@@ -67,7 +67,10 @@
       }
     }
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+    }
   }
   End
   {

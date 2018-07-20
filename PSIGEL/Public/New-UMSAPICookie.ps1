@@ -18,17 +18,16 @@ function New-UMSAPICookie
       Username for API Requests
 
       .PARAMETER ApiVersion
-      API Version to use (1,2 or3, Default: 3)
+      API Version to use (Default: 3)
 
       .EXAMPLE
-      New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -ApiVersion 3
+      New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443
 
       .OUTPUTS
       Object for use in Invoke-RestMethod -WebSession Parameter (Cookie)
   #>
 
-
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (
     [Parameter(Mandatory)]
@@ -94,10 +93,12 @@ function New-UMSAPICookie
     $Cookie.Path = '/'
     $Cookie.Value = ($SessionResponse.Message).Split('=')[1]
     $Cookie.Domain = $Computername
-    $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
-    $WebSession.Cookies.Add($Cookie)
-
-    $WebSession
+    if ($PSCmdlet.ShouldProcess($Computername))
+    {
+      $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
+      $WebSession.Cookies.Add($Cookie)
+      $WebSession
+    }
   }
   End
   {

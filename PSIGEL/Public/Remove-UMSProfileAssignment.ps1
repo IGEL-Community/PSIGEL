@@ -24,15 +24,15 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170 -TCID 4138
-      #Deletes assignment of profile with ProfileID 48170 to the thin cient with the TCID 4138.
+      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 470 -TCID 48426
+      #Deletes assignment of profile with ProfileID 470 to the thin cient with the TCID 48426.
 
       .EXAMPLE
       Remove-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 48170 -DirID 185
       #Deletes assignment of profile with ProfileID 48170 to the thin cient directory with the DirID 185.
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
@@ -80,14 +80,19 @@
       {
         $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername,
         $TCPPort, $ApiVersion, $ProfileID, $TCID
+        $ID = $TCID
       }
       'Dir'
       {
         $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername,
         $TCPPort, $ApiVersion, $ProfileID, $DirID
+        $ID = $DirID
       }
     }
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $ProfileID, $($PSCmdlet.ParameterSetName), $ID)))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+    }
   }
   End
   {

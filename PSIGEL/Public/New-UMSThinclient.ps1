@@ -56,15 +56,14 @@
       Thinclient Attribute SerialNumber
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      New-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Mac '012345678910' -FirmwareID 9
-      Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.
+      New-UMSThinclient -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9
+      #Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       $NewUMSThinclientParams = @{
       Computername  = 'UMSSERVER'
-      WebSession    =  $WebSession
+      WebSession    = $WebSession
       Mac           = '012345678910'
       FirmwareID    = 9
       Name          = 'TC012345'
@@ -77,12 +76,13 @@
       AssetID       = '012345'
       InserviceDate = '01.01.2018'
       SerialNumber  = '12A3B4C56B12345A6BC'
+      Confirm       = $true
       }
       New-UMSThinclient @NewUMSThinclientParams
-      Creates new thinclient with all possible attributes.
+      #Creates new thinclient with all possible attributes, after confirmation.
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
@@ -168,7 +168,10 @@
       serialNumber  = $SerialNumber
     } | ConvertTo-Json
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/' -f $Computername, $TCPPort, $ApiVersion
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+    if ($PSCmdlet.ShouldProcess('MAC-Address: {0}' -f $Mac))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+    }
   }
   End
   {

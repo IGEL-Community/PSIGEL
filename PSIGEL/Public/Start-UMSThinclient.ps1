@@ -24,17 +24,16 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-      Wakes up thin client with TCID 2433.
+      Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
+      #Wakes up thin client with TCID 48426.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      2433, 2435 | Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-      Wakes up thin clients with TCID 2433 and 2435.
+      48426, 2435 | Start-UMSThinclient -Computername 'UMSSERVER'
+      #Wakes up thin clients with TCID 48426 and 2435.
 
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (
     [Parameter(Mandatory)]
@@ -49,7 +48,6 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
@@ -62,30 +60,25 @@
   }
   Process
   {
-
-    $Body = foreach ($TCID in $TCIDColl)
+    Switch ($WebSession)
     {
-      @{
-        id = $TCID
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
+    foreach ($TCID in $TCIDColl)
+    {
+      $Body = @{
+        id   = $TCID
         type = "tc"
       } | ConvertTo-Json
+      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=wakeup' -f $Computername, $TCPPort, $ApiVersion
+      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+      {
+        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
+      }
     }
-
-    $URLEnd = '?command=wakeup'
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      Body        = '[{0}]' -f $Body
-      ContentType = 'application/json'
-      Method      = 'Post'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
   }
   End
   {

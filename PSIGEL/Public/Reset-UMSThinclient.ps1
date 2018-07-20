@@ -2,10 +2,12 @@
 {
   <#
       .Synopsis
-      Resets all thin clients listed in the request body to factory defaults.
+      Resets all thin clients listed in the request body to factory defaults and removes
+      them from the UMS completely (without recycle bin).
 
       .DESCRIPTION
-      Resets all thin clients listed in the request body to factory defaults.
+      Resets all thin clients listed in the request body to factory defaults and removes
+      them from the UMS completely (without recycle bin).
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -24,17 +26,16 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Reset-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100
-      Resets thin client with TCID 100 to factory defaults.
+      Reset-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 35828
+      #Resets thin client with TCID 35828 to factory defaults.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      100, 101 | Reset-UMSThinclient -Computername $Computername -WebSession $WebSession
-      Resets thin clients with TCID 100 and 101 to factory defaults.
+      100, 101 | Reset-UMSThinclient -Computername $Computername
+      #Resets thin clients with TCID 100 and 101 to factory defaults.
 
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (
     [Parameter(Mandatory)]
@@ -49,7 +50,6 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
@@ -62,29 +62,25 @@
   }
   Process
   {
-
-    $Body = foreach ($TCID in $TCIDColl)
+    Switch ($WebSession)
     {
-      @{
-        id = $TCID
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
+    foreach ($TCID in $TCIDColl)
+    {
+      $Body = @{
+        id   = $TCID
         type = "tc"
       } | ConvertTo-Json
+      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/?command=tcreset2facdefs' -f $Computername, $TCPPort, $ApiVersion
+      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+      {
+        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
+      }
     }
-
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/?command=tcreset2facdefs' -f $Computername, $TCPPort, $ApiVersion
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      Body        = '[{0}]' -f $Body
-      ContentType = 'application/json'
-      Method      = 'Post'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
   }
   End
   {

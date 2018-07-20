@@ -24,15 +24,15 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 28790
-      #Removes Profile with ProfileID 28790
+      Remove-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170
+      #Removes Profile with ProfileID 48170
 
       .EXAMPLE
-      48171 | Remove-UMSProfile -Computername 'UMSSERVER'
-      #Removes Profile with ProfileID 48171
+      48170 | Remove-UMSProfile -Computername 'UMSSERVER'
+      #Removes Profile with ProfileID 48170
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (
     [Parameter(Mandatory)]
@@ -67,7 +67,10 @@
       }
     }
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+    if ($PSCmdlet.ShouldProcess('ProfileID: {0}' -f $ProfileID))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+    }
   }
   End
   {

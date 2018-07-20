@@ -51,14 +51,12 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSThinclient -Computername $Computername -WebSession $WebSession -TCID 100 -Site 'Berlin'
-      Upates site of the thinclient to Berlin.
+      Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564' -Confirm
+      #Upates name of the thinclient to TC030564.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       $UpdateUMSThinclientParams = @{
       Computername  = 'UMSSERVER'
-      WebSession    = $WebSession
       TCID          = 100
       Name          = 'TC012345'
       ParentID      = '772'
@@ -72,10 +70,10 @@
       SerialNumber  = '12A3B4C56B12345A6BC'
       }
       Update-UMSThinclient @UpdateUMSThinclientParams
-      Updates thinclient with all possible attributes.
+      #Updates thinclient with all possible attributes.
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
@@ -90,7 +88,6 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
@@ -109,7 +106,7 @@
     [String]
     $CostCenter,
 
-    [ValidatePattern('^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$')]
+    [ValidateScript( {$_ -match [IPAddress]$_})]
     [String]
     $LastIP,
 
@@ -122,7 +119,7 @@
     [String]
     $InserviceDate,
 
-    [ValidateLength(19,19)]
+    [ValidateLength(19, 19)]
     [String]
     $SerialNumber
   )
@@ -132,6 +129,13 @@
   }
   Process
   {
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
     $HashTable = [ordered]@{}
     if ($Name)
     {
@@ -187,22 +191,12 @@
         serialNumber = $SerialNumber
       }
     }
-
     $Body = $HashTable | ConvertTo-Json
-
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}' -f $Computername, $TCPPort, $ApiVersion, $TCID
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      Body        = '{0}' -f $Body
-      ContentType = 'application/json'
-      Method      = 'Put'
-      WebSession  = $WebSession
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
     }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
   }
   End
   {

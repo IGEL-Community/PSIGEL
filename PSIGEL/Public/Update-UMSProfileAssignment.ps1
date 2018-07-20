@@ -30,16 +30,15 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCIDColl (100, 102)
-      Assigns the profile with ProfilID 471 to thin client with TCID 100.
+      Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 470 -TCID 48426
+      #Assigns the profile with ProfilID 470 to thin client with TCID 48426.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirIDColl 300
-      Assigns the profile with ProfilID 471 to thin client directory with DirID 300.
+      Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300
+      #Assigns the profile with ProfilID 471 to thin client directory with DirID 300.
   #>
 
-  [cmdletbinding()]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
@@ -54,20 +53,17 @@
     [Int]
     $ApiVersion = 3,
 
-    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory)]
     [int]
     $ProfileID,
 
-    [Parameter(Mandatory,
-      ParameterSetName = 'TC')]
+    [Parameter(Mandatory, ParameterSetName = 'TC')]
     [int]
     $TCID,
 
-    [Parameter(Mandatory,
-      ParameterSetName = 'Dir')]
+    [Parameter(Mandatory, ParameterSetName = 'Dir')]
     [int]
     $DirID
   )
@@ -77,7 +73,13 @@
   }
   Process
   {
-
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
     switch ($PSCmdlet.ParameterSetName)
     {
       'TC'
@@ -92,7 +94,8 @@
             type = 'tc'
           }
         } | ConvertTo-Json
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+        $UrlEnd = 'thinclients/'
+        $ID = $TCID
       }
       'Dir'
       {
@@ -106,20 +109,15 @@
             type = 'tcdirectory'
           }
         } | ConvertTo-Json
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+        $UrlEnd = 'tcdirectories/'
+        $ID = $DirID
       }
     }
-
-    $InvokeRestMethodParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      Body        = '[{0}]' -f $Body
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'PUT'
-      WebSession  = $WebSession
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $UrlEnd
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $ProfileID, $($PSCmdlet.ParameterSetName), $ID)))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
     }
-    Invoke-RestMethod @InvokeRestMethodParams
-
   }
   End
   {
