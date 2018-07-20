@@ -9,93 +9,90 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
-      API Version to use (2 or 3, Default: 3)
+      API Version to use (Default: 3)
 
       .Parameter WebSession
       Websession Cookie
 
       .PARAMETER ProfileID
       ProfileID to search for
-      
+
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -TCID 100
-      Deletes assignment of profile with ProfileID 471 to the thin cient with the TCID 100.
-      
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
+      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 470 -TCID 48426
+      #Deletes assignment of profile with ProfileID 470 to the thin cient with the TCID 48426.
+
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471 -DirID 300
-      Deletes assignment of profile with ProfileID 471 to the thin cient directory with the DirID 300.
+      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 48170 -DirID 185
+      #Deletes assignment of profile with ProfileID 48170 to the thin cient directory with the DirID 185.
   #>
-  
-  [cmdletbinding()]
+
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
-  ( 
-    [Parameter( Mandatory)]
+  (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 65535)]
     [Int]
     $TCPPort = 8443,
-   
-    [ValidateSet(2,3)]
+
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
-    
-    [Parameter(Mandatory)]
+
     $WebSession,
 
     [Parameter(Mandatory)]
     [int]
     $ProfileID,
-    
-    [Parameter(Mandatory, 
-    ParameterSetName = 'TC')]
+
+    [Parameter(Mandatory, ParameterSetName = 'TC')]
     [int]
     $TCID,
-    
-    [Parameter(Mandatory,
-    ParameterSetName = 'Dir')]
+
+    [Parameter(Mandatory, ParameterSetName = 'Dir')]
     [int]
     $DirID
   )
-	
+
   Begin
   {
   }
   Process
-  {   
-    
-    switch ($PSCmdlet.ParameterSetName)
+  {
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
+    Switch ($PSCmdlet.ParameterSetName)
     {
       'TC'
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $TCID
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername,
+        $TCPPort, $ApiVersion, $ProfileID, $TCID
+        $ID = $TCID
       }
       'Dir'
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $DirID
+        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername,
+        $TCPPort, $ApiVersion, $ProfileID, $DirID
+        $ID = $DirID
       }
     }
-    
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'DELETE'
-      WebSession  = $WebSession
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $ProfileID, $($PSCmdlet.ParameterSetName), $ID)))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
     }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
   }
   End
   {

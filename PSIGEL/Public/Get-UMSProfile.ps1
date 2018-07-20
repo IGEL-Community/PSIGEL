@@ -9,60 +9,64 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
-      API Version to use (2 or 3, Default: 3)
+      API Version to use (Default: 3)
 
       .Parameter WebSession
       Websession Cookie
 
       .PARAMETER ProfileID
       ThinclientID to search for
-      
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession | Out-Gridview
-      Gets information on all profiles on the UMS instance to Out-Gridview.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      100 | Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
-      Gets information on the profile with ProfileID 100.
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
+      Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
+      Gets information on all profiles on the UMS instance.
+
+      .EXAMPLE
+      499, 501 | Get-UMSProfile -Computername 'UMSSERVER'
+      Gets information on the profile with ProfileID 499 and 501.
 
   #>
-  
+
   [cmdletbinding()]
   param
-  ( 
-    [Parameter( Mandatory)]
+  (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 65535)]
     [Int]
     $TCPPort = 8443,
-   
-    [ValidateSet(2,3)]
+
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
-    
-    [Parameter(Mandatory)]
-    $WebSession,
-    
+
+    $WebSession = $false,
+
     [Parameter(ValueFromPipeline)]
     [int]
     $ProfileID = 0
   )
-	
+
   Begin
   {
   }
   Process
-  {   
-  
+  {
+    Switch ($WebSession)
+    {
+      $false
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
     Switch ($ProfileID)
     {
       0
@@ -73,20 +77,8 @@
       {
         $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
       }
-
     }
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json; charset=utf-8'
-      Method      = 'Get'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
   }
   End
   {

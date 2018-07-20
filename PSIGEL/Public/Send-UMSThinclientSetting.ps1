@@ -1,17 +1,17 @@
-﻿function Start-UMSThinclient
+﻿function Send-UMSThinclientSetting
 {
   <#
       .Synopsis
-      Wakes Up Thinclients (WOL) via API
+      Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
       .DESCRIPTION
-      Wakes Up Thinclients (WOL) via API
+      Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
       .PARAMETER Computername
       Computername of the UMS Server
 
       .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
+      TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
       API Version to use (Default: 3)
@@ -19,21 +19,21 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER TCID
-      ThinclientIDs to wake up
+      .PARAMETER TCIDColl
+      ThinclientIDs of the thinclients send settings to.
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
-      #Wakes up thin client with TCID 48426.
+      Send-UMSThinclientSetting -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Confirm
+      #Sends settings modified in the UMS database to thin client with TCID 48426 immediately.
 
       .EXAMPLE
-      48426, 2435 | Start-UMSThinclient -Computername 'UMSSERVER'
-      #Wakes up thin clients with TCID 48426 and 2435.
+      100, 101 | Send-UMSThinclientSetting -Computername $Computername
+      #Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately.
 
   #>
 
-  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
@@ -73,7 +73,7 @@
         id   = $TCID
         type = "tc"
       } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=wakeup' -f $Computername, $TCPPort, $ApiVersion
+      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=settings2tc' -f $Computername, $TCPPort, $ApiVersion
       if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
       {
         Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'

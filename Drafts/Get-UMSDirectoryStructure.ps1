@@ -5,7 +5,7 @@
       Gets Thinclient Directory Structure from MSSQL
 
       .DESCRIPTION
-      Gets Thinclient Directory Structure from MSSQL. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)	
+      Gets Thinclient Directory Structure from MSSQL. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
 
       .PARAMETER ServerInstance
       SQL ServerInstance  for the UMS-DB (e.g. 'SQLSERVER\RMDB')
@@ -30,7 +30,7 @@
           Schema         = 'igelums'
           Credential     = Get-Credential -Message 'Enter your credentials'
         }
-      $UMSDirectoryStructure = Get-UMSDirectoryStructure @GetUMSDirectoryStructureParams | 
+      $UMSDirectoryStructure = Get-UMSDirectoryStructure @GetUMSDirectoryStructureParams |
         Select-Object -Property Tier1Name, Tier2Name, Tier3Name, Tier4Name |
         Sort-Object -Property Tier1Name, Tier2Name, Tier3Name, Tier4Name |
         ConvertTo-Csv -Delimiter ';' -NoTypeInformation |
@@ -40,25 +40,34 @@
       [IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $UMSDirectoryStructure)
       Generates csv File, sorted and without Parenthesis , UTF8 stripped from BOM
   #>
-	
+
   Param
   (
     [Parameter(Mandatory)]
     [String]
     $ServerInstance,
-    
+
     [Parameter(Mandatory)]
     [String]
     $Database,
-    
+
     [Parameter(Mandatory)]
     [String]
     $Schema,
 
-    [PSCredential]
+    [ValidateNotNull()]
+    [System.Management.Automation.PSCredential]
+    [System.Management.Automation.Credential()]
     $Credential
   )
 
+  Switch ($Credential)
+  {
+    $null
+    {
+      $Credential = (Get-Credential -Message 'Enter your credentials')
+    }
+  }
 
   $Query = @"
 SELECT [DIRID]
@@ -67,22 +76,11 @@ SELECT [DIRID]
 FROM [$Database].[$Schema].[DIRECTORIES]
 "@
 
-  if ($Credential)
-  {
-    $InvokeSqlcmd2Params = @{
-      ServerInstance = $ServerInstance
-      Database       = $Database
-      Credential     = $Credential
-      Query          = $Query
-    }
-  }
-  else
-  {
-    $InvokeSqlcmd2Params = @{
-      ServerInstance = $ServerInstance
-      Database       = $Database
-      Query          = $Query
-    }
+  $InvokeSqlcmd2Params = @{
+    ServerInstance = $ServerInstance
+    Database       = $Database
+    Credential     = $Credential
+    Query          = $Query
   }
 
   $DirColl = Invoke-Sqlcmd2 @InvokeSqlcmd2Params

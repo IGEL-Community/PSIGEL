@@ -9,91 +9,84 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
       .PARAMETER ApiVersion
-      API Version to use (2 or 3, Default: 3)
+      API Version to use (Default: 3)
 
       .Parameter WebSession
       Websession Cookie
 
       .PARAMETER ProfileID
       ProfileID of the profile to update name
-     
+
       .Parameter Name
       New Name of the profile
-      
+
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Update-UMSProfileName -Computername $Computername -WebSession $WebSession -ProfileID 100 -Name 'NewProfileName'
-      Updates profile name to 'NewProfileName'
-      
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
+      Update-UMSProfileName -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170 -Name 'NewProfileName' -Confirm
+      #Updates profile name to 'NewProfileName'
+
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
       $UpdateUMSProfileNameParams = @{
           Computername  = 'UMSSERVER'
-          WebSession    = $WebSession
-          ProfileID     = 100
+          ProfileID     = 48170
           Name          = 'NewProfileName'
         }
       Update-UMSProfileName @UpdateUMSProfileNameParams
-      Updates profile name to 'NewProfileName'
+      #Updates profile name to 'NewProfileName'
   #>
-  
-  [cmdletbinding()]
+
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
-  ( 
-    [Parameter( Mandatory)]
+  (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 65535)]
     [Int]
     $TCPPort = 8443,
-   
-    [ValidateSet(2,3)]
+
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
-    
-    [Parameter(Mandatory)]
+
     $WebSession,
-    
+
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
     $ProfileID,
-    
+
     [String]
     $Name
   )
-	
+
   Begin
   {
   }
   Process
-  {   
-    
-    $Body = [ordered]@{
-        name = $Name
-      } | ConvertTo-Json
-        
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      Body        = '{0}' -f $Body
-      ContentType = 'application/json'
-      Method      = 'Put'
-      WebSession  = $WebSession
+  {
+    Switch ($WebSession)
+    {
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
     }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
+    $Body = [ordered]@{
+      name = $Name
+    } | ConvertTo-Json
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, new name: {1}' -f $ProfileID, $Name)))
+    {
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+    }
   }
   End
   {
   }
 }
-

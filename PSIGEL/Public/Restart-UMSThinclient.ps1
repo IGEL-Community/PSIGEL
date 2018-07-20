@@ -9,12 +9,12 @@
 
       .PARAMETER Computername
       Computername of the UMS Server
-      
+
       .PARAMETER TCPPort
       TCP Port API (Default: 8443)
 
       .PARAMETER ApiVersion
-      API Version to use (2 or 3, Default: 3)
+      API Version to use (Default: 3)
 
       .Parameter WebSession
       Websession Cookie
@@ -23,69 +23,62 @@
       ThinclientIDs to wake up
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-      Restarts thin client with TCID 2433.
-      
+      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
+      Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
+      #Restarts thin client with TCID 48426.
+
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER' -Username rmdb
-      2433, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession
-      Restarts thin clients with TCID 2433 and 2435.
+      48426, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER'
+      #Restarts thin clients with TCID 48426 and 2435.
 
   #>
-  
-  [cmdletbinding()]
+
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
-  ( 
-    [Parameter( Mandatory)]
+  (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0,49151)]
+    [ValidateRange(0, 65535)]
     [Int]
     $TCPPort = 8443,
-   
-    [ValidateSet(2,3)]
+
+    [ValidateSet(3)]
     [Int]
     $ApiVersion = 3,
-    
-    [Parameter(Mandatory)]
+
     $WebSession,
-    
+
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
     $TCIDColl
   )
-	
+
   Begin
   {
   }
   Process
   {
-  
-    $Body = foreach ($TCID in $TCIDColl)
+    Switch ($WebSession)
     {
-      @{
-        id = $TCID
+      $null
+      {
+        $WebSession = New-UMSAPICookie -Computername $Computername
+      }
+    }
+    foreach ($TCID in $TCIDColl)
+    {
+      $Body = @{
+        id   = $TCID
         type = "tc"
       } | ConvertTo-Json
+      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=reboot' -f $Computername, $TCPPort, $ApiVersion
+      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+      {
+        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
+      }
     }
-
-    $URLEnd = '?command=reboot'
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
-
-    $ThinclientsJSONCollParams = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      Body        = '[{0}]' -f $Body
-      ContentType = 'application/json'
-      Method      = 'Post'
-      WebSession  = $WebSession
-    }
-
-    $ThinclientsJSONColl = Invoke-RestMethod @ThinclientsJSONCollParams
-    $ThinclientsJSONColl
-
   }
   End
   {
