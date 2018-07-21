@@ -20,7 +20,7 @@
       Websession Cookie
 
       .PARAMETER TCID
-      ThinclientIDs to wake up
+      ThinclientIDs to shut down
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
