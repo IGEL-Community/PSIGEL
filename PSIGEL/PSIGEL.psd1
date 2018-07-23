@@ -83,6 +83,7 @@
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
     'Remove-UMSThinclient'
+    'Remove-UMSThinclientDirectory'
     'Reset-UMSThinclient'
     'Restart-UMSThinclient'
     'Send-UMSThinclientSetting'
