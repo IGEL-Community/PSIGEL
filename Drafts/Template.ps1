@@ -52,7 +52,7 @@ function Verb-UMSNoun
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $XYZIDColl
+    $XYZID
   )
 
   Begin
@@ -67,20 +67,18 @@ function Verb-UMSNoun
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    foreach ($XYZID in $XYZIDColl)
+    $Body = @{
+      id  = $XYZID
+      xyz = "xyz"
+    } | ConvertTo-Json
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/xyz?abc' -f $Computername, $TCPPort, $ApiVersion
+    if ($PSCmdlet.ShouldProcess('XYZID: {0}' -f $XYZID))
     {
-      $Body = @{
-        id  = $XYZID
-        xyz = "xyz"
-      } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/xyz?abc' -f $Computername, $TCPPort, $ApiVersion
-      if ($PSCmdlet.ShouldProcess('XYZID: {0}' -f $XYZID))
-      {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Post'
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Post'
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
-      }
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Post'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
     }
+
   }
   End
   {
