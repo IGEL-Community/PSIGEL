@@ -91,6 +91,7 @@
     'Stop-UMSThinclient'
     'Update-UMSJobStartDate'
     'Update-UMSProfileAssignment'
+    'Update-UMSProfileDirectoryName'
     'Update-UMSProfileName'
     'Update-UMSThinclient'
     'Update-UMSThinclientDirectoryName'
