@@ -61,6 +61,7 @@
     [int]
     $ProfileID,
 
+    [Parameter(Mandatory)]
     [String]
     $Name
   )
