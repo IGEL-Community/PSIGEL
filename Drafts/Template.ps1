@@ -52,7 +52,7 @@ function Verb-UMSNoun
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $ID
+    $XYZIDColl
   )
 
   Begin
