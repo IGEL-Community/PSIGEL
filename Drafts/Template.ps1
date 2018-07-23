@@ -1,4 +1,4 @@
-<function Verb-UMSNoun
+function Verb-UMSNoun
 {
   <#
       .Synopsis
@@ -19,12 +19,12 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER TCID
-      ThinclientIDs to shut down
+      .PARAMETER XYZID
+      XYZIDs to VERB
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Verb-UMSNoun -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
+      Verb-UMSNoun -Computername 'UMSSERVER' -WebSession $WebSession -XYZID 48426
       #...
 
       .EXAMPLE
@@ -70,11 +70,11 @@
     foreach ($XYZID in $XYZIDColl)
     {
       $Body = @{
-        id   = $XYZID
+        id  = $XYZID
         xyz = "xyz"
       } | ConvertTo-Json
       $SessionURL = 'https://{0}:{1}/umsapi/v{2}/xyz?abc' -f $Computername, $TCPPort, $ApiVersion
-      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $XYZID))
+      if ($PSCmdlet.ShouldProcess('XYZID: {0}' -f $XYZID))
       {
         Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Post'
         Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Post'
