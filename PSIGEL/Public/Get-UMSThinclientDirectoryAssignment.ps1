@@ -52,7 +52,7 @@ function Get-UMSThinclientDirectoryAssignment
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $DIRIDColl
+    $DIRID
   )
 
   Begin
@@ -67,15 +67,9 @@ function Get-UMSThinclientDirectoryAssignment
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    foreach ($DIRID in $DIRIDColl)
-    {
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $Computername,
-      $TCPPort, $ApiVersion, $DIRID
-      if ($PSCmdlet.ShouldProcess('DIRID: {0}' -f $DIRID))
-      {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
-      }
-    }
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $Computername,
+    $TCPPort, $ApiVersion, $DIRID
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
   }
   End
   {
