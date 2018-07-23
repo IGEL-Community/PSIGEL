@@ -1,5 +1,4 @@
-﻿#requires -Version 3.0
-function Get-UMSThinclientDirectory
+﻿function Get-UMSThinclientDirectory
 {
   <#
       .Synopsis
