@@ -77,6 +77,7 @@
     'Get-UMSThinclient'
     'Get-UMSThinclientAssignment'
     'Get-UMSThinclientDirectory'
+    'Get-UMSThinclientDirectoryAssignment'
     'Get-UMSView'
     'New-UMSAPICookie'
     'New-UMSThinclient'
