@@ -23,10 +23,7 @@
       [Default: Today] Specifies the time since the thinclient reported last to the UMS in Format 'yyyy-MM-dd 00:00:00'
 
       .EXAMPLE
-      Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB'
-
-      .EXAMPLE
-      Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB' -NumberTotal 10 -NumberPerDirName 2 | Out-GridView
+      Get-UMSThinclientToUpdate -ServerInstance 'SQLSERVER\RMDB' -NumberTotal 10 -NumberPerDirName 2
 
       .NOTES
       Other than the associated Universal Firmware Update, the Update Profiles in use for Updates (System -> Updates -> Firmwareupdate / Buddy Update)
@@ -179,35 +176,35 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
   $regexLASTKNOWNIP = [regex] '\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
 
   $TCColl = Invoke-Sqlcmd2 -ServerInstance $ServerInstance -Query $Query |
-  Where-Object -FilterScript {
+    Where-Object -FilterScript {
     [datetime]$_.LOGTIME -ge $LogTime
   } |
-  #all TCs which were online / logged with ums today
+    #all TCs which were online / logged with ums today
   Select-Object -Property TCNAME, TCID, MACADDRESS, LASTKNOWNIP, LOGTIME, PRODUCTID, @{
     Name       = 'HASVERSION'
     Expression = {
       (($RegexVERSION).Matches(($_.HASVERSION)) |
-        ForEach-Object -Process {
+          ForEach-Object -Process {
           $_.value
-      })
+        })
     }
   }, DIRNAME, @{
     Name       = 'GETVERSION'
     Expression = {
       (($RegexVERSION).Matches(($_.GETVERSION)) |
-        ForEach-Object -Process {
+          ForEach-Object -Process {
           $_.value
-      })
+        })
     }
   }, DIRID |
-  Where-Object -FilterScript {
+    Where-Object -FilterScript {
     $_.HASVERSION -lt $_.GETVERSION
   }
 
   [int]$NumberTotalCount = 0
   $UMSThinclientToUpdate = foreach ($Dirname in ($TCColl.DIRNAME |
-      Select-Object -Unique |
-  Sort-Object))
+        Select-Object -Unique |
+        Sort-Object))
   {
     $TCDirColl = $TCColl | Where-Object -FilterScript {
       $_.DIRNAME -eq $Dirname
@@ -224,21 +221,21 @@ WHERE TC.[PARDIRID] = PROFDIR.[DIRID]
         if ($StatusCode -eq 0)
         {
           $TCIDCollProps = @{
-            'TCNAME' = $TCDir.TCNAME
-            'TCID' = $TCDir.TCID
-            'MACADDRESS' = $TCDir.MACADDRESS
+            'TCNAME'      = $TCDir.TCNAME
+            'TCID'        = $TCDir.TCID
+            'MACADDRESS'  = $TCDir.MACADDRESS
             'LASTKNOWNIP' = $TCDir.LASTKNOWNIP
-            'LOGTIME' = $TCDir.LOGTIME
-            'PRODUCTID' = $TCDir.PRODUCTID
-            'DIRNAME' = $TCDir.DIRNAME
-            'DIRID' = $TCDir.DIRID
-            'HASVERSION' = $TCDir.HASVERSION
-            'GETVERSION' = $TCDir.GETVERSION
+            'LOGTIME'     = $TCDir.LOGTIME
+            'PRODUCTID'   = $TCDir.PRODUCTID
+            'DIRNAME'     = $TCDir.DIRNAME
+            'DIRID'       = $TCDir.DIRID
+            'HASVERSION'  = $TCDir.HASVERSION
+            'GETVERSION'  = $TCDir.GETVERSION
           }
           New-Object -TypeName psObject -Property $TCIDCollProps
 
-        $NumberTotalCount++
-        $NumberPerDirNameCount++
+          $NumberTotalCount++
+          $NumberPerDirNameCount++
         }
         $i++
       }
