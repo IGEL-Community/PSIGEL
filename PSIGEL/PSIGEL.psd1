@@ -93,6 +93,7 @@
     'Update-UMSProfileAssignment'
     'Update-UMSProfileName'
     'Update-UMSThinclient'
+    'Update-UMSThinclientDirectoryName'
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.

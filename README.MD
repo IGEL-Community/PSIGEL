@@ -43,6 +43,7 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 * Update-UMSProfileAssignment
 * Update-UMSProfileName
 * Update-UMSThinclient
+* Update-UMSThinclientDirectoryName
 
 ## MSSQL
 
