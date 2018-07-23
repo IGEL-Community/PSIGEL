@@ -19,6 +19,9 @@
       .Parameter WebSession
       Websession Cookie
 
+      .PARAMETER Children
+      Switch for recursively listing children (Default false)
+
       .PARAMETER DirID
       DirID to search for
 
@@ -29,7 +32,7 @@
 
       .EXAMPLE
       (50 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-      #Gets information on Thin client directories with DirID 50, listing their children.
+      #Gets children of thinclient directory with DirID 50.
   #>
 
   [CmdletBinding()]
