@@ -36,8 +36,8 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      2433 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
-      #Gets shadow-information on Thinclient with TCID 2433.
+      2433, 2344 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
+      #Gets shadow-information on Thinclient with TCID 2433, 2433
 
   #>
 
