@@ -49,6 +49,10 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 * Get-UMSView
 * Update-UMSJobStartDate
 
+## Scripts
+
+* GetUMSDirectoryStructure
+
 ## Other
 
 * Invoke-Sqlcmd2
