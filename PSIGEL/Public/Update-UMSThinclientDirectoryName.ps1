@@ -28,11 +28,11 @@ function Update-UMSThinclientDirectoryName
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49289 -Name 'NewDirName'
-      #Updates profile name to 'NewDirName'
+      #Updates thinclient directory name to 'NewDirName'
 
       .EXAMPLE
       49289 | Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'
-      #Updates profile name to 'NewDirName'
+      #Updates thinclient directory name to 'NewDirName'
 
   #>
 
