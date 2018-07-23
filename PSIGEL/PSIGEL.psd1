@@ -72,6 +72,7 @@
     'Get-UMSFirmware'
     'Get-UMSJob'
     'Get-UMSProfile'
+    'Get-UMSProfileDirectory'
     'Get-UMSProfileAssignment'
     'Get-UMSStatus'
     'Get-UMSThinclient'

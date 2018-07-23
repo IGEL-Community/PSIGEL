@@ -24,6 +24,7 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 
 * Get-UMSFirmware
 * Get-UMSProfile
+* Get-UMSProfileDirectory
 * Get-UMSProfileAssignment
 * Get-UMSStatus
 * Get-UMSThinclient
