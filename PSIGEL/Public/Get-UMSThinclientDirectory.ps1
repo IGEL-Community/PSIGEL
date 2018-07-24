@@ -28,16 +28,25 @@
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession
-      #Gets information on all Thin Client Directories.
+      #Gets information on all Thinclient Directories
 
       .EXAMPLE
-      (50 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-      #Gets children of thinclient directory with DirID 50.
+      (Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren | Select-Object -First 10
+      #Gets information on all children of the thinclient Directories, selects first 10
+
+      .EXAMPLE
+      Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DIRID 772
+      #Gets information on a specific Thinclient Directory
+
+      .EXAMPLE
+      (772 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+      #Gets children of Thinclient Directory with DirID 772.
   #>
 
-  [CmdletBinding()]
+  [cmdletbinding(DefaultParameterSetName = 'Overview')]
   param
   (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
@@ -54,7 +63,7 @@
     [switch]
     $Children,
 
-    [Parameter(ValueFromPipeline)]
+    [Parameter(ParameterSetName = 'DIR', Mandatory, ValueFromPipeline)]
     [int]
     $DirID
   )
@@ -71,31 +80,40 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories' -f $Computername, $TCPPort, $ApiVersion
-    Switch ($Children)
+    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion
+    Switch ($PSCmdlet.ParameterSetName)
     {
-      $false
+      'Overview'
       {
-        $URLEnd = ''
+        Switch ($Children)
+        {
+          $false
+          {
+            $URLEnd = ''
+          }
+          default
+          {
+            $URLEnd = '?facets=children'
+          }
+        }
       }
-      default
+      'DIR'
       {
-        $URLEnd = '?facets=children'
+        Switch ($Children)
+        {
+          $false
+          {
+            $URLEnd = ('{0}' -f $DIRID)
+          }
+          default
+          {
+            $URLEnd = ('{0}?facets=children' -f $DIRID)
+          }
+        }
       }
     }
-    Switch ($DirID)
-    {
-      0
-      {
-        $SessionURL = '{0}{1}' -f $BaseURL, $URLEnd
-        (Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get').SyncRoot
-      }
-      default
-      {
-        $SessionURL = '{0}/{1}{2}' -f $BaseURL, $DirID, $URLEnd
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
-      }
-    }
+    $SessionURL = ('{0}/{1}' -f $BaseURL, $URLEnd)
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
   }
   End
   {
