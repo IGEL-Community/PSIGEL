@@ -23,11 +23,12 @@ function Move-UMSThinclient
       TCIDs to move
 
       .PARAMETER DIRID
-    , TCID: {2} DIRID to , $TCIDmove to
+      DIRID to move to
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49552 -TCID 49282
+      Move-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49552 -TCID 49282 -Confirm
+      #Moves Thinclient into the specified Thinclient Directory
 
       .EXAMPLE
       49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DIRID 49289
