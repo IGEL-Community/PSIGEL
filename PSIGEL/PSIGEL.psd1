@@ -82,6 +82,7 @@
     'Get-UMSView'
     'New-UMSAPICookie'
     'New-UMSThinclient'
+    'Move-UMSProfile'
     'Move-UMSThinclient'
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
