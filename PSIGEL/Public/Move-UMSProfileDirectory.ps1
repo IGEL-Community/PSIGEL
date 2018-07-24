@@ -2,10 +2,10 @@ function Move-UMSProfileDirectory
 {
   <#
       .Synopsis
-      Moves Profiles into the specified Profile Directory via API
+      Moves Profile Directories into the specified Profile Directory via API
 
       .DESCRIPTION
-      Moves Profiles into the specified Profile Directory via API
+      Moves Profile Directories into the specified Profile Directory via API
 
       .PARAMETER Computername
       Computername of the UMS Server

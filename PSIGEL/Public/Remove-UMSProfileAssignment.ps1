@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Deletes assignment of the specified profile to the specified thin cient or thin client directory.
+      Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
 
       .DESCRIPTION
-      Deletes assignment of the specified profile to the specified thin cient or thin client directory.
+      Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -25,11 +25,11 @@
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
       Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 470 -TCID 48426
-      #Deletes assignment of profile with ProfileID 470 to the thin cient with the TCID 48426.
+      #Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
       .EXAMPLE
       Remove-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 48170 -DirID 185
-      #Deletes assignment of profile with ProfileID 48170 to the thin cient directory with the DirID 185.
+      #Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.
   #>
 
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
