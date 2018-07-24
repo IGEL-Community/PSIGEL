@@ -5,7 +5,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) or MSSQL-Datab
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie):
 
 ```powershell
-$Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums
+$Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443
 ```
 
 If you did not provide a websession-cookie, one will be created.
