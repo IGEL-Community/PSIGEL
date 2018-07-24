@@ -29,7 +29,7 @@ function New-UMSThinclientDirectory
 
       .EXAMPLE
       'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'
-      #Creates a Thinclient Directories with names 'NewTcDir1' and 'NewTcDir2'
+      #Creates Thinclient Directories with names 'NewTcDir1' and 'NewTcDir2'
 
   #>
 
