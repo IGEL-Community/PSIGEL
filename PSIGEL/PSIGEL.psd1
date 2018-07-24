@@ -84,6 +84,7 @@
     'New-UMSThinclient'
     'Move-UMSProfile'
     'Move-UMSThinclient'
+    'Move-UMSThinclientDirectory'
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
     'Remove-UMSThinclient'
