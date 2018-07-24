@@ -8,7 +8,7 @@
       Gets View from UMS-DB
 
       .PARAMETER ServerInstance
-      SQL ServerInstance  for the UMS-DB (e.g. 'SQLSERVER\RMDB')
+      SQL ServerInstance for the UMS-DB (e.g. 'SQLSERVER\RMDB')
 
       .PARAMETER Database
       SQL Database  for the UMS-DB (e.g. 'RMDB')
@@ -24,12 +24,13 @@
       ViewIDs to search for
 
       .EXAMPLE
-      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 525870
-      Gets View with ViewID "525870"
+      $Credential = Get-Credential
+      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 558
+      #Gets View with ViewID "558"
 
       .EXAMPLE
-      513934, 513333 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
-      Gets Views with ViewID "513934" and "513333"
+      558, 560 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
+      #Gets Views with ViewID "558" and "560"
   #>
 
   [cmdletbinding()]
@@ -75,7 +76,6 @@
         Database       = $Database
       }
     }
-
     if (!$ViewIDColl)
     {
       $Query = (@'
@@ -88,8 +88,6 @@ FROM [{0}].[{1}].[TCVIEWS]
     {
       Foreach ($ViewID in $ViewIDColl)
       {
-        $ViewId
-        #<#
         $Query = ((@"
 SELECT *
 FROM [{0}].[{1}].[TCVIEWS]
