@@ -94,7 +94,6 @@ FROM [{0}].[{1}].[TCVIEWS]
 WHERE VIEWID = '{2}'
 "@ -f $Database, $Schema, $ViewID))
         Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
-        #>
       }
     }
   }

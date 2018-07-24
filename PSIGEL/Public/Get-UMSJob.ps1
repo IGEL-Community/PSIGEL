@@ -94,7 +94,6 @@ FROM [{0}].[{1}].[JOB]
 WHERE ID = '{2}'
 "@ -f $Database, $Schema, $JobID))
         Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
-        #>
       }
     }
   }
