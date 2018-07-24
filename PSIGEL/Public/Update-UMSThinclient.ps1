@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Updates a thinclient from Rest API.
+      Updates properties of a Thinclient from Rest API.
 
       .DESCRIPTION
-      Updates a thinclient from Rest API.
+      Updates properties of a Thinclient from Rest API.
 
       .PARAMETER Computername
       Computername of the UMS Server

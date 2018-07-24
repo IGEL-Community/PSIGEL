@@ -2,10 +2,10 @@
 {
   <#
       .Synopsis
-      Assigns a profile to a thin clients or a thin client directory.
+      Assigns a profile to a Thinclient or a tThinclient directory.
 
       .DESCRIPTION
-      Assigns a profile to a thin clients or a thin client directory.
+      Assigns a profile to a Thinclient or a tThinclient directory.
 
       .PARAMETER Computername
       Computername of the UMS Server

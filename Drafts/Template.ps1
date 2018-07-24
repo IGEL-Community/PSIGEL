@@ -1,11 +1,11 @@
-﻿function Stop-UMSThinclient
+function Verb-UMSNoun
 {
   <#
       .Synopsis
-      Shuts Down Thinclients via API
+      ... via API
 
       .DESCRIPTION
-      Shuts Down Thinclients via API
+      ... via API
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -19,17 +19,17 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER TCID
-      ThinclientIDs to shut down
+      .PARAMETER XYZID
+      XYZIDs to VERB
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
-      #Shuts down thin client with TCID 48426.
+      Verb-UMSNoun -Computername 'UMSSERVER' -WebSession $WebSession -XYZID 48426
+      #...
 
       .EXAMPLE
-      48426, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER'
-      #Shuts down thin clients with TCID 48426 and 2435.
+      ..., ... | Verb-UMSNoun -Computername 'UMSSERVER'
+      #...
 
   #>
 
@@ -52,7 +52,7 @@
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $XYZID
   )
 
   Begin
@@ -67,17 +67,16 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    foreach ($TCID in $TCIDColl)
+    $Body = @{
+      id  = $XYZID
+      xyz = "xyz"
+    } | ConvertTo-Json
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/xyz?abc' -f $Computername, $TCPPort, $ApiVersion
+    if ($PSCmdlet.ShouldProcess('XYZID: {0}' -f $XYZID))
     {
-      $Body = @{
-        id   = $TCID
-        type = "tc"
-      } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=shutdown' -f $Computername, $TCPPort, $ApiVersion
-      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
-      {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
-      }
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Post'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
     }
   }
   End

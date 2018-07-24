@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '1.1.0'
+  ModuleVersion     = '1.1.1'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
@@ -72,17 +72,27 @@
     'Get-UMSFirmware'
     'Get-UMSJob'
     'Get-UMSProfile'
+    'Get-UMSProfileDirectory'
     'Get-UMSProfileAssignment'
     'Get-UMSStatus'
     'Get-UMSThinclient'
     'Get-UMSThinclientAssignment'
     'Get-UMSThinclientDirectory'
+    'Get-UMSThinclientDirectoryAssignment'
     'Get-UMSView'
+    'Move-UMSProfile'
+    'Move-UMSProfileDirectory'
+    'Move-UMSThinclient'
+    'Move-UMSThinclientDirectory'
     'New-UMSAPICookie'
+    'New-UMSProfileDirectory'
     'New-UMSThinclient'
+    'New-UMSThinclientDirectory'
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
+    'Remove-UMSProfileDirectory'
     'Remove-UMSThinclient'
+    'Remove-UMSThinclientDirectory'
     'Reset-UMSThinclient'
     'Restart-UMSThinclient'
     'Send-UMSThinclientSetting'
@@ -90,8 +100,10 @@
     'Stop-UMSThinclient'
     'Update-UMSJobStartDate'
     'Update-UMSProfileAssignment'
+    'Update-UMSProfileDirectoryName'
     'Update-UMSProfileName'
     'Update-UMSThinclient'
+    'Update-UMSThinclientDirectoryName'
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.

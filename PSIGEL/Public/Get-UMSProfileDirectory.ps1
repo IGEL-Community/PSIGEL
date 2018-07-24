@@ -1,17 +1,17 @@
-﻿function Get-UMSThinclientDirectory
+function Get-UMSProfileDirectory
 {
   <#
       .Synopsis
-      Gets information on Thin Client Directories from API.
+      Gets information on Profile Directories via API
 
       .DESCRIPTION
-      Gets information on Thin Client Directories from API.
+      Gets information on Profile Directories via API
 
       .PARAMETER Computername
       Computername of the UMS Server
 
       .PARAMETER TCPPort
-      TCP Port (Default: 8443)
+      TCP Port API (Default: 8443)
 
       .PARAMETER ApiVersion
       API Version to use (Default: 3)
@@ -22,25 +22,26 @@
       .PARAMETER Children
       Switch for recursively listing children (Default false)
 
-      .PARAMETER DirID
-      DirID to search for
+      .PARAMETER DIRID
+      DIRIDs to get information of
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession
-      #Gets information on all Thinclient Directories
+      Get-UMSProfileDirectory -Computername 'UMSSERVER' -WebSession $WebSession
+      #Gets information on all Profile Directories
 
       .EXAMPLE
-      (Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren | Select-Object -First 10
-      #Gets information on all children of the thinclient Directories, selects first 10
+      (Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+      #Gets information on all children of the Profile Directories
 
       .EXAMPLE
-      Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DIRID 772
-      #Gets information on a specific Thinclient Directory
+      Get-UMSProfileDirectory -Computername 'UMSSERVER' -DIRID 421
+      #Gets information on a specific Profile Directory
 
       .EXAMPLE
-      (772 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-      #Gets children of Thinclient Directory with DirID 772.
+      (421 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+      #Gets children of Profile Directory with DirID 421.
+
   #>
 
   [cmdletbinding(DefaultParameterSetName = 'Overview')]
@@ -60,12 +61,12 @@
 
     $WebSession,
 
-    [switch]
+    [Switch]
     $Children,
 
     [Parameter(ParameterSetName = 'DIR', Mandatory, ValueFromPipeline)]
-    [int]
-    $DirID
+    [Int]
+    $DIRID
   )
 
   Begin
@@ -80,7 +81,7 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion
+    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $Computername, $TCPPort, $ApiVersion
     Switch ($PSCmdlet.ParameterSetName)
     {
       'Overview'
@@ -119,4 +120,3 @@
   {
   }
 }
-

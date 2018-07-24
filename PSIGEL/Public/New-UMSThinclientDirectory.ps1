@@ -1,17 +1,17 @@
-﻿function Update-UMSProfileName
+function New-UMSThinclientDirectory
 {
   <#
       .Synopsis
-      Updates a profile name.
+      Creates a Thinclient Directory via API
 
       .DESCRIPTION
-      Updates a profile name.
+      Creates a Thinclient Directory via API
 
       .PARAMETER Computername
       Computername of the UMS Server
 
       .PARAMETER TCPPort
-      TCP Port (Default: 8443)
+      TCP Port API (Default: 8443)
 
       .PARAMETER ApiVersion
       API Version to use (Default: 3)
@@ -19,25 +19,18 @@
       .Parameter WebSession
       Websession Cookie
 
-      .PARAMETER ProfileID
-      ProfileID of the profile to update name
-
-      .Parameter Name
-      New Name of the profile
+      .PARAMETER Name
+      Name of the Thinclient Directory to create
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSProfileName -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170 -Name 'NewProfileName' -Confirm
-      #Updates profile name to 'NewProfileName'
+      New-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Name 'NewTcDir1' -Confirm
+      #Creates a Thinclient Directory with name 'NewTcDir1'
 
       .EXAMPLE
-      $UpdateUMSProfileNameParams = @{
-          Computername  = 'UMSSERVER'
-          ProfileID     = 48170
-          Name          = 'NewProfileName'
-        }
-      Update-UMSProfileName @UpdateUMSProfileNameParams
-      #Updates profile name to 'NewProfileName'
+      'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'
+      #Creates Thinclient Directories with names 'NewTcDir1' and 'NewTcDir2'
+
   #>
 
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
@@ -58,10 +51,6 @@
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
-    [int]
-    $ProfileID,
-
-    [Parameter(Mandatory)]
     [String]
     $Name
   )
@@ -78,11 +67,11 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $Body = [ordered]@{
+    $Body = @{
       name = $Name
     } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, new name: {1}' -f $ProfileID, $Name)))
+    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion
+    if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
       Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
     }

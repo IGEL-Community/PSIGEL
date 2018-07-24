@@ -80,7 +80,32 @@ function Invoke-UMSRestMethodWebSession
         }
       }
     }
-    Invoke-RestMethod @Params
+    try
+    {
+      Invoke-RestMethod @Params -ErrorAction Stop
+    }
+    catch [System.Net.WebException]
+    {
+      switch ($($PSItem.Exception.Response.StatusCode.value__))
+      {
+        400
+        {
+          Write-Warning -Message ('Error executing IMI RestAPI request. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+        }
+        401
+        {
+          Write-Warning -Message ('Error logging in, it seems as you have entered invalid credentials. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+        }
+        403
+        {
+          Write-Warning -Message ('Error logging in, it seems as you have not subscripted this version of IMI. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+        }
+        default
+        {
+          Write-Warning -Message ('Some error occured see HTTP status code for further details. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+        }
+      }
+    }
   }
   end
   {
