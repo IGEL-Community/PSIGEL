@@ -22,16 +22,16 @@ function Move-UMSProfile
       .PARAMETER ProfileID
       ProfileIDs to move
 
-      .PARAMETER DIRID
-      DIRID to move to
+      .PARAMETER DDIRID
+      DDIRID to move to
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49339 -ProfileID 48440 -Confirm
+      Move-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -DDIRID 49339 -ProfileID 48440 -Confirm
       #Moves Profile into the specified Profile Directory
 
       .EXAMPLE
-      48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DIRID 28793
+      48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DDIRID 28793
       #Moves Profiles into the specified Profile Directory
 
   #>
@@ -59,7 +59,7 @@ function Move-UMSProfile
 
     [Parameter(Mandatory)]
     [int]
-    $DIRID
+    $DDIRID
   )
 
   Begin
@@ -79,8 +79,8 @@ function Move-UMSProfile
       type = "profile"
     } | ConvertTo-Json
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $Computername,
-    $TCPPort, $ApiVersion, $DIRID
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DIRID: {1}' -f $ProfileID, $DIRID)))
+    $TCPPort, $ApiVersion, $DDIRID
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $ProfileID, $DDIRID)))
     {
       Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
     }

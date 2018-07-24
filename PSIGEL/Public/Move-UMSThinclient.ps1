@@ -22,16 +22,16 @@ function Move-UMSThinclient
       .PARAMETER TCID
       TCIDs to move
 
-      .PARAMETER DIRID
-      DIRID to move to
+      .PARAMETER DDIRID
+      DDIRID to move to
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49552 -TCID 49282 -Confirm
+      Move-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -DDIRID 49552 -TCID 49282 -Confirm
       #Moves Thinclient into the specified Thinclient Directory
 
       .EXAMPLE
-      49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DIRID 49289
+      49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289
       #Moves Thinclients into the specified Thinclient Directory
 
   #>
@@ -59,7 +59,7 @@ function Move-UMSThinclient
 
     [Parameter(Mandatory)]
     [int]
-    $DIRID
+    $DDIRID
   )
 
   Begin
@@ -79,8 +79,8 @@ function Move-UMSThinclient
       type = "tc"
     } | ConvertTo-Json
     $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}?operation=move' -f $Computername,
-    $TCPPort, $ApiVersion, $DIRID
-    if ($PSCmdlet.ShouldProcess(('TCID: {0} to DIRID: {1}' -f $TCID, $DIRID)))
+    $TCPPort, $ApiVersion, $DDIRID
+    if ($PSCmdlet.ShouldProcess(('TCID: {0} to DDIRID: {1}' -f $TCID, $DDIRID)))
     {
       Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
     }
