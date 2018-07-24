@@ -81,6 +81,7 @@
     'Get-UMSThinclientDirectoryAssignment'
     'Get-UMSView'
     'New-UMSAPICookie'
+    'New-UMSProfileDirectory'
     'New-UMSThinclient'
     'New-UMSThinclientDirectory'
     'Move-UMSProfile'

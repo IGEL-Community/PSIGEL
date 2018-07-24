@@ -32,6 +32,7 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 * Get-UMSThinclientDirectory
 * Get-UMSThinclientDirectoryAssignment
 * New-UMSAPICookie
+* New-UMSProfileDirectory
 * New-UMSThinclient
 * New-UMSThinclientDirectory
 * Move-UMSProfile
