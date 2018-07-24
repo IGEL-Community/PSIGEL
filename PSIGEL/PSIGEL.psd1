@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '1.1.0'
+  ModuleVersion     = '1.1.1'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
@@ -90,6 +90,7 @@
     'Move-UMSThinclientDirectory'
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
+    'Remove-UMSProfileDirectory'
     'Remove-UMSThinclient'
     'Remove-UMSThinclientDirectory'
     'Reset-UMSThinclient'

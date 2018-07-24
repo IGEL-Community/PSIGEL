@@ -41,6 +41,7 @@ My goal is to support all the [API-functionalities](http://edocs.igel.com/manual
 * Move-UMSThinclientDirectory
 * Remove-UMSProfile
 * Remove-UMSProfileAssignment
+* Remove-UMSProfileDirectory
 * Remove-UMSThinclient
 * Remove-UMSThinclientDirectory
 * Reset-UMSThinclient
