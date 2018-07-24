@@ -83,6 +83,7 @@
     'New-UMSAPICookie'
     'New-UMSThinclient'
     'Move-UMSProfile'
+    'Move-UMSProfileDirectory'
     'Move-UMSThinclient'
     'Move-UMSThinclientDirectory'
     'Remove-UMSProfile'
