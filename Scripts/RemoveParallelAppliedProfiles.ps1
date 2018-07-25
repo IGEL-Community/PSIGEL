@@ -107,10 +107,11 @@ if ($ProfileTCColl)
     {
       $ProfileId |
         Remove-UMSProfileAssignment -TCID $ProfileTC.TCID -Confirm
+      Write-Output ('Profile with ID {0} was removed from Thinclient with ID {1}' -f $ProfileId, $ProfileTC.TCID )
     }
   }
 }
 else
 {
-  Write-Output 'No Update Profile is assigned more than once to one ThinClient.'
+  Write-Output 'No Profile is assigned more than once to one ThinClient.'
 }
