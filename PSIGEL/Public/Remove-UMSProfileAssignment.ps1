@@ -28,7 +28,7 @@
       #Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
       .EXAMPLE
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 48170 -DirID 185
+      48170  | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
       #Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.
   #>
 
@@ -49,7 +49,7 @@
 
     $WebSession,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ValueFromPipeline)]
     [int]
     $ProfileID,
 
