@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '1.1.1'
+  ModuleVersion     = '1.1.2'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
@@ -69,8 +69,11 @@
 
   # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
   FunctionsToExport = @(
+    'Get-UMSFile'
+    'Get-UMSFileDirectory'
     'Get-UMSFirmware'
     'Get-UMSJob'
+    'Get-UMSJobDirectory'
     'Get-UMSProfile'
     'Get-UMSProfileDirectory'
     'Get-UMSProfileAssignment'
@@ -80,6 +83,7 @@
     'Get-UMSThinclientDirectory'
     'Get-UMSThinclientDirectoryAssignment'
     'Get-UMSView'
+    'Get-UMSViewDirectory'
     'Move-UMSProfile'
     'Move-UMSProfileDirectory'
     'Move-UMSThinclient'

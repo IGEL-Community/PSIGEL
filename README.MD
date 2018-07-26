@@ -5,7 +5,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI) or MSSQL-Datab
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie):
 
 ```powershell
-$Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443 -Username igelums
+$Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443
 ```
 
 If you did not provide a websession-cookie, one will be created.
@@ -46,11 +46,11 @@ Master Profile |API|-|API|API|API
 Master Profile Directory |API|API|API|API|API
 Thin Client Directory |[API](#get-umsthinclientdirectory)|[API](#new-umsthinclientdirectory)|[API](#update-umsthinclientdirectoryname)|[API](#move-umsthinclientdirectory)|[API](#remove-umsthinclientdirectory)
 |View |[SQL](#get-umsview)|-|SQL|-|-
-View Directory |SQL|-|SQL|-|-
+View Directory |[SQL](#get-umsviewdirectory)|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
-Job Directory |SQL|-|SQL|-|-
-File |SQL|-|-|-|-
-File Directory |SQL|-|-|-|-
+Job Directory |[SQL](#Get-umsjobdirectory)|-|SQL|-|-
+File |[SQL](#get-umsfile)|-|-|-|-
+File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
 
 ### Assignment
 
@@ -63,6 +63,14 @@ Master Profile |API|-|-
 
 ## Functions
 
+### Get-UMSFile
+
+Gets Files.
+
+### Get-UMSFileDirectory
+
+Gets File Directories.
+
 ### Get-UMSFirmware
 
 Gets information on all firmwares known to the UMS.
@@ -70,6 +78,10 @@ Gets information on all firmwares known to the UMS.
 ### Get-UMSJob
 
 Gets Jobs.
+
+### Get-UMSJobDirectory
+
+Gets Job Directories.
 
 ### Get-UMSProfile
 
@@ -106,6 +118,10 @@ Gets the profile and master profile assignments for the specified thincient dire
 ### Get-UMSView
 
 Gets Views.
+
+### Get-UMSViewDirectory
+
+Gets View Directories.
 
 ### Move-UMSProfile
 
