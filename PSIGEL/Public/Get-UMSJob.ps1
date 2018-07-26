@@ -76,21 +76,21 @@
         Database       = $Database
       }
     }
-    if (!$JobID)
-    {
-      $Query = (@'
+    $BaseQuery = (@'
 SELECT *
 FROM [{0}].[{1}].[JOB]
 '@ -f $Database, $Schema)
+    if (!$JobID)
+    {
+      $Query = $BaseQuery
       Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
     else
     {
       $Query = ((@"
-SELECT *
-FROM [{0}].[{1}].[JOB]
-WHERE ID = '{2}'
-"@ -f $Database, $Schema, $JobID))
+WHERE ID = '{0}'
+"@ -f $JobID))
+      $Query = ($BaseQuery, $Query -join "`n")
       Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
   }

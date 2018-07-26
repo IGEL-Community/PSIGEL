@@ -61,6 +61,10 @@
   }
   Process
   {
+    $BaseQuery = (@'
+SELECT *
+FROM [{0}].[{1}].[TCVIEWS]
+'@ -f $Database, $Schema)
     if ($Credential)
     {
       $InvokeSqlcmd2Params = @{
@@ -78,19 +82,15 @@
     }
     if (!$ViewID)
     {
-      $Query = (@'
-SELECT *
-FROM [{0}].[{1}].[TCVIEWS]
-'@ -f $Database, $Schema)
+      $Query = $BaseQuery
       Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
     else
     {
       $Query = ((@"
-SELECT *
-FROM [{0}].[{1}].[TCVIEWS]
-WHERE VIEWID = '{2}'
-"@ -f $Database, $Schema, $ViewID))
+WHERE VIEWID = '{0}'
+"@ -f $ViewID))
+      $Query = ($BaseQuery, $Query -join "`n")
       Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
   }
