@@ -21,7 +21,7 @@
       If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
 
       .PARAMETER JobIDColl
-      JobIDs to search for
+      JobID to search for
 
       .EXAMPLE
       $Credential = Get-Credential
@@ -52,8 +52,8 @@
     $Credential,
 
     [Parameter(ValueFromPipeline)]
-    [int[]]
-    $JobIDColl
+    [int]
+    $JobID
   )
 
   Begin
@@ -76,7 +76,7 @@
         Database       = $Database
       }
     }
-    if (!$JobIDColl)
+    if (!$JobID)
     {
       $Query = (@'
 SELECT *
@@ -86,15 +86,12 @@ FROM [{0}].[{1}].[JOB]
     }
     else
     {
-      Foreach ($JobID in $JobIDColl)
-      {
-        $Query = ((@"
+      $Query = ((@"
 SELECT *
 FROM [{0}].[{1}].[JOB]
 WHERE ID = '{2}'
 "@ -f $Database, $Schema, $JobID))
-        Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
-      }
+      Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
   }
   End

@@ -20,12 +20,12 @@
       Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
       If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
 
-      .PARAMETER ViewIDColl
+      .PARAMETER ViewID
       ViewIDs to search for
 
       .EXAMPLE
       $Credential = Get-Credential
-      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewIDColl 558
+      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewID 558
       #Gets View with ViewID "558"
 
       .EXAMPLE
@@ -52,8 +52,8 @@
     $Credential,
 
     [Parameter(ValueFromPipeline)]
-    [int[]]
-    $ViewIDColl
+    [int]
+    $ViewID
   )
 
   Begin
@@ -76,7 +76,7 @@
         Database       = $Database
       }
     }
-    if (!$ViewIDColl)
+    if (!$ViewID)
     {
       $Query = (@'
 SELECT *
@@ -86,19 +86,15 @@ FROM [{0}].[{1}].[TCVIEWS]
     }
     else
     {
-      Foreach ($ViewID in $ViewIDColl)
-      {
-        $Query = ((@"
+      $Query = ((@"
 SELECT *
 FROM [{0}].[{1}].[TCVIEWS]
 WHERE VIEWID = '{2}'
 "@ -f $Database, $Schema, $ViewID))
-        Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
-      }
+      Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
   }
   End
   {
   }
 }
-
