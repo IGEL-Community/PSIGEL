@@ -50,7 +50,7 @@ View Directory |SQL|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
 Job Directory |SQL|-|SQL|-|-
 File |[SQL](#get-umsfile)|-|-|-|-
-File Directory |SQL|-|-|-|-
+File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
 
 ### Assignment
 
@@ -66,6 +66,10 @@ Master Profile |API|-|-
 ### Get-UMSFile
 
 Gets Files.
+
+### Get-UMSFileDirectory
+
+Gets File Directories.
 
 ### Get-UMSFirmware
 
