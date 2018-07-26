@@ -76,21 +76,35 @@ function Get-UMSFile
         Database       = $Database
       }
     }
+    $BaseQuery = (@'
+SELECT [{0}].[{1}].[URLFILE].[FILEID] AS FILEID
+      ,[{0}].[{1}].[URLFILE].[FILEURL] AS FILEURL
+      ,[{0}].[{1}].[URLFILE].[TCURL] AS TCURL
+      ,[{0}].[{1}].[URLFILE].[CLASSIFICATION] AS CLASSIFICATION
+      ,[{0}].[{1}].[URLFILE].[MD5] AS MD5
+      ,[{0}].[{1}].[URLFILE].[MD5Date] AS MD5Date
+      ,[{0}].[{1}].[URLFILE].[USERNAME] AS USERNAME
+      ,[{0}].[{1}].[URLFILE].[PASSWORD] AS PASSWORD
+      ,[{0}].[{1}].[URLFILE].[OWNER] AS OWNER
+      ,[{0}].[{1}].[URLFILE].[PERMISSION] AS PERMISSION
+      ,[{0}].[{1}].[URLFILE].[FILE_HIDDEN] AS FILE_HIDDEN
+      ,[{0}].[{1}].[URLFILE].[MOVEDTOBIN] AS MOVEDTOBIN
+	  ,[{0}].[{1}].[URLFILESTOREDIN].[DIRID] AS DIRID
+  FROM [{0}].[{1}].[URLFILE]
+  LEFT JOIN [{0}].[{1}].[URLFILESTOREDIN]
+  ON [{0}].[{1}].[URLFILE].[FILEID] = [{0}].[{1}].[URLFILESTOREDIN].[FILEID]
+'@ -f $Database, $Schema)
     if (!$FileID)
     {
-      $Query = (@'
-SELECT *
-FROM [{0}].[{1}].[URLFILE]
-'@ -f $Database, $Schema)
+      $Query = $BaseQuery
       Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
     else
     {
       $Query = ((@"
-SELECT *
-FROM [{0}].[{1}].[URLFILE]
-WHERE FileID = '{2}'
+  WHERE [{0}].[{1}].[URLFILE].[FILEID] = '{2}'
 "@ -f $Database, $Schema, $FileID))
+      $Query = ($BaseQuery, $Query -join "`n")
       Invoke-Sqlcmd2 @InvokeSqlcmd2Params -Query $Query
     }
   }
@@ -98,4 +112,3 @@ WHERE FileID = '{2}'
   {
   }
 }
-
