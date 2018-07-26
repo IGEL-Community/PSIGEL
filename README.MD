@@ -49,7 +49,7 @@ Thin Client Directory |[API](#get-umsthinclientdirectory)|[API](#new-umsthinclie
 View Directory |SQL|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
 Job Directory |SQL|-|SQL|-|-
-File |SQL|-|-|-|-
+File |[SQL](#get-umsfile)|-|-|-|-
 File Directory |SQL|-|-|-|-
 
 ### Assignment
@@ -62,6 +62,10 @@ Profile |[API](#get-umsprofileassignment) |[API](#update-umsprofileassignment) |
 Master Profile |API|-|-
 
 ## Functions
+
+### Get-UMSFile
+
+Gets Files.
 
 ### Get-UMSFirmware
 
