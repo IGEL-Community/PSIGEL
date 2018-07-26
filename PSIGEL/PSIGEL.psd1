@@ -82,6 +82,7 @@
     'Get-UMSThinclientDirectory'
     'Get-UMSThinclientDirectoryAssignment'
     'Get-UMSView'
+    'Get-UMSViewDirectory'
     'Move-UMSProfile'
     'Move-UMSProfileDirectory'
     'Move-UMSThinclient'

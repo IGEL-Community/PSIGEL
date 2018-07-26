@@ -46,7 +46,7 @@ Master Profile |API|-|API|API|API
 Master Profile Directory |API|API|API|API|API
 Thin Client Directory |[API](#get-umsthinclientdirectory)|[API](#new-umsthinclientdirectory)|[API](#update-umsthinclientdirectoryname)|[API](#move-umsthinclientdirectory)|[API](#remove-umsthinclientdirectory)
 |View |[SQL](#get-umsview)|-|SQL|-|-
-View Directory |SQL|-|SQL|-|-
+View Directory |[SQL](#get-umsviewdirectory)|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
 Job Directory |SQL|-|SQL|-|-
 File |[SQL](#get-umsfile)|-|-|-|-
@@ -114,6 +114,10 @@ Gets the profile and master profile assignments for the specified thincient dire
 ### Get-UMSView
 
 Gets Views.
+
+### Get-UMSViewDirectory
+
+Gets View Directories.
 
 ### Move-UMSProfile
 
