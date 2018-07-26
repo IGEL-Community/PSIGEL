@@ -25,8 +25,8 @@
 
       .EXAMPLE
       $Credential = Get-Credential
-      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential -ViewID 558
-      #Gets View with ViewID "558"
+      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+      #Gets all Views
 
       .EXAMPLE
       558, 560 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
