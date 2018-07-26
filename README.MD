@@ -48,7 +48,7 @@ Thin Client Directory |[API](#get-umsthinclientdirectory)|[API](#new-umsthinclie
 |View |[SQL](#get-umsview)|-|SQL|-|-
 View Directory |[SQL](#get-umsviewdirectory)|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
-Job Directory |SQL|-|SQL|-|-
+Job Directory |[SQL](#Get-umsjobdirectory)|-|SQL|-|-
 File |[SQL](#get-umsfile)|-|-|-|-
 File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
 
@@ -78,6 +78,10 @@ Gets information on all firmwares known to the UMS.
 ### Get-UMSJob
 
 Gets Jobs.
+
+### Get-UMSJobDirectory
+
+Gets Job Directories.
 
 ### Get-UMSProfile
 

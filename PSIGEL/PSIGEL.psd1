@@ -73,6 +73,7 @@
     'Get-UMSFileDirectory'
     'Get-UMSFirmware'
     'Get-UMSJob'
+    'Get-UMSJobDirectory'
     'Get-UMSProfile'
     'Get-UMSProfileDirectory'
     'Get-UMSProfileAssignment'
