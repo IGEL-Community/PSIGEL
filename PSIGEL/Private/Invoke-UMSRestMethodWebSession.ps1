@@ -52,7 +52,7 @@ function Invoke-UMSRestMethodWebSession
         $Params = @{
           Uri         = $SessionURL
           Headers     = @{}
-          Body        = '{0}' -f $Body
+          Body        = '{0}' -f $BodyWavy
           ContentType = 'application/json'
           Method      = $Method
           WebSession  = $WebSession
@@ -63,7 +63,7 @@ function Invoke-UMSRestMethodWebSession
         $Params = @{
           Uri         = $SessionURL
           Headers     = @{}
-          Body        = '[{0}]' -f $Body
+          Body        = '[{0}]' -f $BodySquareWavy
           ContentType = 'application/json'
           Method      = $Method
           WebSession  = $WebSession
