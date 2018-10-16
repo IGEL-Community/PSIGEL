@@ -23,7 +23,7 @@
 param
 (
   [String]
-  $Computername = 'UMSSERVER',
+  $Computername = 'SRVUMS02',
 
   [ValidateRange(0, 65535)]
   [Int]
@@ -39,7 +39,7 @@ $WebSession = (New-UMSAPICookie -Computername $Computername)
 $PSDefaultParameterValues = @{
   '*:Computername' = $Computername
   '*:WebSession'   = $WebSession
-  '*:Confirm'      = $true
+  '*:Confirm'      = $false
 }
 
 $UpdateProfileColl = @{
@@ -109,7 +109,7 @@ if ($ProfileTCColl)
     foreach ($ProfileID in $ProfileTC.ProfileId )
     {
       $ProfileId |
-        Remove-UMSProfileAssignment -TCID $ProfileTC.TCID -Confirm
+        Remove-UMSProfileAssignment -TCID $ProfileTC.TCID #-WhatIf
       Write-Output ('Profile with ID {0} was removed from Thinclient with ID {1}' -f $ProfileId, $ProfileTC.TCID )
     }
   }
