@@ -39,7 +39,7 @@ $WebSession = (New-UMSAPICookie -Computername $Computername)
 $PSDefaultParameterValues = @{
   '*:Computername' = $Computername
   '*:WebSession'   = $WebSession
-  #'*:Confirm'     = $true
+  '*:Confirm'      = $true
 }
 
 $UpdateProfileColl = @{
@@ -54,6 +54,9 @@ $UpdateProfileColl = @{
   }
   H1_OS10 = @{
     ProfileId = 473
+  }
+  H6_LX10 = @{
+    ProfileId = 72345
   }
   H6_LX4  = @{
     ProfileId = 464
