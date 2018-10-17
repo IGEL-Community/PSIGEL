@@ -14,8 +14,8 @@ function New-UMSAPICookie
       .PARAMETER TCPPort
       TCP Port (Default: 8443)
 
-      .PARAMETER Username
-      Username for API Requests
+      .PARAMETER Credential
+      Credential for API Requests
 
       .PARAMETER ApiVersion
       API Version to use (Default: 3)
