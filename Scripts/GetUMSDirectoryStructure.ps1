@@ -98,4 +98,4 @@ $Null = $UMSDirectoryStructure |
   ForEach-Object {
   $_ -replace "`"", ''
 }
-[IO.File]::WriteAllLines(('{0}\UMSDirectories.csv' -f $env:TMP), $UMSDirectoryStructure)
+[IO.File]::WriteAllLines(('{0}\{1}' -f $FilePath, $Filename), $UMSDirectoryStructure)
