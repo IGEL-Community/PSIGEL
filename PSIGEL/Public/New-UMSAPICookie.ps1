@@ -80,7 +80,14 @@ function New-UMSAPICookie
 
     Try
     {
-      $SessionResponse = Invoke-RestMethod -Uri $SessionURL -Headers $Header -Method POST -ContentType $Type
+      $SessionResponseProperties = @{
+        Uri         = $SessionURL
+        Headers     = $Header
+        Method      = 'POST'
+        ContentType = $Type
+        ErrorAction = 'Stop'
+      }
+      $SessionResponse = Invoke-RestMethod @SessionResponseProperties
     }
     Catch
     {
