@@ -72,7 +72,7 @@ function New-UMSAPICookie
     [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
 
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $Computername, $TCPPort, $ApiVersion
-    $SessionURL = '{0}login' -f $BaseURL
+    $Uri = '{0}login' -f $BaseURL
     $Header = @{
       'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($RESTAPIUser + ':' + $RESTAPIPassword))
     }
@@ -81,7 +81,7 @@ function New-UMSAPICookie
     Try
     {
       $SessionResponseProperties = @{
-        Uri         = $SessionURL
+        Uri         = $Uri
         Headers     = $Header
         Method      = 'POST'
         ContentType = $Type

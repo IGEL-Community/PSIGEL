@@ -78,20 +78,20 @@
     {
       'TC'
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername,
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername,
         $TCPPort, $ApiVersion, $ProfileID, $TCID
         $ID = $TCID
       }
       'Dir'
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername,
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername,
         $TCPPort, $ApiVersion, $ProfileID, $DirID
         $ID = $DirID
       }
     }
     if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $ProfileID, $($PSCmdlet.ParameterSetName), $ID)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Delete'
     }
   }
   End

@@ -66,10 +66,10 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
     if ($PSCmdlet.ShouldProcess('ProfileID: {0}' -f $ProfileID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Delete'
     }
   }
   End

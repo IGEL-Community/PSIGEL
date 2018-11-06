@@ -113,8 +113,8 @@ function Get-UMSProfileDirectory
         }
       }
     }
-    $SessionURL = ('{0}/{1}' -f $BaseURL, $URLEnd)
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+    $Uri = ('{0}/{1}' -f $BaseURL, $URLEnd)
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }
   End
   {

@@ -66,8 +66,8 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $Computername, $TCPPort, $ApiVersion, $TCID
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $Computername, $TCPPort, $ApiVersion, $TCID
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }
   End
   {

@@ -67,9 +67,9 @@ function Get-UMSThinclientDirectoryAssignment
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $Computername,
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $Computername,
     $TCPPort, $ApiVersion, $DIRID
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }
   End
   {

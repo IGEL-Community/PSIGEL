@@ -1,6 +1,6 @@
 ﻿function Get-UMSProfileAssignment
 {
-    <#
+  <#
     .Synopsis
     Gets the thinclients and directories the profile is assigned to.
 
@@ -32,71 +32,73 @@
     471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
     Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 #>
-    [cmdletbinding()]
-    param
-    (
-        [Parameter(Mandatory)]
-        [String]
-        $Computername,
+  [cmdletbinding()]
+  param
+  (
+    [Parameter(Mandatory)]
+    [String]
+    $Computername,
 
-        [ValidateRange(0, 65535)]
-        [Int]
-        $TCPPort = 8443,
+    [ValidateRange(0, 65535)]
+    [Int]
+    $TCPPort = 8443,
 
-        [ValidateSet(3)]
-        [Int]
-        $ApiVersion = 3,
+    [ValidateSet(3)]
+    [Int]
+    $ApiVersion = 3,
 
-        [Parameter(Mandatory)]
-        $WebSession,
+    [Parameter(Mandatory)]
+    $WebSession,
 
-        [Parameter(ValueFromPipeline)]
-        [int]
-        $ProfileID = 0
-    )
-    Begin
+    [Parameter(ValueFromPipeline)]
+    [int]
+    $ProfileID = 0
+  )
+  Begin
+  {
+  }
+  Process
+  {
+    $UriEndColl = ('thinclients', 'tcdirectories')
+    $TCIDColl = foreach ($UriEnd in $UriEndColl)
     {
-    }
-    Process
-    {
-        $SessionURLEndColl = ('thinclients', 'tcdirectories')
-        $TCIDColl = foreach ($SessionURLEnd in $SessionURLEndColl)
+      $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $Computername,
+      $TCPPort, $ApiVersion, $ProfileID, $UriEnd
+
+      $ThinclientsJSONCollParams = @{
+        Uri         = $Uri
+        Headers     = @{}
+        ContentType = 'application/json; charset=utf-8'
+        Method      = 'Get'
+        WebSession  = $WebSession
+      }
+      $HrefColl = (Invoke-RestMethod @ThinclientsJSONCollParams).links |
+        Where-Object -Property rel -EQ 'receiver' |
+        Select-Object -Property href
+      Switch ($UriEnd)
+      {
+        'thinclients'
         {
-            $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $Computername, $TCPPort, $ApiVersion, $ProfileID, $SessionURLEnd
-            $ThinclientsJSONCollParams = @{
-                Uri         = $SessionURL
-                Headers     = @{}
-                ContentType = 'application/json; charset=utf-8'
-                Method      = 'Get'
-                WebSession  = $WebSession
-            }
-            $HrefColl = (Invoke-RestMethod @ThinclientsJSONCollParams).links |
-                Where-Object -Property rel -EQ 'receiver' |
-                Select-Object -Property href
-            Switch ($SessionURLEnd)
-            {
-                'thinclients'
-                {
-                    $Type = 'tc'
-                }
-                'tcdirectories'
-                {
-                    $Type = 'tcdirectory'
-                }
-            }
-            foreach ($Href in $HrefColl)
-            {
-                $Properties = @{
-                    id   = ([regex]::match(($Href.href), "\d{1,}\s*$")).Value
-                    type = $Type
-                }
-                New-Object -TypeName PsObject -Property $Properties
-            }
+          $Type = 'tc'
         }
-        $TCIDColl
+        'tcdirectories'
+        {
+          $Type = 'tcdirectory'
+        }
+      }
+      foreach ($Href in $HrefColl)
+      {
+        $Properties = @{
+          id   = ([regex]::match(($Href.href), "\d{1,}\s*$")).Value
+          type = $Type
+        }
+        New-Object -TypeName PsObject -Property $Properties
+      }
     }
-    End
-    {
-    }
+    $TCIDColl
+  }
+  End
+  {
+  }
 }
 

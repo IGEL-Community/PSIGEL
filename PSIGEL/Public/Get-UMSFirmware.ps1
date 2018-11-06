@@ -59,24 +59,31 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     Switch ($FirmwareID)
     {
       0
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/firmwares' -f $Computername, $TCPPort, $ApiVersion
-        (Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get').FwResource
+        $UriArray = @($Computername, $TCPPort, $ApiVersion)
+        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/firmwares' -f $UriArray
+        (Invoke-UMSRestMethodWebSession @Params).FwResource
       }
       default
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/firmwares/{3}' -f $Computername, $TCPPort, $ApiVersion, $FirmwareID
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+        $UriArray = @($Computername, $TCPPort, $ApiVersion, $FirmwareID)
+        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/firmwares/{3}' -f $UriArray
+        Invoke-UMSRestMethodWebSession @Params
       }
     }
   }

@@ -101,15 +101,15 @@
     {
       0
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
       }
       default
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd
       }
 
     }
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }
   End
   {

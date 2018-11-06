@@ -66,10 +66,10 @@
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
     if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Delete'
     }
   }
   End

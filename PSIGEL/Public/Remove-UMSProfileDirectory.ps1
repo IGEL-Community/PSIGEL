@@ -67,10 +67,10 @@ function Remove-UMSProfileDirectory
         $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $Computername, $TCPPort, $ApiVersion, $DIRID
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $Computername, $TCPPort, $ApiVersion, $DIRID
     if ($PSCmdlet.ShouldProcess('DIRID: {0}' -f $DIRID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Delete'
     }
   }
   End

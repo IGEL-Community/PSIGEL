@@ -71,14 +71,14 @@
     {
       0
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles' -f $Computername, $TCPPort, $ApiVersion
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles' -f $Computername, $TCPPort, $ApiVersion
       }
       default
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
       }
     }
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }
   End
   {

@@ -51,56 +51,18 @@
 
   Begin
   {
-    Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
-    Add-Type -TypeDefinition @'
-    using System.Net;
-    using System.Security.Cryptography.X509Certificates;
-    public class TrustAllCertsPolicy : ICertificatePolicy {
-        public bool CheckValidationResult(
-            ServicePoint srvPoint, X509Certificate certificate,
-            WebRequest request, int certificateProblem) {
-            return true;
-        }
-    }
-'@
   }
   Process
   {
-    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    $Method = 'Get'
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/serverstatus' -f $Computername, $TCPPort, $ApiVersion
-    $Params = @{
-      Uri         = $SessionURL
-      Headers     = @{}
-      ContentType = 'application/json'
-      Method      = $Method
-    }
-    try
+    Switch ($WebSession)
     {
-      Invoke-RestMethod @Params -ErrorAction Stop
-    }
-    catch [System.Net.WebException]
-    {
-      switch ($($PSItem.Exception.Response.StatusCode.value__))
+      $null
       {
-        400
-        {
-          Write-Warning -Message ('Error executing IMI RestAPI request. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
-        }
-        401
-        {
-          Write-Warning -Message ('Error logging in, it seems as you have entered invalid credentials. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
-        }
-        403
-        {
-          Write-Warning -Message ('Error logging in, it seems as you have not subscripted this version of IMI. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
-        }
-        default
-        {
-          Write-Warning -Message ('Some error occured see HTTP status code for further details. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
-        }
+        $WebSession = New-UMSAPICookie -Computername $Computername
       }
     }
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/serverstatus' -f $Computername, $TCPPort, $ApiVersion
+    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }
   End
   {
