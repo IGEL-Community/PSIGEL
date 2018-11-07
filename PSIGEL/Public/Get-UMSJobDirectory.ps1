@@ -18,14 +18,20 @@ function Get-UMSJobDirectory
 
       .PARAMETER Credential
       Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
+      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the
+      Windows account running the PowerShell session.
 
       .PARAMETER DirIDColl
       DirIDs to search for
 
       .EXAMPLE
-      $Credential = Get-Credential
-      Get-UMSJobDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+      $Params = @{
+        Credential     = Get-Credential
+        ServerInstance = 'SQLSERVER\RMDB'
+        Database       = 'RMDB'
+        Schema         = 'igelums'
+      }
+      Get-UMSJobDirectory @Params
       #Gets all Job Directories
 
       .EXAMPLE

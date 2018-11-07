@@ -18,7 +18,8 @@
 
       .PARAMETER Credential
       Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
+      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the
+      Windows account running the PowerShell session.
 
       .PARAMETER JobIDColl
       Array of Job IDs
