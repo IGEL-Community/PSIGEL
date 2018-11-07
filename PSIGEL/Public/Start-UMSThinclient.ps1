@@ -23,8 +23,13 @@
       ThinclientIDs to wake up
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Start-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 48426
+      }
+      Start-UMSThinclient @Params
       #Wakes up thin client with TCID 48426.
 
       .EXAMPLE
@@ -65,16 +70,30 @@
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
 
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=wakeup' -f $UriArray
+
     foreach ($TCID in $TCIDColl)
     {
-      $Body = @{
-        id   = $TCID
-        type = "tc"
-      } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=wakeup' -f $Computername, $TCPPort, $ApiVersion
+      $Body = ConvertTo-Json @(
+        @{
+          id   = $TCID
+          type = "tc"
+        }
+      )
+
+      $Params = @{
+        WebSession  = $WebSession
+        Uri         = $Uri
+        Body        = $Body
+        Method      = 'Post'
+        ContentType = 'application/json'
+        Headers     = @{}
+      }
+
       if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
       {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
+        Invoke-UMSRestMethodWebSession @Params
       }
     }
   }

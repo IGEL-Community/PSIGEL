@@ -23,8 +23,13 @@
       ThinclientIDs of the thinclients send settings to.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Send-UMSThinclientSetting -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Confirm
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 48426
+      }
+      Send-UMSThinclientSetting @Params
       #Sends settings modified in the UMS database to thin client with TCID 48426 immediately.
 
       .EXAMPLE
@@ -52,7 +57,7 @@
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $TCID
   )
 
   Begin
@@ -65,18 +70,30 @@
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
 
-    foreach ($TCID in $TCIDColl)
-    {
-      $Body = @{
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=settings2tc' -f $UriArray
+
+    $Body = ConvertTo-Json @(
+      @{
         id   = $TCID
         type = "tc"
-      } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=settings2tc' -f $Computername, $TCPPort, $ApiVersion
-      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
-      {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
       }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Post'
+      ContentType = 'application/json'
+      Headers     = @{}
     }
+
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    {
+      Invoke-UMSRestMethodWebSession @Params
+    }
+
   }
   End
   {

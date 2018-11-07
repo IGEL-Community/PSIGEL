@@ -25,14 +25,18 @@
       ThinclientIDs of the thinclients to reset to factory defaults.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Reset-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 35828
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 35828
+      }
+      Reset-UMSThinclient @Params
       #Resets thin client with TCID 35828 to factory defaults.
 
       .EXAMPLE
       100, 101 | Reset-UMSThinclient -Computername $Computername
       #Resets thin clients with TCID 100 and 101 to factory defaults.
-
   #>
 
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
@@ -54,7 +58,7 @@
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $TCID
   )
 
   Begin
@@ -67,17 +71,28 @@
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
 
-    foreach ($TCID in $TCIDColl)
-    {
-      $Body = @{
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/?command=tcreset2facdefs' -f $UriArray
+
+    $Body = ConvertTo-Json @(
+      @{
         id   = $TCID
         type = "tc"
-      } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/?command=tcreset2facdefs' -f $Computername, $TCPPort, $ApiVersion
-      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
-      {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
       }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Post'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    {
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End
