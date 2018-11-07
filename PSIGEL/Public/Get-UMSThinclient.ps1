@@ -80,13 +80,6 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
-    $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
-    }
 
     Switch ($Details)
     {
@@ -112,13 +105,21 @@
       0
       {
         $UriArray = @($Computername, $TCPPort, $ApiVersion, $URLEnd)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $UriArray
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $UriArray
       }
       default
       {
         $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $UriArray
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $UriArray
       }
+    }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
     }
     Invoke-UMSRestMethodWebSession @Params
   }

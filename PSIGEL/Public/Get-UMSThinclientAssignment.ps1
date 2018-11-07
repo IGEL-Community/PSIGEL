@@ -72,10 +72,10 @@
     $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID)
     $Params = @{
       WebSession  = $WebSession
+      Uri         = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $UriArray
       Method      = 'Get'
       ContentType = 'application/json'
       Headers     = @{}
-      Uri         = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $UriArray
     }
     Invoke-UMSRestMethodWebSession @Params
   }

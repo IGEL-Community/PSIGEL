@@ -23,8 +23,13 @@
       ProfileID of the thinclient to remove
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        ProfileID    = 48170
+      }
+      Remove-UMSProfile @Params
       #Removes Profile with ProfileID 48170
 
       .EXAMPLE
@@ -63,11 +68,21 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Delete'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('ProfileID: {0}' -f $ProfileID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Delete'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

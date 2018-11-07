@@ -23,16 +23,22 @@
       ProfileID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 470 -TCID 48426
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        ProfileID    = 470
+        TCID         = 48426
+      }
+      Remove-UMSProfileAssignment @Params
       #Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
       .EXAMPLE
-      48170  | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
+      48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
       #Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.
   #>
 
-  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (
     [Parameter(Mandatory)]
@@ -71,25 +77,35 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
+
     Switch ($PSCmdlet.ParameterSetName)
     {
       'TC'
       {
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $Computername,
-        $TCPPort, $ApiVersion, $ProfileID, $TCID
+        $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $TCID)
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $UriArray
         $ID = $TCID
       }
       'Dir'
       {
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $Computername,
-        $TCPPort, $ApiVersion, $ProfileID, $DirID
+        $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $DirID)
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $UriArray
         $ID = $DirID
       }
     }
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $ProfileID, $($PSCmdlet.ParameterSetName), $ID)))
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Delete'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
+    $SPArray = @($ProfileID, $($PSCmdlet.ParameterSetName), $ID)
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $SPArray)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Delete'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End
