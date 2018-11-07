@@ -61,7 +61,7 @@ function Get-UMSFile
   }
   Process
   {
-    if ($Credential)
+    if ($null -ne $Credential)
     {
       $InvokeSqlcmd2Params = @{
         ServerInstance = $ServerInstance
@@ -76,6 +76,7 @@ function Get-UMSFile
         Database       = $Database
       }
     }
+
     $BaseQuery = (@'
 SELECT [{0}].[{1}].[URLFILE].[FILEID] AS FILEID
       ,[{0}].[{1}].[URLFILE].[FILEURL] AS FILEURL

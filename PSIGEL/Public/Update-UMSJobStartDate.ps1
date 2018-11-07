@@ -75,7 +75,7 @@
   }
   Process
   {
-    if ($Credential)
+    if ($null -ne $Credential)
     {
       $InvokeSqlcmd2Params = @{
         ServerInstance = $ServerInstance
@@ -90,6 +90,7 @@
         Database       = $Database
       }
     }
+
     foreach ($JobID in $JobIDColl)
     {
       $Query = (@"

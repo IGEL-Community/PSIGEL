@@ -61,7 +61,7 @@ function Get-UMSViewDirectory
   }
   Process
   {
-    if ($Credential)
+    if ($null -ne $Credential)
     {
       $InvokeSqlcmd2Params = @{
         ServerInstance = $ServerInstance
@@ -76,6 +76,7 @@ function Get-UMSViewDirectory
         Database       = $Database
       }
     }
+
     $BaseQuery = (@'
 SELECT *
 FROM [{0}].[{1}].[TCVIEWDIRECTORIES]

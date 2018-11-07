@@ -61,7 +61,7 @@
   }
   Process
   {
-    if ($Credential)
+    if ($null -ne $Credential)
     {
       $InvokeSqlcmd2Params = @{
         ServerInstance = $ServerInstance
@@ -76,6 +76,7 @@
         Database       = $Database
       }
     }
+
     $BaseQuery = (@'
 SELECT [{0}].[{1}].[JOB].[ID] AS ID
       ,[{0}].[{1}].[JOB].[NAME] AS NAME
