@@ -91,8 +91,7 @@ function New-UMSAPICookie
     }
     Catch
     {
-      $_.Exception.ToString()
-      $error[0]
+      $_.Exception.Message
     }
 
     $Cookie = New-Object -TypeName System.Net.Cookie
