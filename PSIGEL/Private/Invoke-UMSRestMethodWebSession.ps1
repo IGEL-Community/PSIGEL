@@ -28,9 +28,7 @@ function Invoke-UMSRestMethodWebSession
     }
     Invoke-UMSRestMethodWebSession @Params
 
-    .NOTES
-     n.a.
-    #>
+  #>
 
   [CmdletBinding(DefaultParameterSetName = 'NoBody')]
   param (
