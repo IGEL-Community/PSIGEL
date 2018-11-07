@@ -26,8 +26,12 @@ function Get-UMSProfileDirectory
       DIRIDs to get information of
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSProfileDirectory -Computername 'UMSSERVER' -WebSession $WebSession
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+      }
+      Get-UMSProfileDirectory @Params
       #Gets information on all Profile Directories
 
       .EXAMPLE
@@ -78,8 +82,17 @@ function Get-UMSProfileDirectory
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $Computername, $TCPPort, $ApiVersion
+
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
+    $BUArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $BUArray
+
     Switch ($PSCmdlet.ParameterSetName)
     {
       'Overview'
@@ -111,8 +124,9 @@ function Get-UMSProfileDirectory
         }
       }
     }
-    $Uri = ('{0}/{1}' -f $BaseURL, $URLEnd)
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
+
+    $Params.Uri = ('{0}/{1}' -f $BaseURL, $URLEnd)
+    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {

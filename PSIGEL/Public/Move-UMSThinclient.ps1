@@ -26,9 +26,17 @@ function Move-UMSThinclient
       DDIRID to move to
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -DDIRID 49552 -TCID 49282 -Confirm
-      #Moves Thinclient into the specified Thinclient Directory
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 49282
+        DDIRID       = 28793
+        Confirm      = $true
+      }
+      Move-UMSThinclient @Params
+      #Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793
+      #and prompts for confirmation
 
       .EXAMPLE
       49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289
@@ -71,16 +79,28 @@ function Move-UMSThinclient
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
-    $Body = @{
-      id   = $TCID
-      type = "tc"
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}?operation=move' -f $Computername,
-    $TCPPort, $ApiVersion, $DDIRID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}?operation=move' -f $UriArray
+    $Body = ConvertTo-Json @(
+      @{
+        id   = $TCID
+        type = "tc"
+      }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess(('TCID: {0} to DDIRID: {1}' -f $TCID, $DDIRID)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

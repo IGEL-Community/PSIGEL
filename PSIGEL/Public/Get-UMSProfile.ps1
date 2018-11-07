@@ -23,13 +23,17 @@
       ThinclientID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession
-      Gets information on all profiles on the UMS instance.
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+      }
+      Get-UMSProfile @Params
+      #Gets information on all profiles on the UMS instance.
 
       .EXAMPLE
       499, 501 | Get-UMSProfile -Computername 'UMSSERVER'
-      Gets information on the profile with ProfileID 499 and 501.
+      #Gets information on the profile with ProfileID 499 and 501.
 
   #>
 
@@ -65,18 +69,27 @@
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
     
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     Switch ($ProfileID)
     {
       0
       {
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles' -f $Computername, $TCPPort, $ApiVersion
+        $UriArray = @($Computername, $TCPPort, $ApiVersion)
+        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray
       }
       default
       {
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+        $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID)
+        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray
       }
     }
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
+    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {

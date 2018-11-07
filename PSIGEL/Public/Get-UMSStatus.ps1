@@ -5,7 +5,8 @@
       Gets diagnostic information about the UMS instance.
 
       .DESCRIPTION
-      Gets diagnostic information about the UMS instance. Server status is the only resource that can be queried without logging in.
+      Gets diagnostic information about the UMS instance. Server status is the only
+      resource that can be queried without logging in.
       This makes it useful for debugging the connection to the IMI service
 
       .PARAMETER Computername
@@ -21,13 +22,17 @@
       Websession Cookie
 
       .EXAMPLE
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+      }
+      Get-UMSStatus @Params
+      #Getting UMSSERVER status
+      
+      .EXAMPLE
       Get-UMSStatus -Computername 'UMSSERVER'
       #Getting UMSSERVER status without authorization, useful for connection debugging
-
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSStatus -Computername 'UMSSERVER' -WebSession $WebSession
-      #Getting UMSSERVER status
 
   #>
 
@@ -58,9 +63,16 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/serverstatus' -f $Computername, $TCPPort, $ApiVersion
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+      Uri         = 'https://{0}:{1}/umsapi/v{2}/serverstatus' -f $UriArray
+    }
+    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {

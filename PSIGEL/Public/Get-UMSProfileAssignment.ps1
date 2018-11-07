@@ -23,14 +23,18 @@
     ProfileID to search for
 
     .EXAMPLE
-    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-    Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 471
-    Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
+    $Computername = 'UMSSERVER'
+    $Params = @{
+      Computername = $Computername
+      WebSession   = New-UMSAPICookie -Computername $Computername
+      ProfileID    = 471
+    }
+    Get-UMSProfileAssignment @Params
+    #Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 
     .EXAMPLE
-    $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-    471 | Get-UMSProfileAssignment -Computername 'UMSSERVER' -WebSession $WebSession
-    Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
+    471 | Get-UMSProfileAssignment -Computername 'UMSSERVER'
+    #Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 #>
   [cmdletbinding()]
   param
@@ -65,21 +69,21 @@
     }
 
     $UriEndColl = ('thinclients', 'tcdirectories')
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     $TCIDColl = foreach ($UriEnd in $UriEndColl)
     {
-      $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $Computername,
-      $TCPPort, $ApiVersion, $ProfileID, $UriEnd
-
-      $ThinclientsJSONCollParams = @{
-        Uri         = $Uri
-        Headers     = @{}
-        ContentType = 'application/json; charset=utf-8'
-        Method      = 'Get'
-        WebSession  = $WebSession
-      }
-      $HrefColl = (Invoke-RestMethod @ThinclientsJSONCollParams).links |
+      $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $UriEnd)
+      $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $UriArray
+      $HrefColl = (Invoke-RestMethod @Params).links |
         Where-Object -Property rel -EQ 'receiver' |
         Select-Object -Property href
+
       Switch ($UriEnd)
       {
         'thinclients'
@@ -91,6 +95,7 @@
           $Type = 'tcdirectory'
         }
       }
+
       foreach ($Href in $HrefColl)
       {
         $Properties = @{

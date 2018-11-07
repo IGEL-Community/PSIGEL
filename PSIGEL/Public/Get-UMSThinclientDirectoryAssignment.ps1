@@ -2,10 +2,12 @@ function Get-UMSThinclientDirectoryAssignment
 {
   <#
       .Synopsis
-      Gets the profile and master profile assignments for the specified thincient directory, in order of their application via API
+      Gets the profile and master profile assignments for the specified thincient directory,
+      in order of their application via API
 
       .DESCRIPTION
-      Gets the profile and master profile assignments for the specified thincient directory, in order of their application via API
+      Gets the profile and master profile assignments for the specified thincient directory,
+      in order of their application via API
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -23,8 +25,13 @@ function Get-UMSThinclientDirectoryAssignment
       DIRID to get profile assignments for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 772
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DIRID        = 772
+      }
+      Get-UMSThinclientDirectoryAssignment @Params
       #Gets the profile and master profile assignments for thincient directory 772
 
       .EXAMPLE
@@ -65,9 +72,17 @@ function Get-UMSThinclientDirectoryAssignment
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
     
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $Computername,
-    $TCPPort, $ApiVersion, $DIRID
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $UriArray
+
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+      Uri         = $Uri
+    }
+    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {

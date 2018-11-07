@@ -54,32 +54,33 @@
 
       .Parameter SerialNumber
       Thinclient Attribute SerialNumber
-
+      
+      .EXAMPLE
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername  = $Computername
+        WebSession    = New-UMSAPICookie -Computername $Computername
+        Mac           = '012345678910'
+        FirmwareID    = 9
+        Name          = 'TC012345'
+        ParentID      = 772
+        Site          = 'Leipzig'
+        Department    = 'Marketing'
+        CostCenter    = '50100'
+        LastIP        = '192.168.0.10'
+        Comment       = 'New Thinclient'
+        AssetID       = '012345'
+        InserviceDate = '01.01.2018'
+        SerialNumber  = '12A3B4C56B12345A6BC'
+        Confirm       = $true
+      }
+      New-UMSThinclient @Params
+      #Creates a new thinclient with all possible attributes, after confirmation.
+      
       .EXAMPLE
       New-UMSThinclient -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9
-      #Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.
-
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      $NewUMSThinclientParams = @{
-      Computername  = 'UMSSERVER'
-      WebSession    = $WebSession
-      Mac           = '012345678910'
-      FirmwareID    = 9
-      Name          = 'TC012345'
-      ParentID      = 772
-      Site          = 'Leipzig'
-      Department    = 'Marketing'
-      CostCenter    = '50100'
-      LastIP        = '192.168.0.10'
-      Comment       = 'New Thinclient'
-      AssetID       = '012345'
-      InserviceDate = '01.01.2018'
-      SerialNumber  = '12A3B4C56B12345A6BC'
-      Confirm       = $true
-      }
-      New-UMSThinclient @NewUMSThinclientParams
-      #Creates new thinclient with all possible attributes, after confirmation.
+      #Creates new thinclient with mac, name and firmwareid (minimal requirements)
+      #in the root directory.
   #>
 
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
@@ -112,7 +113,7 @@
     $Name,
 
     [int]
-    $ParentID = '-1',
+    $ParentID = -1,
 
     [String]
     $Site,
@@ -150,8 +151,10 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
-    $Body = [ordered]@{
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/' -f $UriArray
+    $Body = ConvertTo-Json @{
       mac           = $Mac
       firmwareID    = $FirmwareID
       name          = $Name
@@ -164,11 +167,20 @@
       assetID       = $AssetID
       inserviceDate = $InserviceDate
       serialNumber  = $SerialNumber
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/' -f $Computername, $TCPPort, $ApiVersion
+    }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('MAC-Address: {0}' -f $Mac))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

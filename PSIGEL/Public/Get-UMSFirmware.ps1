@@ -23,12 +23,16 @@
       ThinclientID to search for
 
       .EXAMPLE
-      Get-UMSFirmware -Computername 'UMSSERVER'
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+      }
+      Get-UMSFirmware @Params
       #Gets information on all firmwares known to the UMS.
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      9, 7 | Get-UMSFirmware -Computername 'UMSSERVER' -WebSession $WebSession
+      9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'
       #Gets information on firmwares with FirmwareIDs 9 and 7.
 
   #>

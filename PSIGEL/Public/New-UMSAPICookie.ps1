@@ -1,5 +1,4 @@
-﻿#requires -Version 3.0
-function New-UMSAPICookie
+﻿function New-UMSAPICookie
 {
   <#
       .SYNOPSIS
@@ -66,39 +65,39 @@ function New-UMSAPICookie
   }
   Process
   {
-    $RESTAPIUser = $Credential.UserName
-    $RESTAPIPassword = $Credential.GetNetworkCredential().password
+    $UserName = $Credential.UserName
+    $Password = $Credential.GetNetworkCredential().password
 
     [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
 
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $Computername, $TCPPort, $ApiVersion
-    $Uri = '{0}login' -f $BaseURL
+    $BUArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
     $Header = @{
-      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($RESTAPIUser + ':' + $RESTAPIPassword))
+      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($UserName + ':' + $Password))
     }
-    $Type = 'application/json; charset=utf-8'
+
+    $Params = @{
+      Uri         = '{0}login' -f $BaseURL
+      Headers     = $Header
+      Method      = 'Post'
+      ContentType = 'application/json'
+      ErrorAction = 'Stop'
+    }
 
     Try
     {
-      $SessionResponseProperties = @{
-        Uri         = $Uri
-        Headers     = $Header
-        Method      = 'POST'
-        ContentType = $Type
-        ErrorAction = 'Stop'
-      }
-      $SessionResponse = Invoke-RestMethod @SessionResponseProperties
+      $SessionResponse = Invoke-RestMethod @Params
+      $Cookie = New-Object -TypeName System.Net.Cookie
+      $Cookie.Name = ($SessionResponse.Message).Split('=')[0]
+      $Cookie.Path = '/'
+      $Cookie.Value = ($SessionResponse.Message).Split('=')[1]
+      $Cookie.Domain = $Computername
     }
     Catch
     {
       $_.Exception.Message
     }
 
-    $Cookie = New-Object -TypeName System.Net.Cookie
-    $Cookie.Name = ($SessionResponse.Message).Split('=')[0]
-    $Cookie.Path = '/'
-    $Cookie.Value = ($SessionResponse.Message).Split('=')[1]
-    $Cookie.Domain = $Computername
     if ($PSCmdlet.ShouldProcess($Computername))
     {
       $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
