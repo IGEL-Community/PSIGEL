@@ -61,20 +61,14 @@ function Get-UMSJobDirectory
   }
   Process
   {
+    $InvokeSqlcmd2Params = @{
+      ServerInstance = $ServerInstance
+      Database       = $Database
+    }
+
     if ($null -ne $Credential)
     {
-      $InvokeSqlcmd2Params = @{
-        ServerInstance = $ServerInstance
-        Database       = $Database
-        Credential     = $Credential
-      }
-    }
-    else
-    {
-      $InvokeSqlcmd2Params = @{
-        ServerInstance = $ServerInstance
-        Database       = $Database
-      }
+      $InvokeSqlcmd2Params.Credential = $Credential
     }
 
     $BaseQuery = (@'
