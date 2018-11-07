@@ -60,13 +60,11 @@ function New-UMSProfileDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $Body = @{
       name = $Name
     } | ConvertTo-Json

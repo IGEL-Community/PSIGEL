@@ -129,13 +129,11 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $HashTable = [ordered]@{}
     if ($Name)
     {

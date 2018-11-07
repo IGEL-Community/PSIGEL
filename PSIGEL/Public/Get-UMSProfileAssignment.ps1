@@ -59,6 +59,11 @@
   }
   Process
   {
+    if ($null -eq $WebSession)
+    {
+      $WebSession = New-UMSAPICookie -Computername $Computername
+    }
+
     $UriEndColl = ('thinclients', 'tcdirectories')
     $TCIDColl = foreach ($UriEnd in $UriEndColl)
     {

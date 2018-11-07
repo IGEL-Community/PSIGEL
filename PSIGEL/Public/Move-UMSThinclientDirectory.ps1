@@ -67,13 +67,11 @@ function Move-UMSThinclientDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $Body = @{
       id   = $DIRID
       type = "tcdirectory"

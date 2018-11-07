@@ -73,13 +73,11 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion
     Switch ($PSCmdlet.ParameterSetName)
     {

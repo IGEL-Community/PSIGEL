@@ -59,13 +59,11 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $Computername, $TCPPort, $ApiVersion, $TCID
     Invoke-UMSRestMethodWebSession -WebSession $WebSession -Uri $Uri -Method 'Get'
   }

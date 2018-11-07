@@ -60,13 +60,11 @@ function Remove-UMSThinclientDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}' -f $Computername, $TCPPort, $ApiVersion, $DIRID
     if ($PSCmdlet.ShouldProcess('DIRID: {0}' -f $DIRID))
     {

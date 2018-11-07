@@ -23,7 +23,7 @@ function Move-UMSProfileDirectory
       DIRIDs to move
 
       .PARAMETER DDIRID
-      DDIRID to move to
+      DIRID to move to
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
@@ -67,13 +67,11 @@ function Move-UMSProfileDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+    
     $Body = @{
       id   = $DIRID
       type = "profiledirectory"

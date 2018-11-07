@@ -59,13 +59,11 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+
     $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
     if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
     {
