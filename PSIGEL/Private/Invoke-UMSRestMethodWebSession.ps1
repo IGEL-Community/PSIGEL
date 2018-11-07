@@ -30,7 +30,7 @@ function Invoke-UMSRestMethodWebSession
 
   #>
 
-  [CmdletBinding(DefaultParameterSetName = 'NoBody')]
+  [CmdletBinding()]
   param (
     [Parameter(Mandatory)]
     $WebSession,
