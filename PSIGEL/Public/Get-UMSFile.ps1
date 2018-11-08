@@ -18,14 +18,20 @@ function Get-UMSFile
 
       .PARAMETER Credential
       Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
+      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the
+      Windows account running the PowerShell session.
 
-      .PARAMETER FileIDColl
+      .PARAMETER FileID
       FileIDs to search for
 
       .EXAMPLE
-      $Credential = Get-Credential
-      Get-UMSFile -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+      $Params = @{
+        Credential     = Get-Credential
+        ServerInstance = 'SQLSERVER\RMDB'
+        Database       = 'RMDB'
+        Schema         = 'igelums'
+      }
+      Get-UMSFile @Params
       #Gets all Files
 
       .EXAMPLE
@@ -61,21 +67,16 @@ function Get-UMSFile
   }
   Process
   {
-    if ($Credential)
-    {
-      $InvokeSqlcmd2Params = @{
-        ServerInstance = $ServerInstance
-        Database       = $Database
-        Credential     = $Credential
-      }
+    $InvokeSqlcmd2Params = @{
+      ServerInstance = $ServerInstance
+      Database       = $Database
     }
-    else
+
+    if ($null -ne $Credential)
     {
-      $InvokeSqlcmd2Params = @{
-        ServerInstance = $ServerInstance
-        Database       = $Database
-      }
+      $InvokeSqlcmd2Params.Credential = $Credential
     }
+
     $BaseQuery = (@'
 SELECT [{0}].[{1}].[URLFILE].[FILEID] AS FILEID
       ,[{0}].[{1}].[URLFILE].[FILEURL] AS FILEURL
@@ -89,7 +90,7 @@ SELECT [{0}].[{1}].[URLFILE].[FILEID] AS FILEID
       ,[{0}].[{1}].[URLFILE].[PERMISSION] AS PERMISSION
       ,[{0}].[{1}].[URLFILE].[FILE_HIDDEN] AS FILE_HIDDEN
       ,[{0}].[{1}].[URLFILE].[MOVEDTOBIN] AS MOVEDTOBIN
-	  ,[{0}].[{1}].[URLFILESTOREDIN].[DIRID] AS DIRID
+      ,[{0}].[{1}].[URLFILESTOREDIN].[DIRID] AS DIRID
   FROM [{0}].[{1}].[URLFILE]
   LEFT JOIN [{0}].[{1}].[URLFILESTOREDIN]
   ON [{0}].[{1}].[URLFILE].[FILEID] = [{0}].[{1}].[URLFILESTOREDIN].[FILEID]

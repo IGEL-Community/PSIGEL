@@ -23,13 +23,18 @@
       ThinclientID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclientAssignment -Computername 'UMSSERVER' -WebSession $WebSession -TCID 2433
-      Gets the profile and master profile assignments for Thinclient with TCID 2433.
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 2433
+      }
+      Get-UMSThinclientAssignment @Params
+      #Gets the profile and master profile assignments for Thinclient with TCID 2433.
 
       .EXAMPLE
       2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER'
-      Gets the profile and master profile assignments for Thinclient with TCID 2433.
+      #Gets the profile and master profile assignments for Thinclient with TCID 2433.
   #>
 
   [cmdletbinding()]
@@ -49,9 +54,9 @@
 
     $WebSession,
 
-    [Parameter(ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCID = 0
+    $TCID
   )
 
   Begin
@@ -59,15 +64,20 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $Computername, $TCPPort, $ApiVersion, $TCID
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID)
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $UriArray
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {

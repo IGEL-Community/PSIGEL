@@ -8,31 +8,44 @@ function Invoke-UMSRestMethodWebSession
     Invoke-RestMethod Wrapper for UMS API
 
     .EXAMPLE
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionUrl $SessionURL -Method 'Get'
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+    Invoke-UMSRestMethodWebSession @Params
 
     .EXAMPLE
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Body -Method 'Get'
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+    Invoke-UMSRestMethodWebSession @Params
 
-    .NOTES
-     n.a.
-    #>
+  #>
 
-  [CmdletBinding(DefaultParameterSetName = 'NoBody')]
+  [CmdletBinding()]
   param (
     [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory)]
     [string]
-    $SessionURL,
+    $Uri,
 
-    [Parameter(ParameterSetName = 'BodyWavy')]
     [string]
-    $BodyWavy,
+    $Body,
 
-    [Parameter(ParameterSetName = 'BodySquareWavy')]
     [string]
-    $BodySquareWavy,
+    $ContentType,
+
+    $Headers,
 
     [Parameter(Mandatory)]
     [ValidateSet('Get', 'Post', 'Put', 'Delete')]
@@ -45,44 +58,9 @@ function Invoke-UMSRestMethodWebSession
   }
   process
   {
-    switch ($PSCmdlet.ParameterSetName)
-    {
-      BodyWavy
-      {
-        $Params = @{
-          Uri         = $SessionURL
-          Headers     = @{}
-          Body        = '{0}' -f $Body
-          ContentType = 'application/json'
-          Method      = $Method
-          WebSession  = $WebSession
-        }
-      }
-      BodySquareWavy
-      {
-        $Params = @{
-          Uri         = $SessionURL
-          Headers     = @{}
-          Body        = '[{0}]' -f $Body
-          ContentType = 'application/json'
-          Method      = $Method
-          WebSession  = $WebSession
-        }
-      }
-      NoBody
-      {
-        $Params = @{
-          Uri         = $SessionURL
-          Headers     = @{}
-          ContentType = 'application/json'
-          Method      = $Method
-          WebSession  = $WebSession
-        }
-      }
-    }
     try
     {
-      Invoke-RestMethod @Params -ErrorAction Stop
+      Invoke-RestMethod @PSBoundParameters -ErrorAction Stop
     }
     catch [System.Net.WebException]
     {
@@ -90,19 +68,23 @@ function Invoke-UMSRestMethodWebSession
       {
         400
         {
-          Write-Warning -Message ('Error executing IMI RestAPI request. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+          Write-Warning -Message ('Error executing IMI RestAPI request. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
         401
         {
-          Write-Warning -Message ('Error logging in, it seems as you have entered invalid credentials. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+          Write-Warning -Message ('Error logging in, it seems as you have entered invalid credentials. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
         403
         {
-          Write-Warning -Message ('Error logging in, it seems as you have not subscripted this version of IMI. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+          Write-Warning -Message ('Error logging in, it seems as you have not subscripted this version of IMI. Uri: {0} Method: {1}' -f $Uri, $Method)
+        }
+        415
+        {
+          Write-Warning -Message ('Unsupported Media Type. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
         default
         {
-          Write-Warning -Message ('Some error occured see HTTP status code for further details. SessionURL: {0} Method: {1}' -f $SessionURL, $Method)
+          Write-Warning -Message ('Some error occured see HTTP status code for further details. Uri: {0} Method: {1}' -f $Uri, $Method)
         }
       }
     }

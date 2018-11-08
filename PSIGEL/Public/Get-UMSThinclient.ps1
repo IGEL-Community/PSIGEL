@@ -26,8 +26,13 @@
       ThinclientID to search for
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'full'
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        Details      = 'full'
+      }
+      Get-UMSThinclient @Params
       #Gets detailed information on all online thin clients.
 
       .EXAMPLE
@@ -36,7 +41,7 @@
 
       .EXAMPLE
       $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      2433, 2344 | Get-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -Details 'shadow'
+      2433, 2344 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
       #Gets shadow-information on Thinclient with TCID 2433, 2433
 
   #>
@@ -71,13 +76,11 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
+
     Switch ($Details)
     {
       'short'
@@ -101,15 +104,24 @@
     {
       0
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $Computername, $TCPPort, $ApiVersion, $URLEnd
+        $UriArray = @($Computername, $TCPPort, $ApiVersion, $URLEnd)
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $UriArray
       }
       default
       {
-        $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd
+        $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd)
+        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $UriArray
       }
-
     }
-    Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Get'
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {

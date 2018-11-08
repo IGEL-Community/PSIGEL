@@ -50,27 +50,31 @@
       Thinclient Attribute SerialNumber
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564' -Confirm
-      #Upates name of the thinclient to TC030564.
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername  = 'UMSSERVER'
+        TCID          = 100
+        Name          = 'TC012345'
+        ParentID      = '772'
+        Site          = 'Leipzig'
+        Department    = 'Marketing'
+        CostCenter    = '50100'
+        LastIP        = '192.168.0.10'
+        Comment       = 'New Thinclient'
+        AssetID       = '012345'
+        InserviceDate = '01.01.2018'
+        SerialNumber  = '12A3B4C56B12345A6BC'
+      }
+      Update-UMSThinclient @Params
+      #Updates thinclient with all possible attributes.
 
       .EXAMPLE
-      $UpdateUMSThinclientParams = @{
-      Computername  = 'UMSSERVER'
-      TCID          = 100
-      Name          = 'TC012345'
-      ParentID      = '772'
-      Site          = 'Leipzig'
-      Department    = 'Marketing'
-      CostCenter    = '50100'
-      LastIP        = '192.168.0.10'
-      Comment       = 'New Thinclient'
-      AssetID       = '012345'
-      InserviceDate = '01.01.2018'
-      SerialNumber  = '12A3B4C56B12345A6BC'
-      }
-      Update-UMSThinclient @UpdateUMSThinclientParams
-      #Updates thinclient with all possible attributes.
+      Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''
+      #Removes comment of the thinclient to TC030564.
+
+      .EXAMPLE
+      Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'
+      #Upates name of the thinclient to TC030564.
   #>
 
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
@@ -129,73 +133,73 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $HashTable = [ordered]@{}
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}' -f $UriArray
+
+    $BodyHashTable = @{}
     if ($Name)
     {
-      $HashTable += @{
-        name = $Name
-      }
+      $BodyHashTable.name = $Name
     }
     if ($Site)
     {
-      $HashTable += @{
-        site = $Site
-      }
+      $BodyHashTable.site = $Site
     }
     if ($Department)
     {
-      $HashTable += @{
-        department = $Department
-      }
+      $BodyHashTable.department = $Department
     }
     if ($CostCenter)
     {
-      $HashTable += @{
-        costCenter = $CostCenter
-      }
+      $BodyHashTable.costCenter = $CostCenter
     }
     if ($LastIP)
     {
-      $HashTable += @{
-        lastIP = $LastIP
-      }
+      $BodyHashTable.lastIP = $LastIP
     }
     if ($Comment)
     {
-      $HashTable += @{
-        comment = $Comment
+      $BodyHashTable.comment = $Comment
+    }
+    else
+    {
+      if ($null -ne $Comment)
+      {
+        $BodyHashTable.comment = $Comment
       }
     }
     if ($AssetID)
     {
-      $HashTable += @{
-        assetID = $AssetID
-      }
+      $BodyHashTable.assetID = $AssetID
     }
     if ($InserviceDate)
     {
-      $HashTable += @{
-        inserviceDate = $InserviceDate
-      }
+      $BodyHashTable.inserviceDate = $InserviceDate
     }
     if ($SerialNumber)
     {
-      $HashTable += @{
-        serialNumber = $SerialNumber
-      }
+      $BodyHashTable.serialNumber = $SerialNumber
     }
-    $Body = $HashTable | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}' -f $Computername, $TCPPort, $ApiVersion, $TCID
+
+    $Body = ConvertTo-Json $BodyHashTable
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

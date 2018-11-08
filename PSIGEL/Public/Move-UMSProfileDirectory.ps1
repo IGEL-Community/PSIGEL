@@ -23,12 +23,20 @@ function Move-UMSProfileDirectory
       DIRIDs to move
 
       .PARAMETER DDIRID
-      DDIRID to move to
+      DIRID to move to
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSProfileDirectory -Computername 'UMSSERVER' -WebSession $WebSession -DDIRID 28793 -DIRID 49339 -Confirm
-      #Moves Profile Directory into the specified Profile Directory
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DIRID        = 49339
+        DDIRID       = 28793
+        Confirm      = $true
+      }
+      Move-UMSProfileDirectory @Params
+      #Moves Profile Directory with ID 49339 into the Profile Directory with ID 28793
+      #and prompts for confirmation
 
       .EXAMPLE
       49339, 49341 | Move-UMSProfileDirectory -Computername 'UMSSERVER' -DDIRID -2
@@ -67,22 +75,32 @@ function Move-UMSProfileDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = @{
-      id   = $DIRID
-      type = "profiledirectory"
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $Computername,
-    $TCPPort, $ApiVersion, $DDIRID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $UriArray
+    $Body = ConvertTo-Json @(
+      @{
+        id   = $DIRID
+        type = "profiledirectory"
+      }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $DIRID, $DDIRID)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

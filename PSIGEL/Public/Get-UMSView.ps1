@@ -18,14 +18,20 @@
 
       .PARAMETER Credential
       Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.
+      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the
+      Windows account running the PowerShell session.
 
       .PARAMETER ViewID
       ViewIDs to search for
 
       .EXAMPLE
-      $Credential = Get-Credential
-      Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Credential $Credential
+      $Params = @{
+        Credential     = Get-Credential
+        ServerInstance = 'SQLSERVER\RMDB'
+        Database       = 'RMDB'
+        Schema         = 'igelums'
+      }
+      Get-UMSView @Params
       #Gets all Views
 
       .EXAMPLE
@@ -61,6 +67,16 @@
   }
   Process
   {
+    $InvokeSqlcmd2Params = @{
+      ServerInstance = $ServerInstance
+      Database       = $Database
+    }
+
+    if ($null -ne $Credential)
+    {
+      $InvokeSqlcmd2Params.Credential = $Credential
+    }
+
     $BaseQuery = (@'
 SELECT [{0}].[{1}].[TCVIEWS].[VIEWID] AS VIEWID
       ,[{0}].[{1}].[TCVIEWS].[VIEWNAME] AS VIEWNAME
@@ -74,21 +90,7 @@ SELECT [{0}].[{1}].[TCVIEWS].[VIEWID] AS VIEWID
   LEFT JOIN [{0}].[{1}].[TCVIEWSTOREDIN]
   ON [{0}].[{1}].[TCVIEWS].[VIEWID] = [{0}].[{1}].[TCVIEWSTOREDIN].[VIEWID]
 '@ -f $Database, $Schema)
-    if ($Credential)
-    {
-      $InvokeSqlcmd2Params = @{
-        ServerInstance = $ServerInstance
-        Database       = $Database
-        Credential     = $Credential
-      }
-    }
-    else
-    {
-      $InvokeSqlcmd2Params = @{
-        ServerInstance = $ServerInstance
-        Database       = $Database
-      }
-    }
+
     if (!$ViewID)
     {
       $Query = $BaseQuery

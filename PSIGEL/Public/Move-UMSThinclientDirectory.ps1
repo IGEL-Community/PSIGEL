@@ -26,9 +26,17 @@ function Move-UMSThinclientDirectory
       DDIRID to move to
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -DDIRID 49552 -DIRID 49289 -Confirm
-      #Moves Thinclient Directories into the specified Thinclient Directory
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DIRID        = 49289
+        DDIRID       = 49552
+        Confirm      = $true
+      }
+      Move-UMSThinclientDirectory @Params
+      #Moves Thinclient Directorie with ID 49289 into the Thinclient Directory with ID 49552
+      #and prompts for confirmation
 
       .EXAMPLE
       49289, 49291 | Move-UMSThinclientDirectory -Computername 'UMSSERVER' -DDIRID 772
@@ -67,22 +75,32 @@ function Move-UMSThinclientDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = @{
-      id   = $DIRID
-      type = "tcdirectory"
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}?operation=move' -f $Computername,
-    $TCPPort, $ApiVersion, $DDIRID
+    
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}?operation=move' -f $UriArray
+    $Body = ConvertTo-Json @(
+      @{
+        id   = $DIRID
+        type = "tcdirectory"
+      }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess(('DIRID: {0} to DDIRID: {1}' -f $DIRID, $DDIRID)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

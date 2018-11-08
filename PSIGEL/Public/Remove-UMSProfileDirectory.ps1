@@ -23,8 +23,13 @@ function Remove-UMSProfileDirectory
       ProfileDirectoryIDs to remove
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSProfileDirectory -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49601
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DIRID        = 49601
+      }
+      Remove-UMSProfileDirectory @Params
       #Removes profile directory with ID 49601
 
       .EXAMPLE
@@ -60,17 +65,25 @@ function Remove-UMSProfileDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $Computername, $TCPPort, $ApiVersion, $DIRID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $UriArray
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Delete'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('DIRID: {0}' -f $DIRID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

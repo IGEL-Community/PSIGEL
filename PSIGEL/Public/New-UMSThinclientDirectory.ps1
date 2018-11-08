@@ -23,9 +23,14 @@ function New-UMSThinclientDirectory
       Name of the Thinclient Directory to create
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      New-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Name 'NewTcDir1' -Confirm
-      #Creates a Thinclient Directory with name 'NewTcDir1'
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        Name         = 'NewTcDir1'
+      }
+      New-UMSThinclientDirectory @Params
+      #Creates Thinclient Directory with name 'NewTcDir1'
 
       .EXAMPLE
       'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'
@@ -60,20 +65,29 @@ function New-UMSThinclientDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = @{
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $UriArray
+    $Body = ConvertTo-Json @{
       name = $Name
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $Computername, $TCPPort, $ApiVersion
+    }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

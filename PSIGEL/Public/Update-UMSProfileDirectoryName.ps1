@@ -26,8 +26,14 @@ function Update-UMSProfileDirectoryName
       New Name of the directory
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSProfileDirectoryName -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49339 -Name 'NewDirName'
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DIRID        = 49339
+        Name         = 'NewDirName'
+      }
+      Update-UMSProfileDirectoryName @Params
       #Updates profile directory name to 'NewDirName'
 
       .EXAMPLE
@@ -67,20 +73,30 @@ function Update-UMSProfileDirectoryName
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = @{
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $UriArray
+
+    $Body = ConvertTo-Json @{
       name = $Name
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $Computername, $TCPPort, $ApiVersion, $DIRID
+    }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess(('DIRID: {0}, new name: {1}' -f $DIRID, $Name)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

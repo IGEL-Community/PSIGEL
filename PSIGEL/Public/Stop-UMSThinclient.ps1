@@ -23,8 +23,13 @@
       ThinclientIDs to shut down
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Stop-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 48426
+      }
+      Stop-UMSThinclient @Params
       #Shuts down thin client with TCID 48426.
 
       .EXAMPLE
@@ -52,7 +57,7 @@
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $TCID
   )
 
   Begin
@@ -60,25 +65,35 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    foreach ($TCID in $TCIDColl)
-    {
-      $Body = @{
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=shutdown' -f $UriArray
+
+    $Body = ConvertTo-Json @(
+      @{
         id   = $TCID
         type = "tc"
-      } | ConvertTo-Json
-      $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=shutdown' -f $Computername, $TCPPort, $ApiVersion
-      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
-      {
-        Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Post'
       }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Post'
+      ContentType = 'application/json'
+      Headers     = @{}
     }
+
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    {
+      Invoke-UMSRestMethodWebSession @Params
+    }
+
   }
   End
   {

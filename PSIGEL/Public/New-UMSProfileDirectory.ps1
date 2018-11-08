@@ -23,8 +23,13 @@ function New-UMSProfileDirectory
       Name of the Profile Directory to create
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      New-UMSProfileDirectory -Computername 'UMSSERVER' -WebSession $WebSession -Name 'NewProfileDir1' -Confirm
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        Name         = 'NewProfileDir1'
+      }
+      New-UMSProfileDirectory @Params
       #Creates a Profile Directory with name 'NewProfileDir1'
 
       .EXAMPLE
@@ -60,20 +65,29 @@ function New-UMSProfileDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = @{
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray
+    $Body = ConvertTo-Json @{
       name = $Name
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $Computername, $TCPPort, $ApiVersion
+    }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

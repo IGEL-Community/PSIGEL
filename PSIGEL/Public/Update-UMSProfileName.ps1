@@ -26,17 +26,18 @@
       New Name of the profile
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Update-UMSProfileName -Computername 'UMSSERVER' -WebSession $WebSession -ProfileID 48170 -Name 'NewProfileName' -Confirm
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        ProfileID    = 48170
+        Name         = 'NewProfileName'
+      }
+      Update-UMSProfileName @Params
       #Updates profile name to 'NewProfileName'
 
       .EXAMPLE
-      $UpdateUMSProfileNameParams = @{
-          Computername  = 'UMSSERVER'
-          ProfileID     = 48170
-          Name          = 'NewProfileName'
-        }
-      Update-UMSProfileName @UpdateUMSProfileNameParams
+      Update-UMSProfileName -Computername 'UMSSERVER' -ProfileID 48170 -Name 'NewProfileName'
       #Updates profile name to 'NewProfileName'
   #>
 
@@ -71,20 +72,30 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = [ordered]@{
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray
+
+    $Body = ConvertTo-Json @{
       name = $Name
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $Computername, $TCPPort, $ApiVersion, $ProfileID
+    }
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, new name: {1}' -f $ProfileID, $Name)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodyWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

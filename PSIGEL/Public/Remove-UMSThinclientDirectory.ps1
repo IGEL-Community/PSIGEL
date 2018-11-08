@@ -23,8 +23,13 @@ function Remove-UMSThinclientDirectory
       ThinclientDirectoryIDs to remove
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSThinclientDirectory -Computername 'UMSSERVER' -WebSession $WebSession -DIRID 49289
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DIRID        = 49289
+      }
+      Remove-UMSThinclientDirectory @Params
       #Removes thinclient directory with ID 49289
 
       .EXAMPLE
@@ -60,17 +65,25 @@ function Remove-UMSThinclientDirectory
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}' -f $Computername, $TCPPort, $ApiVersion, $DIRID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}' -f $UriArray
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Delete'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('DIRID: {0}' -f $DIRID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

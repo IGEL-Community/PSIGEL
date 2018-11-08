@@ -26,9 +26,17 @@ function Move-UMSProfile
       DDIRID to move to
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Move-UMSProfile -Computername 'UMSSERVER' -WebSession $WebSession -DDIRID 49339 -ProfileID 48440 -Confirm
-      #Moves Profile into the specified Profile Directory
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        DDIRID       = 49339
+        ProfileID    = 48440
+        Confirm      = $true
+      }
+      Move-UMSProfile @Params
+      #Moves Profile with ID 48440 into the Profile Directory with ID 48440
+      #and prompts for confirmation
 
       .EXAMPLE
       48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DDIRID 28793
@@ -67,22 +75,32 @@ function Move-UMSProfile
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Body = @{
-      id   = $ProfileID
-      type = "profile"
-    } | ConvertTo-Json
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $Computername,
-    $TCPPort, $ApiVersion, $DDIRID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $UriArray
+    $Body = ConvertTo-Json @(
+      @{
+        id   = $ProfileID
+        type = "profile"
+      }
+    )
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Put'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $ProfileID, $DDIRID)))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -BodySquareWavy $Body -Method 'Put'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End

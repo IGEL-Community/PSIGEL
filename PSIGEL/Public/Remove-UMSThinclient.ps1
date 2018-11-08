@@ -23,8 +23,13 @@
       ThinclientID of the thinclient to remove
 
       .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      Remove-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48420
+      $Computername = 'UMSSERVER'
+      $Params = @{
+        Computername = $Computername
+        WebSession   = New-UMSAPICookie -Computername $Computername
+        TCID         = 48420
+      }
+      Remove-UMSThinclient @Params
       #Removes Thinclient with TCID 48420
 
       .EXAMPLE
@@ -59,17 +64,25 @@
   }
   Process
   {
-    Switch ($WebSession)
+    if ($null -eq $WebSession)
     {
-      $null
-      {
-        $WebSession = New-UMSAPICookie -Computername $Computername
-      }
+      $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $SessionURL = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $Computername, $TCPPort, $ApiVersion, $TCID
+
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID)
+    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/deletetcoffline' -f $UriArray
+
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Method      = 'Delete'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
+
     if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
     {
-      Invoke-UMSRestMethodWebSession -WebSession $WebSession -SessionURL $SessionURL -Method 'Delete'
+      Invoke-UMSRestMethodWebSession @Params
     }
   }
   End
