@@ -70,6 +70,7 @@
   # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
   FunctionsToExport = @(
     'Get-EPFirmware'
+    'Get-EPWifiConnection'
     'Get-UMSFile'
     'Get-UMSFileDirectory'
     'Get-UMSFirmware'
@@ -89,12 +90,10 @@
     'Move-UMSProfileDirectory'
     'Move-UMSThinclient'
     'Move-UMSThinclientDirectory'
-    'New-EPSSHSession'
     'New-UMSAPICookie'
     'New-UMSProfileDirectory'
     'New-UMSThinclient'
     'New-UMSThinclientDirectory'
-    'Remove-EPSSHSession'
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
     'Remove-UMSProfileDirectory'

@@ -7,16 +7,22 @@ function Get-EPFirmware
     .DESCRIPTION
     Get Firmware from IGEL EndPoint via SSH.
 
+    .PARAMETER SSHSession
+    SSH Session to use
+
     .EXAMPLE
     $Params = @{
-      SSHSession = New-EPSSHSession -ComputerName TC035681 -Credential (Get-Credential) -AcceptKey
+      SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
     }
     Get-EPFirmware @Params
   #>
 
   [CmdletBinding()]
   param (
-    $SSHSession
+    [Parameter(Mandatory = $true,
+      ValueFromPipeline = $true,
+      Position = 0)]
+    $SSHSession,
   )
 
   begin
@@ -24,10 +30,11 @@ function Get-EPFirmware
   }
   process
   {
-    $Command = {cat /etc/firmware}
+    $Command = "cat /etc/firmware"
     try
     {
-      Invoke-EPSSHCommandStream -SSHSession $SSHSession -Command $Command
+      $Result = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
+      $Result -replace ('\s', '')
     }
     catch
     {
