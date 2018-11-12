@@ -1,24 +1,20 @@
-function Get-EPWifiConnection
+function Get-EPUpdateConfiguration
 {
   <#
     .SYNOPSIS
-    Get Wifi connection details from IGEL EndPoint via SSH.
+    Get update configuration details from IGEL EndPoint via SSH.
 
     .DESCRIPTION
-    Get Wifi connection details from IGEL EndPoint via SSH.
+    Get update configuration details from IGEL EndPoint via SSH.
 
     .PARAMETER SSHSession
     SSH Session to use
 
-    .PARAMETER Interface
-    Interface to query
-
     .EXAMPLE
     $Properties = @{
       SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
-      Interface  = 'wlan0'
     }
-    Get-EPWifiConnection @Params
+    Get-EPUpdateConfiguration @Params
   #>
 
   [CmdletBinding()]
@@ -26,10 +22,7 @@ function Get-EPWifiConnection
     [Parameter(Mandatory = $true,
       ValueFromPipeline = $true,
       Position = 0)]
-    $SSHSession,
-
-    [string]
-    $Interface = 'wlan0'
+    $SSHSession
   )
 
   begin
@@ -37,16 +30,14 @@ function Get-EPWifiConnection
   }
   process
   {
-    $Command = "iwconfig $Interface"
+    $Command = 'cat /wfs/updateconf.ini'
     $PatternColl = [ordered]@{
-      ESSID       = 'ESSID(:|=)\"(?<ESSID>.*)\"'
-      Mode        = 'Mode(:|=)(?<Mode>[^\s]*)'
-      Frequency   = 'Frequency(:|=)(?<Frequency>[^\s]*)\s(?<Unit>[^\s]*)'
-      AccessPoint = 'Access Point:\s(?<AccessPoint>[^\s]*)'
-      BitRate     = 'Bit Rate(:|=)(?<BitRate>[^\s]*)\s(?<Unit>[^\s]*)'
-      TxPower     = 'Tx-Power(:|=)(?<TxPower>[^\s]*)\s(?<Unit>[^\s]*)'
-      LinkQuality = 'Link Quality(:|=)(?<LinkQuality>[^\s]*)'
-      SignalLevel = 'Signal level(:|=)(?<SignalLevel>[^\s]*)\s(?<Unit>[^\s]*)'
+      Protocol = 'protocol=\"(?<Protocol>.*)\"'
+      Hostname = 'hostname=\"(?<Hostname>.*)\"'
+      Port     = 'port=\"(?<Port>.*)\"'
+      Username = 'username=\"(?<Username>.*)\"'
+      Password = 'password=\"(?<Password>.*)\"'
+      Path     = 'path=\"(?<Path>.*)\"'
     }
 
     try
@@ -59,8 +50,7 @@ function Get-EPWifiConnection
     }
 
     $Properties = [ordered]@{
-      Host      = $SSHSession.Host
-      Interface = $Interface
+      Host = $SSHSession.Host
     }
     foreach ($Pattern in $PatternColl.GetEnumerator())
     {

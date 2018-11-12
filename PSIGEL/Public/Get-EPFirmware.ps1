@@ -22,7 +22,7 @@ function Get-EPFirmware
     [Parameter(Mandatory = $true,
       ValueFromPipeline = $true,
       Position = 0)]
-    $SSHSession,
+    $SSHSession
   )
 
   begin
