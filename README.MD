@@ -79,7 +79,7 @@ Get update configuration (IGEL OS 10+)
 
 ### Get-EPWifiConnection
 
-[Get Wifi connection information](../Docs/Get-EPWifiConnection.md)
+[Get Wifi connection information](/Docs/Get-EPWifiConnection.md)
 
 ### Get-UMSFile
 
