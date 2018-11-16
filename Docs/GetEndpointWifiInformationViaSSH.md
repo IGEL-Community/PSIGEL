@@ -13,7 +13,7 @@
 
 Get Information of WiFi connections from all IGELOS endpoints in a given directory as an object. The information include hostname, interface name, SSID, mode, frequency, connected access point, bit rate, link quality and signal level.
 
-![Result](../Media/Output.png)
+![Result](../Docs/Media/Output.png)
 
 ## Implementation
 
@@ -59,7 +59,7 @@ by filtering for its name.)
 
 Get the ID in UMS via mouse-over:
 
-![TCDIRID](../Media/TCDIRID.png)
+![TCDIRID](../Docs/Media/TCDIRID.png)
 
 ```powershell
 [int]$DirID = 203
