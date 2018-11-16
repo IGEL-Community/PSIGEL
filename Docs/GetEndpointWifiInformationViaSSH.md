@@ -2,11 +2,11 @@
 
 ## Prerequisites
 
-* Module [PSIGEL](#https://github.com/IGEL-Community/PSIGEL)
+* Module [PSIGEL](https://github.com/IGEL-Community/PSIGEL)
   * interact with the IGEL IMI API / handling of SSH Session Output
-* Module [Invoke-Parallel](#https://github.com/RamblingCookieMonster/Invoke-Parallel) by Warren Frame aka RamblingCookieMonster
+* Module [Invoke-Parallel](https://github.com/RamblingCookieMonster/Invoke-Parallel) by Warren Frame aka RamblingCookieMonster
   * run multiple Commands parallel
-* Module [Posh-SSH](#https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator
+* Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator
   * establish SSH-sessions and perform action in them
 
 ## Objective
