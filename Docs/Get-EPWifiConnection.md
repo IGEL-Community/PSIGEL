@@ -2,44 +2,36 @@
 
 Get Wifi connection details from IGEL EndPoint via SSH.
 
-## Syntax
-
-```powershell
-Get-EPWifiConnection [-SSHSession <Object>] [-Interface <String>]
-```
-
 ## PARAMETER
 
-### -SSHSession
+### -SSHSession <Object>
 
 SSH Session to use
 
 ```code
-Type: Object
-Parameter Sets: Owned
-Aliases:
-
 Required: True
-Position: Named
+Position: 0
 Default value: False
 Accept pipeline input: True
 Accept wildcard characters: False
 ```
 
-### -Interface
+### -Interface <String>
 
 Interface to query
 
 ```code
-Type: String
-Parameter Sets: Owned
-Aliases:
-
 Required: False
 Position: Named
 Default value: 'wlan0'
 Accept pipeline input: False
 Accept wildcard characters: False
+```
+
+## Syntax
+
+```powershell
+Get-EPWifiConnection [-SSHSession] <Object> [-Interface <String>] [<CommonParameters>]
 ```
 
 ## EXAMPLE
@@ -51,8 +43,6 @@ $Properties = @{
 }
 Get-EPWifiConnection @Params
 ```
-
-Output:
 
 ```console
 Host        : TC01234
@@ -66,3 +56,7 @@ TxPower     : 20
 LinkQuality : 62/70
 SignalLevel : -48
 ```
+
+## Output
+
+System.Management.Automation.PSObject
