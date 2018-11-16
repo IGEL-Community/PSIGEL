@@ -165,4 +165,4 @@ TC030564 wlan0     WLAN-0024501 open    2.437     6C:F3:7F:DA:FA:80 1           
 
 <script src="https://github.com/IGEL-Community/PSIGEL/blob/development/Examples/GetEndpointWifiInformation.ps1"></script>
 
-{% gist OCram85/d673764614438493afaa5cd413999436 AddPublicMember.ps1 %}
+{% gist 125789dc07f3ba8694d3594fe77246d6 %}
