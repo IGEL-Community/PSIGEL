@@ -4,7 +4,7 @@ Get Wifi connection details from IGEL EndPoint via SSH.
 
 ## PARAMETER
 
-### -SSHSession <Object>
+### -SSHSession [Object]
 
 SSH Session to use
 
@@ -16,7 +16,7 @@ Accept pipeline input: True
 Accept wildcard characters: False
 ```
 
-### -Interface <String>
+### -Interface [String]
 
 Interface to query
 
