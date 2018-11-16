@@ -2,10 +2,10 @@ function Get-EPUpdateConfiguration
 {
   <#
     .SYNOPSIS
-    Get update configuration details from IGEL EndPoint via SSH.
+    Get update configuration details from IGEL EndPoint with firmware 10+ via SSH.
 
     .DESCRIPTION
-    Get update configuration details from IGEL EndPoint via SSH.
+    Get update configuration details from IGEL EndPoint with firmware 10+ via SSH.
 
     .PARAMETER SSHSession
     SSH Session to use
