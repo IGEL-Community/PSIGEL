@@ -37,7 +37,6 @@
     [Int]
     $TCPPort = 8443,
 
-    [Parameter(ParameterSetName = 'UseAgentAuthentication')]
     [ValidateNotNull()]
     [System.Management.Automation.PSCredential]
     [System.Management.Automation.Credential()]

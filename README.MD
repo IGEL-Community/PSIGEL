@@ -1,6 +1,12 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS API (via IGEL IMI) or MSSQL-Database.
+This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL-Database (until the API supports all functions) and the IGEL OS Endpoints (e.g. Thinclients) via SSH.
+
+**API (/MSSQL)** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
+
+**SSH** functions got the noun-prefix **EP** (for EndPoint), e.g. Get-**EP**Something
+
+To connect to the Endpoints via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
 
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie):
 
@@ -20,9 +26,9 @@ If you did not provide a credential, one will be created.
 
 My goal is to support all the [API-functionalities](http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm). If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function. Suggestions are welcome.
 
-## Functionality
+## API(/MSSQL) Functionality
 
-### General
+### API General
 
 Item | Get | New
 -----|-----|----
@@ -30,13 +36,13 @@ WebSession |-|[API](#new-umsapicookie)
 Status |[API](#get-umsstatus)|-
 Firmware |[API](#get-umsfirmware)|-
 
-### Thin Client
+### API Thin Client
 
 Item | Get | New | Update | Move | Remove | Start | Restart | Settings | Stop | Reset
 -----|-----|-----|--------|------|--------|-------|---------|----------|------|------
 Thin Client |[API](#get-umsthinclient)|[API](#new-umsthinclient)|[API](#update-umsthinclient)|[API](#move-umsthinclient)|[API](#remove-umsthinclient)|[API](#start-umsthinclient)|[API](#restart-umsthinclient)|[API](#send-umsthinclientsetting)|[API](#stop-umsthinclient)|[API](#reset-umsthinclient)
 
-### Other Items
+### API/SQL Other Items
 
 Item | Get | New | Update | Move | Remove
 -----|-----|-----|--------|------|-------
@@ -52,7 +58,7 @@ Job Directory |[SQL](#Get-umsjobdirectory)|-|SQL|-|-
 File |[SQL](#get-umsfile)|-|-|-|-
 File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
 
-### Assignment
+### API Assignment
 
 |Item | Get | Update | Remove
 |-----|-----|--------|-------
@@ -62,6 +68,18 @@ Profile |[API](#get-umsprofileassignment) |[API](#update-umsprofileassignment) |
 Master Profile |API|-|-
 
 ## Functions
+
+### Get-EPFirmware
+
+Get Firmware
+
+### Get-EPUpdateConfiguration
+
+Get update configuration (IGEL OS 10+)
+
+### Get-EPWifiConnection
+
+[Get Wifi connection information](/Docs/Get-EPWifiConnection.md)
 
 ### Get-UMSFile
 

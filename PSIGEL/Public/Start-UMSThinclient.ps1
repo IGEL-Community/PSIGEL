@@ -57,7 +57,7 @@
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $TCIDColl
+    $TCID
   )
 
   Begin
@@ -73,29 +73,28 @@
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=wakeup' -f $UriArray
 
-    foreach ($TCID in $TCIDColl)
-    {
-      $Body = ConvertTo-Json @(
-        @{
-          id   = $TCID
-          type = "tc"
-        }
-      )
 
-      $Params = @{
-        WebSession  = $WebSession
-        Uri         = $Uri
-        Body        = $Body
-        Method      = 'Post'
-        ContentType = 'application/json'
-        Headers     = @{}
+    $Body = ConvertTo-Json @(
+      @{
+        id   = $TCID
+        type = "tc"
       }
+    )
 
-      if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
-      {
-        Invoke-UMSRestMethodWebSession @Params
-      }
+    $Params = @{
+      WebSession  = $WebSession
+      Uri         = $Uri
+      Body        = $Body
+      Method      = 'Post'
+      ContentType = 'application/json'
+      Headers     = @{}
     }
+
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    {
+      Invoke-UMSRestMethodWebSession @Params
+    }
+
   }
   End
   {
