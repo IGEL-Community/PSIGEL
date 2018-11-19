@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfileDirectory.md
 schema: 2.0.0
 ---
 
 # Get-UMSProfileDirectory
 
 ## SYNOPSIS
-Gets information on Profile Directories via API
+Get Profile Directories.
 
 ## SYNTAX
 
@@ -25,42 +25,52 @@ Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <
 ```
 
 ## DESCRIPTION
-Gets information on Profile Directories via API
+Get Profile Directories from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSProfileDirectory @Params
+```
+
+```
+id         : 477
+name       : 04_Network
+parentID   : 421
+movedToBin : False
+objectType : profiledirectory
+links      : {}
+
+id         : 446
+name       : 01_Sessions
+parentID   : 421
+movedToBin : False
+objectType : profiledirectory
+links      : {}
+```
+
 Gets information on all Profile Directories
 
 ### BEISPIEL 2
 ```
-(Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+(446 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
 ```
 
-Gets information on all children of the Profile Directories
-
-### BEISPIEL 3
 ```
-Get-UMSProfileDirectory -Computername 'UMSSERVER' -DIRID 421
-```
-
-Gets information on a specific Profile Directory
-
-### BEISPIEL 4
-```
-(421 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+objectType id
+---------- --
+profile    449
+profile    10780
+profile    450
 ```
 
-Gets children of Profile Directory with DirID 421.
+Gets children of the Profile Directory with ID 446
 
 ## PARAMETERS
 
@@ -140,7 +150,7 @@ Accept wildcard characters: False
 ```
 
 ### -DIRID
-DIRIDs to get information of
+ID of the Profile Directory to get
 
 ```yaml
 Type: Int32
