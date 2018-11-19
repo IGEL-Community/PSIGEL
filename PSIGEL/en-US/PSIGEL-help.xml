@@ -6,11 +6,11 @@
       <command:verb>Get</command:verb>
       <command:noun>EPFirmware</command:noun>
       <maml:description>
-        <maml:para>Get Firmware from IGEL EndPoint via SSH.</maml:para>
+        <maml:para>Get Firmware from IGEL EndPoint.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get Firmware from IGEL EndPoint via SSH.</maml:para>
+      <maml:para>Get Firmware from IGEL EndPoint via SSH Connection. Requires Module Posh-SSH.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -53,13 +53,23 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+  SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
+}
+Get-EPFirmware @Params
+
+4.14.300.01</dev:code>
         <dev:remarks>
-          <maml:para>SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey } Get-EPFirmware @Params</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPFirmware.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -67,11 +77,11 @@
       <command:verb>Get</command:verb>
       <command:noun>EPUpdateConfiguration</command:noun>
       <maml:description>
-        <maml:para>Get update configuration details from IGEL EndPoint with firmware 10+ via SSH.</maml:para>
+        <maml:para>Get update configuration details from IGEL EndPoint.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get update configuration details from IGEL EndPoint with firmware 10+ via SSH.</maml:para>
+      <maml:para>Get update configuration details from IGEL EndPoint with firmware 10+ via SSH Connection. Requires Module Posh-SSH.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -114,13 +124,29 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Properties = @{</dev:code>
+        <dev:code>$Properties = @{
+  SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
+}
+Get-EPUpdateConfiguration @Params
+
+Host     : TC012345
+Protocol : http
+Hostname : UMSSERVER.acme.org
+Port     : 9080
+Username : igelums
+Password : 00a3439e23423e182e5c2g
+Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
         <dev:remarks>
-          <maml:para>SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey } Get-EPUpdateConfiguration @Params</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPUpdateConfiguration.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -128,11 +154,11 @@
       <command:verb>Get</command:verb>
       <command:noun>EPWifiConnection</command:noun>
       <maml:description>
-        <maml:para>Get Wifi connection details from IGEL EndPoint via SSH.</maml:para>
+        <maml:para>Get Wifi connection details from IGEL EndPoint.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get Wifi connection details from IGEL EndPoint via SSH.</maml:para>
+      <maml:para>Get Wifi connection details from IGEL EndPoint via SSH Connection. Requires Module Posh-SSH.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -199,13 +225,33 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Properties = @{</dev:code>
+        <dev:code>$Properties = @{
+  SHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
+  Interface  = 'wlan0'
+}
+
+Get-EPWifiConnection @Params
+Host        : TC012345
+Interface   : wlan0
+ESSID       : WLAN12345
+Mode        : Managed
+Frequency   : 5.54
+AccessPoint : E8:C8:C7:AD:DA:B8
+BitRate     : 6
+TxPower     : 26
+LinkQuality : 56/70
+SignalLevel : -54</dev:code>
         <dev:remarks>
-          <maml:para>SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey   Interface  = 'wlan0' } Get-EPWifiConnection @Params</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPWifiConnection.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -213,11 +259,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSFile</command:noun>
       <maml:description>
-        <maml:para>Gets File from UMS-DB</maml:para>
+        <maml:para>Get Files.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets File from UMS-DB</maml:para>
+      <maml:para>Get Files from UMS DB via Invoke-SQLcmd2.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -273,7 +319,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>FileID</maml:name>
           <maml:Description>
-            <maml:para>FileIDs to search for</maml:para>
+            <maml:para>ID of File to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -336,7 +382,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>FileID</maml:name>
         <maml:Description>
-          <maml:para>FileIDs to search for</maml:para>
+          <maml:para>ID of File to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -356,9 +402,44 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+Credential     = Get-Credential
+  ServerInstance = 'SQLSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+}
+Get-UMSFile @Params
+
+FILEID         : 25283
+FILEURL        : https://${serverhostname:port}$/ums_filetransfer/Certificate.cer
+TCURL          :
+CLASSIFICATION : 25
+MD5            : 250D3D6EB54DC8DA9019011032837E8G
+MD5Date        : 02.05.2018 08:51:28
+USERNAME       :
+PASSWORD       :
+OWNER          : user
+PERMISSION     : rwx---
+FILE_HIDDEN    : 0
+MOVEDTOBIN     :
+DIRID          :
+
+FILEID         : 35196
+FILEURL        : https://${serverhostname:port}$/ums_filetransfer/99wlan
+TCURL          : /etc/NetworkManager/dispatcher.d
+CLASSIFICATION : 0
+MD5            : 7ED6277D54B8E4EAE913F0BD5E8ECCA7
+MD5Date        : 05.06.2018 10:44:56
+USERNAME       :
+PASSWORD       :
+OWNER          : root
+PERMISSION     : rwxr-x
+FILE_HIDDEN    : 0
+MOVEDTOBIN     :  : 0
+MOVEDTOBIN     :
+DIRID          : 50194</dev:code>
         <dev:remarks>
-          <maml:para>Credential     = Get-Credential   ServerInstance = 'SQLSERVER\RMDB'   Database       = 'RMDB'   Schema         = 'igelums' } Get-UMSFile @Params Gets all Files</maml:para>
+          <maml:para>Gets all Files</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -369,7 +450,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSFile.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -377,11 +463,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSFileDirectory</command:noun>
       <maml:description>
-        <maml:para>Gets File Directories from UMS-DB</maml:para>
+        <maml:para>Get File Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets File Directories from UMS-DB</maml:para>
+      <maml:para>Get File Directories from UMS DB via Invoke-SQLcmd2.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -437,7 +523,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>{{Fill DirID Description}}</maml:para>
+            <maml:para>ID of Directoriy to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -500,7 +586,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>{{Fill DirID Description}}</maml:para>
+          <maml:para>ID of Directoriy to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -520,9 +606,19 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+  Credential     = Get-Credential
+  ServerInstance = 'SQLSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+}
+Get-UMSFileDirectory @Params
+
+DIRID NAME MEMBEROF MOVEDTOBIN
+----- ---- -------- ----------
+50192 Dir1</dev:code>
         <dev:remarks>
-          <maml:para>Credential     = Get-Credential   ServerInstance = 'SQLSERVER\RMDB'   Database       = 'RMDB'   Schema         = 'igelums' } Get-UMSFileDirectory @Params Gets all File Directories</maml:para>
+          <maml:para>Gets all File Directories</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -533,7 +629,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSFile.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -541,11 +642,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSFirmware</command:noun>
       <maml:description>
-        <maml:para>Gets information on all firmwares known to the UMS from API.</maml:para>
+        <maml:para>Get information on all firmwares.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets information on all firmwares known to the UMS from API.</maml:para>
+      <maml:para>Gets information on all firmwares from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -601,7 +702,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>FirmwareID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientID to search for</maml:para>
+            <maml:para>ID of the firmware to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -664,7 +765,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>FirmwareID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientID to search for</maml:para>
+          <maml:para>ID of the firmware to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -684,9 +785,32 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+}
+Get-UMSFirmware @Params
+
+id           : 35
+product      : IGEL Universal Desktop LX
+version      : 5.13.100.01
+firmwareType : LX
+links        : {}
+
+id           : 36
+product      : IGEL Universal Desktop W10
+version      : 4.02.110
+firmwareType : XP
+links        : {}
+
+id           : 38
+product      : IGEL Universal Desktop OS 3
+version      : 10.05.100.01
+firmwareType : LX
+links        : {}</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername } Get-UMSFirmware @Params Gets information on all firmwares known to the UMS.</maml:para>
+          <maml:para>Gets information on all firmwares known to the UMS.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -697,7 +821,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSFirmware.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -705,11 +834,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSJob</command:noun>
       <maml:description>
-        <maml:para>{{Fill in the Synopsis}}</maml:para>
+        <maml:para>Get Jobs.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>{{Fill in the Description}}</maml:para>
+      <maml:para>Get Jobs from UMS DB via Invoke-SQLcmd2.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -717,7 +846,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>ServerInstance</maml:name>
           <maml:Description>
-            <maml:para>{{Fill ServerInstance Description}}</maml:para>
+            <maml:para>SQL ServerInstance for the UMS-DB (e.g. 'SQLSERVER\RMDB')</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -729,7 +858,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Database</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Database Description}}</maml:para>
+            <maml:para>SQL Database for the UMS-DB (e.g. 'RMDB')</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -741,7 +870,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>Schema</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Schema Description}}</maml:para>
+            <maml:para>SQL Schema for the UMS-DB (e.g. 'igelums')</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -753,7 +882,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Credential</maml:name>
           <maml:Description>
-            <maml:para>{{Fill Credential Description}}</maml:para>
+            <maml:para>Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine. If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
           <dev:type>
@@ -765,7 +894,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
           <maml:name>JobID</maml:name>
           <maml:Description>
-            <maml:para>{{Fill JobID Description}}</maml:para>
+            <maml:para>ID of Job to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -780,7 +909,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Credential</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Credential Description}}</maml:para>
+          <maml:para>Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine. If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the Windows account running the PowerShell session.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
         <dev:type>
@@ -792,7 +921,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Database</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Database Description}}</maml:para>
+          <maml:para>SQL Database for the UMS-DB (e.g. 'RMDB')</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -804,7 +933,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
         <maml:name>JobID</maml:name>
         <maml:Description>
-          <maml:para>{{Fill JobID Description}}</maml:para>
+          <maml:para>ID of Job to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -816,7 +945,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>Schema</maml:name>
         <maml:Description>
-          <maml:para>{{Fill Schema Description}}</maml:para>
+          <maml:para>SQL Schema for the UMS-DB (e.g. 'igelums')</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -828,7 +957,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>ServerInstance</maml:name>
         <maml:Description>
-          <maml:para>{{Fill ServerInstance Description}}</maml:para>
+          <maml:para>SQL ServerInstance for the UMS-DB (e.g. 'SQLSERVER\RMDB')</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -866,13 +995,42 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {{ Add example code here }}</dev:code>
+        <dev:code>$Params = @{
+  Credential     = Get-Credential
+  ServerInstance = 'UMSSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+}
+Get-UMSJob @Params
+
+ID          : 85207
+NAME        : update
+COMMAND     : FIRMWARE_UPDATE
+STARTDATE   : 09.11.2018 16:38:00
+EXPIRED     : 0
+TRUSTEEUSER :
+MOVEDTOBIN  : 09.11.2018 13:48:53
+DIRID       : 85201
+
+ID          : 85211
+NAME        : update_on_boot
+COMMAND     : UPDATE_NEXT_REBOOT
+STARTDATE   : 09.11.2018 16:43:00
+EXPIRED     : 0
+TRUSTEEUSER :
+MOVEDTOBIN  : 09.11.2018 13:48:53
+DIRID       : 85201</dev:code>
         <dev:remarks>
-          <maml:para>{{ Add example description here }}</maml:para>
+          <maml:para>Gets all Jobs</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSJob.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -880,11 +1038,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSJobDirectory</command:noun>
       <maml:description>
-        <maml:para>Gets Job Directories from UMS-DB</maml:para>
+        <maml:para>Get Job Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets Job Directories from UMS-DB</maml:para>
+      <maml:para>Get Job Directories from UMS DB via Invoke-SQLcmd2.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -940,7 +1098,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>{{Fill DirID Description}}</maml:para>
+            <maml:para>ID of Job Directory to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1003,7 +1161,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>{{Fill DirID Description}}</maml:para>
+          <maml:para>ID of Job Directory to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1023,20 +1181,37 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+Credential     = Get-Credential
+  ServerInstance = 'SQLSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+}
+Get-UMSJobDirectory @Params
+
+DIRID NAME     MEMBEROF MOVEDTOBIN
+----- ----     -------- ----------
+  730 Shutdown
+  736 Wake Up
+85201 Test              09.11.2018 13:48:53</dev:code>
         <dev:remarks>
-          <maml:para>Credential     = Get-Credential   ServerInstance = 'SQLSERVER\RMDB'   Database       = 'RMDB'   Schema         = 'igelums' } Get-UMSJobDirectory @Params Gets all Job Directories</maml:para>
+          <maml:para>Gets all Job Directories</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>557 | Get-UMSJobDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
-          <maml:para>Gets Job Directories with DirID "557"</maml:para>
+          <maml:para>Gets Job Directory with DirID "557"</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSJobDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -1044,11 +1219,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSProfile</command:noun>
       <maml:description>
-        <maml:para>Gets information on profiles on the UMS instance.</maml:para>
+        <maml:para>Get profiles.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets information on profiles on the UMS instance.</maml:para>
+      <maml:para>Gets profiles from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1104,7 +1279,7 @@
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ProfileID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientID to search for</maml:para>
+            <maml:para>ID of the profile to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1167,7 +1342,7 @@
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ProfileID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientID to search for</maml:para>
+          <maml:para>ID of the profile to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1187,9 +1362,34 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+}
+Get-UMSProfile @Params
+
+firmwareID        : 8
+isMasterProfile   : False
+overridesSessions : False
+id                : 84629
+name              : Test2
+parentID          : 28793
+movedToBin        : False
+objectType        : profile
+links             : {}
+
+firmwareID        : 30
+isMasterProfile   : False
+overridesSessions : False
+id                : 86995
+name              : 07|Update_PartialUpdate_LanguagePackGerman|UDW
+parentID          : 11726
+movedToBin        : False
+objectType        : profile
+links             : {}</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername } Get-UMSProfile @Params Gets information on all profiles on the UMS instance.</maml:para>
+          <maml:para>Gets information on all profiles on the UMS instance.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1200,7 +1400,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfile.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -1208,11 +1413,11 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSProfileAssignment</command:noun>
       <maml:description>
-        <maml:para>Gets the thinclients and directories the profile is assigned to.</maml:para>
+        <maml:para>Get the thinclients and directories the profile is assigned to.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets the thinclients and directories the profile is assigned to.</maml:para>
+      <maml:para>Get the thinclients and directories the profile is assigned to from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1265,7 +1470,7 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ProfileID</maml:name>
           <maml:Description>
             <maml:para>ProfileID to search for</maml:para>
@@ -1275,7 +1480,7 @@
             <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>0</dev:defaultValue>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -1328,7 +1533,7 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ProfileID</maml:name>
         <maml:Description>
           <maml:para>ProfileID to search for</maml:para>
@@ -1338,7 +1543,7 @@
           <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>0</dev:defaultValue>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes />
@@ -1351,9 +1556,22 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  ProfileID    = 471
+}
+Get-UMSProfileAssignment @Params
+
+id    type
+--    ----
+4108  tc
+4110  tc
+4112  tc
+4114  tc</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   ProfileID    = 471 } Get-UMSProfileAssignment @Params Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.</maml:para>
+          <maml:para>Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1364,7 +1582,12 @@
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfileAssignment.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -1372,66 +1595,15 @@
       <command:verb>Get</command:verb>
       <command:noun>UMSProfileDirectory</command:noun>
       <maml:description>
-        <maml:para>Gets information on Profile Directories via API</maml:para>
+        <maml:para>Get Profile Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets information on Profile Directories via API</maml:para>
+      <maml:para>Get Profile Directories from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-UMSProfileDirectory</maml:name>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters />
-    <command:inputTypes />
-    <command:returnValues />
-    <maml:alertSet>
-      <maml:alert />
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
-        <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername } Get-UMSProfileDirectory @Params Gets information on all Profile Directories</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
-        <dev:code>(Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren</dev:code>
-        <dev:remarks>
-          <maml:para>Gets information on all children of the Profile Directories</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 3 --------------------------</maml:title>
-        <dev:code>Get-UMSProfileDirectory -Computername 'UMSSERVER' -DIRID 421</dev:code>
-        <dev:remarks>
-          <maml:para>Gets information on a specific Profile Directory</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 4 --------------------------</maml:title>
-        <dev:code>(421 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren</dev:code>
-        <dev:remarks>
-          <maml:para></maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks />
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Gets children of Profile Directory with DirID 421.</command:name>
-      <command:verb>Gets children of Profile Directory with DirID 421.</command:verb>
-      <command:noun></command:noun>
-      <maml:description />
-    </command:details>
-    <maml:description />
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Gets children of Profile Directory with DirID 421.</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -1494,7 +1666,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>DIRIDs to get information of</maml:para>
+            <maml:para>ID of the Profile Directory to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1569,7 +1741,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>DIRIDs to get information of</maml:para>
+          <maml:para>ID of the Profile Directory to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1586,8 +1758,53 @@
         <maml:para></maml:para>
       </maml:alert>
     </maml:alertSet>
-    <command:examples />
-    <command:relatedLinks />
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+}
+Get-UMSProfileDirectory @Params
+
+id         : 477
+name       : 04_Network
+parentID   : 421
+movedToBin : False
+objectType : profiledirectory
+links      : {}
+
+id         : 446
+name       : 01_Sessions
+parentID   : 421
+movedToBin : False
+objectType : profiledirectory
+links      : {}</dev:code>
+        <dev:remarks>
+          <maml:para>Gets information on all Profile Directories</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <dev:code>(446 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+
+objectType id
+---------- --
+profile    449
+profile    10780
+profile    450</dev:code>
+        <dev:remarks>
+          <maml:para>Gets children of the Profile Directory with ID 446</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfileDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
