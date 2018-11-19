@@ -54,9 +54,9 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $ProfileID = 0
+    $ProfileID
   )
   Begin
   {

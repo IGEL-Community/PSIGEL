@@ -1,3 +1,4 @@
+#Requires -Modules Posh-SSH
 function Get-EPFirmware
 {
   <#
