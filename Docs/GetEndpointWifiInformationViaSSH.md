@@ -163,4 +163,4 @@ TC030564 wlan0     WLAN-0024501 open    2.437     6C:F3:7F:DA:FA:80 1           
 
 ## Complete script
 
-Get the complete script [here](../Examples/GetEndpointWifiInformation.ps1).
+Get the complete script [here](../Scripts/GetEndpointWifiInformation.ps1).
