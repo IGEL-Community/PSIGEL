@@ -52,7 +52,7 @@
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
@@ -123,7 +123,7 @@ Get-EPFirmware @Params
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Properties = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
@@ -224,7 +224,7 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Properties = @{
   SHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
   Interface  = 'wlan0'
@@ -401,7 +401,7 @@ SignalLevel : -54</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -443,7 +443,7 @@ DIRID          : 50194</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>653, 654 | Get-UMSFile -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
           <maml:para>Gets Files with FileID "653" and "654"</maml:para>
@@ -605,7 +605,7 @@ DIRID          : 50194</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
   Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -622,7 +622,7 @@ DIRID NAME MEMBEROF MOVEDTOBIN
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>50194 | Get-UMSFileDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
           <maml:para>Gets File Directories with DirID "50194"</maml:para>
@@ -784,7 +784,7 @@ DIRID NAME MEMBEROF MOVEDTOBIN
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -814,7 +814,7 @@ links        : {}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Gets information on firmwares with FirmwareIDs 9 and 7.</maml:para>
@@ -1180,7 +1180,7 @@ DIRID       : 85201</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -1199,7 +1199,7 @@ DIRID NAME     MEMBEROF MOVEDTOBIN
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>557 | Get-UMSJobDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
           <maml:para>Gets Job Directory with DirID "557"</maml:para>
@@ -1361,7 +1361,7 @@ DIRID NAME     MEMBEROF MOVEDTOBIN
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -1393,7 +1393,7 @@ links             : {}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>499, 501 | Get-UMSProfile -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Gets information on the profile with ProfileID 499 and 501.</maml:para>
@@ -1555,7 +1555,7 @@ links             : {}</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -1575,7 +1575,7 @@ id    type
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>471 | Get-UMSProfileAssignment -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.</maml:para>
@@ -1760,7 +1760,7 @@ id    type
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -1786,7 +1786,7 @@ links      : {}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>(446 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
 
 objectType id
@@ -1930,7 +1930,7 @@ profile    450</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -2129,7 +2129,7 @@ links              : {}</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -2192,7 +2192,7 @@ links                     : {}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
 
 unitID     : 00E0C513CB46
@@ -2210,7 +2210,7 @@ links      : {}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 3 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>2433 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
 
 unitID       : 00E0C513BA36
@@ -2393,7 +2393,7 @@ links        : {}</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -2414,7 +2414,7 @@ assignee                  receiver                      assignmentPosition links
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Gets the profile and master profile assignments for Thinclient with TCID 2433.</maml:para>
@@ -2599,7 +2599,7 @@ assignee                  receiver                      assignmentPosition links
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -2625,7 +2625,7 @@ links      : {}</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>(Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
 
 objectType  id
@@ -2846,7 +2846,7 @@ tcdirectory 230</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -2868,7 +2868,7 @@ assignee                 receiver                    assignmentPosition links
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Gets the profile and master profile assignments for the Thinclient Directory with ID 774</maml:para>
@@ -3030,7 +3030,7 @@ assignee                 receiver                    assignmentPosition links
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -3061,7 +3061,7 @@ DIRID       : 73729</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>558, 560 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
           <maml:para>Gets Views with ID 558 and 560.</maml:para>
@@ -3223,7 +3223,7 @@ DIRID       : 73729</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -3243,7 +3243,7 @@ DIRID NAME                    MEMBEROF MOVEDTOBIN
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>557 | Get-UMSViewDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
           <maml:para>Gets View Directory with ID 557.</maml:para>
@@ -3475,7 +3475,7 @@ DIRID NAME                    MEMBEROF MOVEDTOBIN
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -3494,7 +3494,7 @@ id    results
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DDIRID 28793</dev:code>
         <dev:remarks>
           <maml:para>Moves Profiles into the specified Profile Directory.</maml:para>
@@ -3726,7 +3726,7 @@ id    results
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -3745,7 +3745,7 @@ id    results
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49339, 49341 | Move-UMSProfileDirectory -Computername 'UMSSERVER' -DDIRID -2</dev:code>
         <dev:remarks>
           <maml:para>Moves Profile Directories with ID 49339, 49341 into the specified Profile Directory.</maml:para>
@@ -3977,7 +3977,7 @@ id    results
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -3996,7 +3996,7 @@ id    results
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289</dev:code>
         <dev:remarks>
           <maml:para>Moves Thinclients with ID 49282, 49284 into the specified Thinclient Directory.</maml:para>
@@ -4228,7 +4228,7 @@ id    results
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -4247,7 +4247,7 @@ id    results
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49289, 49291 | Move-UMSThinclientDirectory -Computername 'UMSSERVER' -DDIRID 772</dev:code>
         <dev:remarks>
           <maml:para>Moves Thinclient Directories with ID 49289, 49291 into the specified Thinclient Directory.</maml:para>
@@ -4440,7 +4440,7 @@ id    results
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
@@ -4648,7 +4648,7 @@ id    results
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -4661,7 +4661,7 @@ New-UMSProfileDirectory @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Creates Profile Directories with names 'NewProfileDir1' and 'NewProfileDir2'</maml:para>
@@ -5133,7 +5133,7 @@ New-UMSProfileDirectory @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername  = $Computername
@@ -5158,7 +5158,7 @@ New-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>New-UMSThinclient -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9</dev:code>
         <dev:remarks>
           <maml:para>Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.</maml:para>
@@ -5366,7 +5366,7 @@ New-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -5379,7 +5379,7 @@ New-UMSThinclientDirectory @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Creates Thinclient Directories with names 'NewTcDir1' and 'NewTcDir2'</maml:para>
@@ -5587,7 +5587,7 @@ New-UMSThinclientDirectory @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -5600,7 +5600,7 @@ Remove-UMSProfile @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48170 | Remove-UMSProfile -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Removes Profile with ProfileID 48170</maml:para>
@@ -5941,7 +5941,7 @@ Remove-UMSProfile @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -5955,7 +5955,7 @@ Remove-UMSProfileAssignment @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185</dev:code>
         <dev:remarks>
           <maml:para>Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.</maml:para>
@@ -6163,7 +6163,7 @@ Remove-UMSProfileAssignment @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -6176,7 +6176,7 @@ Remove-UMSProfileDirectory @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49601, 49603 | Remove-UMSProfileDirectory -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Removes profile directory with ID 49601 and 49603</maml:para>
@@ -6384,7 +6384,7 @@ Remove-UMSProfileDirectory @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -6397,7 +6397,7 @@ Remove-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48381 | Remove-UMSThinclient -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Removes Thinclient with TCID 48381</maml:para>
@@ -6605,7 +6605,7 @@ Remove-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -6618,7 +6618,7 @@ Remove-UMSThinclientDirectory @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49289, 49260 | Remove-UMSThinclientDirectory -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Removes thinclient directory with ID 49289 and 49260</maml:para>
@@ -6826,7 +6826,7 @@ Remove-UMSThinclientDirectory @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -6839,7 +6839,7 @@ Reset-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>100, 101 | Reset-UMSThinclient -Computername $Computername</dev:code>
         <dev:remarks>
           <maml:para>Resets thin clients with TCID 100 and 101 to factory defaults.</maml:para>
@@ -7047,7 +7047,7 @@ Reset-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -7060,7 +7060,7 @@ Restart-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48426, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Restarts thin clients with TCID 48426 and 2435.</maml:para>
@@ -7268,7 +7268,7 @@ Restart-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -7281,7 +7281,7 @@ Send-UMSThinclientSetting @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>100, 101 | Send-UMSThinclientSetting -Computername $Computername</dev:code>
         <dev:remarks>
           <maml:para>Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately.</maml:para>
@@ -7489,7 +7489,7 @@ Send-UMSThinclientSetting @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -7502,7 +7502,7 @@ Start-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48426, 2435 | Start-UMSThinclient -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Wakes up thin clients with TCID 48426 and 2435.</maml:para>
@@ -7710,7 +7710,7 @@ Start-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -7723,7 +7723,7 @@ Stop-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48426, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Shuts down thin clients with TCID 48426 and 2435.</maml:para>
@@ -7955,7 +7955,7 @@ Stop-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
 ServerInstance = 'SQLSERVER\RMDB'
   Database       = 'RMDB'
@@ -7970,7 +7970,7 @@ Update-UMSJobStartDate @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>18701,18706 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Startdate '2018-01-10 14:47:00'</dev:code>
         <dev:remarks>
           <maml:para>Update Job Startdate on Jobs with ID "18701" and "18706"</maml:para>
@@ -8311,7 +8311,7 @@ Update-UMSJobStartDate @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
 $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
   $Computername = 'UMSSERVER'
@@ -8325,7 +8325,7 @@ Update-UMSProfileAssignment @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300</dev:code>
         <dev:remarks>
           <maml:para>Assigns the profile with ProfilID 471 to thin client directory with DirID 300'</maml:para>
@@ -8557,7 +8557,7 @@ Update-UMSProfileAssignment @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -8571,7 +8571,7 @@ Update-UMSProfileDirectoryName @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49339 | Update-UMSProfileDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'</dev:code>
         <dev:remarks>
           <maml:para>Updates profile directory name to 'NewDirName'</maml:para>
@@ -8803,7 +8803,7 @@ Update-UMSProfileDirectoryName @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -8817,7 +8817,7 @@ Update-UMSProfileName @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Update-UMSProfileName -Computername 'UMSSERVER' -ProfileID 48170 -Name 'NewProfileName'</dev:code>
         <dev:remarks>
           <maml:para>Updates profile name to 'NewProfileName'</maml:para>
@@ -9241,7 +9241,7 @@ Update-UMSProfileName @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername  = 'UMSSERVER'
@@ -9263,14 +9263,14 @@ Update-UMSThinclient @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''</dev:code>
         <dev:remarks>
           <maml:para>Removes comment of the thinclient to TC030564.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 3 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'</dev:code>
         <dev:remarks>
           <maml:para>Upates name of the thinclient to TC030564.</maml:para>
@@ -9502,7 +9502,7 @@ Update-UMSThinclient @Params</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -9516,7 +9516,7 @@ Update-UMSProfileName @Params</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>49289 | Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'</dev:code>
         <dev:remarks>
           <maml:para>Updates thinclient directory name to 'NewDirName'</maml:para>
