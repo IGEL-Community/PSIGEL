@@ -22,8 +22,8 @@ Gets information on all firmwares from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -54,8 +54,8 @@ links        : {}
 
 Gets information on all firmwares known to the UMS.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'
 ```
 

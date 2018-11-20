@@ -22,8 +22,8 @@ Get Job Directories from UMS DB via Invoke-SQLcmd2.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -43,8 +43,8 @@ DIRID NAME     MEMBEROF MOVEDTOBIN
 
 Gets all Job Directories
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 557 | Get-UMSJobDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
 

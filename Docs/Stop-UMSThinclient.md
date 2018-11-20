@@ -22,8 +22,8 @@ Shuts Down Thinclients via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Stop-UMSThinclient @Params
 ```
 Shuts down thin client with TCID 48426.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 48426, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER'
 ```
 

@@ -22,8 +22,8 @@ Creates Websession Cookie for IGEL UMS RestAPI.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443
 ```
 

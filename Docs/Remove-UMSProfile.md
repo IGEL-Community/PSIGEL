@@ -22,8 +22,8 @@ Deletes profile.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Remove-UMSProfile @Params
 ```
 Removes Profile with ProfileID 48170
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 48170 | Remove-UMSProfile -Computername 'UMSSERVER'
 ```
 

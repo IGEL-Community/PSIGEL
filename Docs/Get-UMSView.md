@@ -22,8 +22,8 @@ Get Views from UMS DB via Invoke-SQLcmd2.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -53,8 +53,8 @@ DIRID       : 73729
 ```
 Gets all Views.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 558, 560 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
 Gets Views with ID 558 and 560.

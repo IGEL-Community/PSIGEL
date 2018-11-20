@@ -22,8 +22,8 @@ Get View Directories from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Params = @{
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -42,8 +42,8 @@ DIRID NAME                    MEMBEROF MOVEDTOBIN
 ```
 Gets all View Directories.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 557 | Get-UMSViewDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
 

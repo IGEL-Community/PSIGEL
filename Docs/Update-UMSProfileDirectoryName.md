@@ -22,8 +22,8 @@ Updates a Profile Directory name via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -35,8 +35,8 @@ Update-UMSProfileDirectoryName @Params
 ```
 Updates profile directory name to 'NewDirName'
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 49339 | Update-UMSProfileDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'
 ```
 

@@ -22,8 +22,8 @@ Removes a thinclient completely (without recycle bin) from Rest API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Remove-UMSThinclient @Params
 ```
 Removes Thinclient with TCID 48420
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 48381 | Remove-UMSThinclient -Computername 'UMSSERVER'
 ```
 

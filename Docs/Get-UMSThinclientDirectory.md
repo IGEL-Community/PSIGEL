@@ -29,8 +29,8 @@ Get Thinclient Directories from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -55,8 +55,8 @@ links      : {}
 ```
 Gets all Thinclient Directories.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 (Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
 ```
 ```

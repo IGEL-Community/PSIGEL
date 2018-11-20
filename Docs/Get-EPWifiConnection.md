@@ -22,8 +22,8 @@ Requires Module Posh-SSH.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Properties = @{
   SHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
   Interface  = 'wlan0'

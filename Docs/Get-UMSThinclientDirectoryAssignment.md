@@ -23,8 +23,8 @@ in order of their application from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -45,8 +45,8 @@ assignee                 receiver                    assignmentPosition links
 ```
 Gets the profile and master profile assignments for Thinclient Directory 772
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'
 ```
 

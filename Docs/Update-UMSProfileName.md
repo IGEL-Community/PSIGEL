@@ -22,8 +22,8 @@ Updates a profile name.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -35,8 +35,8 @@ Update-UMSProfileName @Params
 ```
 Updates profile name to 'NewProfileName'
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 Update-UMSProfileName -Computername 'UMSSERVER' -ProfileID 48170 -Name 'NewProfileName'
 ```
 

@@ -22,8 +22,8 @@ Removes a thinclient directory via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Remove-UMSThinclientDirectory @Params
 ```
 Removes thinclient directory with ID 49289
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 49289, 49260 | Remove-UMSThinclientDirectory -Computername 'UMSSERVER'
 ```
 

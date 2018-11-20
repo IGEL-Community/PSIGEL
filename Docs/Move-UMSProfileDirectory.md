@@ -22,8 +22,8 @@ Move Profile Directories into the specified Profile Directory from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -41,8 +41,8 @@ id    results
 ```
 Moves Profile Directory with ID 49339 into the Profile Directory with ID 28793 and prompts for confirmation.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 49339, 49341 | Move-UMSProfileDirectory -Computername 'UMSSERVER' -DDIRID -2
 ```
 Moves Profile Directories with ID 49339, 49341 into the specified Profile Directory.

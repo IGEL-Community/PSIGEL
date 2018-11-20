@@ -25,8 +25,8 @@ Creates a new thinclient from Rest API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername  = $Computername
@@ -49,8 +49,8 @@ New-UMSThinclient @Params
 ```
 Creates a new thinclient with all possible attributes, after confirmation.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 New-UMSThinclient -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9
 ```
 

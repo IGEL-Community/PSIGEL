@@ -24,8 +24,8 @@ them from the UMS completely (without recycle bin).
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -36,8 +36,8 @@ Reset-UMSThinclient @Params
 ```
 Resets thin client with TCID 35828 to factory defaults.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 100, 101 | Reset-UMSThinclient -Computername $Computername
 ```
 

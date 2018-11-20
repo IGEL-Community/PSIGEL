@@ -22,8 +22,8 @@ Updates a Thin Client Directory name via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -35,8 +35,8 @@ Update-UMSProfileName @Params
 ```
 Updates thinclient directory name to 'NewDirName'
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 49289 | Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'
 ```
 

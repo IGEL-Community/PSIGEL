@@ -22,8 +22,8 @@ Move Thinclients into the specified Thinclient Directory from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -41,8 +41,8 @@ id    results
 ```
 Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289
 ```
 Moves Thinclients with ID 49282, 49284 into the specified Thinclient Directory.

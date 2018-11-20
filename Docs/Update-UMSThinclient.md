@@ -24,8 +24,8 @@ Updates properties of a Thinclient from Rest API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername  = 'UMSSERVER'
@@ -45,15 +45,15 @@ Update-UMSThinclient @Params
 ```
 Updates thinclient with all possible attributes.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''
 ```
 
 Removes comment of the thinclient to TC030564.
 
-### BEISPIEL 3
-```
+### Example 3
+```powershell
 Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'
 ```
 

@@ -22,8 +22,8 @@ Get File Directories from UMS DB via Invoke-SQLcmd2.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Params = @{
   Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
@@ -41,8 +41,8 @@ DIRID NAME MEMBEROF MOVEDTOBIN
 
 Gets all File Directories
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 50194 | Get-UMSFileDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
 

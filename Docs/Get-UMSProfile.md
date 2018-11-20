@@ -22,8 +22,8 @@ Gets profiles from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -56,8 +56,8 @@ links             : {}
 
 Gets information on all profiles on the UMS instance.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 499, 501 | Get-UMSProfile -Computername 'UMSSERVER'
 ```
 

@@ -22,8 +22,8 @@ Gets Thinclient from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -85,8 +85,8 @@ links                     : {}
 ```
 Gets detailed information on all online thin clients.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
 ```
 ```
@@ -104,8 +104,8 @@ links      : {}
 
 Gets short information on thin clients with TCID 2433.
 
-### BEISPIEL 3
-```
+### Example 3
+```powershell
 2433 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
 ```
 ```

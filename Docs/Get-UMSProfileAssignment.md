@@ -22,8 +22,8 @@ Get the thinclients and directories the profile is assigned to from UMS via API.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -44,8 +44,8 @@ id    type
 
 Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 471 | Get-UMSProfileAssignment -Computername 'UMSSERVER'
 ```
 

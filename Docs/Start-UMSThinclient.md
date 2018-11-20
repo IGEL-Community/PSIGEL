@@ -22,8 +22,8 @@ Wakes Up Thinclients (WOL) via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Start-UMSThinclient @Params
 ```
 Wakes up thin client with TCID 48426.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 48426, 2435 | Start-UMSThinclient -Computername 'UMSSERVER'
 ```
 

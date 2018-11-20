@@ -22,8 +22,8 @@ Creates a Thinclient Directory via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ New-UMSThinclientDirectory @Params
 ```
 Creates Thinclient Directory with name 'NewTcDir1'
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'
 ```
 

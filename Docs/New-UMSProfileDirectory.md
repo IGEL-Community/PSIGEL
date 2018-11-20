@@ -22,8 +22,8 @@ Creates a Profile Directory via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ New-UMSProfileDirectory @Params
 ```
 Creates a Profile Directory with name 'NewProfileDir1'
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'UMSSERVER'
 ```
 

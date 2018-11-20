@@ -22,8 +22,8 @@ Removes a profile directory via API
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Remove-UMSProfileDirectory @Params
 ```
 Removes profile directory with ID 49601
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 49601, 49603 | Remove-UMSProfileDirectory -Computername 'UMSSERVER'
 ```
 

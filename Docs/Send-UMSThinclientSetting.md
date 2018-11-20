@@ -22,8 +22,8 @@ Sends settings modified in the UMS database to all thin clients listed in the re
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -34,8 +34,8 @@ Send-UMSThinclientSetting @Params
 ```
 Sends settings modified in the UMS database to thin client with TCID 48426 immediately.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 100, 101 | Send-UMSThinclientSetting -Computername $Computername
 ```
 

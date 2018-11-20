@@ -23,8 +23,8 @@ Update Job Startdate in UMS-DB
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Params = @{
 ServerInstance = 'SQLSERVER\RMDB'
   Database       = 'RMDB'
@@ -37,8 +37,8 @@ Update-UMSJobStartDate @Params
 ```
 Update Job Startdate on Job with ID "18701"
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 18701,18706 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Startdate '2018-01-10 14:47:00'
 ```
 

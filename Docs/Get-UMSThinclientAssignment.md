@@ -22,8 +22,8 @@ Gets the profile and master profile assignments for the specified thin client, i
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -43,8 +43,8 @@ assignee                  receiver                      assignmentPosition links
 ```
 Gets the profile and master profile assignments for Thinclient with TCID 2433.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER'
 ```
 

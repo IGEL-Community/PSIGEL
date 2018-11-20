@@ -29,8 +29,8 @@ Assigns a profile to a Thinclient or a tThinclient directory.
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Params = @{
 $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
   $Computername = 'UMSSERVER'
@@ -42,8 +42,8 @@ Update-UMSProfileAssignment @Params
 ```
 Assigns the profile with ProfilID 470 to thin client with TCID 48426.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300
 ```
 

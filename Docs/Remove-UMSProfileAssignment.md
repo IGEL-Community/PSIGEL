@@ -29,8 +29,8 @@ Deletes assignment of the specified profile to the specified Thinclient or Thinc
 
 ## EXAMPLES
 
-### BEISPIEL 1
-```
+### Example 1
+```powershell
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -42,8 +42,8 @@ Remove-UMSProfileAssignment @Params
 ```
 Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
-### BEISPIEL 2
-```
+### Example 2
+```powershell
 48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
 ```
 
