@@ -29,7 +29,7 @@
       }
       Get-UMSStatus @Params
       #Getting UMSSERVER status
-      
+
       .EXAMPLE
       Get-UMSStatus -Computername 'UMSSERVER'
       #Getting UMSSERVER status without authorization, useful for connection debugging
