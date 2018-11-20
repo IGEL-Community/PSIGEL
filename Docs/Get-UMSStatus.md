@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-Status.md
 schema: 2.0.0
 ---
 
 # Get-UMSStatus
 
 ## SYNOPSIS
-Gets diagnostic information about the UMS instance.
+Gets diagnostic information.
 
 ## SYNTAX
 
@@ -18,31 +18,29 @@ Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int3
 ```
 
 ## DESCRIPTION
-Gets diagnostic information about the UMS instance.
-Server status is the only
-resource that can be queried without logging in.
-This makes it useful for debugging the connection to the IMI service
+Gets diagnostic information from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSStatus @Params
-Getting UMSSERVER status
-
-### BEISPIEL 2
 ```
-Get-UMSStatus -Computername 'UMSSERVER'
 ```
-
-Getting UMSSERVER status without authorization, useful for connection debugging
+rmGuiServerVersion : 5.08.100
+buildNumber        : 33604
+activeMQVersion    : 5.6.0
+derbyVersion       : 10.12.1.1
+serverUUID         : 473de374-49d1-47dc-9842-c1429a561435
+server             : UMSSERVER.acme.org:8443
+links              : {}
+```
+Gets UMSSERVER status
 
 ## PARAMETERS
 

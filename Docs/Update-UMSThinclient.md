@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSThinclient.md
 schema: 2.0.0
 ---
 
@@ -27,8 +27,6 @@ Updates properties of a Thinclient from Rest API.
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername  = 'UMSSERVER'
   TCID          = 100
@@ -44,6 +42,7 @@ $Params = @{
   SerialNumber  = '12A3B4C56B12345A6BC'
 }
 Update-UMSThinclient @Params
+```
 Updates thinclient with all possible attributes.
 
 ### BEISPIEL 2

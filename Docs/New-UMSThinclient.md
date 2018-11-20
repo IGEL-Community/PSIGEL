@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSThinclient.md
 schema: 2.0.0
 ---
 
@@ -28,8 +28,6 @@ Creates a new thinclient from Rest API.
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername  = $Computername
   WebSession    = New-UMSAPICookie -Computername $Computername
@@ -48,6 +46,7 @@ $Params = @{
   Confirm       = $true
 }
 New-UMSThinclient @Params
+```
 Creates a new thinclient with all possible attributes, after confirmation.
 
 ### BEISPIEL 2

@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientAssignment.md
 schema: 2.0.0
 ---
 
 # Get-UMSThinclientAssignment
 
 ## SYNOPSIS
-Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
+Gets the profile and master profile assignments.
 
 ## SYNTAX
 
@@ -18,21 +18,29 @@ Get-UMSThinclientAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-Api
 ```
 
 ## DESCRIPTION
-Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.
+Gets the profile and master profile assignments for the specified thin client, in order of their application from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 2433
 }
 Get-UMSThinclientAssignment @Params
+```
+```
+assignee                  receiver                      assignmentPosition links
+--------                  --------                      ------------------ -----
+@{id=472; type=profile}   @{id=2433; type=tc}                            0 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/472}, @{rel=receiver; href=https://umsserver:8...
+@{id=76686; type=profile} @{id=76023; type=tcdirectory}                  1 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/76686}, @{rel=receiver; href=https://umsserver...
+@{id=480; type=profile}   @{id=50; type=tcdirectory}                     2 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/480}, @{rel=receiver; href=https://umsserver:8...
+@{id=478; type=profile}   @{id=50; type=tcdirectory}                     3 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/478}, @{rel=receiver; href=https://umsserver:8...
+@{id=451; type=profile}   @{id=49; type=tcdirectory}                     4 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/451}, @{rel=receiver; href=https://umsserver:8...
+```
 Gets the profile and master profile assignments for Thinclient with TCID 2433.
 
 ### BEISPIEL 2
@@ -105,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCID
-ThinclientID to search for
+ID of the Thinclient to get assignments for
 
 ```yaml
 Type: Int32

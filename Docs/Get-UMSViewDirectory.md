@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSViewDirectory.md
 schema: 2.0.0
 ---
 
 # Get-UMSViewDirectory
 
 ## SYNOPSIS
-Gets View Directories from UMS-DB
+Get View Directories.
 
 ## SYNTAX
 
@@ -18,29 +18,36 @@ Get-UMSViewDirectory [-ServerInstance] <String> [-Database] <String> [-Schema] <
 ```
 
 ## DESCRIPTION
-Gets View Directories from UMS-DB
+Get View Directories from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Params = @{
-```
-
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
   Database       = 'RMDB'
   Schema         = 'igelums'
 }
 Get-UMSViewDirectory @Params
-Gets all View Directories
+```
+```
+DIRID NAME                    MEMBEROF MOVEDTOBIN
+----- ----                    -------- ----------
+  557 Administrative Tasks
+  720 Status
+  948 Product
+73729 ProfileAssignments
+```
+Gets all View Directories.
 
 ### BEISPIEL 2
 ```
 557 | Get-UMSViewDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
 
-Gets View Directories with DirID "557"
+Gets View Directory with ID 557.
 
 ## PARAMETERS
 
@@ -110,7 +117,7 @@ Accept wildcard characters: False
 ```
 
 ### -DirID
-{{Fill DirID Description}}
+ID of the View Directory to get
 
 ```yaml
 Type: Int32

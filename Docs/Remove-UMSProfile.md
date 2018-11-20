@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfile.md
 schema: 2.0.0
 ---
 
@@ -25,14 +25,13 @@ Deletes profile.
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   ProfileID    = 48170
 }
 Remove-UMSProfile @Params
+```
 Removes Profile with ProfileID 48170
 
 ### BEISPIEL 2

@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectory.md
 schema: 2.0.0
 ---
 
 # Get-UMSThinclientDirectory
 
 ## SYNOPSIS
-Gets information on Thin Client Directories from API.
+Get Thinclient Directories.
 
 ## SYNTAX
 
@@ -25,42 +25,56 @@ Get-UMSThinclientDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersio
 ```
 
 ## DESCRIPTION
-Gets information on Thin Client Directories from API.
+Get Thinclient Directories from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSThinclientDirectory @Params
-Gets information on all Thinclient Directories
+```
+```
+id         : 274
+name       : Room1
+parentID   : 220
+movedToBin : False
+objectType : tcdirectory
+links      : {}
+
+id         : 275
+name       : Room2
+parentID   : 220
+movedToBin : False
+objectType : tcdirectory
+links      : {}
+```
+Gets all Thinclient Directories.
 
 ### BEISPIEL 2
 ```
-(Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren | Select-Object -First 10
+(Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
+```
+```
+objectType  id
+----------  --
+tcdirectory 221
+tcdirectory 222
+tcdirectory 223
+tcdirectory 224
+tcdirectory 225
+tcdirectory 226
+tcdirectory 227
+tcdirectory 228
+tcdirectory 229
+tcdirectory 230
 ```
 
-Gets information on all children of the thinclient Directories, selects first 10
-
-### BEISPIEL 3
-```
-Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DIRID 772
-```
-
-Gets information on a specific Thinclient Directory
-
-### BEISPIEL 4
-```
-(772 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-```
-
-Gets children of Thinclient Directory with DirID 772.
+Gets all children of the Thinclient Directory with ID 220, selects first 10.
 
 ## PARAMETERS
 
@@ -125,7 +139,7 @@ Accept wildcard characters: False
 ```
 
 ### -Children
-Switch for recursively listing children (Default false)
+Switch for recursively listing children
 
 ```yaml
 Type: SwitchParameter
@@ -140,7 +154,7 @@ Accept wildcard characters: False
 ```
 
 ### -DirID
-DirID to search for
+ID of the Directory to get
 
 ```yaml
 Type: Int32

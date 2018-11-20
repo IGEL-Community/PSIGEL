@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSProfileAssignment.md
 schema: 2.0.0
 ---
 
@@ -32,8 +32,6 @@ Assigns a profile to a Thinclient or a tThinclient directory.
 ### BEISPIEL 1
 ```
 $Params = @{
-```
-
 $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
   $Computername = 'UMSSERVER'
   $WebSession   = $WebSession
@@ -41,6 +39,7 @@ $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
   $TCID         = 48426
 }
 Update-UMSProfileAssignment @Params
+```
 Assigns the profile with ProfilID 470 to thin client with TCID 48426.
 
 ### BEISPIEL 2

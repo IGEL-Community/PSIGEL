@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSThinclient.md
 schema: 2.0.0
 ---
 
@@ -25,14 +25,13 @@ Removes a thinclient completely (without recycle bin) from Rest API.
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48420
 }
 Remove-UMSThinclient @Params
+```
 Removes Thinclient with TCID 48420
 
 ### BEISPIEL 2

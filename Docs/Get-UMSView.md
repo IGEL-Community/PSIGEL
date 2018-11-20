@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSView.md
 schema: 2.0.0
 ---
 
 # Get-UMSView
 
 ## SYNOPSIS
-Gets View from UMS-DB
+Get Views.
 
 ## SYNTAX
 
@@ -18,29 +18,46 @@ Get-UMSView [-ServerInstance] <String> [-Database] <String> [-Schema] <String> [
 ```
 
 ## DESCRIPTION
-Gets View from UMS-DB
+Get Views from UMS DB via Invoke-SQLcmd2.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Params = @{
-```
-
 Credential     = Get-Credential
   ServerInstance = 'SQLSERVER\RMDB'
   Database       = 'RMDB'
   Schema         = 'igelums'
 }
 Get-UMSView @Params
-Gets all Views
+```
+```
+VIEWID      : 72350
+VIEWNAME    : 07|Update_FirmwareUpdate_H6_LX10|UDLX
+DESCRIPTION :
+TYPE        : view
+SCOPE       : tc
+USERNAME    :
+MOVEDTOBIN  :
+DIRID       : 557
+
+VIEWID      : 73732
+VIEWNAME    : V4Features
+DESCRIPTION :
+TYPE        : view
+SCOPE       : tc
+USERNAME    :
+MOVEDTOBIN  :
+DIRID       : 73729
+```
+Gets all Views.
 
 ### BEISPIEL 2
 ```
 558, 560 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
 ```
-
-Gets Views with ViewID "558" and "560"
+Gets Views with ID 558 and 560.
 
 ## PARAMETERS
 
@@ -110,7 +127,7 @@ Accept wildcard characters: False
 ```
 
 ### -ViewID
-ViewIDs to search for
+ID of the views to get.
 
 ```yaml
 Type: Int32

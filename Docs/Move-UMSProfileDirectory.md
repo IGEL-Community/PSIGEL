@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSProfileDirectory.md
 schema: 2.0.0
 ---
 
 # Move-UMSProfileDirectory
 
 ## SYNOPSIS
-Moves Profile Directories into the specified Profile Directory via API
+Move Profile Directories.
 
 ## SYNTAX
 
@@ -18,15 +18,13 @@ Move-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-Moves Profile Directories into the specified Profile Directory via API
+Move Profile Directories into the specified Profile Directory from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -35,14 +33,19 @@ $Params = @{
   Confirm      = $true
 }
 Move-UMSProfileDirectory @Params
-Moves Profile Directory with ID 49339 into the Profile Directory with ID 28793 and prompts for confirmation
+```
+```
+id    results
+--    -------
+49339 successful
+```
+Moves Profile Directory with ID 49339 into the Profile Directory with ID 28793 and prompts for confirmation.
 
 ### BEISPIEL 2
 ```
 49339, 49341 | Move-UMSProfileDirectory -Computername 'UMSSERVER' -DDIRID -2
 ```
-
-Moves Profile Directories into the specified Profile Directory
+Moves Profile Directories with ID 49339, 49341 into the specified Profile Directory.
 
 ## PARAMETERS
 
@@ -107,7 +110,7 @@ Accept wildcard characters: False
 ```
 
 ### -DIRID
-{{Fill DIRID Description}}
+ID of the Profile Directory to move.
 
 ```yaml
 Type: Int32
@@ -122,7 +125,7 @@ Accept wildcard characters: False
 ```
 
 ### -DDIRID
-DIRID to move to
+ID of the Profile Directory to move to.
 
 ```yaml
 Type: Int32

@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSProfileDirectory.md
 schema: 2.0.0
 ---
 
@@ -25,14 +25,13 @@ Creates a Profile Directory via API
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   Name         = 'NewProfileDir1'
 }
 New-UMSProfileDirectory @Params
+```
 Creates a Profile Directory with name 'NewProfileDir1'
 
 ### BEISPIEL 2

@@ -1,14 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSThinclient.md
 schema: 2.0.0
 ---
 
 # Move-UMSThinclient
 
 ## SYNOPSIS
-Moves Thinclients into the specified Thinclient Directory via API
+Move Thinclients.
 
 ## SYNTAX
 
@@ -18,15 +18,13 @@ Move-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] 
 ```
 
 ## DESCRIPTION
-Moves Thinclients into the specified Thinclient Directory via API
+Move Thinclients into the specified Thinclient Directory from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -35,14 +33,19 @@ $Params = @{
   Confirm      = $true
 }
 Move-UMSThinclient @Params
-Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation
+```
+```
+id    results
+--    -------
+49282 successful
+```
+Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation.
 
 ### BEISPIEL 2
 ```
 49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289
 ```
-
-Moves Thinclients into the specified Thinclient Directory
+Moves Thinclients with ID 49282, 49284 into the specified Thinclient Directory.
 
 ## PARAMETERS
 
@@ -107,7 +110,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCID
-TCIDs to move
+ID of thinclients to move.
 
 ```yaml
 Type: Int32
@@ -122,7 +125,7 @@ Accept wildcard characters: False
 ```
 
 ### -DDIRID
-DDIRID to move to
+ID of Thinclient Directory to move to.
 
 ```yaml
 Type: Int32

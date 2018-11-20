@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Send-UMSThinclientSetting.md
 schema: 2.0.0
 ---
 
@@ -25,14 +25,13 @@ Sends settings modified in the UMS database to all thin clients listed in the re
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48426
 }
 Send-UMSThinclientSetting @Params
+```
 Sends settings modified in the UMS database to thin client with TCID 48426 immediately.
 
 ### BEISPIEL 2

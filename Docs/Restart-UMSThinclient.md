@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Restart-UMSThinclient.md
 schema: 2.0.0
 ---
 
@@ -25,14 +25,13 @@ Restarts Thinclients via API
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48426
 }
 Restart-UMSThinclient @Params
+```
 Restarts thin client with TCID 48426.
 
 ### BEISPIEL 2

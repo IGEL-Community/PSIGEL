@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSProfileDirectoryName.md
 schema: 2.0.0
 ---
 
@@ -25,8 +25,6 @@ Updates a Profile Directory name via API
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -34,6 +32,7 @@ $Params = @{
   Name         = 'NewDirName'
 }
 Update-UMSProfileDirectoryName @Params
+```
 Updates profile directory name to 'NewDirName'
 
 ### BEISPIEL 2

@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfileAssignment.md
 schema: 2.0.0
 ---
 
@@ -32,8 +32,6 @@ Deletes assignment of the specified profile to the specified Thinclient or Thinc
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -41,6 +39,7 @@ $Params = @{
   TCID         = 48426
 }
 Remove-UMSProfileAssignment @Params
+```
 Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
 ### BEISPIEL 2

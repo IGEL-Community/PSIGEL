@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSThinclientDirectory.md
 schema: 2.0.0
 ---
 
@@ -25,14 +25,13 @@ Removes a thinclient directory via API
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   DIRID        = 49289
 }
 Remove-UMSThinclientDirectory @Params
+```
 Removes thinclient directory with ID 49289
 
 ### BEISPIEL 2

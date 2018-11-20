@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Reset-UMSThinclient.md
 schema: 2.0.0
 ---
 
@@ -27,14 +27,13 @@ them from the UMS completely (without recycle bin).
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 35828
 }
 Reset-UMSThinclient @Params
+```
 Resets thin client with TCID 35828 to factory defaults.
 
 ### BEISPIEL 2

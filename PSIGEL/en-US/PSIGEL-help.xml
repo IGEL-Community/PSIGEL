@@ -1812,11 +1812,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSStatus</command:noun>
       <maml:description>
-        <maml:para>Gets diagnostic information about the UMS instance.</maml:para>
+        <maml:para>Gets diagnostic information.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets diagnostic information about the UMS instance. Server status is the only resource that can be queried without logging in. This makes it useful for debugging the connection to the IMI service</maml:para>
+      <maml:para>Gets diagnostic information from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1931,20 +1931,31 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+}
+Get-UMSStatus @Params
+
+rmGuiServerVersion : 5.08.100
+buildNumber        : 33604
+activeMQVersion    : 5.6.0
+derbyVersion       : 10.12.1.1
+serverUUID         : 473de374-49d1-47dc-9842-c1429a561435
+server             : UMSSERVER.acme.org:8443
+links              : {}</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername } Get-UMSStatus @Params Getting UMSSERVER status</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
-        <dev:code>Get-UMSStatus -Computername 'UMSSERVER'</dev:code>
-        <dev:remarks>
-          <maml:para>Getting UMSSERVER status without authorization, useful for connection debugging</maml:para>
+          <maml:para>Gets UMSSERVER status</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-Status.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -1952,11 +1963,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSThinclient</command:noun>
       <maml:description>
-        <maml:para>Gets Thinclient from API.</maml:para>
+        <maml:para>Get Thinclients.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets Thinclient from API.</maml:para>
+      <maml:para>Gets Thinclient from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2012,7 +2023,7 @@ profile    450</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
           <maml:name>Details</maml:name>
           <maml:Description>
-            <maml:para>Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short').</maml:para>
+            <maml:para>Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short')</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2024,7 +2035,7 @@ profile    450</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="6" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientID to search for</maml:para>
+            <maml:para>ID of the Thinclient to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2087,7 +2098,7 @@ profile    450</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
         <maml:name>Details</maml:name>
         <maml:Description>
-          <maml:para>Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short').</maml:para>
+          <maml:para>Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short')</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2099,7 +2110,7 @@ profile    450</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="6" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientID to search for</maml:para>
+          <maml:para>ID of the Thinclient to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2119,27 +2130,120 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  Details      = 'full'
+}
+Get-UMSThinclient @Params
+
+unitID                    : 00E0C5163C78
+mac                       : 00E0C5163C78
+firmwareID                : 8
+networkName               : TC012345
+site                      :
+department                :
+lastIP                    : 10.20.4.102
+comment                   :
+assetID                   :
+inserviceDate             :
+serialNumber              :
+productId                 : UD3-LX 50ac
+umsStructuralTag          :
+cpuSpeed                  : 1200
+cpuType                   : AMD GX-412HC SOC with Radeon(TM) R3E Graphics
+deviceType                : IGEL M340C
+deviceSerialNumber        : 14D3E5C02B17171B64M
+osType                    : IGEL Linux V5 (Kernel Version 4.4.83)
+flashSize                 : 2048
+memorySize                : 1717
+graphicsChipset0          : ATI MULLINS
+graphicsChipset1          :
+monitorVendor1            : Samsung Electric Company
+monitorModel1             : S22E450
+monitorSerialnumber1      : H4LJ201900
+monitorSize1              : 21,9
+monitorNativeResolution1  : 1680 x 1050
+monitor1YearOfManufacture : 2017
+monitor1WeekOfManufacture : 7
+monitorVendor2            :
+monitorModel2             :
+monitorSerialnumber2      :
+monitorSize2              : 0,0
+monitorNativeResolution2  :
+monitor2YearOfManufacture :
+monitor2WeekOfManufacture :
+biosVendor                : Insyde Corp.
+biosVersion               : M340C V:3.4.13-02032016
+biosDate                  : 02/03/2016
+totalUsagetime            : 2105515000
+totalUptime               : 36000
+lastBoottime              : 2018-11-12 08:01
+batteryLevel              : -1
+id                        : 2515
+name                      : TC012345
+parentID                  : 203
+movedToBin                : False
+objectType                : tc
+links                     : {}</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   Details      = 'full' } Get-UMSThinclient @Params Gets detailed information on all online thin clients.</maml:para>
+          <maml:para>Gets detailed information on all online thin clients.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
-        <dev:code>Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433</dev:code>
+        <dev:code>Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
+
+unitID     : 00E0C513CB46
+mac        : 00E0C513CB46
+firmwareID : 8
+lastIP     : 10.0.7.110
+id         : 2433
+name       : TC012345
+parentID   : 76023
+movedToBin : False
+objectType : tc
+links      : {}</dev:code>
         <dev:remarks>
           <maml:para>Gets short information on thin clients with TCID 2433.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 3 --------------------------</maml:title>
-        <dev:code>$WebSession = New-UMSAPICookie -Computername 'UMSSERVER'</dev:code>
+        <dev:code>2433 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
+
+unitID       : 00E0C513BA36
+mac          : 00E0C513BA36
+firmwareID   : 8
+lastIP       : 10.0.7.110
+shadowSecret : @{certificate=-----BEGIN CERTIFICATE-----
+               MIHE1jCCAr6gAwIBAgIESmwpyDANBgkqhkiG9w0BAQ0FADAtMQswCQYDVQQGEwJE
+               RTEPMA0GA1UEBxMGQnJlbWVuMQ0wCwYDVQQKEwRJR0VMMB4XDTEzMTIzMTIzMDAw
+               MVoXDTM2MTIzMTIzMDAwMVowLTELMAkGA1UEBhMCREUxDzANBgNVBAcTBkJyZW1l
+...
+               2bx/BO8UfJgb1gHXYSFdgdTBYn0CdSmV/rMmnEHg72WAMKJI64QRYLqQYAE8KrW1
+               M5WiENfrUmeYTCbK+du52cr9h+F3FZB3LfyqDWAGtL2CTavYf/pd/ro4yHzjK4fW
+               lUpb7tRvPdLf+7USDB4qvYPxwmMwKDsgzYdY+GjOeaRjHxlkWJ0fOeJI
+               -----END CERTIFICATE-----
+               ; password=731fe746-08c2-42d3-a16e-de5be940bd42}
+id           : 2433
+name         : TC012345
+parentID     : 76023
+movedToBin   : False
+objectType   : tc
+links        : {}</dev:code>
         <dev:remarks>
-          <maml:para>2433, 2344 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow' Gets shadow-information on Thinclient with TCID 2433, 2433</maml:para>
+          <maml:para>Gets shadow-information on Thinclient with TCID 2433</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2147,11 +2251,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSThinclientAssignment</command:noun>
       <maml:description>
-        <maml:para>Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.</maml:para>
+        <maml:para>Gets the profile and master profile assignments.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets the profile and master profile assignments for the specified thin client, in order of their application from Rest API.</maml:para>
+      <maml:para>Gets the profile and master profile assignments for the specified thin client, in order of their application from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2207,7 +2311,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientID to search for</maml:para>
+            <maml:para>ID of the Thinclient to get assignments for</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2270,7 +2374,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientID to search for</maml:para>
+          <maml:para>ID of the Thinclient to get assignments for</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2290,9 +2394,23 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 2433
+}
+Get-UMSThinclientAssignment @Params
+
+assignee                  receiver                      assignmentPosition links
+--------                  --------                      ------------------ -----
+@{id=472; type=profile}   @{id=2433; type=tc}                            0 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/472}, @{rel=receiver; href=https://umsserver:8...
+@{id=76686; type=profile} @{id=76023; type=tcdirectory}                  1 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/76686}, @{rel=receiver; href=https://umsserver...
+@{id=480; type=profile}   @{id=50; type=tcdirectory}                     2 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/480}, @{rel=receiver; href=https://umsserver:8...
+@{id=478; type=profile}   @{id=50; type=tcdirectory}                     3 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/478}, @{rel=receiver; href=https://umsserver:8...
+@{id=451; type=profile}   @{id=49; type=tcdirectory}                     4 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/451}, @{rel=receiver; href=https://umsserver:8...</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 2433 } Get-UMSThinclientAssignment @Params Gets the profile and master profile assignments for Thinclient with TCID 2433.</maml:para>
+          <maml:para>Gets the profile and master profile assignments for Thinclient with TCID 2433.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -2303,7 +2421,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientAssignment.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2311,11 +2434,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSThinclientDirectory</command:noun>
       <maml:description>
-        <maml:para>Gets information on Thin Client Directories from API.</maml:para>
+        <maml:para>Get Thinclient Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets information on Thin Client Directories from API.</maml:para>
+      <maml:para>Get Thinclient Directories from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2371,7 +2494,7 @@ profile    450</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Children</maml:name>
           <maml:Description>
-            <maml:para>Switch for recursively listing children (Default false)</maml:para>
+            <maml:para>Switch for recursively listing children</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -2382,7 +2505,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>DirID to search for</maml:para>
+            <maml:para>ID of the Directory to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2445,7 +2568,7 @@ profile    450</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Children</maml:name>
         <maml:Description>
-          <maml:para>Switch for recursively listing children (Default false)</maml:para>
+          <maml:para>Switch for recursively listing children</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2457,7 +2580,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>DirID to search for</maml:para>
+          <maml:para>ID of the Directory to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2477,34 +2600,57 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+}
+Get-UMSThinclientDirectory @Params
+
+id         : 274
+name       : Room1
+parentID   : 220
+movedToBin : False
+objectType : tcdirectory
+links      : {}
+
+id         : 275
+name       : Room2
+parentID   : 220
+movedToBin : False
+objectType : tcdirectory
+links      : {}</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername } Get-UMSThinclientDirectory @Params Gets information on all Thinclient Directories</maml:para>
+          <maml:para>Gets all Thinclient Directories.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
-        <dev:code>(Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren | Select-Object -First 10</dev:code>
+        <dev:code>(Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
+
+objectType  id
+----------  --
+tcdirectory 221
+tcdirectory 222
+tcdirectory 223
+tcdirectory 224
+tcdirectory 225
+tcdirectory 226
+tcdirectory 227
+tcdirectory 228
+tcdirectory 229
+tcdirectory 230</dev:code>
         <dev:remarks>
-          <maml:para>Gets information on all children of the thinclient Directories, selects first 10</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 3 --------------------------</maml:title>
-        <dev:code>Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DIRID 772</dev:code>
-        <dev:remarks>
-          <maml:para>Gets information on a specific Thinclient Directory</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- BEISPIEL 4 --------------------------</maml:title>
-        <dev:code>(772 | Get-UMSThinclientDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren</dev:code>
-        <dev:remarks>
-          <maml:para>Gets children of Thinclient Directory with DirID 772.</maml:para>
+          <maml:para>Gets all children of the Thinclient Directory with ID 220, selects first 10.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2512,11 +2658,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSThinclientDirectoryAssignment</command:noun>
       <maml:description>
-        <maml:para>Gets the profile and master profile assignments for the specified thincient directory, in order of their application via API</maml:para>
+        <maml:para>Get the profile and master profile assignments.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets the profile and master profile assignments for the specified thincient directory, in order of their application via API</maml:para>
+      <maml:para>Get the profile and master profile assignments for the specified Thinclient directory, in order of their application from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2572,7 +2718,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>DIRID to get profile assignments for</maml:para>
+            <maml:para>ID of the Thinclient Directory to get assignments for</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2657,7 +2803,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>DIRID to get profile assignments for</maml:para>
+          <maml:para>ID of the Thinclient Directory to get assignments for</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2701,20 +2847,40 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 772
+}
+Get-UMSThinclientDirectoryAssignment @Params
+
+assignee                 receiver                    assignmentPosition links
+--------                 --------                    ------------------ -----
+@{id=423; type=profile}  @{id=772; type=tcdirectory}                  0 {}
+@{id=431; type=profile}  @{id=772; type=tcdirectory}                  1 {}
+@{id=436; type=profile}  @{id=772; type=tcdirectory}                  2 {}
+@{id=438; type=profile}  @{id=772; type=tcdirectory}                  3 {}
+@{id=441; type=profile}  @{id=772; type=tcdirectory}                  4 {}
+@{id=444; type=profile}  @{id=772; type=tcdirectory}                  5 {}</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 772 } Get-UMSThinclientDirectoryAssignment @Params Gets the profile and master profile assignments for thincient directory 772</maml:para>
+          <maml:para>Gets the profile and master profile assignments for Thinclient Directory 772</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
-        <dev:code>772, 774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'</dev:code>
+        <dev:code>774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
-          <maml:para>Gets the profile and master profile assignments for the thincient directories 772 and 774</maml:para>
+          <maml:para>Gets the profile and master profile assignments for the Thinclient Directory with ID 774</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectoryAssignment.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2722,11 +2888,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSView</command:noun>
       <maml:description>
-        <maml:para>Gets View from UMS-DB</maml:para>
+        <maml:para>Get Views.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets View from UMS-DB</maml:para>
+      <maml:para>Get Views from UMS DB via Invoke-SQLcmd2.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2782,7 +2948,7 @@ profile    450</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ViewID</maml:name>
           <maml:Description>
-            <maml:para>ViewIDs to search for</maml:para>
+            <maml:para>ID of the views to get.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2845,7 +3011,7 @@ profile    450</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ViewID</maml:name>
         <maml:Description>
-          <maml:para>ViewIDs to search for</maml:para>
+          <maml:para>ID of the views to get.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2865,20 +3031,49 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+Credential     = Get-Credential
+  ServerInstance = 'SQLSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+}
+Get-UMSView @Params
+
+VIEWID      : 72350
+VIEWNAME    : 07|Update_FirmwareUpdate_H6_LX10|UDLX
+DESCRIPTION :
+TYPE        : view
+SCOPE       : tc
+USERNAME    :
+MOVEDTOBIN  :
+DIRID       : 557
+
+VIEWID      : 73732
+VIEWNAME    : V4Features
+DESCRIPTION :
+TYPE        : view
+SCOPE       : tc
+USERNAME    :
+MOVEDTOBIN  :
+DIRID       : 73729</dev:code>
         <dev:remarks>
-          <maml:para>Credential     = Get-Credential   ServerInstance = 'SQLSERVER\RMDB'   Database       = 'RMDB'   Schema         = 'igelums' } Get-UMSView @Params Gets all Views</maml:para>
+          <maml:para>Gets all Views.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>558, 560 | Get-UMSView -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
-          <maml:para>Gets Views with ViewID "558" and "560"</maml:para>
+          <maml:para>Gets Views with ID 558 and 560.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSView.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -2886,11 +3081,11 @@ profile    450</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSViewDirectory</command:noun>
       <maml:description>
-        <maml:para>Gets View Directories from UMS-DB</maml:para>
+        <maml:para>Get View Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets View Directories from UMS-DB</maml:para>
+      <maml:para>Get View Directories from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2946,7 +3141,7 @@ profile    450</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>{{Fill DirID Description}}</maml:para>
+            <maml:para>ID of the View Directory to get</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3009,7 +3204,7 @@ profile    450</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>{{Fill DirID Description}}</maml:para>
+          <maml:para>ID of the View Directory to get</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3029,20 +3224,38 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+Credential     = Get-Credential
+  ServerInstance = 'SQLSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+}
+Get-UMSViewDirectory @Params
+
+DIRID NAME                    MEMBEROF MOVEDTOBIN
+----- ----                    -------- ----------
+  557 Administrative Tasks
+  720 Status
+  948 Product
+73729 ProfileAssignments</dev:code>
         <dev:remarks>
-          <maml:para>Credential     = Get-Credential   ServerInstance = 'SQLSERVER\RMDB'   Database       = 'RMDB'   Schema         = 'igelums' } Get-UMSViewDirectory @Params Gets all View Directories</maml:para>
+          <maml:para>Gets all View Directories.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>557 | Get-UMSViewDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'</dev:code>
         <dev:remarks>
-          <maml:para>Gets View Directories with DirID "557"</maml:para>
+          <maml:para>Gets View Directory with ID 557.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSViewDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3050,11 +3263,11 @@ profile    450</dev:code>
       <command:verb>Move</command:verb>
       <command:noun>UMSProfile</command:noun>
       <maml:description>
-        <maml:para>Moves Profiles into the specified Profile Directory via API</maml:para>
+        <maml:para>Move Profiles.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Moves Profiles into the specified Profile Directory via API</maml:para>
+      <maml:para>Move Profiles into the specified Profile Directory from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3110,7 +3323,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ProfileID</maml:name>
           <maml:Description>
-            <maml:para>ProfileIDs to move</maml:para>
+            <maml:para>ID of the Profiles to move.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3122,7 +3335,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>DDIRID</maml:name>
           <maml:Description>
-            <maml:para>DDIRID to move to</maml:para>
+            <maml:para>ID of the Profile Directory to move to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3207,7 +3420,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ProfileID</maml:name>
         <maml:Description>
-          <maml:para>ProfileIDs to move</maml:para>
+          <maml:para>ID of the Profiles to move.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3219,7 +3432,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>DDIRID</maml:name>
         <maml:Description>
-          <maml:para>DDIRID to move to</maml:para>
+          <maml:para>ID of the Profile Directory to move to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3263,20 +3476,37 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DDIRID       = 49339
+  ProfileID    = 48440
+  Confirm      = $true
+}
+Move-UMSProfile @Params
+
+id    results
+--    -------
+48440 successful</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DDIRID       = 49339   ProfileID    = 48440   Confirm      = $true } Move-UMSProfile @Params Moves Profile with ID 48440 into the Profile Directory with ID 48440 and prompts for confirmation</maml:para>
+          <maml:para>Moves Profile with ID 48440 into the Profile Directory with ID 48440 and prompts for confirmation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DDIRID 28793</dev:code>
         <dev:remarks>
-          <maml:para>Moves Profiles into the specified Profile Directory</maml:para>
+          <maml:para>Moves Profiles into the specified Profile Directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSProfile.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3284,11 +3514,11 @@ profile    450</dev:code>
       <command:verb>Move</command:verb>
       <command:noun>UMSProfileDirectory</command:noun>
       <maml:description>
-        <maml:para>Moves Profile Directories into the specified Profile Directory via API</maml:para>
+        <maml:para>Move Profile Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Moves Profile Directories into the specified Profile Directory via API</maml:para>
+      <maml:para>Move Profile Directories into the specified Profile Directory from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3344,7 +3574,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>{{Fill DIRID Description}}</maml:para>
+            <maml:para>ID of the Profile Directory to move.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3356,7 +3586,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>DDIRID</maml:name>
           <maml:Description>
-            <maml:para>DIRID to move to</maml:para>
+            <maml:para>ID of the Profile Directory to move to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3441,7 +3671,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>{{Fill DIRID Description}}</maml:para>
+          <maml:para>ID of the Profile Directory to move.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3453,7 +3683,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>DDIRID</maml:name>
         <maml:Description>
-          <maml:para>DIRID to move to</maml:para>
+          <maml:para>ID of the Profile Directory to move to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3497,20 +3727,37 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 49339
+  DDIRID       = 28793
+  Confirm      = $true
+}
+Move-UMSProfileDirectory @Params
+
+id    results
+--    -------
+49339 successful</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 49339   DDIRID       = 28793   Confirm      = $true } Move-UMSProfileDirectory @Params Moves Profile Directory with ID 49339 into the Profile Directory with ID 28793 and prompts for confirmation</maml:para>
+          <maml:para>Moves Profile Directory with ID 49339 into the Profile Directory with ID 28793 and prompts for confirmation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>49339, 49341 | Move-UMSProfileDirectory -Computername 'UMSSERVER' -DDIRID -2</dev:code>
         <dev:remarks>
-          <maml:para>Moves Profile Directories into the specified Profile Directory</maml:para>
+          <maml:para>Moves Profile Directories with ID 49339, 49341 into the specified Profile Directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSProfileDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3518,11 +3765,11 @@ profile    450</dev:code>
       <command:verb>Move</command:verb>
       <command:noun>UMSThinclient</command:noun>
       <maml:description>
-        <maml:para>Moves Thinclients into the specified Thinclient Directory via API</maml:para>
+        <maml:para>Move Thinclients.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Moves Thinclients into the specified Thinclient Directory via API</maml:para>
+      <maml:para>Move Thinclients into the specified Thinclient Directory from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3578,7 +3825,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>TCIDs to move</maml:para>
+            <maml:para>ID of thinclients to move.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3590,7 +3837,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>DDIRID</maml:name>
           <maml:Description>
-            <maml:para>DDIRID to move to</maml:para>
+            <maml:para>ID of Thinclient Directory to move to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3675,7 +3922,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>TCIDs to move</maml:para>
+          <maml:para>ID of thinclients to move.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3687,7 +3934,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>DDIRID</maml:name>
         <maml:Description>
-          <maml:para>DDIRID to move to</maml:para>
+          <maml:para>ID of Thinclient Directory to move to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3731,20 +3978,37 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 49282
+  DDIRID       = 28793
+  Confirm      = $true
+}
+Move-UMSThinclient @Params
+
+id    results
+--    -------
+49282 successful</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 49282   DDIRID       = 28793   Confirm      = $true } Move-UMSThinclient @Params Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation</maml:para>
+          <maml:para>Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289</dev:code>
         <dev:remarks>
-          <maml:para>Moves Thinclients into the specified Thinclient Directory</maml:para>
+          <maml:para>Moves Thinclients with ID 49282, 49284 into the specified Thinclient Directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3752,11 +4016,11 @@ profile    450</dev:code>
       <command:verb>Move</command:verb>
       <command:noun>UMSThinclientDirectory</command:noun>
       <maml:description>
-        <maml:para>Moves Thinclient Directories into the specified Thinclient Directory via API</maml:para>
+        <maml:para>Move Thinclient Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Moves Thinclient Directories into the specified Thinclient Directory via API</maml:para>
+      <maml:para>Moves Thinclient Directories into the specified Thinclient Directory from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3812,7 +4076,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>DIRIDs to move</maml:para>
+            <maml:para>ID of Thinclient Directories to move.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3824,7 +4088,7 @@ profile    450</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>DDIRID</maml:name>
           <maml:Description>
-            <maml:para>DDIRID to move to</maml:para>
+            <maml:para>ID of the Thinclient Directory to move to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3909,7 +4173,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>DIRIDs to move</maml:para>
+          <maml:para>ID of Thinclient Directories to move.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3921,7 +4185,7 @@ profile    450</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>DDIRID</maml:name>
         <maml:Description>
-          <maml:para>DDIRID to move to</maml:para>
+          <maml:para>ID of the Thinclient Directory to move to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3965,20 +4229,37 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 49289
+  DDIRID       = 49552
+  Confirm      = $true
+}
+Move-UMSThinclientDirectory @Params
+
+id    results
+--    -------
+49289 successful</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 49289   DDIRID       = 49552   Confirm      = $true } Move-UMSThinclientDirectory @Params Moves Thinclient Directorie with ID 49289 into the Thinclient Directory with ID 49552 and prompts for confirmation</maml:para>
+          <maml:para>Moves Thinclient Directorie with ID 49289 into the Thinclient Directory with ID 49552 and prompts for confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 2 --------------------------</maml:title>
         <dev:code>49289, 49291 | Move-UMSThinclientDirectory -Computername 'UMSSERVER' -DDIRID 772</dev:code>
         <dev:remarks>
-          <maml:para>Moves Thinclient Directories into the specified Thinclient Directory</maml:para>
+          <maml:para>Moves Thinclient Directories with ID 49289, 49291 into the specified Thinclient Directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSThinclientDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4166,7 +4447,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSAPICookie.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4363,9 +4649,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  Name         = 'NewProfileDir1'
+}
+New-UMSProfileDirectory @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   Name         = 'NewProfileDir1' } New-UMSProfileDirectory @Params Creates a Profile Directory with name 'NewProfileDir1'</maml:para>
+          <maml:para>Creates a Profile Directory with name 'NewProfileDir1'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -4376,7 +4668,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSProfileDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4837,9 +5134,27 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername  = $Computername
+  WebSession    = New-UMSAPICookie -Computername $Computername
+  Mac           = '012345678910'
+  FirmwareID    = 9
+  Name          = 'TC012345'
+  ParentID      = 772
+  Site          = 'Leipzig'
+  Department    = 'Marketing'
+  CostCenter    = '50100'
+  LastIP        = '192.168.0.10'
+  Comment       = 'New Thinclient'
+  AssetID       = '012345'
+  InserviceDate = '01.01.2018'
+  SerialNumber  = '12A3B4C56B12345A6BC'
+  Confirm       = $true
+}
+New-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername  = $Computername   WebSession    = New-UMSAPICookie -Computername $Computername   Mac           = '012345678910'   FirmwareID    = 9   Name          = 'TC012345'   ParentID      = 772   Site          = 'Leipzig'   Department    = 'Marketing'   CostCenter    = '50100'   LastIP        = '192.168.0.10'   Comment       = 'New Thinclient'   AssetID       = '012345'   InserviceDate = '01.01.2018'   SerialNumber  = '12A3B4C56B12345A6BC'   Confirm       = $true } New-UMSThinclient @Params Creates a new thinclient with all possible attributes, after confirmation.</maml:para>
+          <maml:para>Creates a new thinclient with all possible attributes, after confirmation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -4850,7 +5165,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5047,9 +5367,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  Name         = 'NewTcDir1'
+}
+New-UMSThinclientDirectory @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   Name         = 'NewTcDir1' } New-UMSThinclientDirectory @Params Creates Thinclient Directory with name 'NewTcDir1'</maml:para>
+          <maml:para>Creates Thinclient Directory with name 'NewTcDir1'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -5060,7 +5386,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSThinclientDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5257,9 +5588,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  ProfileID    = 48170
+}
+Remove-UMSProfile @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   ProfileID    = 48170 } Remove-UMSProfile @Params Removes Profile with ProfileID 48170</maml:para>
+          <maml:para>Removes Profile with ProfileID 48170</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -5270,7 +5607,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfile.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5600,9 +5942,16 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  ProfileID    = 470
+  TCID         = 48426
+}
+Remove-UMSProfileAssignment @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   ProfileID    = 470   TCID         = 48426 } Remove-UMSProfileAssignment @Params Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.</maml:para>
+          <maml:para>Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -5613,7 +5962,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfileAssignment.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -5810,9 +6164,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 49601
+}
+Remove-UMSProfileDirectory @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 49601 } Remove-UMSProfileDirectory @Params Removes profile directory with ID 49601</maml:para>
+          <maml:para>Removes profile directory with ID 49601</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -5823,7 +6183,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfileAssignment.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -6020,9 +6385,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 48420
+}
+Remove-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 48420 } Remove-UMSThinclient @Params Removes Thinclient with TCID 48420</maml:para>
+          <maml:para>Removes Thinclient with TCID 48420</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -6033,7 +6404,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -6230,9 +6606,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 49289
+}
+Remove-UMSThinclientDirectory @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 49289 } Remove-UMSThinclientDirectory @Params Removes thinclient directory with ID 49289</maml:para>
+          <maml:para>Removes thinclient directory with ID 49289</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -6243,7 +6625,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSThinclientDirectory.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -6440,9 +6827,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 35828
+}
+Reset-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 35828 } Reset-UMSThinclient @Params Resets thin client with TCID 35828 to factory defaults.</maml:para>
+          <maml:para>Resets thin client with TCID 35828 to factory defaults.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -6453,7 +6846,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Reset-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -6650,9 +7048,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 48426
+}
+Restart-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 48426 } Restart-UMSThinclient @Params Restarts thin client with TCID 48426.</maml:para>
+          <maml:para>Restarts thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -6663,7 +7067,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Restart-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -6860,9 +7269,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 48426
+}
+Send-UMSThinclientSetting @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 48426 } Send-UMSThinclientSetting @Params Sends settings modified in the UMS database to thin client with TCID 48426 immediately.</maml:para>
+          <maml:para>Sends settings modified in the UMS database to thin client with TCID 48426 immediately.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -6873,7 +7288,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Send-UMSThinclientSetting.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -7070,9 +7490,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 48426
+}
+Start-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 48426 } Start-UMSThinclient @Params Wakes up thin client with TCID 48426.</maml:para>
+          <maml:para>Wakes up thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -7083,7 +7509,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Start-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -7280,9 +7711,15 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  TCID         = 48426
+}
+Stop-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   TCID         = 48426 } Stop-UMSThinclient @Params Shuts down thin client with TCID 48426.</maml:para>
+          <maml:para>Shuts down thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -7293,7 +7730,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -7514,9 +7956,17 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+ServerInstance = 'SQLSERVER\RMDB'
+  Database       = 'RMDB'
+  Schema         = 'igelums'
+  Credential     = (Get-Credential)
+  JobIDColl      = 18701
+  Startdate      = '2018-01-10 00:06:41'
+}
+Update-UMSJobStartDate @Params</dev:code>
         <dev:remarks>
-          <maml:para>ServerInstance = 'SQLSERVER\RMDB'   Database       = 'RMDB'   Schema         = 'igelums'   Credential     = (Get-Credential)   JobIDColl      = 18701   Startdate      = '2018-01-10 00:06:41' } Update-UMSJobStartDate @Params Update Job Startdate on Job with ID "18701"</maml:para>
+          <maml:para>Update Job Startdate on Job with ID "18701"</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -7527,7 +7977,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSJobStartDate.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -7857,9 +8312,16 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Params = @{</dev:code>
+        <dev:code>$Params = @{
+$WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
+  $Computername = 'UMSSERVER'
+  $WebSession   = $WebSession
+  $ProfileID    = 470
+  $TCID         = 48426
+}
+Update-UMSProfileAssignment @Params</dev:code>
         <dev:remarks>
-          <maml:para>$WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'   $Computername = 'UMSSERVER'   $WebSession   = $WebSession   $ProfileID    = 470   $TCID         = 48426 } Update-UMSProfileAssignment @Params Assigns the profile with ProfilID 470 to thin client with TCID 48426.</maml:para>
+          <maml:para>Assigns the profile with ProfilID 470 to thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -7870,7 +8332,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSProfileAssignment.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -8091,9 +8558,16 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 49339
+  Name         = 'NewDirName'
+}
+Update-UMSProfileDirectoryName @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 49339   Name         = 'NewDirName' } Update-UMSProfileDirectoryName @Params Updates profile directory name to 'NewDirName'</maml:para>
+          <maml:para>Updates profile directory name to 'NewDirName'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -8104,7 +8578,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSProfileDirectoryName.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -8325,9 +8804,16 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  ProfileID    = 48170
+  Name         = 'NewProfileName'
+}
+Update-UMSProfileName @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   ProfileID    = 48170   Name         = 'NewProfileName' } Update-UMSProfileName @Params Updates profile name to 'NewProfileName'</maml:para>
+          <maml:para>Updates profile name to 'NewProfileName'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -8338,7 +8824,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSProfileName.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -8751,9 +9242,24 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername  = 'UMSSERVER'
+  TCID          = 100
+  Name          = 'TC012345'
+  ParentID      = '772'
+  Site          = 'Leipzig'
+  Department    = 'Marketing'
+  CostCenter    = '50100'
+  LastIP        = '192.168.0.10'
+  Comment       = 'New Thinclient'
+  AssetID       = '012345'
+  InserviceDate = '01.01.2018'
+  SerialNumber  = '12A3B4C56B12345A6BC'
+}
+Update-UMSThinclient @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername  = 'UMSSERVER'   TCID          = 100   Name          = 'TC012345'   ParentID      = '772'   Site          = 'Leipzig'   Department    = 'Marketing'   CostCenter    = '50100'   LastIP        = '192.168.0.10'   Comment       = 'New Thinclient'   AssetID       = '012345'   InserviceDate = '01.01.2018'   SerialNumber  = '12A3B4C56B12345A6BC' } Update-UMSThinclient @Params Updates thinclient with all possible attributes.</maml:para>
+          <maml:para>Updates thinclient with all possible attributes.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -8771,7 +9277,12 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSThinclient.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -8992,9 +9503,16 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- BEISPIEL 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'</dev:code>
+        <dev:code>$Computername = 'UMSSERVER'
+$Params = @{
+  Computername = $Computername
+  WebSession   = New-UMSAPICookie -Computername $Computername
+  DIRID        = 49289 -Name
+  Name         = 'NewDirName'
+}
+Update-UMSProfileName @Params</dev:code>
         <dev:remarks>
-          <maml:para>$Params = @{   Computername = $Computername   WebSession   = New-UMSAPICookie -Computername $Computername   DIRID        = 49289 -Name   Name         = 'NewDirName' } Update-UMSProfileName @Params Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -WebSession $WebSession Updates thinclient directory name to 'NewDirName'</maml:para>
+          <maml:para>Updates thinclient directory name to 'NewDirName'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -9005,6 +9523,11 @@ profile    450</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSThinclientDirectoryName.md</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
 </helpItems>

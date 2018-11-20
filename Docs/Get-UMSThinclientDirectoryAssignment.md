@@ -1,15 +1,14 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectoryAssignment.md
 schema: 2.0.0
 ---
 
 # Get-UMSThinclientDirectoryAssignment
 
 ## SYNOPSIS
-Gets the profile and master profile assignments for the specified thincient directory,
-in order of their application via API
+Get the profile and master profile assignments.
 
 ## SYNTAX
 
@@ -19,30 +18,39 @@ Get-UMSThinclientDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32
 ```
 
 ## DESCRIPTION
-Gets the profile and master profile assignments for the specified thincient directory,
-in order of their application via API
+Get the profile and master profile assignments for the specified Thinclient directory,
+in order of their application from UMS via API.
 
 ## EXAMPLES
 
 ### BEISPIEL 1
 ```
 $Computername = 'UMSSERVER'
-```
-
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
   DIRID        = 772
 }
 Get-UMSThinclientDirectoryAssignment @Params
-Gets the profile and master profile assignments for thincient directory 772
+```
+```
+assignee                 receiver                    assignmentPosition links
+--------                 --------                    ------------------ -----
+@{id=423; type=profile}  @{id=772; type=tcdirectory}                  0 {}
+@{id=431; type=profile}  @{id=772; type=tcdirectory}                  1 {}
+@{id=436; type=profile}  @{id=772; type=tcdirectory}                  2 {}
+@{id=438; type=profile}  @{id=772; type=tcdirectory}                  3 {}
+@{id=441; type=profile}  @{id=772; type=tcdirectory}                  4 {}
+@{id=444; type=profile}  @{id=772; type=tcdirectory}                  5 {}
+```
+Gets the profile and master profile assignments for Thinclient Directory 772
 
 ### BEISPIEL 2
 ```
-772, 774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'
+774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'
 ```
 
-Gets the profile and master profile assignments for the thincient directories 772 and 774
+Gets the profile and master profile assignments for the Thinclient Directory with ID 774
 
 ## PARAMETERS
 
@@ -107,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -DIRID
-DIRID to get profile assignments for
+ID of the Thinclient Directory to get assignments for
 
 ```yaml
 Type: Int32
