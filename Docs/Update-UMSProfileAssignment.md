@@ -8,7 +8,7 @@ schema: 2.0.0
 # Update-UMSProfileAssignment
 
 ## SYNOPSIS
-Assigns a profile to a Thinclient or a tThinclient directory.
+Assigns a profile to a Thinclient or a Thinclient directory.
 
 ## SYNTAX
 
