@@ -1,43 +1,5 @@
 ﻿function Start-UMSThinclient
 {
-  <#
-      .Synopsis
-      Wakes Up Thinclients (WOL) via API
-
-      .DESCRIPTION
-      Wakes Up Thinclients (WOL) via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER TCID
-      ThinclientIDs to wake up
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        TCID         = 48426
-      }
-      Start-UMSThinclient @Params
-      #Wakes up thin client with TCID 48426.
-
-      .EXAMPLE
-      48426, 2435 | Start-UMSThinclient -Computername 'UMSSERVER'
-      #Wakes up thin clients with TCID 48426 and 2435.
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (

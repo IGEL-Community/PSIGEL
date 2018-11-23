@@ -1,43 +1,5 @@
 function New-UMSThinclientDirectory
 {
-  <#
-      .Synopsis
-      Creates a Thinclient Directory via API
-
-      .DESCRIPTION
-      Creates a Thinclient Directory via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER Name
-      Name of the Thinclient Directory to create
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        Name         = 'NewTcDir1'
-      }
-      New-UMSThinclientDirectory @Params
-      #Creates Thinclient Directory with name 'NewTcDir1'
-
-      .EXAMPLE
-      'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'
-      #Creates Thinclient Directories with names 'NewTcDir1' and 'NewTcDir2'
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (

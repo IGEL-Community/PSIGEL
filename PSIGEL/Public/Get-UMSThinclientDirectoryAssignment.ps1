@@ -1,45 +1,5 @@
 function Get-UMSThinclientDirectoryAssignment
 {
-  <#
-      .Synopsis
-      Gets the profile and master profile assignments for the specified thincient directory,
-      in order of their application via API
-
-      .DESCRIPTION
-      Gets the profile and master profile assignments for the specified thincient directory,
-      in order of their application via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER DIRID
-      DIRID to get profile assignments for
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        DIRID        = 772
-      }
-      Get-UMSThinclientDirectoryAssignment @Params
-      #Gets the profile and master profile assignments for thincient directory 772
-
-      .EXAMPLE
-      772, 774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'
-      #Gets the profile and master profile assignments for the thincient directories 772 and 774
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (

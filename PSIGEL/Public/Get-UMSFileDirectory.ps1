@@ -1,44 +1,5 @@
 function Get-UMSFileDirectory
 {
-  <#
-      .Synopsis
-      Gets File Directories from UMS-DB
-
-      .DESCRIPTION
-      Gets File Directories from UMS-DB
-
-      .PARAMETER ServerInstance
-      SQL ServerInstance for the UMS-DB (e.g. 'SQLSERVER\RMDB')
-
-      .PARAMETER Database
-      SQL Database for the UMS-DB (e.g. 'RMDB')
-
-      .PARAMETER Schema
-      SQL Schema for the UMS-DB (e.g. 'igelums')
-
-      .PARAMETER Credential
-      Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the
-      Windows account running the PowerShell session.
-
-      .PARAMETER DirIDColl
-      DirIDs to search for
-
-      .EXAMPLE
-      $Params = @{
-        Credential     = Get-Credential
-        ServerInstance = 'SQLSERVER\RMDB'
-        Database       = 'RMDB'
-        Schema         = 'igelums'
-      }
-      Get-UMSFileDirectory @Params
-      #Gets all File Directories
-
-      .EXAMPLE
-      50194 | Get-UMSFileDirectory -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
-      #Gets File Directories with DirID "50194"
-  #>
-
   [cmdletbinding()]
   param
   (

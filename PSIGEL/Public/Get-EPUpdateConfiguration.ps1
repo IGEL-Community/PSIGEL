@@ -1,23 +1,6 @@
 #Requires -Modules Posh-SSH
 function Get-EPUpdateConfiguration
 {
-  <#
-    .SYNOPSIS
-    Get update configuration details from IGEL EndPoint with firmware 10+ via SSH.
-
-    .DESCRIPTION
-    Get update configuration details from IGEL EndPoint with firmware 10+ via SSH.
-
-    .PARAMETER SSHSession
-    SSH Session to use
-
-    .EXAMPLE
-    $Properties = @{
-      SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
-    }
-    Get-EPUpdateConfiguration @Params
-  #>
-
   [CmdletBinding()]
   param (
     [Parameter(Mandatory = $true,

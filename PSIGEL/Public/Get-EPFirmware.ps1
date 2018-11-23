@@ -1,23 +1,6 @@
 #Requires -Modules Posh-SSH
 function Get-EPFirmware
 {
-  <#
-    .SYNOPSIS
-    Get Firmware from IGEL EndPoint via SSH.
-
-    .DESCRIPTION
-    Get Firmware from IGEL EndPoint via SSH.
-
-    .PARAMETER SSHSession
-    SSH Session to use
-
-    .EXAMPLE
-    $Params = @{
-      SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
-    }
-    Get-EPFirmware @Params
-  #>
-
   [CmdletBinding()]
   param (
     [Parameter(Mandatory = $true,

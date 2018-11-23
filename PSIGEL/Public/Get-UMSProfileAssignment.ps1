@@ -1,41 +1,5 @@
 ﻿function Get-UMSProfileAssignment
 {
-  <#
-    .Synopsis
-    Gets the thinclients and directories the profile is assigned to.
-
-    .DESCRIPTION
-    Gets the thinclients and directories the profile is assigned to.
-
-    .PARAMETER Computername
-    Computername of the UMS Server
-
-    .PARAMETER TCPPort
-    TCP Port (Default: 8443)
-
-    .PARAMETER ApiVersion
-    API Version to use (Default: 3)
-
-    .Parameter WebSession
-    Websession Cookie
-
-    .PARAMETER ProfileID
-    ProfileID to search for
-
-    .EXAMPLE
-    $Computername = 'UMSSERVER'
-    $Params = @{
-      Computername = $Computername
-      WebSession   = New-UMSAPICookie -Computername $Computername
-      ProfileID    = 471
-    }
-    Get-UMSProfileAssignment @Params
-    #Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
-
-    .EXAMPLE
-    471 | Get-UMSProfileAssignment -Computername 'UMSSERVER'
-    #Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
-#>
   [cmdletbinding()]
   param
   (

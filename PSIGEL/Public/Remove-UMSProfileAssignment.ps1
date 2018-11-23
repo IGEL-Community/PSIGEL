@@ -1,43 +1,5 @@
 ﻿function Remove-UMSProfileAssignment
 {
-  <#
-      .Synopsis
-      Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
-
-      .DESCRIPTION
-      Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER ProfileID
-      ProfileID to search for
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        ProfileID    = 470
-        TCID         = 48426
-      }
-      Remove-UMSProfileAssignment @Params
-      #Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
-
-      .EXAMPLE
-      48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
-      #Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (

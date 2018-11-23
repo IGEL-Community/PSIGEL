@@ -1,42 +1,5 @@
 ﻿function Get-UMSFirmware
 {
-  <#
-      .Synopsis
-      Gets information on all firmwares known to the UMS from API.
-
-      .DESCRIPTION
-      Gets information on all firmwares known to the UMS from API.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER FirmwareID
-      ThinclientID to search for
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-      }
-      Get-UMSFirmware @Params
-      #Gets information on all firmwares known to the UMS.
-
-      .EXAMPLE
-      9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'
-      #Gets information on firmwares with FirmwareIDs 9 and 7.
-
-  #>
-
   [cmdletbinding()]
   param
   (

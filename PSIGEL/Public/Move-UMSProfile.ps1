@@ -1,49 +1,5 @@
 function Move-UMSProfile
 {
-  <#
-      .Synopsis
-      Moves Profiles into the specified Profile Directory via API
-
-      .DESCRIPTION
-      Moves Profiles into the specified Profile Directory via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER ProfileID
-      ProfileIDs to move
-
-      .PARAMETER DDIRID
-      DDIRID to move to
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        DDIRID       = 49339
-        ProfileID    = 48440
-        Confirm      = $true
-      }
-      Move-UMSProfile @Params
-      #Moves Profile with ID 48440 into the Profile Directory with ID 48440
-      #and prompts for confirmation
-
-      .EXAMPLE
-      48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DDIRID 28793
-      #Moves Profiles into the specified Profile Directory
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (

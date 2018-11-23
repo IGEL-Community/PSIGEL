@@ -1,42 +1,5 @@
 ﻿function Remove-UMSProfile
 {
-  <#
-      .Synopsis
-      Deletes profile.
-
-      .DESCRIPTION
-      Deletes profile.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER ProfileID
-      ProfileID of the thinclient to remove
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        ProfileID    = 48170
-      }
-      Remove-UMSProfile @Params
-      #Removes Profile with ProfileID 48170
-
-      .EXAMPLE
-      48170 | Remove-UMSProfile -Computername 'UMSSERVER'
-      #Removes Profile with ProfileID 48170
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (
