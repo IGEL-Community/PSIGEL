@@ -35,11 +35,16 @@ ServerInstance = 'SQLSERVER\RMDB'
 }
 Update-UMSJobStartDate @Params
 ```
+```
+message
+-------
+1 asssignments successfully assigned
+```
 Update Job Startdate on Job with ID "18701"
 
 ### Example 2
 ```powershell
-18701,18706 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Startdate '2018-01-10 14:47:00'
+18701, 18706 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Startdate '2018-01-10 14:47:00'
 ```
 
 Update Job Startdate on Jobs with ID "18701" and "18706"
