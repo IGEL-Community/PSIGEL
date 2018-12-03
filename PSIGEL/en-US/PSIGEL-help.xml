@@ -7964,14 +7964,18 @@ ServerInstance = 'SQLSERVER\RMDB'
   JobIDColl      = 18701
   Startdate      = '2018-01-10 00:06:41'
 }
-Update-UMSJobStartDate @Params</dev:code>
+Update-UMSJobStartDate @Params
+
+message
+-------
+1 asssignments successfully assigned</dev:code>
         <dev:remarks>
           <maml:para>Update Job Startdate on Job with ID "18701"</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>18701,18706 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Startdate '2018-01-10 14:47:00'</dev:code>
+        <dev:code>18701, 18706 | Update-UMSJobStartDate -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums' -Startdate '2018-01-10 14:47:00'</dev:code>
         <dev:remarks>
           <maml:para>Update Job Startdate on Jobs with ID "18701" and "18706"</maml:para>
         </dev:remarks>
@@ -7990,7 +7994,7 @@ Update-UMSJobStartDate @Params</dev:code>
       <command:verb>Update</command:verb>
       <command:noun>UMSProfileAssignment</command:noun>
       <maml:description>
-        <maml:para>Assigns a profile to a Thinclient or a tThinclient directory.</maml:para>
+        <maml:para>Assigns a profile to a Thinclient or a Thinclient directory.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -8319,7 +8323,11 @@ $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
   $ProfileID    = 470
   $TCID         = 48426
 }
-Update-UMSProfileAssignment @Params</dev:code>
+Update-UMSProfileAssignment @Params
+
+message
+-------
+1 asssignments successfully assigned</dev:code>
         <dev:remarks>
           <maml:para>Assigns the profile with ProfilID 470 to thin client with TCID 48426.</maml:para>
         </dev:remarks>
@@ -8328,7 +8336,7 @@ Update-UMSProfileAssignment @Params</dev:code>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300</dev:code>
         <dev:remarks>
-          <maml:para>Assigns the profile with ProfilID 471 to thin client directory with DirID 300'</maml:para>
+          <maml:para>Assigns the profile with ProfileID 471 to thin client directory with DirID 300'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -8565,7 +8573,11 @@ $Params = @{
   DIRID        = 49339
   Name         = 'NewDirName'
 }
-Update-UMSProfileDirectoryName @Params</dev:code>
+Update-UMSProfileDirectoryName @Params
+
+message
+-------
+Updated directory successfully.</dev:code>
         <dev:remarks>
           <maml:para>Updates profile directory name to 'NewDirName'</maml:para>
         </dev:remarks>
@@ -8811,14 +8823,18 @@ $Params = @{
   ProfileID    = 48170
   Name         = 'NewProfileName'
 }
-Update-UMSProfileName @Params</dev:code>
+Update-UMSProfileName @Params
+
+message
+-------
+Update successful</dev:code>
         <dev:remarks>
           <maml:para>Updates profile name to 'NewProfileName'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Update-UMSProfileName -Computername 'UMSSERVER' -ProfileID 48170 -Name 'NewProfileName'</dev:code>
+        <dev:code>48170 | Update-UMSProfileName -Computername 'UMSSERVER' -Name 'NewProfileName'</dev:code>
         <dev:remarks>
           <maml:para>Updates profile name to 'NewProfileName'</maml:para>
         </dev:remarks>
@@ -9257,7 +9273,11 @@ $Params = @{
   InserviceDate = '01.01.2018'
   SerialNumber  = '12A3B4C56B12345A6BC'
 }
-Update-UMSThinclient @Params</dev:code>
+Update-UMSThinclient @Params
+
+message
+-------
+Update successful</dev:code>
         <dev:remarks>
           <maml:para>Updates thinclient with all possible attributes.</maml:para>
         </dev:remarks>
@@ -9510,7 +9530,11 @@ $Params = @{
   DIRID        = 49289 -Name
   Name         = 'NewDirName'
 }
-Update-UMSProfileName @Params</dev:code>
+Update-UMSProfileName @Params
+
+message
+-------
+Updated directory successfully.</dev:code>
         <dev:remarks>
           <maml:para>Updates thinclient directory name to 'NewDirName'</maml:para>
         </dev:remarks>
