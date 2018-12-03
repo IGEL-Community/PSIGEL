@@ -33,6 +33,12 @@ $Params = @{
 }
 Update-UMSProfileDirectoryName @Params
 ```
+```
+message
+-------
+Updated directory successfully.
+```
+
 Updates profile directory name to 'NewDirName'
 
 ### Example 2

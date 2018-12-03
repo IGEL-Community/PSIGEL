@@ -40,6 +40,12 @@ $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
 }
 Update-UMSProfileAssignment @Params
 ```
+```
+message
+-------
+1 asssignments successfully assigned
+```
+
 Assigns the profile with ProfilID 470 to thin client with TCID 48426.
 
 ### Example 2
@@ -47,7 +53,7 @@ Assigns the profile with ProfilID 470 to thin client with TCID 48426.
 Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300
 ```
 
-Assigns the profile with ProfilID 471 to thin client directory with DirID 300'
+Assigns the profile with ProfileID 471 to thin client directory with DirID 300'
 
 ## PARAMETERS
 

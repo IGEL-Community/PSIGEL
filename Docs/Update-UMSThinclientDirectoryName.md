@@ -33,6 +33,12 @@ $Params = @{
 }
 Update-UMSProfileName @Params
 ```
+```
+message
+-------
+Updated directory successfully.
+```
+
 Updates thinclient directory name to 'NewDirName'
 
 ### Example 2

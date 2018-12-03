@@ -33,11 +33,17 @@ $Params = @{
 }
 Update-UMSProfileName @Params
 ```
+```
+message
+-------
+Update successful
+```
+
 Updates profile name to 'NewProfileName'
 
 ### Example 2
 ```powershell
-Update-UMSProfileName -Computername 'UMSSERVER' -ProfileID 48170 -Name 'NewProfileName'
+48170 | Update-UMSProfileName -Computername 'UMSSERVER' -Name 'NewProfileName'
 ```
 
 Updates profile name to 'NewProfileName'

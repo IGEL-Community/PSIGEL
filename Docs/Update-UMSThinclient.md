@@ -43,6 +43,12 @@ $Params = @{
 }
 Update-UMSThinclient @Params
 ```
+```
+message
+-------
+Update successful
+```
+
 Updates thinclient with all possible attributes.
 
 ### Example 2
