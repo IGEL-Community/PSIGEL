@@ -23,7 +23,7 @@ Get Jobs from UMS DB via Invoke-SQLcmd2.
 ## EXAMPLES
 
 ### Example 1
-```powershellpowershell
+```powershell
 $Params = @{
   Credential     = Get-Credential
   ServerInstance = 'UMSSERVER\RMDB'
