@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '1.3.0'
+  ModuleVersion     = '1.3.2'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
@@ -137,13 +137,13 @@
     PSData = @{
 
       # 'Tags' wurde auf das Modul angewendet und unterstuetzt die Modulermittlung in Onlinekatalogen.
-      # Tags = @()
+      Tags       = @('IGEL')
 
       # Eine URL zur Lizenz fuer dieses Modul.
-      # LicenseUri = ''
+      LicenseUri = 'https://github.com/IGEL-Community/PSIGEL/blob/master/LICENSE'
 
       # Eine URL zur Hauptwebsite fuer dieses Projekt.
-      # ProjectUri = ''
+      ProjectUri = 'https://github.com/IGEL-Community/PSIGEL'
 
       # Eine URL zu einem Symbol, das das Modul darstellt.
       # IconUri = ''

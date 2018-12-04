@@ -1,43 +1,5 @@
 function New-UMSProfileDirectory
 {
-  <#
-      .Synopsis
-      Creates a Profile Directory via API
-
-      .DESCRIPTION
-      Creates a Profile Directory via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER Name
-      Name of the Profile Directory to create
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        Name         = 'NewProfileDir1'
-      }
-      New-UMSProfileDirectory @Params
-      #Creates a Profile Directory with name 'NewProfileDir1'
-
-      .EXAMPLE
-      'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'UMSSERVER'
-      #Creates Profile Directories with names 'NewProfileDir1' and 'NewProfileDir2'
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (

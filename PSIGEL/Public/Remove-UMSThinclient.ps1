@@ -1,42 +1,5 @@
 ﻿function Remove-UMSThinclient
 {
-  <#
-      .Synopsis
-      Removes a thinclient completely (without recycle bin) from Rest API.
-
-      .DESCRIPTION
-      Removes a thinclient completely (without recycle bin) from Rest API.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER TCID
-      ThinclientID of the thinclient to remove
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        TCID         = 48420
-      }
-      Remove-UMSThinclient @Params
-      #Removes Thinclient with TCID 48420
-
-      .EXAMPLE
-      48381 | Remove-UMSThinclient -Computername 'UMSSERVER'
-      #Removes Thinclient with TCID 48381
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (

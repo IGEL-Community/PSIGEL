@@ -26,6 +26,16 @@ If you did not provide a credential, one will be created.
 
 My goal is to support all the [API-functionalities](http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm). If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function. Suggestions are welcome.
 
+## Installation
+
+If you have the [PowerShellGet](https://github.com/powershell/powershellget) module installed you can enter the following command:
+
+```powershell
+Install-Module -Name PSIGEL
+```
+
+Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
+
 ## API(/MSSQL) Functionality
 
 ### API General
@@ -69,179 +79,187 @@ Master Profile |API|-|-
 
 ## Functions
 
-### Get-EPFirmware
+### [Get-EPFirmware](/Docs/Get-EPFirmware.md)
 
 Get Firmware
 
-### Get-EPUpdateConfiguration
+### [Get-EPUpdateConfiguration](/Docs/Get-EPUpdateConfiguration.md)
 
 Get update configuration (IGEL OS 10+)
 
-### Get-EPWifiConnection
+### [Get-EPWifiConnection](/Docs/Get-EPWifiConnection.md)
 
-[Get Wifi connection information](/Docs/Get-EPWifiConnection.md)
+Get Wifi connection information
 
-### Get-UMSFile
+### [Get-UMSFile](/Docs/Get-UMSFile.md)
 
-Gets Files.
+Get Files.
 
-### Get-UMSFileDirectory
+### [Get-UMSFileDirectory](/Docs/Get-UMSFileDirectory.md)
 
-Gets File Directories.
+Get File Directories.
 
-### Get-UMSFirmware
+### [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
 
-Gets information on all firmwares known to the UMS.
+Get information on all firmwares known to the UMS.
 
-### Get-UMSJob
+### [Get-UMSJob](/Docs/Get-UMSJob.md)
 
-Gets Jobs.
+Get Jobs.
 
-### Get-UMSJobDirectory
+### [Get-UMSJobDirectory](/Docs/Get-UMSJobDirectory.md)
 
-Gets Job Directories.
+Get Job Directories.
 
-### Get-UMSProfile
+### [Get-UMSProfile](/Docs/Get-UMSProfile.md)
 
-Gets information on profiles on the UMS instance.
+Get information on profiles on the UMS instance.
 
-### Get-UMSProfileAssignment
+### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
 
-Gets the thinclients and directories the profile is assigned to.
+Get the Thinclients and directories the profile is assigned to.
 
-### Get-UMSProfileDirectory
+### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
 
-Gets information on Profile Directories.
+Get information on Profile Directories.
 
-### Get-UMSStatus
+### [Get-UMSStatus](/Docs/Get-UMSStatus.md)
 
-Gets diagnostic information about the UMS instance. Server status is the only resource that can be queried without logging in. This makes it useful for debugging the connection to the IMI service.
+Get diagnostic information about the UMS instance.
 
-### Get-UMSThinclient
+### [Get-UMSThinclient](/Docs/Get-UMSThinclient.md)
 
-Gets Thinclients.
+Get Thinclients.
 
-### Get-UMSThinclientAssignment
+### [Get-UMSThinclientAssignment](/Docs/Get-UMSThinclientAssignment.md)
 
-Gets the profile and master profile assignments for the specified thin client, in order of their application.
+Get the profile and master profile assignments for the specified thin client, in order of their application.
 
-### Get-UMSThinclientDirectory
+### [Get-UMSThinclientDirectory](/Docs/Get-UMSThinclientDirectory.md)
 
-Gets information on Thin Client Directories.
+Get information on Thin Client Directories.
 
-### Get-UMSThinclientDirectoryAssignment
+### [Get-UMSThinclientDirectoryAssignment](/Docs/Get-UMSThinclientDirectoryAssignment.md)
 
-Gets the profile and master profile assignments for the specified thincient directory, in order of their application.
+Get the profile and master profile assignments for the specified thincient directory, in order of their application.
 
-### Get-UMSView
+### [Get-UMSView](/Docs/Get-UMSView.md)
 
-Gets Views.
+Get Views.
 
-### Get-UMSViewDirectory
+### [Get-UMSViewDirectory](/Docs/Get-UMSViewDirectory.md)
 
-Gets View Directories.
+Get View Directories.
 
-### Move-UMSProfile
+### [Move-UMSProfile](/Docs/Move-UMSProfile.md)
 
 Moves Profiles into the specified Profile Directory.
 
-### Move-UMSProfileDirectory
+### [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
 
 Moves Profile Directories into the specified Profile Directory.
 
-### Move-UMSThinclient
+### [Move-UMSThinclient](/Docs/Move-UMSThinclient.md)
 
 Moves Thinclients into the specified Thinclient Directory.
 
-### Move-UMSThinclientDirectory
+### [Move-UMSThinclientDirectory](/Docs/Move-UMSThinclientDirectory.md)
 
 Moves Thinclient Directories into the specified Thinclient Directory.
 
-### New-UMSAPICookie
+### [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
 
 Creates Websession Cookie for IGEL UMS RestAPI.
 
-### New-UMSProfileDirectory
+### [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
 
 Creates a Profile Directory.
 
-### New-UMSThinclient
+### [New-UMSThinclient](/Docs/New-UMSThinclient.md)
 
 Creates a new ThinClient.
 
-### New-UMSThinclientDirectory
+### [New-UMSThinclientDirectory](/Docs/New-UMSThinclientDirectory.md)
 
 Creates a Thinclient Directory.
 
-### Remove-UMSProfile
+### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
 
 Deletes profile.
 
-### Remove-UMSProfileAssignment
+### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
 
 Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
 
-### Remove-UMSProfileDirectory
+### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
 
 Removes a profile directory.
 
-### Remove-UMSThinclient
+### [Remove-UMSThinclient](/Docs/Remove-UMSThinclient.md)
 
 Removes a Thinclient completely (without recycle bin).
 
-### Remove-UMSThinclientDirectory
+### [Remove-UMSThinclientDirectory](/Docs/Remove-UMSThinclientDirectory.md)
 
 Removes a Thinclient directory.
 
-### Reset-UMSThinclient
+### [Reset-UMSThinclient](/Docs/Reset-UMSThinclient.md)
 
 Resets all thin clients listed in the request body to factory defaults and removes them from the UMS completely (without recycle bin).
 
-### Restart-UMSThinclient
+### [Restart-UMSThinclient](/Docs/Restart-UMSThinclient.md)
 
 Restarts Thinclients.
 
-### Send-UMSThinclientSetting
+### [Send-UMSThinclientSetting](/Docs/Send-UMSThinclientSetting.md)
 
 Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
-### Start-UMSThinclient
+### [Start-UMSThinclient](/Docs/Start-UMSThinclient.md)
 
 Wakes Up Thinclients (WOL).
 
-### Stop-UMSThinclient
+### [Stop-UMSThinclient](/Docs/Stop-UMSThinclient.md)
 
 Shuts Down Thinclients.
 
-### Update-UMSJobStartDate
+### [Update-UMSJobStartDate](/Docs/Update-UMSJobStartDate.md)
 
 Update Job Startdate.
 
-### Update-UMSProfileAssignment
+### [Update-UMSProfileAssignment](/Docs/Update-UMSProfileAssignment.md)
 
 Assigns a profile to a Thinclient or a Thinclient directory.
 
-### Update-UMSProfileDirectoryName
+### [Update-UMSProfileDirectoryName](/Docs/Update-UMSProfileDirectoryName.md)
 
 Updates a Profile Directory name.
 
-### Update-UMSProfileName
+### [Update-UMSProfileName](/Docs/Update-UMSProfileName.md)
 
 Updates a profile name.
 
-### Update-UMSThinclient
+### [Update-UMSThinclient](/Docs/Update-UMSThinclient.md)
 
-Updates properties of a Thinclient
+Updates properties of a Thinclient.
 
-### Update-UMSThinclientDirectoryName
+### [Update-UMSThinclientDirectoryName](/Docs/Update-UMSThinclientDirectoryName.md)
 
 Updates a Profile Directory name.
 
 ## Scripts
 
+### [GetEndpointWifiInformationViaSSH](/Docs/GetEndpointWifiInformationViaSSH.md)
+
+Get Endpoint WiFi Information via SSH.
+
 ### GetUMSDirectoryStructure
 
-Gets Thinclient Directory Structure. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
+Get Thinclient Directory Structure. Expects 4 Tier-Directory Structure . (e.g. Base / Organisation / Campus / Room)
+
+### RemoveParallelAppliedProfiles
+
+Removes Profiles from Endpoints if they are applied parallel.
 
 ## Private functions
 

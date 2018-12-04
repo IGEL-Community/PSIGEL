@@ -1,41 +1,5 @@
 ﻿function Get-UMSStatus
 {
-  <#
-      .Synopsis
-      Gets diagnostic information about the UMS instance.
-
-      .DESCRIPTION
-      Gets diagnostic information about the UMS instance. Server status is the only
-      resource that can be queried without logging in.
-      This makes it useful for debugging the connection to the IMI service
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-      }
-      Get-UMSStatus @Params
-      #Getting UMSSERVER status
-      
-      .EXAMPLE
-      Get-UMSStatus -Computername 'UMSSERVER'
-      #Getting UMSSERVER status without authorization, useful for connection debugging
-
-  #>
-
   [cmdletbinding()]
   param
   (

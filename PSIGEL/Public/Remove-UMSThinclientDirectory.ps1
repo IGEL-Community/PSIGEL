@@ -1,43 +1,5 @@
 function Remove-UMSThinclientDirectory
 {
-  <#
-      .Synopsis
-      Removes a thinclient directory via API
-
-      .DESCRIPTION
-      Removes a thinclient directory via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER DIRID
-      ThinclientDirectoryIDs to remove
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        DIRID        = 49289
-      }
-      Remove-UMSThinclientDirectory @Params
-      #Removes thinclient directory with ID 49289
-
-      .EXAMPLE
-      49289, 49260 | Remove-UMSThinclientDirectory -Computername 'UMSSERVER'
-      #Removes thinclient directory with ID 49289 and 49260
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (

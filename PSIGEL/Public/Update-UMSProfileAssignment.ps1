@@ -1,51 +1,5 @@
 ﻿function Update-UMSProfileAssignment
 {
-  <#
-      .Synopsis
-      Assigns a profile to a Thinclient or a tThinclient directory.
-
-      .DESCRIPTION
-      Assigns a profile to a Thinclient or a tThinclient directory.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER ProfileID
-      ProfileID to search for
-
-      .PARAMETER TCID
-      Thinclient ID to apply profile to
-
-      .PARAMETER DirID
-      Directory ID to apply profile to
-
-      .EXAMPLE
-      $Params = @{
-        $WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
-        $Computername = 'UMSSERVER'
-        $WebSession   = $WebSession
-        $ProfileID    = 470
-        $TCID         = 48426
-      }
-      Update-UMSProfileAssignment @Params
-      #Assigns the profile with ProfilID 470 to thin client with TCID 48426.
-
-      .EXAMPLE
-      Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300
-      #Assigns the profile with ProfilID 471 to thin client directory with DirID 300.
-
-      #Update-UMSProfileAssignment -ProfileID 48440 -DirID 49289 -Computername 'SRVUMS02'
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (

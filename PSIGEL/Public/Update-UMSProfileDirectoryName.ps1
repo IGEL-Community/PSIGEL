@@ -1,47 +1,5 @@
 function Update-UMSProfileDirectoryName
 {
-  <#
-      .Synopsis
-      Updates a Profile Directory name via API
-
-      .DESCRIPTION
-      Updates a Profile Directory name via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER DIRID
-      DIRIDs to update name for
-
-      .Parameter Name
-      New Name of the directory
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        DIRID        = 49339
-        Name         = 'NewDirName'
-      }
-      Update-UMSProfileDirectoryName @Params
-      #Updates profile directory name to 'NewDirName'
-
-      .EXAMPLE
-      49339 | Update-UMSProfileDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'
-      #Updates profile directory name to 'NewDirName'
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (

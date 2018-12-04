@@ -1,31 +1,5 @@
 ﻿function New-UMSAPICookie
 {
-  <#
-      .SYNOPSIS
-      Creates Websession Cookie for IGEL UMS RestAPI.
-
-      .DESCRIPTION
-      Creates Websession Cookie for IGEL UMS RestAPI.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER Credential
-      Credential for API Requests
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .EXAMPLE
-      New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443
-
-      .OUTPUTS
-      Object for use in Invoke-RestMethod -WebSession Parameter (Cookie)
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (
@@ -68,6 +42,7 @@
     $Password = $Credential.GetNetworkCredential().password
 
     [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
     $BUArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray

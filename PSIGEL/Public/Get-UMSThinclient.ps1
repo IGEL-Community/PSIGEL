@@ -1,51 +1,5 @@
 ﻿function Get-UMSThinclient
 {
-  <#
-      .Synopsis
-      Gets Thinclient from API.
-
-      .DESCRIPTION
-      Gets Thinclient from API.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .Parameter Details
-      Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short').
-
-      .PARAMETER TCID
-      ThinclientID to search for
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        Details      = 'full'
-      }
-      Get-UMSThinclient @Params
-      #Gets detailed information on all online thin clients.
-
-      .EXAMPLE
-      Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
-      #Gets short information on thin clients with TCID 2433.
-
-      .EXAMPLE
-      $WebSession = New-UMSAPICookie -Computername 'UMSSERVER'
-      2433, 2344 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
-      #Gets shadow-information on Thinclient with TCID 2433, 2433
-
-  #>
-
   [cmdletbinding()]
   param
   (

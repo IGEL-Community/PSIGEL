@@ -1,48 +1,5 @@
 function Update-UMSThinclientDirectoryName
 {
-  <#
-      .Synopsis
-      Updates a Thin Client Directory name via API
-
-      .DESCRIPTION
-      Updates a Thin Client Directory name via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER DIRID
-      DIRIDs to update name for
-
-      .Parameter Name
-      New Name of the directory
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        DIRID        = 49289 -Name
-        Name         = 'NewDirName'
-      }
-      Update-UMSProfileName @Params
-      Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -WebSession $WebSession
-      #Updates thinclient directory name to 'NewDirName'
-
-      .EXAMPLE
-      49289 | Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'
-      #Updates thinclient directory name to 'NewDirName'
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (

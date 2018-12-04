@@ -1,46 +1,5 @@
 ﻿function Update-UMSProfileName
 {
-  <#
-      .Synopsis
-      Updates a profile name.
-
-      .DESCRIPTION
-      Updates a profile name.
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER ProfileID
-      ProfileID of the profile to update name
-
-      .Parameter Name
-      New Name of the profile
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        ProfileID    = 48170
-        Name         = 'NewProfileName'
-      }
-      Update-UMSProfileName @Params
-      #Updates profile name to 'NewProfileName'
-
-      .EXAMPLE
-      Update-UMSProfileName -Computername 'UMSSERVER' -ProfileID 48170 -Name 'NewProfileName'
-      #Updates profile name to 'NewProfileName'
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
   (

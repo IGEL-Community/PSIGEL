@@ -1,44 +1,5 @@
 function Get-UMSFile
 {
-  <#
-      .Synopsis
-      Gets File from UMS-DB
-
-      .DESCRIPTION
-      Gets File from UMS-DB
-
-      .PARAMETER ServerInstance
-      SQL ServerInstance for the UMS-DB (e.g. 'SQLSERVER\RMDB')
-
-      .PARAMETER Database
-      SQL Database for the UMS-DB (e.g. 'RMDB')
-
-      .PARAMETER Schema
-      SQL Schema for the UMS-DB (e.g. 'igelums')
-
-      .PARAMETER Credential
-      Specifies A PSCredential for SQL Server Authentication connection to an instance of the Database Engine.
-      If -Credential is not specified, Invoke-Sqlcmd attempts a Windows Authentication connection using the
-      Windows account running the PowerShell session.
-
-      .PARAMETER FileID
-      FileIDs to search for
-
-      .EXAMPLE
-      $Params = @{
-        Credential     = Get-Credential
-        ServerInstance = 'SQLSERVER\RMDB'
-        Database       = 'RMDB'
-        Schema         = 'igelums'
-      }
-      Get-UMSFile @Params
-      #Gets all Files
-
-      .EXAMPLE
-      653, 654 | Get-UMSFile -ServerInstance 'SQLSERVER\RMDB' -Database 'RMDB' -Schema 'igelums'
-      #Gets Files with FileID "653" and "654"
-  #>
-
   [cmdletbinding()]
   param
   (

@@ -1,26 +1,6 @@
+#Requires -Modules Posh-SSH
 function Get-EPWifiConnection
 {
-  <#
-    .SYNOPSIS
-    Get Wifi connection details from IGEL EndPoint via SSH.
-
-    .DESCRIPTION
-    Get Wifi connection details from IGEL EndPoint via SSH.
-
-    .PARAMETER SSHSession
-    SSH Session to use
-
-    .PARAMETER Interface
-    Interface to query
-
-    .EXAMPLE
-    $Properties = @{
-      SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
-      Interface  = 'wlan0'
-    }
-    Get-EPWifiConnection @Params
-  #>
-
   [CmdletBinding()]
   param (
     [Parameter(Mandatory = $true,

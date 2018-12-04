@@ -1,53 +1,5 @@
 function Get-UMSProfileDirectory
 {
-  <#
-      .Synopsis
-      Gets information on Profile Directories via API
-
-      .DESCRIPTION
-      Gets information on Profile Directories via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER Children
-      Switch for recursively listing children (Default false)
-
-      .PARAMETER DIRID
-      DIRIDs to get information of
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-      }
-      Get-UMSProfileDirectory @Params
-      #Gets information on all Profile Directories
-
-      .EXAMPLE
-      (Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-      #Gets information on all children of the Profile Directories
-
-      .EXAMPLE
-      Get-UMSProfileDirectory -Computername 'UMSSERVER' -DIRID 421
-      #Gets information on a specific Profile Directory
-
-      .EXAMPLE
-      (421 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-      #Gets children of Profile Directory with DirID 421.
-
-  #>
-
   [cmdletbinding(DefaultParameterSetName = 'Overview')]
   param
   (

@@ -1,43 +1,5 @@
 ﻿function Stop-UMSThinclient
 {
-  <#
-      .Synopsis
-      Shuts Down Thinclients via API
-
-      .DESCRIPTION
-      Shuts Down Thinclients via API
-
-      .PARAMETER Computername
-      Computername of the UMS Server
-
-      .PARAMETER TCPPort
-      TCP Port API (Default: 8443)
-
-      .PARAMETER ApiVersion
-      API Version to use (Default: 3)
-
-      .Parameter WebSession
-      Websession Cookie
-
-      .PARAMETER TCID
-      ThinclientIDs to shut down
-
-      .EXAMPLE
-      $Computername = 'UMSSERVER'
-      $Params = @{
-        Computername = $Computername
-        WebSession   = New-UMSAPICookie -Computername $Computername
-        TCID         = 48426
-      }
-      Stop-UMSThinclient @Params
-      #Shuts down thin client with TCID 48426.
-
-      .EXAMPLE
-      48426, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER'
-      #Shuts down thin clients with TCID 48426 and 2435.
-
-  #>
-
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (

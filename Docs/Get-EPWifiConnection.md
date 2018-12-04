@@ -1,62 +1,88 @@
+---
+external help file: PSIGEL-help.xml
+Module Name: PSIGEL
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPWifiConnection.md
+schema: 2.0.0
+---
+
 # Get-EPWifiConnection
 
-Get Wifi connection details from IGEL EndPoint via SSH.
+## SYNOPSIS
+Get Wifi connection details from IGEL EndPoint.
 
-## PARAMETER
+## SYNTAX
 
-### -SSHSession [Object]
+```
+Get-EPWifiConnection [-SSHSession] <Object> [-Interface <String>] [<CommonParameters>]
+```
 
+## DESCRIPTION
+Get Wifi connection details from IGEL EndPoint via SSH Connection.
+Requires Module Posh-SSH.
+
+## EXAMPLES
+
+### Example 1
+```powershell
+$Properties = @{
+  SHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
+  Interface  = 'wlan0'
+}
+```
+
+```
+Get-EPWifiConnection @Params
+Host        : TC012345
+Interface   : wlan0
+ESSID       : WLAN12345
+Mode        : Managed
+Frequency   : 5.54
+AccessPoint : E8:C8:C7:AD:DA:B8
+BitRate     : 6
+TxPower     : 26
+LinkQuality : 56/70
+SignalLevel : -54
+```
+
+## PARAMETERS
+
+### -SSHSession
 SSH Session to use
 
-```code
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
 Required: True
-Position: 0
-Default value: False
-Accept pipeline input: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -Interface [String]
-
+### -Interface
 Interface to query
 
-```code
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
 Required: False
 Position: Named
-Default value: 'wlan0'
+Default value: Wlan0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-## Syntax
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
-```powershell
-Get-EPWifiConnection [-SSHSession] <Object> [-Interface <String>] [<CommonParameters>]
-```
+## INPUTS
 
-## EXAMPLE
+## OUTPUTS
 
-```powershell
-$Properties = @{
-  SSHSession = New-SSHSession -ComputerName 'TC01234' -Credential (Get-Credential) -AcceptKey
-  Interface  = 'wlan0'
-}
-Get-EPWifiConnection @Params
-```
+## NOTES
 
-```console
-Host        : TC01234
-Interface   : wlan0
-ESSID       : WLAN1234
-Mode        : Managed
-Frequency   : 5.3
-AccessPoint : 00:24:5C:29:E8:F8
-BitRate     : 48
-TxPower     : 20
-LinkQuality : 62/70
-SignalLevel : -48
-```
-
-## Output
-
-System.Management.Automation.PSObject
+## RELATED LINKS
