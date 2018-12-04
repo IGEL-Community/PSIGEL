@@ -26,6 +26,16 @@ If you did not provide a credential, one will be created.
 
 My goal is to support all the [API-functionalities](http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm). If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function. Suggestions are welcome.
 
+## Installation
+
+If you have the [PowerShellGet](https://github.com/powershell/powershellget) module installed you can enter the following command:
+
+```powershell
+Install-Module -Name PSIGEL
+```
+
+Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
+
 ## API(/MSSQL) Functionality
 
 ### API General
