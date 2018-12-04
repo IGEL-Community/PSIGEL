@@ -42,6 +42,7 @@
     $Password = $Credential.GetNetworkCredential().password
 
     [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
     $BUArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
