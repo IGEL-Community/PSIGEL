@@ -124,7 +124,7 @@ Get-EPFirmware @Params
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Properties = @{
+        <dev:code>$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
 Get-EPUpdateConfiguration @Params
@@ -225,12 +225,12 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Properties = @{
-  SHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
+        <dev:code>$Params = @{
+  SHSSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
   Interface  = 'wlan0'
 }
-
 Get-EPWifiConnection @Params
+
 Host        : TC012345
 Interface   : wlan0
 ESSID       : WLAN12345
