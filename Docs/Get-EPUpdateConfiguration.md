@@ -24,7 +24,7 @@ Requires Module Posh-SSH.
 
 ### Example 1
 ```powershell
-$Properties = @{
+$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
 Get-EPUpdateConfiguration @Params

@@ -24,14 +24,14 @@ Requires Module Posh-SSH.
 
 ### Example 1
 ```powershell
-$Properties = @{
+$Params = @{
   SHSSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
   Interface  = 'wlan0'
 }
+Get-EPWifiConnection @Params
 ```
 
 ```
-Get-EPWifiConnection @Params
 Host        : TC012345
 Interface   : wlan0
 ESSID       : WLAN12345
