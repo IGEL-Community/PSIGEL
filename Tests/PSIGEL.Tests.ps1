@@ -1,6 +1,5 @@
 $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
-$ModuleRoot
 $ModuleName = Split-Path $ModuleRoot -Leaf
 $ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $ModuleRoot, $ModuleName)
 
@@ -132,14 +131,11 @@ Describe "General project validation: $ModuleName" {
 Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   $PSScriptAnalyzerSettingColl = @{
     Severity    = @('Error', 'Warning')
-    #ExcludeRule = @('PSUseSingularNouns')
     ExcludeRule = @('')
   }
-  # Test all functions with PSScriptAnalyzer
   $ScriptAnalyzerErrorColl = @()
   $ScriptAnalyzerErrorColl += Invoke-ScriptAnalyzer -Path "$ModuleRoot\Public" @PSScriptAnalyzerSettingColl
   $ScriptAnalyzerErrorColl += Invoke-ScriptAnalyzer -Path "$ModuleRoot\Private" @PSScriptAnalyzerSettingColl
-  # Get a list of all internal and Exported functions
   $PrivateFunctionColl = Get-ChildItem -Path "$ModuleRoot\Private" -Filter *.ps1 |
     Select-Object -ExpandProperty Name
   $PublicFunctionColl = Get-ChildItem -Path "$ModuleRoot\Public" -Filter *.ps1 |
@@ -157,7 +153,6 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
         Line       = $_.Line
       }
     }
-    # Compare those with not successfull
     $FunctionWithoutErrorColl = Compare-Object -ReferenceObject $AllFunctionColl -DifferenceObject $FunctionWithErrorColl |
       Select-Object -ExpandProperty InputObject
     Context 'ScriptAnalyzer Testing' {
@@ -175,11 +170,9 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   }
   else
   {
-    # Everything was perfect, let's show that as well
     $FunctionWithoutErrorColl = $AllFunctionColl
   }
 
-  # Show good functions in the test, the more green the better
   Context 'Successful ScriptAnalyzer Testing' {
     $TestCase = $FunctionWithoutErrorColl | Foreach-Object {
       @{
