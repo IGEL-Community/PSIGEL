@@ -13,7 +13,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
   }
 
-  Context "Validate parameters" {
+  Context "Parameter Validation" {
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
     $KnownParameters = 'SSHSession'
@@ -24,14 +24,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
   }
 
-  Context "succesful call" {
+  Context "Code Execution" {
+    Mock 'Invoke-SSHCommandStream' {' 1  Aa.: ! '}
+    Mock 'Write-Output' {}
 
+    $Result = Get-EPFirmware
 
-    Mock 'Invoke-SSHCommandStream' {}
-
-    Get-EPFirmware
-
-    It 'Called Invoke-SSHCommandStream' {
+    It 'Assert Invoke-SSHCommandStream is called exactly 1 time' {
       $AMCParams = @{
         CommandName = 'Invoke-SSHCommandStream'
         Times       = 1
@@ -39,15 +38,32 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Assert-MockCalled @AMCParams
     }
+
+    It 'Should remove white spaces' {
+      $Result | Should BeExactly '1Aa.:!'
+    }
+
+    It 'Assert Write-Output is called exactly 0 times' {
+      $AMCParams = @{
+        CommandName = 'Write-Output'
+        Times       = 0
+        Exactly     = $true
+      }
+      Assert-MockCalled @AMCParams
+    }
+
+    It 'Should have type string' {
+      $Result | Should -HaveType ([string])
+    }
   }
 
-  Context "unsuccessful call" {
+  Context "Error Handling" {
     Mock 'Invoke-SSHCommandStream' {throw 'Error'}
     Mock 'Write-Output' {}
 
     Get-EPFirmware
 
-    It 'Called Write-Output if error occurs' {
+    It 'Assert Write-Output is called exactly 1 time' {
       $AMCParams = @{
         CommandName = 'Write-Output'
         Times       = 1
@@ -59,6 +75,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
+  <#
   BeforeAll {
     $Global:ConfirmPreference = 'None'
     . ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName)
@@ -66,7 +83,8 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       #'*:SSHSession' = New-MockObject -Type 'SSH.SshSession'
     }
   }
-  #It "doesn't throw" {
-  #  { Get-EPFirmware }  | Should Not Throw
-  #}
+  It "doesn't throw" {
+    { Get-EPFirmware }  | Should Not Throw
+  }
+  #>
 }
