@@ -32,27 +32,34 @@ Describe "General project validation: $ModuleName" {
   }
 
   Context 'Manifest Testing' {
-    It 'Valid Module Manifest' {
+    It 'Test Module Manifest should not throw' {
       {
         $Script:Manifest = Test-ModuleManifest -Path $ModuleManifest -ErrorAction Stop -WarningAction SilentlyContinue
       } | Should Not Throw
     }
-    It 'Valid Manifest Name' {
+    #It 'Must have correct Manifest Name' {
+    It "Manifest Name should be $ModuleName" {
       $Script:Manifest.Name | Should be $ModuleName
     }
-    It 'Generic Version Check' {
+    It 'Manifest Version as [Version] should not be null or empty' {
       $Script:Manifest.Version -as [Version] | Should Not BeNullOrEmpty
     }
-    It 'Valid Manifest Description' {
+    It 'Manifest Description as [Version] should not be null or empty' {
       $Script:Manifest.Description | Should Not BeNullOrEmpty
     }
-    It 'Valid Manifest Root Module' {
+    It 'Manifest Author as [Version] should not be null or empty' {
+      $Script:Manifest.Author | Should Not BeNullOrEmpty
+    }
+    It 'Manifest LicenseUri and/or ProjectUri should not be null or empty' {
+      ($Script:Manifest.PrivateData.PSData.LicenseUri + $Script:Manifest.PrivateData.PSData.ProjectUri) | Should Not BeNullOrEmpty
+    }
+    It "Manifest Root Module should be $('{0}.psm1' -f $ModuleName)" {
       $Script:Manifest.RootModule | Should Be ('{0}.psm1' -f $ModuleName)
     }
-    It 'Valid Manifest GUID' {
+    It 'Manifest GUID should be correct' {
       $Script:Manifest.Guid | Should be '4834fbc2-faf6-469c-b685-0195954fd878'
     }
-    It 'No Format File' {
+    It 'Manifest Exported Format File should be null or empty' {
       $Script:Manifest.ExportedFormatFiles | Should BeNullOrEmpty
     }
   }

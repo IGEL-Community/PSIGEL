@@ -39,8 +39,16 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Assert-MockCalled @AMCParams
     }
 
-    It 'Should remove white spaces' {
+    It 'Result should be without white spaces' {
       $Result | Should BeExactly '1Aa.:!'
+    }
+
+    It 'Result should have type string' {
+      $Result | Should -HaveType ([string])
+    }
+
+    It 'Result Count should be 1' {
+      @($Result).Count | Should Be 1
     }
 
     It 'Assert Write-Output is called exactly 0 times' {
@@ -50,10 +58,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         Exactly     = $true
       }
       Assert-MockCalled @AMCParams
-    }
-
-    It 'Should have type string' {
-      $Result | Should -HaveType ([string])
     }
   }
 
