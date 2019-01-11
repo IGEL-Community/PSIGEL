@@ -65,7 +65,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Mock 'Invoke-SSHCommandStream' {throw 'Error'}
     Mock 'Write-Output' {}
 
-    Get-EPFirmware
+    $Result = Get-EPFirmware
 
     It 'Assert Write-Output is called exactly 1 time' {
       $AMCParams = @{
@@ -74,6 +74,10 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         Exactly     = $true
       }
       Assert-MockCalled @AMCParams
+    }
+
+    It 'Result should be null or empty' {
+      $Result | Should BeNullOrEmpty
     }
   }
 }
