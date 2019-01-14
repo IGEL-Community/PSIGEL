@@ -23,31 +23,28 @@ function Get-EPUpdateConfiguration
       Password = 'password=\"(?<Password>.*)\"'
       Path     = 'path=\"(?<Path>.*)\"'
     }
-
     try
     {
       $CommandResultColl = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
+      $Properties = [ordered]@{
+        Host = $SSHSession.Host
+      }
+      foreach ($Pattern in $PatternColl.GetEnumerator())
+      {
+        foreach ($CommandResult in $CommandResultColl)
+        {
+          if ($CommandResult -match $Pattern.Value)
+          {
+            $Properties.($Pattern.Key) = $matches.($Pattern.Key)
+          }
+        }
+      }
+      New-Object psobject -Property $Properties
     }
     catch
     {
       Write-Output -InputObject $PSItem.Exception.Message
     }
-
-    $Properties = [ordered]@{
-      Host = $SSHSession.Host
-    }
-    foreach ($Pattern in $PatternColl.GetEnumerator())
-    {
-      foreach ($CommandResult in $CommandResultColl)
-      {
-        if ($CommandResult -match $Pattern.Value)
-        {
-          $Properties.($Pattern.Key) = $matches.($Pattern.Key)
-        }
-      }
-    }
-    New-Object psobject -Property $Properties
-
   }
   end
   {
