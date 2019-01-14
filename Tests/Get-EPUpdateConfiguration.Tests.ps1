@@ -49,26 +49,22 @@ path="/ums_filetransfer/IGEL_Universal_Desktop_LX-4.14.300"
       Assert-MockCalled @AMCParams
     }
 
-    It 'Result should have all propertie Host populated' {
-      ($Result | Get-Member).where{$_.Name -eq 'Host'} | Should be $true
-    }
-    It 'Result should have all propertie Protocol populated' {
+    It 'All result properties should be populated' {
       ($Result | Get-Member).where{$_.Name -eq 'Protocol'} | Should be $true
-    }
-    It 'Result should have all propertie Hostname populated' {
       ($Result | Get-Member).where{$_.Name -eq 'Hostname'} | Should be $true
-    }
-    It 'Result should have all propertie Port populated' {
       ($Result | Get-Member).where{$_.Name -eq 'Port'} | Should be $true
-    }
-    It 'Result should have all propertie Username populated' {
       ($Result | Get-Member).where{$_.Name -eq 'Username'} | Should be $true
-    }
-    It 'Result should have all propertie Password populated' {
       ($Result | Get-Member).where{$_.Name -eq 'Password'} | Should be $true
-    }
-    It 'Result should have all propertie Path populated' {
       ($Result | Get-Member).where{$_.Name -eq 'Path'} | Should be $true
+    }
+
+    It 'All result properties should have type string' {
+      $Result.Protocol | Should -HaveType ([string])
+      $Result.Hostname | Should -HaveType ([string])
+      $Result.Port | Should -HaveType ([string])
+      $Result.Username | Should -HaveType ([string])
+      $Result.Password | Should -HaveType ([string])
+      $Result.Path | Should -HaveType ([string])
     }
 
     It 'Result should have type PSCustomObject' {
