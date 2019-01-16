@@ -22,7 +22,7 @@
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [int]
-    $TCID = 0
+    $TCID
   )
   Begin
   {
