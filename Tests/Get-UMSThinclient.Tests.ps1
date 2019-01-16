@@ -3,12 +3,13 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
     BeforeAll {
       $Global:ConfirmPreference = 'None'
-      . ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName)
+      #. ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName)
       $PSDefaultParameterValues = @{
         '*:WebSession' = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
       }
@@ -30,7 +31,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {}
       Mock 'Write-Output' {}
 
-      $Result = Get-UMSThinclient
+      $Result = Get-UMSThinclient -Computername 'Computername' -WebSession $null
 
       It 'Assert New-UMSAPICookie is called exactly 1 time' {
         $AMCParams = @{
