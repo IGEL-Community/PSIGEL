@@ -1,6 +1,6 @@
 ﻿function Get-UMSThinclient
 {
-  [cmdletbinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
     [String]
@@ -20,7 +20,7 @@
     [String]
     $Details = 'short',
 
-    [Parameter(ValueFromPipeline)]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [int]
     $TCID = 0
   )
@@ -28,7 +28,6 @@
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
-    #if ($null -eq $WebSession)
     if ($null -eq $WebSession)
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
@@ -39,9 +38,6 @@
       ContentType = 'application/json'
       Headers     = @{}
     }
-  }
-  Process
-  {
     Switch ($Details)
     {
       'short'
@@ -61,14 +57,17 @@
         $FunctionString = '?facets=shadow'
       }
     }
-    Switch ($TCID)
+  }
+  Process
+  {
+    Switch ($PsCmdlet.ParameterSetName)
     {
-      0
+      'All'
       {
         $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
         (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
-      default
+      'ID'
       {
         $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
         Invoke-UMSRestMethodWebSession @Params
