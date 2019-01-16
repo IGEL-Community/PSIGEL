@@ -24,9 +24,16 @@
     [int]
     $TCID = 0
   )
-
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
   }
   Process
   {
@@ -39,43 +46,34 @@
     {
       'short'
       {
-        $URLEnd = ''
+        $FunctionString = ''
       }
       'full'
       {
-        $URLEnd = '?facets=details'
+        $FunctionString = '?facets=details'
       }
       'online'
       {
-        $URLEnd = '?facets=online'
+        $FunctionString = '?facets=online'
       }
       'shadow'
       {
-        $URLEnd = '?facets=shadow'
+        $FunctionString = '?facets=shadow'
       }
     }
     Switch ($TCID)
     {
       0
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $URLEnd)
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients{3}' -f $UriArray
+        $params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
+        (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       default
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID, $URLEnd)
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}{4}' -f $UriArray
+        $params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
+        Invoke-UMSRestMethodWebSession @Params
       }
     }
-
-    $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
-    }
-    Invoke-UMSRestMethodWebSession @Params
   }
   End
   {
