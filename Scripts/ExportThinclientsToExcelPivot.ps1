@@ -16,7 +16,6 @@ $PSDefaultParameterValues += @{
 }
 
 $TCColl = Get-UMSThinclient -Details full
-$TCColl | Group-Object -Property productId
 
 $ExportExcelParams = @{
   Path              = 'C:\Temp\demo.xlsx'
