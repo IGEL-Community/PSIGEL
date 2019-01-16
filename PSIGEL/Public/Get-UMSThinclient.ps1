@@ -28,6 +28,11 @@
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
+    #if ($null -eq $WebSession)
+    if ($null -eq $WebSession)
+    {
+      $WebSession = New-UMSAPICookie -Computername $Computername
+    }
     $Params = @{
       WebSession  = $WebSession
       Method      = 'Get'
@@ -37,11 +42,6 @@
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
     Switch ($Details)
     {
       'short'
@@ -65,12 +65,12 @@
     {
       0
       {
-        $params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
+        $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
         (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       default
       {
-        $params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
+        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
         Invoke-UMSRestMethodWebSession @Params
       }
     }
