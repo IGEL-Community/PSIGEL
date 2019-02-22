@@ -4,11 +4,11 @@ $UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
 $RootCredPath = 'C:\Credentials\TCRoot.cred'
 $RootCredential = (Import-Clixml -Path $RootCredPath)
 
-[int]$DirID = 203
+[int]$DirID = 91
 
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'   = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
-  '*-UMS*:Computername' = 'srvums02.bfw.local'
+  '*-UMS*:Computername' = 'SRVUMS02'
 }
 
 $WebSession = New-UMSAPICookie
