@@ -4,7 +4,7 @@ $UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
 $RootCredPath = 'C:\Credentials\TCRoot.cred'
 $RootCredential = (Import-Clixml -Path $RootCredPath)
 
-[int]$DirID = 91
+[int]$DirID = 141
 
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'   = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
