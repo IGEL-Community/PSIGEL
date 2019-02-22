@@ -3,6 +3,7 @@
   [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
@@ -32,12 +33,6 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
-    }
     Switch ($Details)
     {
       'short'
@@ -60,6 +55,12 @@
   }
   Process
   {
+    $Params = @{
+      WebSession  = $WebSession
+      Method      = 'Get'
+      ContentType = 'application/json'
+      Headers     = @{}
+    }
     Switch ($PsCmdlet.ParameterSetName)
     {
       'All'
