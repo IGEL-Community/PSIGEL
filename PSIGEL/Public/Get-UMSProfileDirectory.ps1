@@ -1,6 +1,6 @@
 function Get-UMSProfileDirectory
 {
-  [cmdletbinding(DefaultParameterSetName = 'Overview')]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,69 +15,66 @@ function Get-UMSProfileDirectory
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
     [Switch]
     $Children,
 
-    [Parameter(ParameterSetName = 'DIR', Mandatory, ValueFromPipeline)]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [Int]
     $DIRID
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    $BUArray = @($Computername, $TCPPort, $ApiVersion)
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $BUArray
-
     Switch ($PSCmdlet.ParameterSetName)
     {
-      'Overview'
+      'All'
       {
         Switch ($Children)
         {
           $false
           {
-            $URLEnd = ''
+            $Params.Add('Uri', ('{0}' -f $BaseURL))
           }
           default
           {
-            $URLEnd = '?facets=children'
+            $Params.Add('Uri', ('{0}?facets=children' -f $BaseURL))
           }
         }
       }
-      'DIR'
+      'ID'
       {
         Switch ($Children)
         {
           $false
           {
-            $URLEnd = ('{0}' -f $DIRID)
+            $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $DIRID))
           }
           default
           {
-            $URLEnd = ('{0}?facets=children' -f $DIRID)
+            $Params.Add('Uri', ('{0}/{1}?facets=children' -f $BaseURL, $DIRID))
           }
         }
       }
-    }
-
-    $Params.Uri = ('{0}/{1}' -f $BaseURL, $URLEnd)
+    
     Invoke-UMSRestMethodWebSession @Params
   }
   End

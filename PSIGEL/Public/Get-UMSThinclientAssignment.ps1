@@ -1,6 +1,6 @@
 ﻿function Get-UMSThinclientAssignment
 {
-  [cmdletbinding()]
+  [CmdletBinding()]
   param
   (
     [Parameter(Mandatory)]
@@ -15,6 +15,11 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]
@@ -24,21 +29,18 @@
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients/' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $TCID)
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = 'https://{0}:{1}/umsapi/v{2}/thinclients/{3}/assignments/profiles' -f $UriArray
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = '{0}{1}/assignments/profiles' -f $BaseURL, $TCID
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Invoke-UMSRestMethodWebSession @Params
   }

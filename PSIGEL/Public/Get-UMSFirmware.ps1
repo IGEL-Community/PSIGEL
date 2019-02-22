@@ -1,6 +1,6 @@
 ﻿function Get-UMSFirmware
 {
-  [cmdletbinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
     [String]
@@ -14,42 +14,42 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline)]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [int]
-    $FirmwareID = 0
+    $FirmwareID
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/firmwares' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    Switch ($FirmwareID)
+    Switch ($PsCmdlet.ParameterSetName)
     {
-      0
+      'All'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/firmwares' -f $UriArray
+        $Params.Add('Uri', ('{0}' -f $BaseURL))
         (Invoke-UMSRestMethodWebSession @Params).FwResource
       }
-      default
+      'ID'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $FirmwareID)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/firmwares/{3}' -f $UriArray
+        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $FirmwareID))
         Invoke-UMSRestMethodWebSession @Params
       }
     }

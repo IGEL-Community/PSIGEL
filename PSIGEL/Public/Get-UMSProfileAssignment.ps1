@@ -1,6 +1,6 @@
 ﻿function Get-UMSProfileAssignment
 {
-  [cmdletbinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,34 +15,38 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [int]
     $ProfileID
   )
   Begin
   {
+    #$UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $UriEnd)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/assignments' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
     $UriEndColl = ('thinclients', 'tcdirectories')
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
 
     $TCIDColl = foreach ($UriEnd in $UriEndColl)
     {
-      $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $UriEnd)
+      #$UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $UriEnd)
+      $UriArray.Add($UriEnd)
       $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $UriArray
       $HrefColl = (Invoke-RestMethod @Params).links |
         Where-Object -Property rel -EQ 'receiver' |

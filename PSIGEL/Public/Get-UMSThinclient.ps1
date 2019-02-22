@@ -32,8 +32,6 @@
   )
   Begin
   {
-    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
 
@@ -64,7 +62,7 @@
       Method           = 'Get'
       ContentType      = 'application/json'
       Headers          = @{}
-      SecurityProtocol = $SecurityProtocol
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Switch ($PsCmdlet.ParameterSetName)
     {
