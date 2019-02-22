@@ -34,7 +34,7 @@
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
     }
-    
+
     $Params = @{
       WebSession  = $WebSession
       Method      = 'Get'
@@ -77,7 +77,7 @@
       }
     }
 
-    $Params.Uri = '{0}/{1}' -f $BaseURL, $URLEnd
+    $Params.Uri = '{0}{1}' -f $BaseURL, $URLEnd
     Invoke-UMSRestMethodWebSession @Params
   }
   End
