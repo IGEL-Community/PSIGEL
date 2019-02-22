@@ -60,10 +60,11 @@
   Process
   {
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = $SecurityProtocol
     }
     Switch ($PsCmdlet.ParameterSetName)
     {

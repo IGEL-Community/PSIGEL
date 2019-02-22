@@ -35,6 +35,10 @@ function Invoke-UMSRestMethodWebSession
     [Parameter(Mandatory)]
     $WebSession,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
     [Parameter(Mandatory)]
     [string]
     $Uri,
@@ -55,12 +59,14 @@ function Invoke-UMSRestMethodWebSession
 
   begin
   {
+    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
+    $null = $PSBoundParameters.Remove('SecurityProtocol')
   }
   process
   {
     try
     {
-      #[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       Invoke-RestMethod @PSBoundParameters -ErrorAction Stop
     }
     catch [System.Net.WebException]
