@@ -60,7 +60,7 @@ function Invoke-UMSRestMethodWebSession
   {
     try
     {
-      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      #[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       Invoke-RestMethod @PSBoundParameters -ErrorAction Stop
     }
     catch [System.Net.WebException]
