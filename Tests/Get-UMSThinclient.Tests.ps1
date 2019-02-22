@@ -31,7 +31,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {}
       Mock 'Write-Output' {}
 
-      $Result = Get-UMSThinclient -Computername 'Computername' -WebSession $null
+      $Result = Get-UMSThinclient -Computername 'Computername' -WebSession $WebSession
 
       It 'Assert New-UMSAPICookie is called exactly 1 time' {
         $AMCParams = @{
