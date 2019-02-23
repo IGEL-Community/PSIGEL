@@ -71,14 +71,14 @@
         'parentID'   = [int]$item.parentID
         'firmwareID' = [int]$item.firmwareID
         'lastIP'     = [string]$item.lastIP
-        'movedToBin' = [bool]$item.movedToBin #False
+        'movedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
       }
       switch ($Facets)
       {
         online
         {
           $Properties += [ordered]@{
-            'online' = [bool]$item.online
+            'online' = [System.Convert]::ToBoolean($item.online)
           }
         }
         shadow
