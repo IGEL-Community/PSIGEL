@@ -77,48 +77,54 @@
       {
         online
         {
-          $Properties.Add('online', [bool]$item.online)
+          $Properties += [ordered]@{
+            'online' = [bool]$item.online
+          }
         }
         shadow
         {
-          $Properties.Add('shadowSecret', $item.shadowSecret)
+          $Properties += [ordered]@{
+            'shadowSecret' = $item.shadowSecret
+          }
         }
         details
         {
-          $Properties.Add('networkName', [string]$item.networkName) #V11-01
-          $Properties.Add('comment', [string]$item.comment) #Kommentar: 20.02.2019 15:49:20
-          $Properties.Add('productId', [string]$item.productId) #UC1-LX
-          $Properties.Add('cpuSpeed', [int]$item.cpuSpeed) #1608
-          $Properties.Add('cpuType', [string]$item.cpuType) #Intel(R) Core(TM) i7-7Y75 CPU @ 1.30GHz
-          $Properties.Add('deviceType', [string]$item.deviceType) #Legacy x86 system
-          $Properties.Add('deviceSerialNumber', [string]$item.deviceSerialNumber) #[string] 0
-          $Properties.Add('osType', [string]$item.osType) #IGEL Linux 11 (Kernel Version 4.18.20)
-          $Properties.Add('flashSize', [int]$item.flashSize) #1985
-          $Properties.Add('memorySize', [int]$item.memorySize) #1990
-          $Properties.Add('networkSpeed', [int]$item.networkSpeed) #100
-          $Properties.Add('graphicsChipset0', [string]$item.graphicsChipset0) #VMware Inc. Abstract VGA II Adapter
-          $Properties.Add('graphicsChipset1', [string]$item.graphicsChipset1)
-          $Properties.Add('monitorVendor1', [string]$item.monitorVendor1)
-          $Properties.Add('monitorModel1', [string]$item.monitorModel1)
-          $Properties.Add('monitorSerialnumber1', [string]$item.monitorSerialnumber1)
-          $Properties.Add('monitorSize1', [int]$item.monitorSize1) #0,0
-          $Properties.Add('monitorNativeResolution1', [string]$item.monitorNativeResolution1)
-          $Properties.Add('monitor1YearOfManufacture', [int]$item.monitor1YearOfManufacture)
-          $Properties.Add('monitor1WeekOfManufacture', [int]$item.monitor1WeekOfManufacture)
-          $Properties.Add('monitorVendor2', [string]$item.monitorVendor2)
-          $Properties.Add('monitorModel2', [string]$item.monitorModel2)
-          $Properties.Add('monitorSerialnumber2', [string]$item.monitorSerialnumber2)
-          $Properties.Add('monitorSize2', [int]$item.monitorSize2) #0,0
-          $Properties.Add('monitorNativeResolution2', [string]$item.monitorNativeResolution2)
-          $Properties.Add('monitor2YearOfManufacture', [int]$item.monitor2YearOfManufacture)
-          $Properties.Add('monitor2WeekOfManufacture', [int]$item.monitor2WeekOfManufacture)
-          $Properties.Add('biosVendor', [string]$item.biosVendor) # innotek GmbH
-          $Properties.Add('biosVersion', [string]$item.biosVersion) # VirtualBox
-          $Properties.Add('biosDate', [datetime]$item.biosDate) # 12/01/2006
-          $Properties.Add('totalUsagetime', [int]$item.totalUsagetime) # 5433000
-          $Properties.Add('totalUptime', [int]$item.totalUptime) # 5472000
-          $Properties.Add('lastBoottime', [datetime]$item.lastBoottime) # 2019-02-20 14:19
-          $Properties.Add('batteryLevel', [int]$item.batteryLevel) # 97
+          $Properties += [ordered]@{
+            'networkName'               = [string]$item.networkName
+            'comment'                   = [string]$item.comment
+            'productId'                 = [string]$item.productId
+            'cpuSpeed'                  = [int]$item.cpuSpeed
+            'cpuType'                   = [string]$item.cpuType
+            'deviceType'                = [string]$item.deviceType
+            'deviceSerialNumber'        = [string]$item.deviceSerialNumber
+            'osType'                    = [string]$item.osType
+            'flashSize'                 = [int]$item.flashSize
+            'memorySize'                = [int]$item.memorySize
+            'networkSpeed'              = [int]$item.networkSpeed
+            'graphicsChipset0'          = [string]$item.graphicsChipset0
+            'graphicsChipset1'          = [string]$item.graphicsChipset1
+            'monitorVendor1'            = [string]$item.monitorVendor1
+            'monitorModel1'             = [string]$item.monitorModel1
+            'monitorSerialnumber1'      = [string]$item.monitorSerialnumber1
+            'monitorSize1'              = [int]$item.monitorSize1
+            'monitorNativeResolution1'  = [string]$item.monitorNativeResolution1
+            'monitor1YearOfManufacture' = [int]$item.monitor1YearOfManufacture
+            'monitor1WeekOfManufacture' = [int]$item.monitor1WeekOfManufacture
+            'monitorVendor2'            = [string]$item.monitorVendor2
+            'monitorModel2'             = [string]$item.monitorModel2
+            'monitorSerialnumber2'      = [string]$item.monitorSerialnumber2
+            'monitorSize2'              = [int]$item.monitorSize2
+            'monitorNativeResolution2'  = [string]$item.monitorNativeResolution2
+            'monitor2YearOfManufacture' = [int]$item.monitor2YearOfManufacture
+            'monitor2WeekOfManufacture' = [int]$item.monitor2WeekOfManufacture
+            'biosVendor'                = [string]$item.biosVendor
+            'biosVersion'               = [string]$item.biosVersion
+            'biosDate'                  = [datetime]$item.biosDate
+            'totalUsagetime'            = [int]$item.totalUsagetime
+            'totalUptime'               = [int]$item.totalUptime
+            'lastBoottime'              = [datetime]$item.lastBoottime
+            'batteryLevel'              = [int]$item.batteryLevel
+          }
         }
       }
       New-Object psobject -Property $Properties
