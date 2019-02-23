@@ -74,7 +74,7 @@ function Get-UMSProfileDirectory
           }
         }
       }
-    
+    }
     Invoke-UMSRestMethodWebSession @Params
   }
   End
