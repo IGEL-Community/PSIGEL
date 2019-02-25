@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'WebSession', 'Facets', 'TCID'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'TCID'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -103,6 +103,10 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       It 'Result.id should be exactly 2' {
         $Result.id | Should BeExactly 2
       }
+
+      It 'Result.id should have type [int]' {
+        $Result.id | Should -HaveType [int]
+      }
     }
 
     Context "ParameterSetName ID" {
@@ -152,6 +156,10 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       It 'Result.id should be exactly 2' {
         $Result.id | Should BeExactly 2
+      }
+
+      It 'Result.id should have type [int]' {
+        $Result.id | Should -HaveType [int]
       }
     }
 
