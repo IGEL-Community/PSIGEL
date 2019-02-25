@@ -75,14 +75,15 @@ function Get-UMSProfileDirectory
       {
         'children'
         {
-          $DirectoryChildren = foreach ($child ind $item.DirectoryChildren)
+          $DirectoryChildren = foreach ($child in $item.DirectoryChildren)
           {
-            $Properties = [ordered]@
-            'objectType' = [string]$child.objectType
-            'id' = [int]$child.id
+            $ChildProperties = [ordered]@{
+              'objectType' = [string]$child.objectType
+              'id'         = [int]$child.id
+            }
             New-Object psobject -Property $Properties
           }
-          $Properties += [ordered]@{
+          $ChildProperties += [ordered]@{
             'DirectoryChildren' = $DirectoryChildren
           }
         }
