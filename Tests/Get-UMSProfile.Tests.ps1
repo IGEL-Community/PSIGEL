@@ -47,8 +47,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         { Get-UMSProfile } | Should -Not -Throw
       }
 
-      It 'Get-UMSProfile -Details Error -ErrorAction Stop Should throw' {
-        { Get-UMSProfile -Details Error -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSProfile -ApiVersion 10 -ErrorAction Stop Should throw' {
+        { Get-UMSProfile -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -98,7 +98,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
 
       It 'Result.isMasterProfile should be have type [bool]' {
-        $Result[0].isMasterProfile | Should -HaveType [bool]
+        $Result.isMasterProfile | Should -HaveType [bool]
       }
     }
 
@@ -145,7 +145,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
 
       It 'Result.isMasterProfile should be have type [bool]' {
-        $Result[0].isMasterProfile | Should -HaveType [bool]
+        $Result.isMasterProfile | Should -HaveType [bool]
       }
     }
 
