@@ -215,20 +215,23 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
-          mac        = '0123456789AB'
-          firmwareID = '1'
-          lastIP     = '192.168.0.1'
-          online     = 'False'
-          id         = '2'
-          name       = 'endpoint01'
-          parentID   = '3'
-          movedToBin = 'False'
-          objectType = 'tc'
+          mac          = '0123456789AB'
+          firmwareID   = '1'
+          lastIP       = '192.168.0.1'
+          shadowSecret = @{
+            certificate = '-----BEGIN CERTIFICATE-----..-----END CERTIFICATE-----'
+            password    = '80a4f77b-552e-488d-b077-4f34ac59028e'
+          }
+          id           = '2'
+          name         = 'endpoint01'
+          parentID     = '3'
+          movedToBin   = 'False'
+          objectType   = 'tc'
         }
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -TCID 2 -Facets online
+      $Result = Get-UMSThinclient -TCID 2 -Facets shadow
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -256,12 +259,93 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.online should be exactly $false' {
-        $Result.online | Should Be $false
+      It 'Result.shadowSecret should have type [pscustomobject]' {
+        $Result.shadowSecret | Should -HaveType [pscustomobject]
+      }
+    }
+
+    Context "Facets details" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {
+        [pscustomobject]@{
+          mac                       = '0123456789AB'
+          firmwareID                = '1'
+          lastIP                    = '192.168.0.1'
+          comment                   = 'comment'
+          productId                 = 'UC1-LX'
+          cpuSpeed                  = '1608'
+          cpuType                   = 'Intel(R) Core(TM) i7-7Y75 CPU @ 1.30GHz'
+          deviceType                = 'Legacy x86 system'
+          deviceSerialNumber        = '0'
+          osType                    = 'IGEL Linux 11 (Kernel Version 4.18.20)'
+          flashSize                 = '1985'
+          memorySize                = '1990'
+          networkSpeed              = '100'
+          graphicsChipset0          = 'VMware Inc. Abstract VGA II Adapter'
+          graphicsChipset1          = ''
+          monitorVendor1            = ''
+          monitorModel1             = ''
+          monitorSerialnumber1      = ''
+          monitorNativeResolution1  = ''
+          monitor1YearOfManufacture = ''
+          monitor1WeekOfManufacture = ''
+          monitorVendor2            = ''
+          monitorModel2             = ''
+          monitorSerialnumber2      = ''
+          monitorSize2              = '0,0'
+          monitorNativeResolution2  = ''
+          monitor2YearOfManufacture = ''
+          monitor2WeekOfManufacture = ''
+          biosVendor                = 'innotek GmbH'
+          biosVersion               = 'VirtualBox'
+          biosDate                  = '12/01/2006'
+          totalUsagetime            = '5433000'
+          totalUptime               = '5472000'
+          lastBoottime              = '2019-02-20 14:19'
+          batteryLevel              = '97'
+          id                        = '2'
+          name                      = 'endpoint01'
+          parentID                  = '3'
+          movedToBin                = 'False'
+          objectType                = 'tc'
+        }
+      }
+      Mock 'Get-UMSFunctionString' {}
+
+      $Result = Get-UMSThinclient -TCID 2 -Facets details
+
+      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'Get-UMSFunctionString'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
       }
 
-      It 'Result.online should have type [bool]' {
-        $Result.online | Should -HaveType [bool]
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should have type pscustomobject' {
+        $Result | Should -HaveType ([pscustomobject])
+      }
+
+      It 'Result should have 1 element' {
+        @($Result).Count | Should BeExactly 1
+      }
+
+      It 'Result.networkSpeed should have type [int]' {
+        $Result.networkSpeed | Should -HaveType [int]
+      }
+
+      It 'Result.lastBoottime should have type [datetime]' {
+        $Result.lastBoottime | Should -HaveType [datetime]
       }
     }
 
