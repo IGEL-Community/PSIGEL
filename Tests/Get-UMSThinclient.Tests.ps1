@@ -211,6 +211,60 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
+    Context "Facets shadow" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {
+        [pscustomobject]@{
+          mac        = '0123456789AB'
+          firmwareID = '1'
+          lastIP     = '192.168.0.1'
+          online     = 'False'
+          id         = '2'
+          name       = 'endpoint01'
+          parentID   = '3'
+          movedToBin = 'False'
+          objectType = 'tc'
+        }
+      }
+      Mock 'Get-UMSFunctionString' {}
+
+      $Result = Get-UMSThinclient -TCID 2 -Facets online
+
+      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'Get-UMSFunctionString'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should have type pscustomobject' {
+        $Result | Should -HaveType ([pscustomobject])
+      }
+
+      It 'Result should have 1 element' {
+        @($Result).Count | Should BeExactly 1
+      }
+
+      It 'Result.online should be exactly $false' {
+        $Result.online | Should Be $false
+      }
+
+      It 'Result.online should have type [bool]' {
+        $Result.online | Should -HaveType [bool]
+      }
+    }
+
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
