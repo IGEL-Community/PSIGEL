@@ -188,5 +188,13 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
     It 'Result.id should be have type [int]' {
       $Result[0].id | Should -HaveType [int]
     }
+
+    It 'Result.firmwareType should be have type [string]' {
+      $Result[0].firmwareType | Should -HaveType [string]
+    }
+
+    It 'Result.firmwareType should not be null or empty' {
+      $Result[0].firmwareType | Should -Not -BeNullOrEmpty
+    }
   }
 }
