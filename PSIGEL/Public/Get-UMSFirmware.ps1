@@ -3,10 +3,11 @@
   [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0, 49151)]
+    [ValidateRange(0, 65535)]
     [Int]
     $TCPPort = 8443,
 
