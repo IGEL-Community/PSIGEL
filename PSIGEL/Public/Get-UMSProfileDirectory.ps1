@@ -35,7 +35,7 @@ function Get-UMSProfileDirectory
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray)
-    if ($null -ne $Facets)
+    if ($Facets)
     {
       $FunctionString = Get-UMSFunctionString -Facets $Facets
     }
@@ -81,9 +81,9 @@ function Get-UMSProfileDirectory
               'objectType' = [string]$child.objectType
               'id'         = [int]$child.id
             }
-            New-Object psobject -Property $Properties
+            New-Object psobject -Property $ChildProperties
           }
-          $ChildProperties += [ordered]@{
+          $Properties += [ordered]@{
             'DirectoryChildren' = $DirectoryChildren
           }
         }
