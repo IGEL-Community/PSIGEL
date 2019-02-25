@@ -1,4 +1,4 @@
-﻿function Get-UMSProfileAssignmentDirectory
+﻿function Get-UMSProfileAssignment
 {
   [CmdletBinding(DefaultParameterSetName = 'Thinclient')]
   param
