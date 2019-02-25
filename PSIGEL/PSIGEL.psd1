@@ -99,7 +99,6 @@
     'Send-UMSThinclientSetting'
     'Start-UMSThinclient'
     'Stop-UMSThinclient'
-    'Update-UMSJobStartDate'
     'Update-UMSProfileAssignment'
     'Update-UMSProfileDirectoryName'
     'Update-UMSProfileName'
