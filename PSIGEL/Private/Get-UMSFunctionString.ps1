@@ -13,12 +13,15 @@ function Get-UMSFunctionString
   .EXAMPLE
   Get-UMSFunctionString -Details 'shadow'
 
+  .EXAMPLE
+  Get-UMSFunctionString -Details 'children'
+
   #>
 
   [CmdletBinding()]
   param (
     [Parameter(Mandatory)]
-    [ValidateSet('short', 'details', 'online', 'shadow')]
+    [ValidateSet('short', 'details', 'online', 'shadow', 'children')]
     [string]
     $Facets
   )
