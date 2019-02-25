@@ -43,8 +43,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      #$Result = Get-UMSThinclient
-
       It 'Get-UMSThinclient Should not throw' {
         { Get-UMSThinclient } | Should -Not -Throw
       }
