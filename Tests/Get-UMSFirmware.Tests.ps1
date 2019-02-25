@@ -47,8 +47,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         { Get-UMSFirmware } | Should -Not -Throw
       }
 
-      It 'Get-UMSFirmware -Details Error -ErrorAction Stop Should throw' {
-        { Get-UMSFirmware -Details Error -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSFirmware -ApiVersion 10 -ErrorAction Stop Should throw' {
+        { Get-UMSFirmware -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
