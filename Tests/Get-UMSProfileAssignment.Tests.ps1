@@ -187,25 +187,25 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSProfileAssignment }  | Should Not Throw
+      { Get-UMSProfileAssignment -ProfileID 69} | Should Not Throw
     }
 
-    $Result = Get-UMSProfileAssignment
+    $Result = Get-UMSProfileAssignment -ProfileID 69
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
     It 'Result.id should be have type [int]' {
-      $Result[0].id | Should -HaveType [int]
+      $Result[0].assigneeId | Should -HaveType [int]
     }
 
-    It 'Result.isMasterProfile should be have type [bool]' {
-      $Result[0].isMasterProfile | Should -HaveType [bool]
+    It 'Result.assigneeType should be have type [string]' {
+      $Result[0].assigneeType | Should -HaveType [string]
     }
 
-    It 'Result.isMasterProfile should not be null or empty' {
-      $Result[0].isMasterProfile | Should -Not -BeNullOrEmpty
+    It 'Result.assigneeType should not be null or empty' {
+      $Result[0].assigneeType | Should -Not -BeNullOrEmpty
     }
   }
 }
