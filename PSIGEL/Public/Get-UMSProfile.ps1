@@ -46,13 +46,29 @@
       'All'
       {
         $Params.Add('Uri', ('{0}' -f $BaseURL))
+        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'ID'
       {
         $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $ProfileID))
+        $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
-    Invoke-UMSRestMethodWebSession @Params
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'firmwareID'        = [int]$item.firmwareID
+        'isMasterProfile'   = [System.Convert]::ToBoolean($item.isMasterProfile)
+        'overridesSessions' = [System.Convert]::ToBoolean($item.overridesSessions)
+        'id'                = [int]$item.id
+        'name'              = [string]$item.name
+        'parentID'          = [int]$item.parentID
+        'movedToBin'        = [System.Convert]::ToBoolean($item.movedToBin)
+        'objectType'        = [string]$item.objectType
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
