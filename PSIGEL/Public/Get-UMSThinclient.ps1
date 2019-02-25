@@ -51,16 +51,16 @@
       'All'
       {
         $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
-        $JSON = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'ID'
       {
         $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
-        $JSON = Invoke-UMSRestMethodWebSession @Params
+        $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
 
-    $Result = foreach ($item in $JSON)
+    $Result = foreach ($item in $Json)
     {
       $Properties = [ordered]@{
         'id'         = [int]$item.id
