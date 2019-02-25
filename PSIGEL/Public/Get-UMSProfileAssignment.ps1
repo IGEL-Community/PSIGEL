@@ -61,10 +61,10 @@
     $Result = foreach ($item in $Json)
     {
       $Properties = [ordered]@{
-        'assigneeId'   = [int]$item.id
-        'assigneeType' = [string]$item.objectType
-        'receiverId'   = [int]$item.id
-        'receiverType' = [string]$item.objectType
+        'assigneeId'   = [int]$item.assigneeId.id
+        'assigneeType' = [string]$item.assigneeId.objectType
+        'receiverId'   = [int]$item.receiverId.id
+        'receiverType' = [string]$item.receiverId.objectType
       }
       New-Object psobject -Property $Properties
     }
