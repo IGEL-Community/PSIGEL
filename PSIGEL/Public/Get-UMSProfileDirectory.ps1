@@ -22,8 +22,9 @@ function Get-UMSProfileDirectory
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Switch]
-    $Children,
+    [ValidateSet('children')]
+    [String]
+    $Facets,
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [Int]
@@ -34,6 +35,10 @@ function Get-UMSProfileDirectory
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray)
+    if ($null -ne $Facets)
+    {
+      $FunctionString = Get-UMSFunctionString -Facets $Facets
+    }
   }
   Process
   {
@@ -48,34 +53,43 @@ function Get-UMSProfileDirectory
     {
       'All'
       {
-        Switch ($Children)
-        {
-          $false
-          {
-            $Params.Add('Uri', ('{0}' -f $BaseURL))
-          }
-          default
-          {
-            $Params.Add('Uri', ('{0}?facets=children' -f $BaseURL))
-          }
-        }
+        $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
+        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'ID'
       {
-        Switch ($Children)
+        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
+        $Json = Invoke-UMSRestMethodWebSession @Params
+      }
+    }
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'id'         = [int]$item.id
+        'name'       = [string]$item.name
+        'parentID'   = [int]$item.parentID
+        'movedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
+        'objectType' = [string]$item.objectType
+      }
+      switch ($Facets)
+      {
+        'children'
         {
-          $false
+          $DirectoryChildren = foreach ($child ind $item.DirectoryChildren)
           {
-            $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $DIRID))
+            $Properties = [ordered]@
+            'objectType' = [string]$child.objectType
+            'id' = [int]$child.id
+            New-Object psobject -Property $Properties
           }
-          default
-          {
-            $Params.Add('Uri', ('{0}/{1}?facets=children' -f $BaseURL, $DIRID))
+          $Properties += [ordered]@{
+            'DirectoryChildren' = $DirectoryChildren
           }
         }
       }
+      New-Object psobject -Property $Properties
     }
-    Invoke-UMSRestMethodWebSession @Params
+    $Result
   }
   End
   {
