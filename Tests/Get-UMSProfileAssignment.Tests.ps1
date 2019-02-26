@@ -57,19 +57,21 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "ParameterSetName Thinclient" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
-        [pscustomobject]@{
-          SyncRoot = @{
-            assignee           = @{
-              id   = '2'
-              type = 'profile'
+        (
+          [pscustomobject]@{
+            SyncRoot = @{
+              assignee           = @{
+                id   = '2'
+                type = 'profile'
+              }
+              receiver           = @{
+                id   = '2'
+                type = 'tc'
+              }
+              assignmentPosition = 0
             }
-            receiver           = @{
-              id   = '2'
-              type = 'tc'
-            }
-            assignmentPosition = 0
           }
-        }
+        )
       }
 
       $Result = Get-UMSProfileAssignment -ProfileID 2
@@ -91,31 +93,33 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.assigneeid should be exactly 2' {
-        $Result.assigneeid | Should BeExactly 2
+      It 'Result[0].assigneeid should be exactly 2' {
+        $Result[0].assigneeid | Should BeExactly 2
       }
 
-      It 'Result.assigneeid should have type [int]' {
-        $Result.assigneeid | Should -HaveType [int]
+      It 'Result[0].assigneeid should have type [int]' {
+        $Result[0].assigneeid | Should -HaveType [int]
       }
     }
 
     Context "ParameterSetName Directory" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
-        [pscustomobject]@{
-          SyncRoot = @{
-            assignee           = @{
-              id   = '2'
-              type = 'profile'
+        (
+          [pscustomobject]@{
+            SyncRoot = @{
+              assignee           = @{
+                id   = '2'
+                type = 'profile'
+              }
+              receiver           = @{
+                id   = '2'
+                type = 'tcdirectory'
+              }
+              assignmentPosition = 0
             }
-            receiver           = @{
-              id   = '2'
-              type = 'tcdirectory'
-            }
-            assignmentPosition = 0
           }
-        }
+        )
       }
 
       $Result = Get-UMSProfileAssignment -ProfileID 2 -Directory
@@ -137,12 +141,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.assigneeid should be exactly 2' {
-        $Result.assigneeid | Should BeExactly 2
+      It 'Result[0].assigneeid should be exactly 2' {
+        $Result[0].assigneeid | Should BeExactly 2
       }
 
-      It 'Result.assigneeid should have type [int]' {
-        $Result.assigneeid | Should -HaveType [int]
+      It 'Result[0].assigneeid should have type [int]' {
+        $Result[0].assigneeid | Should -HaveType [int]
       }
     }
 
