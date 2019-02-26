@@ -24,7 +24,7 @@ function Move-UMSProfile
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int[]]
+    [int]
     $Id,
 
     [Parameter(Mandatory)]
@@ -54,7 +54,7 @@ function Move-UMSProfile
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $Id, $DDirId)))
+    if ($PSCmdlet.ShouldProcess(('ID: {0} to DDIRID: {1}' -f $Id, $DDirId)))
     {
       $Json = Invoke-UMSRestMethodWebSession @Params
     }
