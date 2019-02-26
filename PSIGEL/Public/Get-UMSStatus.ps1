@@ -38,7 +38,21 @@
       Uri              = $BaseURL
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    Invoke-UMSRestMethodWebSession @Params
+    $Json = Invoke-UMSRestMethodWebSession @Params
+
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'rmGuiServerVersion' = [string]$item.rmGuiServerVersion
+        'buildNumber'        = [int]$item.buildNumber
+        'activeMQVersion'    = [string]$item.activeMQVersion
+        'derbyVersion'       = [string]$item.derbyVersion
+        'serverUUID'         = [string]$item.serverUUID
+        'server'             = [string]$item.server
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
