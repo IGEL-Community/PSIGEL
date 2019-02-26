@@ -146,24 +146,24 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSThinclientAssignment -TCID 69} | Should Not Throw
+      { Get-UMSThinclientAssignment -TCID 195} | Should Not Throw
     }
 
-    $Result = Get-UMSThinclientAssignment -TCID 69
+    $Result = Get-UMSThinclientAssignment -TCID 195
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.id should be have type [int]' {
+    It 'Result[0].assigneeId should be have type [int]' {
       $Result[0].assigneeId | Should -HaveType [int]
     }
 
-    It 'Result.assigneeType should be have type [string]' {
+    It 'Result[0].assigneeType should be have type [string]' {
       $Result[0].assigneeType | Should -HaveType [string]
     }
 
-    It 'Result.assigneeType should not be null or empty' {
+    It 'Result[0].assigneeType should not be null or empty' {
       $Result[0].assigneeType | Should -Not -BeNullOrEmpty
     }
   }
