@@ -1,6 +1,7 @@
 function Move-UMSProfile
 {
-  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
+  [cmdletbinding(
+    SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,49 +16,57 @@ function Move-UMSProfile
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [int]
-    $ProfileID,
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
+    [int[]]
+    $Id,
 
     [Parameter(Mandatory)]
     [int]
-    $DDIRID
+    $DDirId
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $UriArray
     $Body = ConvertTo-Json @(
       @{
-        id   = $ProfileID
+        id   = $Id
         type = "profile"
       }
     )
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = '{0}/{1}?operation=move' -f $BaseURL, $DDirId
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $ProfileID, $DDIRID)))
+    if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $Id, $DDirId)))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $Json = Invoke-UMSRestMethodWebSession @Params
     }
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'Id'      = [int]$item.id
+        'Results' = [string]$item.results
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
