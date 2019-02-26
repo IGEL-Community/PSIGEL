@@ -28,7 +28,7 @@ function Get-UMSProfileDirectory
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [Int]
-    $DIRID
+    $DirID
   )
 
   Begin
@@ -58,7 +58,7 @@ function Get-UMSProfileDirectory
       }
       'ID'
       {
-        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $TCID, $FunctionString))
+        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $DirID, $FunctionString))
         $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
