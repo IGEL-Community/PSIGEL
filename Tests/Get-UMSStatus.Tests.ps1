@@ -137,7 +137,7 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       { Get-UMSStatus } | Should Not Throw
     }
 
-    $Result = Get-UMSStatus 
+    $Result = Get-UMSStatus
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
