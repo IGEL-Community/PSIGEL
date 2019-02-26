@@ -59,14 +59,18 @@
     $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
     $Result = foreach ($item in $Json)
     {
-      $Properties = [ordered]@{
-        'assigneeId'         = [int]$item.assignee.id
-        'assigneeType'       = [string]$item.assignee.type
-        'receiverId'         = [int]$item.receiver.id
-        'receiverType'       = [string]$item.receiver.type
-        'assignmentPosition' = [int]$item.assignmentPosition
+      $ProfileColl = foreach ($child in $item)
+      {
+        $ProfileProperties = [ordered]@{
+          'assigneeId'         = [int]$child.assignee.id
+          'assigneeType'       = [string]$child.assignee.type
+          'receiverId'         = [int]$child.receiver.id
+          'receiverType'       = [string]$child.receiver.type
+          'assignmentPosition' = [int]$child.assignmentPosition
+        }
+        New-Object psobject -Property $ProfileProperties
       }
-      New-Object psobject -Property $Properties
+      $ProfileColl
     }
     $Result
   }
