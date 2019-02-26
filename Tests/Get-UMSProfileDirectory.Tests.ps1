@@ -245,16 +245,16 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.id should be have type [int]' {
+    It 'Result[0].id should be have type [int]' {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It 'Result.assigneeType should be have type [string]' {
-      $Result[0].assigneeType | Should -HaveType [string]
+    It 'Result[0].name should be have type [string]' {
+      $Result[0].name | Should -HaveType [string]
     }
 
-    It 'Result.assigneeType should not be null or empty' {
-      $Result[0].assigneeType | Should -Not -BeNullOrEmpty
+    It 'Result[0].name should not be null or empty' {
+      $Result[0].name | Should -Not -BeNullOrEmpty
     }
   }
 }
