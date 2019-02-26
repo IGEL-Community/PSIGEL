@@ -236,10 +236,10 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSThinclientDirectory -DirID 69} | Should Not Throw
+      { Get-UMSThinclientDirectory -DirID 71} | Should Not Throw
     }
 
-    $Result = Get-UMSThinclientDirectory -DirID 69
+    $Result = Get-UMSThinclientDirectory -DirID 71
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
