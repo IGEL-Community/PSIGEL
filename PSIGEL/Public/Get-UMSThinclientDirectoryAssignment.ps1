@@ -1,6 +1,6 @@
 function Get-UMSThinclientDirectoryAssignment
 {
-  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
+  [CmdletBinding()]
   param
   (
     [Parameter(Mandatory)]
@@ -15,34 +15,50 @@ function Get-UMSThinclientDirectoryAssignment
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(ValueFromPipeline, Mandatory)]
     [int]
-    $DIRID
+    $DirID
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-    
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DIRID)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}/assignments/profiles' -f $UriArray
-
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
-      Uri         = $Uri
+      WebSession       = $WebSession
+      Uri              = ('{0}/{1}/assignments/profiles' -f $BaseURL, $DirID)
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    Invoke-UMSRestMethodWebSession @Params
+    $Json = Invoke-UMSRestMethodWebSession @Params
+    $Result = foreach ($item in $Json)
+    {
+      $ProfileColl = foreach ($child in $item)
+      {
+        $ProfileProperties = [ordered]@{
+          'assigneeId'         = [int]$child.assignee.id
+          'assigneeType'       = [string]$child.assignee.type
+          'receiverId'         = [int]$child.receiver.id
+          'receiverType'       = [string]$child.receiver.type
+          'assignmentPosition' = [int]$child.assignmentPosition
+        }
+        New-Object psobject -Property $ProfileProperties
+      }
+      $ProfileColl
+    }
+    $Result
   }
   End
   {
