@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'DIRID'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'DirID'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSProfileDirectory -DIRID 2
+      $Result = Get-UMSProfileDirectory -DirID 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -158,7 +158,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSProfileDirectory -DIRID 2 -Facets children
+      $Result = Get-UMSProfileDirectory -DirID 2 -Facets children
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -236,10 +236,10 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSProfileDirectory -DIRID 69} | Should Not Throw
+      { Get-UMSProfileDirectory -DirID 69} | Should Not Throw
     }
 
-    $Result = Get-UMSProfileDirectory -DIRID 69
+    $Result = Get-UMSProfileDirectory -DirID 69
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
