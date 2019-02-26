@@ -1,6 +1,6 @@
 ﻿function Get-UMSThinclientDirectory
 {
-  [cmdletbinding(DefaultParameterSetName = 'Overview')]
+  [cmdletbinding(DefaultParameterSetName = 'All')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,70 +15,82 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [switch]
-    $Children,
+    [ValidateSet('children')]
+    [String]
+    $Facets,
 
-    [Parameter(ParameterSetName = 'DIR', Mandatory, ValueFromPipeline)]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
     [int]
     $DirID
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $UriArray)
+    if ($Facets)
+    {
+      $FunctionString = Get-UMSFunctionString -Facets $Facets
+    }
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    $BUArray = @($Computername, $TCPPort, $ApiVersion)
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $BUArray
-
     Switch ($PSCmdlet.ParameterSetName)
     {
-      'Overview'
+      'All'
       {
-        Switch ($Children)
-        {
-          $false
-          {
-            $URLEnd = ''
-          }
-          default
-          {
-            $URLEnd = '?facets=children'
-          }
-        }
+        $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
+        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
-      'DIR'
+      'ID'
       {
-        Switch ($Children)
-        {
-          $false
-          {
-            $URLEnd = ('{0}' -f $DIRID)
-          }
-          default
-          {
-            $URLEnd = ('{0}?facets=children' -f $DIRID)
-          }
-        }
+        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $DirID, $FunctionString))
+        $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
-
-    $Params.Uri = '{0}{1}' -f $BaseURL, $URLEnd
-    Invoke-UMSRestMethodWebSession @Params
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'id'         = [int]$item.id
+        'name'       = [string]$item.name
+        'parentID'   = [int]$item.parentID
+        'movedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
+        'objectType' = [string]$item.objectType
+      }
+      switch ($Facets)
+      {
+        'children'
+        {
+          $DirectoryChildren = foreach ($child in $item.DirectoryChildren)
+          {
+            $ChildProperties = [ordered]@{
+              'objectType' = [string]$child.objectType
+              'id'         = [int]$child.id
+            }
+            New-Object psobject -Property $ChildProperties
+          }
+          $Properties += [ordered]@{
+            'DirectoryChildren' = $DirectoryChildren
+          }
+        }
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
