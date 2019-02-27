@@ -53,7 +53,7 @@ function Move-UMSThinclient
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    if ($PSCmdlet.ShouldProcess(('TCID: {0} to DDIRID: {1}' -f $Id, $DDirId)))
+    if ($PSCmdlet.ShouldProcess(('Id: {0} to DDirId: {1}' -f $Id, $DDirId)))
     {
       $Json = Invoke-UMSRestMethodWebSession @Params
     }
