@@ -158,19 +158,20 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $Id = 390
-  $DirId = 417
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = (($UMS.ProfileDirectories).where{$_.name -eq '[01]'}).id
+  $DDirId = (($UMS.ProfileDirectories).where{$_.name -eq '[02]'}).id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
     '*-UMS*:Id'               = $Id
-    '*-UMS*:DDirId'           = $DirId
+    '*-UMS*:DDirId'           = $DDirId
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
