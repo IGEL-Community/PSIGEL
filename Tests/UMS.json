@@ -1,0 +1,64 @@
+[
+  {
+    "Computername": "localhost",
+    "User": "igelums",
+    "Credpath": "C:\\Credentials\\UMSRmdb.cred",
+    "SecurityProtocol": "Tls12",
+    "ProfileDirectories": [
+      {
+        "id": "-2",
+        "name": "Profiles"
+      },
+      {
+        "id": "452",
+        "name": "[Pester]"
+      },
+      {
+        "id": "455",
+        "name": "[01]"
+      },
+      {
+        "id": "456",
+        "name": "[02]"
+      }
+    ],
+    "Profiles": [
+      {
+        "id": "463",
+        "name": "[01]"
+      },
+      {
+        "id": "464",
+        "name": "[02]"
+      }
+    ],
+    "ThinclientDirectories": [
+      {
+        "id": "-1",
+        "name": "Devices"
+      },
+      {
+        "id": "454",
+        "name": "[Pester]"
+      },
+      {
+        "id": "457",
+        "name": "[01]"
+      },
+      {
+        "id": "458",
+        "name": "[02]"
+      }
+    ],
+    "Thinclients": [
+      {
+        "id": "461",
+        "name": "EP01"
+      },
+      {
+        "id": "462",
+        "name": "EP02"
+      }
+    ]
+  }
+]
