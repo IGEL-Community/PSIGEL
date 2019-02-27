@@ -4,6 +4,15 @@
     "User": "igelums",
     "Credpath": "C:\\Credentials\\UMSRmdb.cred",
     "SecurityProtocol": "Tls12",
+    "NamePrefix": "TC-",
+    "Firmware": [
+      {
+        "id": "2"
+      },
+      {
+        "id": "3"
+      }
+    ],
     "ProfileDirectories": [
       {
         "id": "-2",
