@@ -167,13 +167,17 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = 'NewProfileDirectory'
+  $Mac = (0..5 |
+      ForEach-Object { '{0:x}{1:x}' -f (Get-Random -Minimum 0 -Maximum 15), (Get-Random -Minimum 0 -Maximum 15)}) -join ''
+  [int]$ParentId = (($UMS.ThinclientDirectories).where{$_.name -eq 'Devices'}).id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Name'             = $Name
+    '*-UMS*:Mac'              = $Mac
+    '*-UMS*:FirmwareId'       = $UMS.Firmware.Id[0]
+    '*-UMS*:ParentId'         = $ParentId
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -184,19 +188,19 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' } | Should Not Throw
+      { $Script:Result = New-UMSThinclient } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result[0].Id should be have type [int]' {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result.Name should not be exactly $Name" {
-      $Result[0].Name | Should -BeExactly $Name
+    It "Result[0].ParentId should be exactly $ParentId" {
+      $Result[0].ParentId | Should -BeExactly $ParentId
     }
   }
 }
