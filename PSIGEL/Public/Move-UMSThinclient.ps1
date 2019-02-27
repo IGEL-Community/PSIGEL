@@ -15,49 +15,57 @@ function Move-UMSThinclient
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [int]
-    $TCID,
+    $Id,
 
     [Parameter(Mandatory)]
     [int]
-    $DDIRID
+    $DDirId
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}?operation=move' -f $UriArray
     $Body = ConvertTo-Json @(
       @{
-        id   = $TCID
+        id   = $Id
         type = "tc"
       }
     )
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = ('{0}/{1}?operation=move' -f $BaseURL, $DDirId)
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    if ($PSCmdlet.ShouldProcess(('TCID: {0} to DDIRID: {1}' -f $TCID, $DDIRID)))
+    if ($PSCmdlet.ShouldProcess(('TCID: {0} to DDIRID: {1}' -f $Id, $DDirId)))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $Json = Invoke-UMSRestMethodWebSession @Params
     }
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'Id'      = [int]$item.id
+        'Results' = [string]$item.results
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
