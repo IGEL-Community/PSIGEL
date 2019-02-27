@@ -1,7 +1,6 @@
 function Move-UMSProfile
 {
-  [cmdletbinding(
-    SupportsShouldProcess, ConfirmImpact = 'Medium')]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param
   (
     [Parameter(Mandatory)]
