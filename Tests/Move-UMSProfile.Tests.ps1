@@ -89,6 +89,53 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
+    Context "Whatif" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {}
+
+      $Result = Move-UMSProfile -Id 2 -DDirId 2 -WhatIf
+
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 0
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should be null or empty' {
+        $Result | Should BeNullOrEmpty
+      }
+    }
+
+    Context "Confirm" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {
+        (
+          [pscustomobject]@{
+            id      = '2'
+            results = 'successful'
+          }
+        )
+      }
+
+      $Result = Move-UMSProfile -Id 2 -DDirId 2 -Confirm
+
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 0
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should be null or empty' {
+        $Result | Should BeNullOrEmpty
+      }
+    }
+
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
