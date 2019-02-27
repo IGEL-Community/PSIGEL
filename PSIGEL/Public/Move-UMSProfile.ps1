@@ -47,7 +47,7 @@ function Move-UMSProfile
     )
     $Params = @{
       WebSession       = $WebSession
-      Uri              = '{0}/{1}?operation=move' -f $BaseURL, $DDirId
+      Uri              = ('{0}/{1}?operation=move' -f $BaseURL, $DDirId)
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
