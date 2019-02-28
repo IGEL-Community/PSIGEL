@@ -164,14 +164,14 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = '[New{0}]' -f ((0..1 |
-        ForEach-Object { '{0}' -f (Get-Random -Minimum 0 -Maximum 9)}) -join '')
+  $ID = 552
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Name'             = $Name
+    '*-UMS*:Confirm'          = $false
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -193,8 +193,8 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result[0].Name should be exactly $Name" {
-      $Result[0].Name | Should -BeExactly $Name
+    It "Result[0].Id should be exactly $Id" {
+      $Result[0].Id | Should -BeExactly $Id
     }
   }
 }
