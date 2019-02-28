@@ -48,8 +48,8 @@ function Get-UMSThinclientDirectoryAssignment
       $ProfileColl = foreach ($child in $item)
       {
         $ProfileProperties = [ordered]@{
-          'AssigneeId'         = [int]$child.assignee.id
-          'AssigneeType'       = [string]$child.assignee.type
+          'Id'                 = [int]$child.assignee.id
+          'Type'               = [string]$child.assignee.type
           'ReceiverId'         = [int]$child.receiver.id
           'ReceiverType'       = [string]$child.receiver.type
           'AssignmentPosition' = [int]$child.assignmentPosition

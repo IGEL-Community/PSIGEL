@@ -1,6 +1,6 @@
 ﻿function Remove-UMSProfileAssignment
 {
-  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High', DefaultParameterSetName = 'Thinclient')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,6 +15,11 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipeline)]

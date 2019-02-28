@@ -93,12 +93,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].Assigneeid should be exactly 2' {
-        $Result[0].Assigneeid | Should BeExactly 2
+      It 'Result[0].Id should be exactly 2' {
+        $Result[0].Id | Should BeExactly 2
       }
 
-      It 'Result[0].Assigneeid should have type [int]' {
-        $Result[0].Assigneeid | Should -HaveType [int]
+      It 'Result[0].Id should have type [int]' {
+        $Result[0].Id | Should -HaveType [int]
       }
     }
 
@@ -141,12 +141,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].Assigneeid should be exactly 2' {
-        $Result[0].Assigneeid | Should BeExactly 2
+      It 'Result[0].Id should be exactly 2' {
+        $Result[0].Id | Should BeExactly 2
       }
 
-      It 'Result[0].Assigneeid should have type [int]' {
-        $Result[0].Assigneeid | Should -HaveType [int]
+      It 'Result[0].Id should have type [int]' {
+        $Result[0].Id | Should -HaveType [int]
       }
     }
 
@@ -200,16 +200,16 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].AssigneeId should be have type [int]' {
-      $Result[0].AssigneeId | Should -HaveType [int]
+    It 'Result[0].Id should be have type [int]' {
+      $Result[0].Id | Should -HaveType [int]
     }
 
-    It 'Result.AssigneeType should be have type [string]' {
-      $Result[0].AssigneeType | Should -HaveType [string]
+    It 'Result.Type should be have type [string]' {
+      $Result[0].Type | Should -HaveType [string]
     }
 
-    It 'Result.AssigneeType should not be null or empty' {
-      $Result[0].AssigneeType | Should -Not -BeNullOrEmpty
+    It 'Result.Type should not be null or empty' {
+      $Result[0].Type | Should -Not -BeNullOrEmpty
     }
   }
 }
