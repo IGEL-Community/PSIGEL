@@ -67,7 +67,7 @@
         'ObjectType' = [string]$item.objectType
         'UnitId'     = [string]$item.unitID
         'Mac'        = [string]$item.mac
-        'name'       = [string]$item.name
+        'Name'       = [string]$item.name
         'ParentId'   = [int]$item.parentID
         'FirmwareId' = [int]$item.firmwareID
         'LastIp'     = [string]$item.lastIP
