@@ -57,7 +57,7 @@
       }
     }
     $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
-    $Result = foreach ($APIObject in $APIObjectColl )
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $ProfileColl = foreach ($child in $APIObject)
       {

@@ -108,7 +108,7 @@
     {
       $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($APIObject in $APIObjectColl )
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
         'Message'  = [string]$APIObject.message

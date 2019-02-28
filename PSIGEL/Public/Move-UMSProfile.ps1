@@ -57,7 +57,7 @@ function Move-UMSProfile
     {
       $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($APIObject in $APIObjectColl )
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
         'Id'      = [int]$APIObject.id

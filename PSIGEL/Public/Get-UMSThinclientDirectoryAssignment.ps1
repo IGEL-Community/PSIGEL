@@ -43,7 +43,7 @@ function Get-UMSThinclientDirectoryAssignment
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
-    $Result = foreach ($APIObject in $APIObjectColl )
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $ProfileColl = foreach ($child in $APIObject)
       {
