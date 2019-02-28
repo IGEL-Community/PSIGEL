@@ -44,11 +44,11 @@
     }
     if ($PSCmdlet.ShouldProcess('ProfileID: {0}' -f $Id))
     {
-      $Json = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
-      if ($item.Message -match '^(?<Message>Deleted profile) with id (?<Id>\d+)$')
+      if ($APIObject.Message -match '^(?<Message>Deleted profile) with id (?<Id>\d+)$')
       {
         $Properties = [ordered]@{
           'Message' = [string]('{0}.' -f $Matches.Message)
