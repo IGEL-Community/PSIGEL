@@ -166,7 +166,6 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
   $Name = '[New{0}]' -f ((0..1 |
         ForEach-Object { '{0}' -f (Get-Random -Minimum 0 -Maximum 9)}) -join '')
-  [int]$ParentId = (($UMS.ThinclientDirectories).where{$_.name -eq 'Devices'}).id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -194,8 +193,8 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result[0].ParentId should be exactly $ParentId" {
-      $Result[0].ParentId | Should -BeExactly $ParentId
+    It "Result[0].Name should be exactly $Name" {
+      $Result[0].Name | Should -BeExactly $Name
     }
   }
 }
