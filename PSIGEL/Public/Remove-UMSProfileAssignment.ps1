@@ -65,12 +65,12 @@
     $SPArray = @($Id, $ReceiverId, $ReceiverType)
     if ($PSCmdlet.ShouldProcess(('Id: {0}, ReceiverID {1}, ReceiverType: {2}' -f $SPArray)))
     {
-      $Json = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message'      = [string]('{0}.' -f $item.Message)
+        'Message'      = [string]('{0}.' -f $APIObject.Message)
         'Id'           = [int]$Id
         'ReceiverId'   = [int]$ReceiverId
         'ReceiverType' = [string]$ReceiverType
