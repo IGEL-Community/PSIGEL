@@ -43,15 +43,15 @@
     ],
     "UMSProfileAssignment": [
       {
-        "AssigneeID": "463",
-        "AssigneeType": "profile",
+        "Id": "463",
+        "Type": "profile",
         "ReceiverID": "457",
         "ReceiverType": "tcdirectory",
         "AssignmentPosition": "0"
       },
       {
-        "AssigneeID": "464",
-        "AssigneeType": "profile",
+        "Id": "464",
+        "Type": "profile",
         "ReceiverID": "461",
         "ReceiverType": "tc",
         "AssignmentPosition": "0"
