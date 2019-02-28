@@ -1,6 +1,6 @@
 ﻿function Remove-UMSProfileAssignment
 {
-  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High', DefaultParameterSetName = 'Thinclient')]
+  [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param
   (
     [Parameter(Mandatory)]
@@ -24,56 +24,60 @@
 
     [Parameter(Mandatory, ValueFromPipeline)]
     [int]
-    $ProfileID,
+    $Id,
 
-    [Parameter(Mandatory, ParameterSetName = 'TC')]
+    [Parameter(Mandatory)]
     [int]
-    $TCID,
+    $ReceiverId,
 
-    [Parameter(Mandatory, ParameterSetName = 'Dir')]
-    [int]
-    $DirID
+    [Parameter(Mandatory)]
+    [ValidateSet('tc', 'tcdirectory')]
+    [string]
+    $ReceiverType
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
+    Switch ($ReceiverType)
     {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    Switch ($PSCmdlet.ParameterSetName)
-    {
-      'TC'
+      'tc'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $TCID)
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/thinclients/{4}' -f $UriArray
-        $ID = $TCID
+        $Uri = '{0}/assignments/thinclients/{1}' -f $BaseURL, $ReceiverId
       }
-      'Dir'
+      'tcdirectory'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $DirID)
-        $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/tcdirectories/{4}' -f $UriArray
-        $ID = $DirID
+        $Uri = '{0}/assignments/tcdirectories/{1}' -f $BaseURL, $ReceiverId
       }
     }
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Method      = 'Delete'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $Uri
+      Method           = 'Delete'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    $SPArray = @($ProfileID, $($PSCmdlet.ParameterSetName), $ID)
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0}, {1}ID: {2}' -f $SPArray)))
+    $SPArray = @($Id, $ReceiverId, $ReceiverType)
+    if ($PSCmdlet.ShouldProcess(('Id: {0}, ReceiverID {1}, ReceiverType: {2}' -f $SPArray)))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $Json = Invoke-UMSRestMethodWebSession @Params
     }
+    $Result = foreach ($item in $Json)
+    {
+      $Properties = [ordered]@{
+        'Message'      = [string]('{0}.' -f $item.Message)
+        'Id'           = [int]$Id
+        'ReceiverId'   = [int]$ReceiverId
+        'ReceiverType' = [string]$ReceiverType
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
