@@ -5,7 +5,7 @@
     "Credpath": "C:\\Credentials\\UMSRmdb.cred",
     "SecurityProtocol": "Tls12",
     "NamePrefix": "TC-",
-    "GetUMSFirmware": [
+    "UMSFirmware": [
       {
         "Id": "2"
       },
@@ -31,7 +31,7 @@
         "Name": "[02]"
       }
     ],
-    "GetUMSProfile": [
+    "UMSProfile": [
       {
         "Id": "463",
         "Name": "[01]"
@@ -41,7 +41,7 @@
         "Name": "[02]"
       }
     ],
-    "GetUMSProfileAssignment": [
+    "UMSProfileAssignment": [
       {
         "AssigneeID": "463",
         "AssigneeType": "profile",
@@ -57,7 +57,7 @@
         "AssignmentPosition": "0"
       }
     ],
-    "GetUMSProfileDirectory": [
+    "UMSProfileDirectory": [
       {
         "Id": "455",
         "Name": "profile",
@@ -73,7 +73,7 @@
         "ObjectType": "profiledirectory"
       }
     ],
-    "GetUMSStatus": [
+    "UMSStatus": [
       {
         "RmGuiServerVersion": "6.01.100",
         "BuildNumber": "40023",
@@ -81,7 +81,7 @@
         "DerbyVersion": "10.12.1.1"
       }
     ],
-    "GetUMSThinclient": [
+    "UMSThinclient": [
       {
         "Id": "461",
         "ObjectType": "tc",
