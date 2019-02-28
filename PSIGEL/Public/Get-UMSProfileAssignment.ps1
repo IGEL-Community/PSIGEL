@@ -24,7 +24,7 @@
 
     [Parameter(ValueFromPipeline, Mandatory)]
     [int]
-    $ProfileID,
+    $Id,
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Directory')]
     [switch]
@@ -49,11 +49,11 @@
     {
       'Thinclient'
       {
-        $Params.Add('Uri', ('{0}/{1}/assignments/thinclients' -f $BaseURL, $ProfileID))
+        $Params.Add('Uri', ('{0}/{1}/assignments/thinclients' -f $BaseURL, $Id))
       }
       'Directory'
       {
-        $Params.Add('Uri', ('{0}/{1}/assignments/tcdirectories' -f $BaseURL, $ProfileID))
+        $Params.Add('Uri', ('{0}/{1}/assignments/tcdirectories' -f $BaseURL, $Id))
       }
     }
     $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
@@ -62,11 +62,11 @@
       $ProfileColl = foreach ($child in $item)
       {
         $ProfileProperties = [ordered]@{
-          'assigneeId'         = [int]$child.assignee.id
-          'assigneeType'       = [string]$child.assignee.type
-          'receiverId'         = [int]$child.receiver.id
-          'receiverType'       = [string]$child.receiver.type
-          'assignmentPosition' = [int]$child.assignmentPosition
+          'AssigneeId'         = [int]$child.assignee.id
+          'AssigneeType'       = [string]$child.assignee.type
+          'ReceiverId'         = [int]$child.receiver.id
+          'ReceiverType'       = [string]$child.receiver.type
+          'AssignmentPosition' = [int]$child.assignmentPosition
         }
         New-Object psobject -Property $ProfileProperties
       }

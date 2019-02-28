@@ -44,14 +44,14 @@
   }
   Process
   {
-    $UserName = $Credential.UserName
+    $Username = $Credential.Username
     $Password = $Credential.GetNetworkCredential().password
 
 
     $BUArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
     $Header = @{
-      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($UserName + ':' + $Password))
+      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Username + ':' + $Password))
     }
 
     $Params = @{

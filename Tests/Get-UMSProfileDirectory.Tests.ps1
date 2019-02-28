@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'DirID'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -86,12 +86,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.id should be exactly 2' {
-        $Result.id | Should Be 2
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should Be 2
       }
 
-      It 'Result.id should have type [int]' {
-        $Result.id | Should -HaveType [int]
+      It 'Result.Id should have type [int]' {
+        $Result.Id | Should -HaveType [int]
       }
     }
 
@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSProfileDirectory -DirID 2
+      $Result = Get-UMSProfileDirectory -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -126,12 +126,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.id should be exactly 2' {
-        $Result.id | Should Be 2
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should Be 2
       }
 
-      It 'Result.id should have type [int]' {
-        $Result.id | Should -HaveType [int]
+      It 'Result.Id should have type [int]' {
+        $Result.Id | Should -HaveType [int]
       }
     }
 
@@ -158,7 +158,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSProfileDirectory -DirID 2 -Facets children
+      $Result = Get-UMSProfileDirectory -Id 2 -Facets children
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -186,12 +186,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.DirectoryChildren[0].id should be exactly 2' {
-        $Result.DirectoryChildren[0].id | Should Be 2
+      It 'Result.DirectoryChildren[0].Id should be exactly 2' {
+        $Result.DirectoryChildren[0].Id | Should Be 2
       }
 
-      It 'Result.DirectoryChildren[0].id should have type [int]' {
-        $Result.DirectoryChildren[0].id | Should -HaveType [int]
+      It 'Result.DirectoryChildren[0].Id should have type [int]' {
+        $Result.DirectoryChildren[0].Id | Should -HaveType [int]
       }
     }
 
@@ -236,25 +236,25 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSProfileDirectory -DirID 69} | Should Not Throw
+      { Get-UMSProfileDirectory -Id 69} | Should Not Throw
     }
 
-    $Result = Get-UMSProfileDirectory -DirID 69
+    $Result = Get-UMSProfileDirectory -Id 69
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].id should be have type [int]' {
+    It 'Result[0].Id should be have type [int]' {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It 'Result[0].name should be have type [string]' {
-      $Result[0].name | Should -HaveType [string]
+    It 'Result[0].Name should be have type [string]' {
+      $Result[0].Name | Should -HaveType [string]
     }
 
-    It 'Result[0].name should not be null or empty' {
-      $Result[0].name | Should -Not -BeNullOrEmpty
+    It 'Result[0].Name should not be null or empty' {
+      $Result[0].Name | Should -Not -BeNullOrEmpty
     }
   }
 }

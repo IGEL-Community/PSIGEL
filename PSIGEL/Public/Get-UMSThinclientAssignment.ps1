@@ -24,7 +24,7 @@
 
     [Parameter(ValueFromPipeline, Mandatory)]
     [int]
-    $TCID
+    $Id
   )
 
   Begin
@@ -36,7 +36,7 @@
   {
     $Params = @{
       WebSession       = $WebSession
-      Uri              = '{0}/{1}/assignments/profiles' -f $BaseURL, $TCID
+      Uri              = '{0}/{1}/assignments/profiles' -f $BaseURL, $Id
       Method           = 'Get'
       ContentType      = 'application/json'
       Headers          = @{}
@@ -48,11 +48,11 @@
       $ProfileColl = foreach ($child in $item)
       {
         $ProfileProperties = [ordered]@{
-          'assigneeId'         = [int]$child.assignee.id
-          'assigneeType'       = [string]$child.assignee.type
-          'receiverId'         = [int]$child.receiver.id
-          'receiverType'       = [string]$child.receiver.type
-          'assignmentPosition' = [int]$child.assignmentPosition
+          'AssigneeId'         = [int]$child.assignee.id
+          'AssigneeType'       = [string]$child.assignee.type
+          'ReceiverId'         = [int]$child.receiver.id
+          'ReceiverType'       = [string]$child.receiver.type
+          'AssignmentPosition' = [int]$child.assignmentPosition
         }
         New-Object psobject -Property $ProfileProperties
       }

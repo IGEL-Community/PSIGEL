@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'TCID'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -100,12 +100,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.id should be exactly 2' {
-        $Result.id | Should BeExactly 2
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.id should have type [int]' {
-        $Result.id | Should -HaveType [int]
+      It 'Result.Id should have type [int]' {
+        $Result.Id | Should -HaveType [int]
       }
     }
 
@@ -126,7 +126,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -TCID 2
+      $Result = Get-UMSThinclient -Id 2
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -154,12 +154,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.id should be exactly 2' {
-        $Result.id | Should BeExactly 2
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.id should have type [int]' {
-        $Result.id | Should -HaveType [int]
+      It 'Result.Id should have type [int]' {
+        $Result.Id | Should -HaveType [int]
       }
     }
 
@@ -180,7 +180,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -TCID 2 -Facets online
+      $Result = Get-UMSThinclient -Id 2 -Facets online
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -208,12 +208,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.online should be exactly $false' {
-        $Result.online | Should Be $false
+      It 'Result.Online should be exactly $false' {
+        $Result.Online | Should Be $false
       }
 
-      It 'Result.online should have type [bool]' {
-        $Result.online | Should -HaveType [bool]
+      It 'Result.Online should have type [bool]' {
+        $Result.Online | Should -HaveType [bool]
       }
     }
 
@@ -237,7 +237,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -TCID 2 -Facets shadow
+      $Result = Get-UMSThinclient -Id 2 -Facets shadow
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -265,8 +265,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.shadowSecret should have type [pscustomobject]' {
-        $Result.shadowSecret | Should -HaveType [pscustomobject]
+      It 'Result.ShadowSecret should have type [pscustomobject]' {
+        $Result.ShadowSecret | Should -HaveType [pscustomobject]
       }
     }
 
@@ -318,7 +318,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'Get-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -TCID 2 -Facets details
+      $Result = Get-UMSThinclient -Id 2 -Facets details
 
       It 'Assert Get-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -346,12 +346,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.networkSpeed should have type [int]' {
-        $Result.networkSpeed | Should -HaveType [int]
+      It 'Result.NetworkSpeed should have type [int]' {
+        $Result.NetworkSpeed | Should -HaveType [int]
       }
 
-      It 'Result.lastBoottime should have type [datetime]' {
-        $Result.lastBoottime | Should -HaveType [datetime]
+      It 'Result.LastBoottime should have type [datetime]' {
+        $Result.LastBoottime | Should -HaveType [datetime]
       }
     }
 
@@ -405,8 +405,8 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.id should be have type [int]' {
-      $Result[0].id | Should -HaveType [int]
+    It 'Result[0].Id should be have type [int]' {
+      $Result[0].Id | Should -HaveType [int]
     }
   }
 }

@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$Params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id', 'DDirId'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id', 'DestId'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
@@ -43,8 +43,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Move-UMSThinclient -Id 2 -DDirId 2 Should not throw' {
-        { Move-UMSThinclient -Id 2 -DDirId 2 } | Should -Not -Throw
+      It 'Move-UMSThinclient -Id 2 -DestId 2 Should not throw' {
+        { Move-UMSThinclient -Id 2 -DestId 2 } | Should -Not -Throw
       }
 
 
@@ -61,7 +61,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Move-UMSThinclient -Id 2 -DDirId 2
+      $Result = Move-UMSThinclient -Id 2 -DestId 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,7 +93,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Move-UMSThinclient -Id 2 -DDirId 2 -WhatIf
+      $Result = Move-UMSThinclient -Id 2 -DestId 2 -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -120,7 +120,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Move-UMSThinclient -Id 2 -DDirId 2 -Confirm
+      $Result = Move-UMSThinclient -Id 2 -DestId 2 -Confirm
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -139,8 +139,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It 'Move-UMSThinclient -Id 2 -DDirId 2 -ApiVersion 10 -ErrorAction Stop Should throw' {
-        { Move-UMSThinclient -Id 2 -DDirId 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Move-UMSThinclient -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop Should throw' {
+        { Move-UMSThinclient -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -164,14 +164,14 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
   $Id = (($UMS.Thinclients).where{$_.name -eq 'EP01'}).id
-  $DDirId = (($UMS.ThinclientDirectories).where{$_.name -eq '[02]'}).id
+  $DestId = (($UMS.ThinclientDirectories).where{$_.name -eq '[02]'}).id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
     '*-UMS*:Id'               = $Id
-    '*-UMS*:DDirId'           = $DDirId
+    '*-UMS*:DestId'           = $DestId
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -189,11 +189,11 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result[0].Id should be have type [int]' {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result.Id should not be exactly $Id" {
+    It "Result[0].Id should not be exactly $Id" {
       $Result[0].Id | Should -BeExactly $Id
     }
   }

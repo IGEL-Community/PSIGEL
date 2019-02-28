@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'ProfileID', 'Directory'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id', 'Directory'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -35,9 +35,9 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
 
     $PSDefaultParameterValues = @{
-      '*:WebSession'                       = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername'                     = 'dummyserver'
-      'Get-UMSProfileAssignment:ProfileID' = 2
+      '*:WebSession'                = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:Computername'              = 'dummyserver'
+      'Get-UMSProfileAssignment:Id' = 2
     }
 
     Context "General Execution" {
@@ -74,7 +74,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Get-UMSProfileAssignment -ProfileID 2
+      $Result = Get-UMSProfileAssignment -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,12 +93,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].assigneeid should be exactly 2' {
-        $Result[0].assigneeid | Should BeExactly 2
+      It 'Result[0].Assigneeid should be exactly 2' {
+        $Result[0].Assigneeid | Should BeExactly 2
       }
 
-      It 'Result[0].assigneeid should have type [int]' {
-        $Result[0].assigneeid | Should -HaveType [int]
+      It 'Result[0].Assigneeid should have type [int]' {
+        $Result[0].Assigneeid | Should -HaveType [int]
       }
     }
 
@@ -122,7 +122,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Get-UMSProfileAssignment -ProfileID 2 -Directory
+      $Result = Get-UMSProfileAssignment -Id 2 -Directory
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -141,12 +141,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].assigneeid should be exactly 2' {
-        $Result[0].assigneeid | Should BeExactly 2
+      It 'Result[0].Assigneeid should be exactly 2' {
+        $Result[0].Assigneeid | Should BeExactly 2
       }
 
-      It 'Result[0].assigneeid should have type [int]' {
-        $Result[0].assigneeid | Should -HaveType [int]
+      It 'Result[0].Assigneeid should have type [int]' {
+        $Result[0].Assigneeid | Should -HaveType [int]
       }
     }
 
@@ -191,25 +191,25 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSProfileAssignment -ProfileID 69} | Should Not Throw
+      { Get-UMSProfileAssignment -Id 69} | Should Not Throw
     }
 
-    $Result = Get-UMSProfileAssignment -ProfileID 69
+    $Result = Get-UMSProfileAssignment -Id 69
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.id should be have type [int]' {
-      $Result[0].assigneeId | Should -HaveType [int]
+    It 'Result[0].AssigneeId should be have type [int]' {
+      $Result[0].AssigneeId | Should -HaveType [int]
     }
 
-    It 'Result.assigneeType should be have type [string]' {
-      $Result[0].assigneeType | Should -HaveType [string]
+    It 'Result.AssigneeType should be have type [string]' {
+      $Result[0].AssigneeType | Should -HaveType [string]
     }
 
-    It 'Result.assigneeType should not be null or empty' {
-      $Result[0].assigneeType | Should -Not -BeNullOrEmpty
+    It 'Result.AssigneeType should not be null or empty' {
+      $Result[0].AssigneeType | Should -Not -BeNullOrEmpty
     }
   }
 }

@@ -22,9 +22,9 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
     [int]
-    $FirmwareID
+    $Id
   )
 
   Begin
@@ -48,19 +48,19 @@
         $Params.Add('Uri', ('{0}' -f $BaseURL))
         $Json = (Invoke-UMSRestMethodWebSession @Params).FwResource
       }
-      'ID'
+      'Id'
       {
-        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $FirmwareID))
+        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
         $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
     $Result = foreach ($item in $Json)
     {
       $Properties = [ordered]@{
-        'id'           = [int]$item.id
-        'product'      = [string]$item.product
-        'version'      = [string]$item.version
-        'firmwareType' = [string]$item.firmwareType
+        'Id'           = [int]$item.id
+        'Product'      = [string]$item.product
+        'Version'      = [string]$item.version
+        'FirmwareType' = [string]$item.firmwareType
       }
       New-Object psobject -Property $Properties
     }

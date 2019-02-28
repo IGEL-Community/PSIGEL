@@ -43,12 +43,12 @@
     $Result = foreach ($item in $Json)
     {
       $Properties = [ordered]@{
-        'rmGuiServerVersion' = [string]$item.rmGuiServerVersion
-        'buildNumber'        = [int]$item.buildNumber
-        'activeMQVersion'    = [string]$item.activeMQVersion
-        'derbyVersion'       = [string]$item.derbyVersion
-        'serverUUID'         = [string]$item.serverUUID
-        'server'             = [string]$item.server
+        'RmGuiServerVersion' = [string]$item.rmGuiServerVersion
+        'BuildNumber'        = [int]$item.buildNumber
+        'ActiveMqVersion'    = [string]$item.activeMQVersion
+        'DerbyVersion'       = [string]$item.derbyVersion
+        'ServerUuid'         = [string]$item.serverUUID
+        'Server'             = [string]$item.server
       }
       New-Object psobject -Property $Properties
     }

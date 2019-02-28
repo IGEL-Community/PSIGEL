@@ -84,12 +84,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.buildNumber should be exactly 40023' {
-        $Result.buildNumber | Should Be 40023
+      It 'Result.BuildNumber should be exactly 40023' {
+        $Result.BuildNumber | Should Be 40023
       }
 
-      It 'Result.buildNumber should have type [int]' {
-        $Result.buildNumber | Should -HaveType [int]
+      It 'Result.BuildNumber should have type [int]' {
+        $Result.BuildNumber | Should -HaveType [int]
       }
     }
 
@@ -143,12 +143,12 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.buildNumber should be have type [int]' {
-      $Result[0].buildNumber | Should -HaveType [int]
+    It 'Result.BuildNumber should be have type [int]' {
+      $Result[0].BuildNumber | Should -HaveType [int]
     }
 
-    It 'Result.buildNumber should not be null or empty' {
-      $Result[0].buildNumber | Should -Not -BeNullOrEmpty
+    It 'Result.BuildNumber should not be null or empty' {
+      $Result[0].BuildNumber | Should -Not -BeNullOrEmpty
     }
   }
 }

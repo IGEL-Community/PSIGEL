@@ -26,9 +26,9 @@
     [String]
     $Facets,
 
-    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
     [int]
-    $DirID
+    $Id
   )
 
   Begin
@@ -56,20 +56,20 @@
         $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
         $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
-      'ID'
+      'Id'
       {
-        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $DirID, $FunctionString))
+        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $Id, $FunctionString))
         $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
     $Result = foreach ($item in $Json)
     {
       $Properties = [ordered]@{
-        'id'         = [int]$item.id
-        'name'       = [string]$item.name
-        'parentID'   = [int]$item.parentID
-        'movedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
-        'objectType' = [string]$item.objectType
+        'Id'         = [int]$item.id
+        'Name'       = [string]$item.name
+        'ParentId'   = [int]$item.parentID
+        'MovedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
+        'ObjectType' = [string]$item.objectType
       }
       switch ($Facets)
       {
@@ -78,8 +78,8 @@
           $DirectoryChildren = foreach ($child in $item.DirectoryChildren)
           {
             $ChildProperties = [ordered]@{
-              'objectType' = [string]$child.objectType
-              'id'         = [int]$child.id
+              'ObjectType' = [string]$child.objectType
+              'Id'         = [int]$child.id
             }
             New-Object psobject -Property $ChildProperties
           }

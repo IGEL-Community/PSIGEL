@@ -28,7 +28,7 @@ function Move-UMSThinclientDirectory
 
     [Parameter(Mandatory)]
     [int]
-    $DDirId
+    $DestId
   )
 
   Begin
@@ -46,14 +46,14 @@ function Move-UMSThinclientDirectory
     )
     $Params = @{
       WebSession       = $WebSession
-      Uri              = ('{0}/{1}?operation=move' -f $BaseURL, $DDirId)
+      Uri              = ('{0}/{1}?operation=move' -f $BaseURL, $DestId)
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    if ($PSCmdlet.ShouldProcess(('DIRID: {0} to DDIRID: {1}' -f $Id, $DDirId)))
+    if ($PSCmdlet.ShouldProcess(('DIRID: {0} to DestID: {1}' -f $Id, $DestId)))
     {
       $Json = Invoke-UMSRestMethodWebSession @Params
     }

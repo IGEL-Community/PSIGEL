@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'FirmwareID'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -86,12 +86,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.id should be exactly 2' {
-        $Result.id | Should BeExactly 2
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.id should have type [int]' {
-        $Result.id | Should -HaveType [int]
+      It 'Result.Id should have type [int]' {
+        $Result.Id | Should -HaveType [int]
       }
     }
 
@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSFirmware -FirmwareID 2
+      $Result = Get-UMSFirmware -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -126,12 +126,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.id should be exactly 2' {
-        $Result.id | Should BeExactly 2
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.id should have type [int]' {
-        $Result.id | Should -HaveType [int]
+      It 'Result.Id should have type [int]' {
+        $Result.Id | Should -HaveType [int]
       }
     }
 
@@ -185,16 +185,16 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.id should be have type [int]' {
-      $Result[0].id | Should -HaveType [int]
+    It 'Result[0].Id should be have type [int]' {
+      $Result[0].Id | Should -HaveType [int]
     }
 
-    It 'Result.firmwareType should be have type [string]' {
-      $Result[0].firmwareType | Should -HaveType [string]
+    It 'Result.FirmwareType should be have type [string]' {
+      $Result[0].FirmwareType | Should -HaveType [string]
     }
 
-    It 'Result.firmwareType should not be null or empty' {
-      $Result[0].firmwareType | Should -Not -BeNullOrEmpty
+    It 'Result.FirmwareType should not be null or empty' {
+      $Result[0].FirmwareType | Should -Not -BeNullOrEmpty
     }
   }
 }

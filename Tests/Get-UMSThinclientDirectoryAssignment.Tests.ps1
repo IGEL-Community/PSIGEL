@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'DirID'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -35,9 +35,9 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
 
     $PSDefaultParameterValues = @{
-      '*:WebSession'                               = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername'                             = 'dummyserver'
-      'Get-UMSThinclientDirectoryAssignment:DirID' = 2
+      '*:WebSession'                            = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:Computername'                          = 'dummyserver'
+      'Get-UMSThinclientDirectoryAssignment:Id' = 2
     }
 
     Context "General Execution" {
@@ -72,7 +72,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Get-UMSThinclientDirectoryAssignment -DirID 2
+      $Result = Get-UMSThinclientDirectoryAssignment -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -95,12 +95,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0] | Should -HaveType [pscustomobject]
       }
 
-      It 'Result[0].assigneeid should be exactly 2' {
-        $Result[0].assigneeid | Should BeExactly 2
+      It 'Result[0].AssigneeId should be exactly 2' {
+        $Result[0].AssigneeId | Should BeExactly 2
       }
 
-      It 'Result[0].assigneeid should have type [int]' {
-        $Result[0].assigneeid | Should -HaveType [int]
+      It 'Result[0].AssigneeId should have type [int]' {
+        $Result[0].AssigneeId | Should -HaveType [int]
       }
 
     }
@@ -146,25 +146,25 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSThinclientDirectoryAssignment -DirID 71} | Should Not Throw
+      { Get-UMSThinclientDirectoryAssignment -Id 71} | Should Not Throw
     }
 
-    $Result = Get-UMSThinclientDirectoryAssignment -DirID 71
+    $Result = Get-UMSThinclientDirectoryAssignment -Id 71
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].assigneeId should be have type [int]' {
-      $Result[0].assigneeId | Should -HaveType [int]
+    It 'Result[0].AssigneeId should be have type [int]' {
+      $Result[0].AssigneeId | Should -HaveType [int]
     }
 
-    It 'Result[0].assigneeType should be have type [string]' {
-      $Result[0].assigneeType | Should -HaveType [string]
+    It 'Result[0].AssigneeType should be have type [string]' {
+      $Result[0].AssigneeType | Should -HaveType [string]
     }
 
-    It 'Result[0].assigneeType should not be null or empty' {
-      $Result[0].assigneeType | Should -Not -BeNullOrEmpty
+    It 'Result[0].AssigneeType should not be null or empty' {
+      $Result[0].AssigneeType | Should -Not -BeNullOrEmpty
     }
   }
 }

@@ -22,9 +22,9 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline, ParameterSetName = 'ID')]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
     [int]
-    $ProfileID = 0
+    $Id
   )
 
   Begin
@@ -48,23 +48,23 @@
         $Params.Add('Uri', ('{0}' -f $BaseURL))
         $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
-      'ID'
+      'Id'
       {
-        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $ProfileID))
+        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
         $Json = Invoke-UMSRestMethodWebSession @Params
       }
     }
     $Result = foreach ($item in $Json)
     {
       $Properties = [ordered]@{
-        'firmwareID'        = [int]$item.firmwareID
-        'isMasterProfile'   = [System.Convert]::ToBoolean($item.isMasterProfile)
-        'overridesSessions' = [System.Convert]::ToBoolean($item.overridesSessions)
-        'id'                = [int]$item.id
-        'name'              = [string]$item.name
-        'parentID'          = [int]$item.parentID
-        'movedToBin'        = [System.Convert]::ToBoolean($item.movedToBin)
-        'objectType'        = [string]$item.objectType
+        'FirmwareId'        = [int]$item.firmwareID
+        'IsMasterProfile'   = [System.Convert]::ToBoolean($item.isMasterProfile)
+        'OverridesSessions' = [System.Convert]::ToBoolean($item.overridesSessions)
+        'Id'                = [int]$item.id
+        'Name'              = [string]$item.name
+        'ParentId'          = [int]$item.parentID
+        'MovedToBin'        = [System.Convert]::ToBoolean($item.movedToBin)
+        'ObjectType'        = [string]$item.objectType
       }
       New-Object psobject -Property $Properties
     }

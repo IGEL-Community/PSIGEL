@@ -187,11 +187,11 @@ Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result[0].Id should be have type [int]' {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result.Name should not be exactly $Name" {
+    It "Result[0].Name should not be exactly $Name" {
       $Result[0].Name | Should -BeExactly $Name
     }
   }
