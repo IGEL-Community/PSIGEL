@@ -39,7 +39,7 @@ function New-UMSThinclientDirectory
     }
     $Params = @{
       WebSession       = $WebSession
-      Uri              = $Uri
+      Uri              = $BaseURL
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
