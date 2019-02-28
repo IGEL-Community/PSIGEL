@@ -42,10 +42,10 @@ function Get-UMSThinclientDirectoryAssignment
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    $Json = Invoke-UMSRestMethodWebSession @Params
-    $Result = foreach ($item in $Json)
+    $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
-      $ProfileColl = foreach ($child in $item)
+      $ProfileColl = foreach ($child in $APIObject)
       {
         $ProfileProperties = [ordered]@{
           'Id'                 = [int]$child.assignee.id

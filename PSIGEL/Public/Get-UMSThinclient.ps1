@@ -51,79 +51,79 @@
       'All'
       {
         $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
-        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $Id, $FunctionString))
-        $Json = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }
 
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
       $Properties = [ordered]@{
-        'Id'         = [int]$item.id
-        'ObjectType' = [string]$item.objectType
-        'UnitId'     = [string]$item.unitID
-        'Mac'        = [string]$item.mac
-        'Name'       = [string]$item.name
-        'ParentId'   = [int]$item.parentID
-        'FirmwareId' = [int]$item.firmwareID
-        'LastIp'     = [string]$item.lastIP
-        'MovedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
+        'Id'         = [int]$APIObject.id
+        'ObjectType' = [string]$APIObject.objectType
+        'UnitId'     = [string]$APIObject.unitID
+        'Mac'        = [string]$APIObject.mac
+        'Name'       = [string]$APIObject.name
+        'ParentId'   = [int]$APIObject.parentID
+        'FirmwareId' = [int]$APIObject.firmwareID
+        'LastIp'     = [string]$APIObject.lastIP
+        'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
       }
       switch ($Facets)
       {
         online
         {
           $Properties += [ordered]@{
-            'Online' = [System.Convert]::ToBoolean($item.online)
+            'Online' = [System.Convert]::ToBoolean($APIObject.online)
           }
         }
         shadow
         {
           $Properties += [ordered]@{
-            'ShadowSecret' = $item.shadowSecret
+            'ShadowSecret' = $APIObject.shadowSecret
           }
         }
         details
         {
           $Properties += [ordered]@{
-            'NetworkName'               = [string]$item.networkName
-            'Comment'                   = [string]$item.comment
-            'ProductId'                 = [string]$item.productId
-            'CpuSpeed'                  = [int]$item.cpuSpeed
-            'CpuType'                   = [string]$item.cpuType
-            'DeviceType'                = [string]$item.deviceType
-            'DeviceSerialNumber'        = [string]$item.deviceSerialNumber
-            'OsType'                    = [string]$item.osType
-            'FlashSize'                 = [int]$item.flashSize
-            'MemorySize'                = [int]$item.memorySize
-            'NetworkSpeed'              = [int]$item.networkSpeed
-            'GraphicsChipset0'          = [string]$item.graphicsChipset0
-            'GraphicsChipset1'          = [string]$item.graphicsChipset1
-            'MonitorVendor1'            = [string]$item.monitorVendor1
-            'MonitorModel1'             = [string]$item.monitorModel1
-            'MonitorSerialnumber1'      = [string]$item.monitorSerialnumber1
-            'MonitorSize1'              = [int]$item.monitorSize1
-            'MonitorNativeResolution1'  = [string]$item.monitorNativeResolution1
-            'Monitor1YearOfManufacture' = [int]$item.monitor1YearOfManufacture
-            'Monitor1WeekOfManufacture' = [int]$item.monitor1WeekOfManufacture
-            'MonitorVendor2'            = [string]$item.monitorVendor2
-            'MonitorModel2'             = [string]$item.monitorModel2
-            'MonitorSerialnumber2'      = [string]$item.monitorSerialnumber2
-            'MonitorSize2'              = [int]$item.monitorSize2
-            'MonitorNativeResolution2'  = [string]$item.monitorNativeResolution2
-            'Monitor2YearOfManufacture' = [int]$item.monitor2YearOfManufacture
-            'Monitor2WeekOfManufacture' = [int]$item.monitor2WeekOfManufacture
-            'BiosVendor'                = [string]$item.biosVendor
-            'BiosVersion'               = [string]$item.biosVersion
-            'BiosDate'                  = [datetime]$item.biosDate
-            'TotalUsagetime'            = [int]$item.totalUsagetime
-            'TotalUptime'               = [int]$item.totalUptime
-            'LastBoottime'              = [datetime]$item.lastBoottime
-            'BatteryLevel'              = [int]$item.batteryLevel
+            'NetworkName'               = [string]$APIObject.networkName
+            'Comment'                   = [string]$APIObject.comment
+            'ProductId'                 = [string]$APIObject.productId
+            'CpuSpeed'                  = [int]$APIObject.cpuSpeed
+            'CpuType'                   = [string]$APIObject.cpuType
+            'DeviceType'                = [string]$APIObject.deviceType
+            'DeviceSerialNumber'        = [string]$APIObject.deviceSerialNumber
+            'OsType'                    = [string]$APIObject.osType
+            'FlashSize'                 = [int]$APIObject.flashSize
+            'MemorySize'                = [int]$APIObject.memorySize
+            'NetworkSpeed'              = [int]$APIObject.networkSpeed
+            'GraphicsChipset0'          = [string]$APIObject.graphicsChipset0
+            'GraphicsChipset1'          = [string]$APIObject.graphicsChipset1
+            'MonitorVendor1'            = [string]$APIObject.monitorVendor1
+            'MonitorModel1'             = [string]$APIObject.monitorModel1
+            'MonitorSerialnumber1'      = [string]$APIObject.monitorSerialnumber1
+            'MonitorSize1'              = [int]$APIObject.monitorSize1
+            'MonitorNativeResolution1'  = [string]$APIObject.monitorNativeResolution1
+            'Monitor1YearOfManufacture' = [int]$APIObject.monitor1YearOfManufacture
+            'Monitor1WeekOfManufacture' = [int]$APIObject.monitor1WeekOfManufacture
+            'MonitorVendor2'            = [string]$APIObject.monitorVendor2
+            'MonitorModel2'             = [string]$APIObject.monitorModel2
+            'MonitorSerialnumber2'      = [string]$APIObject.monitorSerialnumber2
+            'MonitorSize2'              = [int]$APIObject.monitorSize2
+            'MonitorNativeResolution2'  = [string]$APIObject.monitorNativeResolution2
+            'Monitor2YearOfManufacture' = [int]$APIObject.monitor2YearOfManufacture
+            'Monitor2WeekOfManufacture' = [int]$APIObject.monitor2WeekOfManufacture
+            'BiosVendor'                = [string]$APIObject.biosVendor
+            'BiosVersion'               = [string]$APIObject.biosVersion
+            'BiosDate'                  = [datetime]$APIObject.biosDate
+            'TotalUsagetime'            = [int]$APIObject.totalUsagetime
+            'TotalUptime'               = [int]$APIObject.totalUptime
+            'LastBoottime'              = [datetime]$APIObject.lastBoottime
+            'BatteryLevel'              = [int]$APIObject.batteryLevel
           }
         }
       }

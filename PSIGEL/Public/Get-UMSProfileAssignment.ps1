@@ -56,10 +56,10 @@
         $Params.Add('Uri', ('{0}/{1}/assignments/tcdirectories' -f $BaseURL, $Id))
       }
     }
-    $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
-    $Result = foreach ($item in $Json)
+    $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
-      $ProfileColl = foreach ($child in $item)
+      $ProfileColl = foreach ($child in $APIObject)
       {
         $ProfileProperties = [ordered]@{
           'Id'                 = [int]$child.assignee.id

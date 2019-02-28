@@ -106,15 +106,15 @@
     }
     if ($PSCmdlet.ShouldProcess('MAC: {0}' -f $Mac))
     {
-      $Json = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
       $Properties = [ordered]@{
-        'Message'  = [string]$item.message
-        'Id'       = [int]$item.id
-        'Name'     = [string]$item.name
-        'ParentId' = [int]$item.parentID
+        'Message'  = [string]$APIObject.message
+        'Id'       = [int]$APIObject.id
+        'Name'     = [string]$APIObject.name
+        'ParentId' = [int]$APIObject.parentID
       }
       New-Object psobject -Property $Properties
     }

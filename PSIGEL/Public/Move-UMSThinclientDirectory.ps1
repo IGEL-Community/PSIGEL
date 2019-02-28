@@ -55,13 +55,13 @@ function Move-UMSThinclientDirectory
     }
     if ($PSCmdlet.ShouldProcess(('DIRID: {0} to DestID: {1}' -f $Id, $DestId)))
     {
-      $Json = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
       $Properties = [ordered]@{
-        'Id'      = [int]$item.id
-        'Results' = [string]$item.results
+        'Id'      = [int]$APIObject.id
+        'Results' = [string]$APIObject.results
       }
       New-Object psobject -Property $Properties
     }

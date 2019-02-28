@@ -46,25 +46,25 @@
       'All'
       {
         $Params.Add('Uri', ('{0}' -f $BaseURL))
-        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
-        $Json = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'FirmwareId'        = [int]$item.firmwareID
-        'IsMasterProfile'   = [System.Convert]::ToBoolean($item.isMasterProfile)
-        'OverridesSessions' = [System.Convert]::ToBoolean($item.overridesSessions)
-        'Id'                = [int]$item.id
-        'Name'              = [string]$item.name
-        'ParentId'          = [int]$item.parentID
-        'MovedToBin'        = [System.Convert]::ToBoolean($item.movedToBin)
-        'ObjectType'        = [string]$item.objectType
+        'FirmwareId'        = [int]$APIObject.firmwareID
+        'IsMasterProfile'   = [System.Convert]::ToBoolean($APIObject.isMasterProfile)
+        'OverridesSessions' = [System.Convert]::ToBoolean($APIObject.overridesSessions)
+        'Id'                = [int]$APIObject.id
+        'Name'              = [string]$APIObject.name
+        'ParentId'          = [int]$APIObject.parentID
+        'MovedToBin'        = [System.Convert]::ToBoolean($APIObject.movedToBin)
+        'ObjectType'        = [string]$APIObject.objectType
       }
       New-Object psobject -Property $Properties
     }

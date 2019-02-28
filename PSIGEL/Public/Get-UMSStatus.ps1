@@ -38,17 +38,17 @@
       Uri              = $BaseURL
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    $Json = Invoke-UMSRestMethodWebSession @Params
+    $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
 
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
       $Properties = [ordered]@{
-        'RmGuiServerVersion' = [string]$item.rmGuiServerVersion
-        'BuildNumber'        = [int]$item.buildNumber
-        'ActiveMqVersion'    = [string]$item.activeMQVersion
-        'DerbyVersion'       = [string]$item.derbyVersion
-        'ServerUuid'         = [string]$item.serverUUID
-        'Server'             = [string]$item.server
+        'RmGuiServerVersion' = [string]$APIObject.rmGuiServerVersion
+        'BuildNumber'        = [int]$APIObject.buildNumber
+        'ActiveMqVersion'    = [string]$APIObject.activeMQVersion
+        'DerbyVersion'       = [string]$APIObject.derbyVersion
+        'ServerUuid'         = [string]$APIObject.serverUUID
+        'Server'             = [string]$APIObject.server
       }
       New-Object psobject -Property $Properties
     }

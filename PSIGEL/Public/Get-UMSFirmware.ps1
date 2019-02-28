@@ -46,21 +46,21 @@
       'All'
       {
         $Params.Add('Uri', ('{0}' -f $BaseURL))
-        $Json = (Invoke-UMSRestMethodWebSession @Params).FwResource
+        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).FwResource
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
-        $Json = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Id'           = [int]$item.id
-        'Product'      = [string]$item.product
-        'Version'      = [string]$item.version
-        'FirmwareType' = [string]$item.firmwareType
+        'Id'           = [int]$APIObject.id
+        'Product'      = [string]$APIObject.product
+        'Version'      = [string]$APIObject.version
+        'FirmwareType' = [string]$APIObject.firmwareType
       }
       New-Object psobject -Property $Properties
     }

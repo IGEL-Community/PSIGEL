@@ -48,14 +48,14 @@ function New-UMSThinclientDirectory
     }
     if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
-      $Json = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
       $Properties = [ordered]@{
-        'Message' = [string]$item.message
-        'Id'      = [int]$item.id
-        'Name'    = [string]$item.name
+        'Message' = [string]$APIObject.message
+        'Id'      = [int]$APIObject.id
+        'Name'    = [string]$APIObject.name
       }
       New-Object psobject -Property $Properties
     }

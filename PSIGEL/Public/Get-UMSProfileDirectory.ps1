@@ -54,28 +54,28 @@ function Get-UMSProfileDirectory
       'All'
       {
         $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
-        $Json = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $Id, $FunctionString))
-        $Json = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }
-    $Result = foreach ($item in $Json)
+    $Result = foreach ($APIObject in $APIObjectColl )
     {
       $Properties = [ordered]@{
-        'Id'         = [int]$item.id
-        'Name'       = [string]$item.name
-        'ParentId'   = [int]$item.parentID
-        'MovedToBin' = [System.Convert]::ToBoolean($item.movedToBin)
-        'ObjectType' = [string]$item.objectType
+        'Id'         = [int]$APIObject.id
+        'Name'       = [string]$APIObject.name
+        'ParentId'   = [int]$APIObject.parentID
+        'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
+        'ObjectType' = [string]$APIObject.objectType
       }
       switch ($Facets)
       {
         'children'
         {
-          $DirectoryChildren = foreach ($child in $item.DirectoryChildren)
+          $DirectoryChildren = foreach ($child in $APIObject.DirectoryChildren)
           {
             $ChildProperties = [ordered]@{
               'ObjectType' = [string]$child.objectType
