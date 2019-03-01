@@ -27,7 +27,7 @@
     $Facets = 'short',
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
-    [int]
+    [Int]
     $Id
   )
   Begin
@@ -35,7 +35,6 @@
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
     $FunctionString = Get-UMSFunctionString -Facets $Facets
-
   }
   Process
   {
