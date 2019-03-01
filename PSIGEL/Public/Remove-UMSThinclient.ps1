@@ -76,9 +76,9 @@
           $Properties = [ordered]@{
             'Message'  = [string]('{0}.' -f $APIObject.CommandExecList.message)
             'Id'       = [int]$Id
-            'ExecId'   = [int]$APIObject.CommandExecList.execID
+            'ExecId'   = [string]$APIObject.CommandExecList.execID
             'Mac'      = [string]$APIObject.CommandExecList.mac
-            'ExecTime' = [int]$APIObject.CommandExecList.exectime
+            'ExecTime' = [int64]$APIObject.CommandExecList.exectime
             'State'    = [string]$APIObject.CommandExecList.state
           }
         }
