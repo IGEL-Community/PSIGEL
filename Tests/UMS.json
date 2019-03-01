@@ -13,72 +13,61 @@
         "Id": "3"
       }
     ],
-    "ProfileDirectories": [
-      {
-        "Id": "-2",
-        "Name": "Profiles"
-      },
-      {
-        "Id": "452",
-        "Name": "[Pester]"
-      },
-      {
-        "Id": "455",
-        "Name": "[01]"
-      },
-      {
-        "Id": "456",
-        "Name": "[02]"
-      }
-    ],
     "UMSProfile": [
       {
         "Id": "463",
-        "Name": "[01]"
+        "DestId": "456",
+        "Name": "PProfile01",
+        "NameUpdate": "PProfile01Update"
       },
       {
         "Id": "464",
-        "Name": "[02]"
+        "DestId": "455",
+        "Name": "PProfile02",
+        "NameUpdate": "PProfile02Update"
       }
     ],
     "UMSProfileAssignment": [
       {
         "Id": "463",
-        "Type": "profile",
         "ReceiverID": "457",
-        "ReceiverType": "tcdirectory",
-        "AssignmentPosition": "0"
+        "ReceiverType": "tcdirectory"
       },
       {
         "Id": "464",
-        "Type": "profile",
         "ReceiverID": "461",
-        "ReceiverType": "tc",
-        "AssignmentPosition": "0"
+        "ReceiverType": "tc"
       }
     ],
     "UMSProfileDirectory": [
       {
         "Id": "455",
-        "Name": "profile",
+        "Name": "PProfileDir01",
+        "NameUpdate": "PProfileDir01Update",
         "ParentId": "452",
-        "MovedToBin": "false",
-        "ObjectType": "profiledirectory"
+        "DirectoryChildren": {
+          "ObjectType": "profile",
+          "Id": "463"
+        }
       },
       {
-        "Id": "466",
-        "Name": "profile",
+        "Id": "456",
+        "Name": "PProfileDir02",
+        "NameUpdate": "PProfileDir02Update",
         "ParentId": "452",
-        "MovedToBin": "false",
-        "ObjectType": "profiledirectory"
+        "DirectoryChildren": {
+          "ObjectType": "profile",
+          "Id": "464"
+        }
+      }
+      {
+        "NameNew": "PProfileDir03"
       }
     ],
     "UMSStatus": [
       {
         "RmGuiServerVersion": "6.01.100",
-        "BuildNumber": "40023",
-        "ActiveMqVersion": "5.6.0",
-        "DerbyVersion": "10.12.1.1"
+        "BuildNumber": "40023"
       }
     ],
     "UMSThinclient": [
@@ -99,7 +88,7 @@
         "Comment": "Comment EP02"
       }
     ],
-    "ThinclientDirectories": [
+    "UMSThinclientDirectories": [
       {
         "Id": "-1",
         "Name": "Devices"
