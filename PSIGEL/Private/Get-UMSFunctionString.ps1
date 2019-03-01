@@ -2,19 +2,19 @@ function Get-UMSFunctionString
 {
   <#
   .EXAMPLE
-  Get-UMSFunctionString -Details 'short'
+  Get-UMSFunctionString -Facets 'short'
 
   .EXAMPLE
-  Get-UMSFunctionString -Details 'full'
+  Get-UMSFunctionString -Facets 'full'
 
   .EXAMPLE
-  Get-UMSFunctionString -Details 'online'
+  Get-UMSFunctionString -Facets 'online'
 
   .EXAMPLE
-  Get-UMSFunctionString -Details 'shadow'
+  Get-UMSFunctionString -Facets 'shadow'
 
   .EXAMPLE
-  Get-UMSFunctionString -Details 'children'
+  Get-UMSFunctionString -Facets 'children'
 
   #>
 
