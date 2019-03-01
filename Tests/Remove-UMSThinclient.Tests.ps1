@@ -109,7 +109,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Remove-UMSThinclient -Id 2
+      $Result = Remove-UMSThinclient -Id 2 -Online
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -128,16 +128,16 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It "Result.CommandExecList.Message should be exactly 'OK.'" {
-        $Result.CommandExecList.Message | Should Be 'OK.'
+      It "Result[0].CommandExecList.Message should be exactly 'OK.'" {
+        $Result[0].Message | Should Be 'OK.'
       }
 
-      It 'Result.CommandExecList.Id should be exactly 2' {
-        $Result.CommandExecList.Id | Should Be 2
+      It 'Result[0].CommandExecList.Id should be exactly 2' {
+        $Result[0].Id | Should Be 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result[0].Id should have type [int]' {
+        $Result[0].Id | Should -HaveType [int]
       }
     }
 
@@ -145,7 +145,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory' -WhatIf
+      $Result = Remove-UMSThinclient -Id 2 -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
