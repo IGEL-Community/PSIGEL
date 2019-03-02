@@ -22,15 +22,15 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [int]
     $Id,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
     [int]
     $ReceiverId,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
     [ValidateSet('tc', 'tcdirectory')]
     [string]
     $ReceiverType
