@@ -100,8 +100,8 @@
     'Send-UMSThinclientSetting'
     'Start-UMSThinclient'
     'Stop-UMSThinclient'
-    'Update-UMSProfileDirectoryName'
-    'Update-UMSProfileName'
+    'Update-UMSProfile'
+    'Update-UMSProfileDirectory'
     'Update-UMSThinclient'
     'Update-UMSThinclientDirectoryName'
   )
