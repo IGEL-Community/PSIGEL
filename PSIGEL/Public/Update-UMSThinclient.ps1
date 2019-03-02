@@ -21,6 +21,7 @@
     [int]
     $TCID,
 
+    [Parameter(ParameterSetName = 'Set')]
     [String]
     $Name,
 
@@ -53,9 +54,22 @@
 
   Begin
   {
+    
   }
   Process
   {
+    Switch ($PsCmdlet.ParameterSetName)
+    {
+      'Set'
+      {
+        break
+      }
+      Default
+      {
+        throw "Specify at least one property to update!"
+      }
+    }
+    
     if ($null -eq $WebSession)
     {
       $WebSession = New-UMSAPICookie -Computername $Computername
