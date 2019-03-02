@@ -4,27 +4,31 @@
     "User": "igelums",
     "Credpath": "C:\\Credentials\\UMSRmdb.cred",
     "SecurityProtocol": "Tls12",
-    "NamePrefix": "TC-",
+    "Prefix": "P_",
+    "TCPrefix": "TC",
+    "TCDirPrefix": "TCDir",
+    "ProfileDirPrefix": "ProfileDir",
     "UMSFirmware": [
       {
-        "Id": "2"
+        "Id": "2",
+        "Version": "11.01.100.01"
       },
       {
-        "Id": "3"
+        "Id": "3",
+        "Version": "10.05.500.01"
       }
     ],
     "UMSProfile": [
       {
         "Id": "463",
         "DestId": "456",
-        "Name": "PProfile01",
-        "NameUpdate": "PProfile01Update"
+        "Name": "P_Profile01",
+        "NameUpdate": "P_Profile01_Update"
       },
       {
         "Id": "464",
         "DestId": "455",
-        "Name": "PProfile02",
-        "NameUpdate": "PProfile02Update"
+        "Name": "P_Profile02"
       }
     ],
     "UMSProfileAssignment": [
@@ -42,9 +46,9 @@
     "UMSProfileDirectory": [
       {
         "Id": "455",
-        "Name": "PProfileDir01",
-        "NameUpdate": "PProfileDir01Update",
-        "ParentId": "452",
+        "Name": "P_ProfileDir01",
+        "NameUpdate": "P_ProfileDir01_Update",
+        "ParentId": "-2",
         "DirectoryChildren": {
           "ObjectType": "profile",
           "Id": "463"
@@ -52,16 +56,16 @@
       },
       {
         "Id": "456",
-        "Name": "PProfileDir02",
-        "NameUpdate": "PProfileDir02Update",
-        "ParentId": "452",
+        "Name": "P_ProfileDir02",
+        "NameUpdate": "P_ProfileDir02_Update",
+        "ParentId": "-2",
         "DirectoryChildren": {
           "ObjectType": "profile",
           "Id": "464"
         }
-      }
+      },
       {
-        "NameNew": "PProfileDir03"
+        "NameNew": "P_ProfileDir03"
       }
     ],
     "UMSStatus": [
@@ -75,35 +79,82 @@
         "Id": "461",
         "ObjectType": "tc",
         "Mac": "00:11:22:33:44:55",
-        "Name": "EP01",
-        "ParentId": "458",
-        "Comment": "Comment EP01"
+        "Name": "P_TC01",
+        "ParentId": "457",
+        "DestId": "458",
+        "Comment": "Comment",
+        "CommentUpdate": "Comment_Update",
+        "Online": "false",
+        "ShadowSecret": {
+          "certificate": "",
+          "password": "99cbbd4d-3292-4df5-9564-85976cdd0ceb"
+        }
       },
       {
         "Id": "462",
         "ObjectType": "tc",
         "Mac": "11:22:33:44:55:66",
-        "Name": "EP02",
-        "ParentId": "457",
-        "Comment": "Comment EP02"
+        "Name": "P_TC02",
+        "ParentId": "458",
+        "DestId": "457",
+        "Comment": "Comment",
+        "Online": "false",
+        "ShadowSecret": {
+          "certificate": "",
+          "password": "a9484d4b-6fb9-4f60-82fb-114a5eafdd24"
+        }
+      },
+      {
+        "NameNew": "P_TC03",
+        "MacNew": "22:33:44:55:66:77",
+        "FirmwareIdNew": "2",
+        "ParentId": "457"
+      }
+    ],
+    "UMSThinclientAssignment": [
+      {
+        "Id": "464",
+        "ReceiverID": "461",
+        "ReceiverType": "tc"
       }
     ],
     "UMSThinclientDirectories": [
       {
-        "Id": "-1",
-        "Name": "Devices"
-      },
-      {
-        "Id": "454",
-        "Name": "[Pester]"
-      },
-      {
         "Id": "457",
-        "Name": "[01]"
+        "Name": "P_TCDir01",
+        "NameUpdate": "P_TCDir01_Update",
+        "ParentId": "-1",
+        "DestId": "629",
+        "DirectoryChildren": {
+          "ObjectType": "tc",
+          "Id": "461"
+        }
       },
       {
         "Id": "458",
-        "Name": "[02]"
+        "Name": "P_TCDir02",
+        "ParentId": "-1",
+        "DestId": "629",
+        "DirectoryChildren": {
+          "ObjectType": "tc",
+          "Id": "462"
+        }
+      },
+      {
+        "Id": "629",
+        "Name": "P_TCDir03",
+        "ParentId": "-1"
+      }
+      {
+        "NewName": "P_TCDir04",
+        "ParentId": "-1"
+      }
+    ],
+    "UMSThinclientDirectoryAssignment": [
+      {
+        "Id": "463",
+        "ReceiverID": "457",
+        "ReceiverType": "tcdirectory"
       }
     ]
   }
