@@ -36,7 +36,7 @@
   {
     $Body = ConvertTo-Json @(
       @{
-        id   = $ID
+        id   = $Id
         type = "tc"
       }
     )
