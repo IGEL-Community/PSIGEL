@@ -22,7 +22,7 @@ function New-UMSProfileDirectory
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [String]
     $Name
   )
@@ -38,12 +38,13 @@ function New-UMSProfileDirectory
       name = $Name
     }
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $BaseURL
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $BaseURL
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
