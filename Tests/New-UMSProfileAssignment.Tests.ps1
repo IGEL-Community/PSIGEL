@@ -43,7 +43,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'New-UMSProfileAssignment Should not throw' {
+      It "New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc'" {
         { New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' } | Should -Not -Throw
       }
 
@@ -144,6 +144,26 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       It "Result[0].Message should be exactly '1 asssignments successfully assigned.'" {
         $Result[0].Message | Should BeExactly '1 asssignments successfully assigned.'
+      }
+    }
+
+    Context "Whatif" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {}
+
+      $Result = New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' -WhatIf
+
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 0
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should be null or empty' {
+        $Result | Should BeNullOrEmpty
       }
     }
 

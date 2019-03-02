@@ -111,35 +111,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Confirm" {
-
-      Mock 'Invoke-UMSRestMethodWebSession' {
-        (
-          [pscustomobject]@{
-            message  = 'Thin client successfully inserted.'
-            id       = '2'
-            name     = 'NewName'
-            parentID = -1
-          }
-        )
-      }
-
-      $Result = New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -Confirm:$true
-
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
-        $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
-          Times       = 0
-          Exactly     = $true
-        }
-        Assert-MockCalled @AMCParams
-      }
-
-      It 'Result should be null or empty' {
-        $Result | Should BeNullOrEmpty
-      }
-    }
-
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 

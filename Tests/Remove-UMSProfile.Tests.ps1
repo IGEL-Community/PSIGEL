@@ -111,32 +111,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Confirm" {
-
-      Mock 'Invoke-UMSRestMethodWebSession' {
-        (
-          [pscustomobject]@{
-            message = 'Deleted profile with id 2'
-          }
-        )
-      }
-
-      $Result = Remove-UMSProfile -Id 2 -Confirm:$true
-
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
-        $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
-          Times       = 0
-          Exactly     = $true
-        }
-        Assert-MockCalled @AMCParams
-      }
-
-      It 'Result should be null or empty' {
-        $Result | Should BeNullOrEmpty
-      }
-    }
-
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
