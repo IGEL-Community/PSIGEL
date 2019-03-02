@@ -15,50 +15,59 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [int]
-    $TCID
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
+    [Int]
+    $Id
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/thinclients?command=settings2tc' -f $UriArray
-
     $Body = ConvertTo-Json @(
       @{
-        id   = $TCID
+        id   = $Id
         type = "tc"
       }
     )
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Post'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = ('{0}?command=settings2tc' -f $BaseURL)
+      Body             = $Body
+      Method           = 'Post'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $Id))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
-
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      $Properties = [ordered]@{
+        'Message'  = [string]('{0}.' -f $APIObject.CommandExecList.message)
+        'Id'       = [int]$Id
+        'ExecId'   = [string]$APIObject.CommandExecList.execID
+        'Mac'      = [string]$APIObject.CommandExecList.mac
+        'ExecTime' = [int64]$APIObject.CommandExecList.exectime
+        'State'    = [string]$APIObject.CommandExecList.state
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {
   }
 }
-
