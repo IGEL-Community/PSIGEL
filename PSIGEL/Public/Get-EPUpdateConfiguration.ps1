@@ -3,16 +3,11 @@ function Get-EPUpdateConfiguration
 {
   [CmdletBinding()]
   param (
-    [Parameter(Mandatory = $true,
-      ValueFromPipeline = $true,
-      Position = 0)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     $SSHSession
   )
 
   begin
-  {
-  }
-  process
   {
     $Command = 'cat /wfs/updateconf.ini'
     $PatternColl = [ordered]@{
@@ -23,6 +18,9 @@ function Get-EPUpdateConfiguration
       Password = 'password=\"(?<Password>.*)\"'
       Path     = 'path=\"(?<Path>.*)\"'
     }
+  }
+  process
+  {
     try
     {
       $CommandResultColl = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
@@ -39,7 +37,8 @@ function Get-EPUpdateConfiguration
           }
         }
       }
-      New-Object psobject -Property $Properties
+      $Result = New-Object psobject -Property $Properties
+      $Result
     }
     catch
     {
