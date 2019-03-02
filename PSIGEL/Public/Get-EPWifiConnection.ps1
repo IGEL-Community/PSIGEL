@@ -3,19 +3,15 @@ function Get-EPWifiConnection
 {
   [CmdletBinding()]
   param (
-    [Parameter(Mandatory = $true,
-      ValueFromPipeline = $true,
-      Position = 0)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     $SSHSession,
 
-    [string]
+    [Parameter(ValueFromPipelineByPropertyName)]
+    [String]
     $Interface = 'wlan0'
   )
 
   begin
-  {
-  }
-  process
   {
     $Command = "iwconfig $Interface"
     $PatternColl = [ordered]@{
@@ -28,7 +24,9 @@ function Get-EPWifiConnection
       LinkQuality = 'Link Quality(:|=)(?<LinkQuality>[^\s]*)'
       SignalLevel = 'Signal level(:|=)(?<SignalLevel>[^\s]*)\s(?<Unit>[^\s]*)'
     }
-
+  }
+  process
+  {
     try
     {
       $CommandResultColl = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
@@ -52,8 +50,8 @@ function Get-EPWifiConnection
         }
       }
     }
-    New-Object psobject -Property $Properties
-
+    $Result = New-Object psobject -Property $Properties
+    $Result
   }
   end
   {
