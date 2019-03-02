@@ -109,33 +109,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Confirm" {
-
-      Mock 'Invoke-UMSRestMethodWebSession' {
-        (
-          [pscustomobject]@{
-            id      = '2'
-            results = 'successful'
-          }
-        )
-      }
-
-      $Result = Move-UMSThinclientDirectory -Id 2 -DestId 2 -Confirm
-
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
-        $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
-          Times       = 0
-          Exactly     = $true
-        }
-        Assert-MockCalled @AMCParams
-      }
-
-      It 'Result should be null or empty' {
-        $Result | Should BeNullOrEmpty
-      }
-    }
-
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
@@ -150,7 +123,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
+Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   BeforeAll {
     if ($null -ne $Result)
     {

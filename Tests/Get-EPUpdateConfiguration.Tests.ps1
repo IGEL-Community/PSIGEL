@@ -106,7 +106,7 @@ path="/ums_filetransfer/IGEL_Universal_Desktop_LX-4.14.300"
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
+Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   <#
   BeforeAll {
     $Global:ConfirmPreference = 'None'

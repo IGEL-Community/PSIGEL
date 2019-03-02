@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
+Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   BeforeAll {
     if ($null -ne $Result)
     {

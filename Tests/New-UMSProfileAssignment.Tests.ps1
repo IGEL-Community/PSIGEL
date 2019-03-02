@@ -74,8 +74,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      Write-Host $Result
-
       It 'Result should have type pscustomobject' {
         $Result | Should -HaveType ([pscustomobject])
       }
@@ -181,7 +179,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tags "IntegrationTests" {
+Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   BeforeAll {
     if ($null -ne $Result)
     {

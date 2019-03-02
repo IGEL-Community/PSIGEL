@@ -1,6 +1,7 @@
 [
   {
     "Computername": "localhost",
+    "TCPPort": "8443",
     "User": "igelums",
     "Credpath": "C:\\Credentials\\UMSRmdb.cred",
     "SecurityProtocol": "Tls12",
@@ -8,6 +9,42 @@
     "TCPrefix": "TC",
     "TCDirPrefix": "TCDir",
     "ProfileDirPrefix": "ProfileDir",
+    "TestOrder": {
+      "Public": [
+        "Get-UMSFirmware",
+        "Get-UMSProfile",
+        "Get-UMSProfileDirectory",
+        "Get-UMSProfileAssignment",
+        "Get-UMSStatus",
+        "Get-UMSThinclient",
+        "Get-UMSThinclientAssignment",
+        "Get-UMSThinclientDirectory",
+        "Get-UMSThinclientDirectoryAssignment",
+        "Start-UMSThinclient",
+        "Send-UMSThinclientSetting",
+        "Restart-UMSThinclient",
+        "Stop-UMSThinclient",
+        "Update-UMSProfile",
+        "Update-UMSProfileDirectory",
+        "Update-UMSThinclient",
+        "Update-UMSThinclientDirectory",
+        "Move-UMSProfile",
+        "Move-UMSProfileDirectory",
+        "Move-UMSThinclient",
+        "Move-UMSThinclientDirectory",
+        "New-UMSProfileAssignment",
+        "New-UMSProfileDirectory",
+        "New-UMSThinclient",
+        "New-UMSThinclientDirectory",
+        "Remove-UMSProfile",
+        "Remove-UMSProfileAssignment",
+        "Remove-UMSProfileDirectory",
+        "Remove-UMSThinclient",
+        "Remove-UMSThinclientDirectory",
+        "Reset-UMSThinclient"
+      ],
+      "Private": []
+    },
     "UMSFirmware": [
       {
         "Id": "2",
