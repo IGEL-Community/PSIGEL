@@ -22,7 +22,7 @@ function New-UMSThinclientDirectory
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [String]
     $Name
   )
