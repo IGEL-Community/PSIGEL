@@ -3,22 +3,20 @@ function Get-EPFirmware
 {
   [CmdletBinding()]
   param (
-    [Parameter(Mandatory = $true,
-      ValueFromPipeline = $true,
-      Position = 0)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     $SSHSession
   )
 
   begin
   {
+    $Command = "cat /etc/firmware"
   }
   process
   {
-    $Command = "cat /etc/firmware"
     try
     {
-      $Result = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
-      $Result -replace ('\s', '')
+      $Result = (Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command) -replace ('\s', '')
+      $Result
     }
     catch
     {
