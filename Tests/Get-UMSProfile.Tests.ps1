@@ -171,15 +171,18 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSProfile[0].id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -190,25 +193,27 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSProfile }  | Should Not Throw
+      { $Script:Result = Get-UMSProfile } | Should Not Throw
     }
-
-    $Result = Get-UMSProfile
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
     It 'Result.Id should be have type [int]' {
-      $Result[0].id | Should -HaveType [int]
+      $Result.Id | Should -HaveType [int]
     }
 
-    It 'Result.IsMasterProfile should be have type [bool]' {
-      $Result[0].IsMasterProfile | Should -HaveType [bool]
+    It "Result.Id should be exactly $($UMS.UMSProfile[0].id)" {
+      $Result.Id | Should -BeExactly $UMS.UMSProfile[0].id
     }
 
-    It 'Result.IsMasterProfile should not be null or empty' {
-      $Result[0].IsMasterProfile | Should -Not -BeNullOrEmpty
+    It 'Result.Name should be have type [String]' {
+      $Result.Name | Should -HaveType [String]
+    }
+
+    It "Result.Name should be exactly $($UMS.UMSProfile[0].Name)" {
+      $Result.Name | Should -BeExactly $UMS.UMSProfile[0].Name
     }
   }
 }
