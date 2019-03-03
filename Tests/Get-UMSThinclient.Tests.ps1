@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'Id'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facet', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -36,7 +36,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     $PSDefaultParameterValues = @{
       '*:WebSession'   = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername' = 'dummyserver'
+      '*:Computername' = 'igelrmserver.acme.org'
     }
 
     Context "General Execution" {
@@ -70,13 +70,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           }
         }
       }
-      Mock 'Get-UMSFunctionString' {}
+      Mock 'New-UMSFunctionString' {}
 
       $Result = Get-UMSThinclient
 
-      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Get-UMSFunctionString'
+          CommandName = 'New-UMSFunctionString'
           Times       = 1
           Exactly     = $true
         }
@@ -124,13 +124,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           links      = '{}'
         }
       }
-      Mock 'Get-UMSFunctionString' {}
+      Mock 'New-UMSFunctionString' {}
 
       $Result = Get-UMSThinclient -Id 2
 
-      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Get-UMSFunctionString'
+          CommandName = 'New-UMSFunctionString'
           Times       = 1
           Exactly     = $true
         }
@@ -163,7 +163,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Facets online" {
+    Context "Facet online" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -178,13 +178,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType = 'tc'
         }
       }
-      Mock 'Get-UMSFunctionString' {}
+      Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Facets online
+      $Result = Get-UMSThinclient -Id 2 -Facet online
 
-      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Get-UMSFunctionString'
+          CommandName = 'New-UMSFunctionString'
           Times       = 1
           Exactly     = $true
         }
@@ -217,7 +217,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Facets shadow" {
+    Context "Facet shadow" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -235,13 +235,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType   = 'tc'
         }
       }
-      Mock 'Get-UMSFunctionString' {}
+      Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Facets shadow
+      $Result = Get-UMSThinclient -Id 2 -Facet shadow
 
-      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Get-UMSFunctionString'
+          CommandName = 'New-UMSFunctionString'
           Times       = 1
           Exactly     = $true
         }
@@ -270,7 +270,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Facets details" {
+    Context "Facet details" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -316,13 +316,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType                = 'tc'
         }
       }
-      Mock 'Get-UMSFunctionString' {}
+      Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Facets details
+      $Result = Get-UMSThinclient -Id 2 -Facet details
 
-      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Get-UMSFunctionString'
+          CommandName = 'New-UMSFunctionString'
           Times       = 1
           Exactly     = $true
         }

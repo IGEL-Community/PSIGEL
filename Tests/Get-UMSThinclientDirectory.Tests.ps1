@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facets', 'Id'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Facet', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -36,7 +36,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     $PSDefaultParameterValues = @{
       '*:WebSession'   = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername' = 'dummyserver'
+      '*:Computername' = 'igelrmserver.acme.org'
     }
 
     Context "General Execution" {
@@ -135,7 +135,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Facets children" {
+    Context "Facet children" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -156,13 +156,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType        = 'tcdirectory'
         }
       }
-      Mock 'Get-UMSFunctionString' {}
+      Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclientDirectory -Id 2 -Facets children
+      $Result = Get-UMSThinclientDirectory -Id 2 -Facet children
 
-      It 'Assert Get-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Get-UMSFunctionString'
+          CommandName = 'New-UMSFunctionString'
           Times       = 1
           Exactly     = $true
         }

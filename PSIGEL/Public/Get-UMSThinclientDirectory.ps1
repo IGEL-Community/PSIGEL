@@ -24,7 +24,7 @@
 
     [ValidateSet('children')]
     [String]
-    $Facets,
+    $Facet,
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
     [int]
@@ -35,9 +35,9 @@
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $UriArray)
-    if ($Facets)
+    if ($Facet)
     {
-      $FunctionString = Get-UMSFunctionString -Facets $Facets
+      $FunctionString = New-UMSFunctionString -Facet $Facet
     }
   }
   Process
@@ -71,7 +71,7 @@
         'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
         'ObjectType' = [string]$APIObject.objectType
       }
-      switch ($Facets)
+      switch ($Facet)
       {
         'children'
         {

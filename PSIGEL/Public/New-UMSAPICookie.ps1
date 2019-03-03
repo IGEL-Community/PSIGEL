@@ -80,7 +80,8 @@
     {
       $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
       $WebSession.Cookies.Add($Cookie)
-      $WebSession
+      $Result = $WebSession
+      $Result
     }
   }
   End

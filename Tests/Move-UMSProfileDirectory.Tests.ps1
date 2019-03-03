@@ -36,7 +36,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     $PSDefaultParameterValues = @{
       '*:WebSession'   = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername' = 'dummyserver'
+      '*:Computername' = 'igelrmserver.acme.org'
     }
 
     Context "General Execution" {

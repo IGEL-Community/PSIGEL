@@ -24,7 +24,7 @@
 
     [ValidateSet('short', 'details', 'online', 'shadow')]
     [String]
-    $Facets = 'short',
+    $Facet = 'short',
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
     [Int]
@@ -34,7 +34,7 @@
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
-    $FunctionString = Get-UMSFunctionString -Facets $Facets
+    $FunctionString = New-UMSFunctionString -Facet $Facet
   }
   Process
   {
@@ -72,7 +72,7 @@
         'LastIp'     = [string]$APIObject.lastIP
         'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
       }
-      switch ($Facets)
+      switch ($Facet)
       {
         online
         {
