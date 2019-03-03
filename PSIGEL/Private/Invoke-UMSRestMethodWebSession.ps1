@@ -9,22 +9,24 @@ function Invoke-UMSRestMethodWebSession
 
     .EXAMPLE
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $Uri
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Invoke-UMSRestMethodWebSession @Params
 
     .EXAMPLE
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $Uri
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Invoke-UMSRestMethodWebSession @Params
 
@@ -35,9 +37,10 @@ function Invoke-UMSRestMethodWebSession
     [Parameter(Mandatory)]
     $WebSession,
 
+    [Parameter(Mandatory)]
     [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
     [String[]]
-    $SecurityProtocol = 'Tls12',
+    $SecurityProtocol,
 
     [Parameter(Mandatory)]
     [string]
@@ -59,6 +62,18 @@ function Invoke-UMSRestMethodWebSession
 
   begin
   {
+    Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
+    Add-Type -TypeDefinition @'
+    using System.Net;
+    using System.Security.Cryptography.X509Certificates;
+    public class TrustAllCertsPolicy : ICertificatePolicy {
+        public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+              return true;
+            }
+          }
+'@
     [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
     [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
     $null = $PSBoundParameters.Remove('SecurityProtocol')
