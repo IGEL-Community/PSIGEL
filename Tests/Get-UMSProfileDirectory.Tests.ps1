@@ -217,15 +217,20 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSProfileDirectory[0].id
+  $ObjectType = $UMS.UMSProfileDirectory[0].DirectoryChildren.ObjectType
 
   $PSDefaultParameterValues = @{
-    '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Credential'             = $Credential
+    '*-UMS*:Computername'           = $UMS.Computername
+    '*-UMS*:SecurityProtocol'       = $UMS.SecurityProtocol
+    '*-UMS*:Id'                     = $Id
+    'Get-UMSProfileDirectory:Facet' = 'children'
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -236,25 +241,27 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSProfileDirectory -Id 69} | Should Not Throw
+      { $Script:Result = Get-UMSProfileDirectory } | Should Not Throw
     }
-
-    $Result = Get-UMSProfileDirectory -Id 69
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].Id should be have type [int]' {
-      $Result[0].Id | Should -HaveType [int]
+    It 'Result.Id should be have type [int]' {
+      $Result.Id | Should -HaveType [int]
     }
 
-    It 'Result[0].Name should be have type [string]' {
-      $Result[0].Name | Should -HaveType [string]
+    It "Result.Id should be exactly $Id)" {
+      $Result.Id | Should -BeExactly $Id
     }
 
-    It 'Result[0].Name should not be null or empty' {
-      $Result[0].Name | Should -Not -BeNullOrEmpty
+    It 'Result.DirectoryChildren.ObjectType should be have type [String]' {
+      $Result.DirectoryChildren.ObjectType | Should -HaveType [String]
+    }
+
+    It "Result.DirectoryChildren.ObjectType should be exactly $ObjectType" {
+      $Result.DirectoryChildren.ObjectType | Should -BeExactly $ObjectType
     }
   }
 }
