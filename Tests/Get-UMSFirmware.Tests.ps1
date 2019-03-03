@@ -157,15 +157,18 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSFirmware[0].id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -176,25 +179,27 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSFirmware }  | Should Not Throw
+      { $Script:Result = Get-UMSFirmware } | Should Not Throw
     }
-
-    $Result = Get-UMSFirmware
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].Id should be have type [int]' {
-      $Result[0].Id | Should -HaveType [int]
+    It 'Result.Id should be have type [int]' {
+      $Result.Id | Should -HaveType [int]
     }
 
-    It 'Result.FirmwareType should be have type [string]' {
-      $Result[0].FirmwareType | Should -HaveType [string]
+    It "Result.Id should be exactly $($UMS.UMSFirmware[0].id)" {
+      $Result.Id | Should -BeExactly $UMS.UMSFirmware[0].id
     }
 
-    It 'Result.FirmwareType should not be null or empty' {
-      $Result[0].FirmwareType | Should -Not -BeNullOrEmpty
+    It 'Result.Version should be have type [String]' {
+      $Result.Version | Should -HaveType [String]
+    }
+
+    It "Result.Version should be exactly $($UMS.UMSFirmware[0].Version)" {
+      $Result.Version | Should -BeExactly $UMS.UMSFirmware[0].Version
     }
   }
 }
