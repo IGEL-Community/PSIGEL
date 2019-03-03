@@ -115,15 +115,18 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $RmGuiServerVersion = $UMS.UMSStatus.RmGuiServerVersion
+  $BuildNumber = $UMS.UMSStatus.BuildNumber
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -134,21 +137,27 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSStatus } | Should Not Throw
+      { $Script:Result = Get-UMSStatus } | Should Not Throw
     }
-
-    $Result = Get-UMSStatus
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.BuildNumber should be have type [int]' {
-      $Result[0].BuildNumber | Should -HaveType [int]
+    It 'Result.RmGuiServerVersionshould be have type [String]' {
+      $Result.RmGuiServerVersion | Should -HaveType [String]
     }
 
-    It 'Result.BuildNumber should not be null or empty' {
-      $Result[0].BuildNumber | Should -Not -BeNullOrEmpty
+    It "Result.RmGuiServerVersion should be exactly $RmGuiServerVersion" {
+      $Result.RmGuiServerVersion | Should -BeExactly $RmGuiServerVersion
+    }
+
+    It 'Result.BuildNumber should be have type [Int]' {
+      $Result.BuildNumber | Should -HaveType [Int]
+    }
+
+    It "Result.BuildNumber should be exactly $BuildNumber" {
+      $Result.BuildNumber | Should -BeExactly $BuildNumber
     }
   }
 }
