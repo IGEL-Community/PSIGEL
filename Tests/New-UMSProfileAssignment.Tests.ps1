@@ -187,18 +187,25 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSProfileAssignment[0].Id
+  $ReceiverId = $UMS.UMSProfileAssignment[0].NewReceiverId
+  $ReceiverType = $UMS.UMSProfileAssignment[0].NewReceiverType
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
+    '*-UMS*:ReceiverId'       = $ReceiverId
+    '*-UMS*:ReceiverType'     = $ReceiverType
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -206,10 +213,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { New-UMSProfileAssignment -Id 71} | Should Not Throw
+      { $Script:Result = New-UMSProfileAssignment } | Should Not Throw
     }
-
-    $Result = New-UMSProfileAssignment -Id 71
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
@@ -219,12 +224,12 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It 'Result[0].Type should have type [string]' {
-      $Result[0].Type | Should -HaveType [string]
+    It "Result[0].Id should be exactly $Id" {
+      $Result[0].Id | Should -BeExactly $Id
     }
 
-    It 'Result[0].Type should not be null or empty' {
-      $Result[0].Type | Should -Not -BeNullOrEmpty
+    It "Result[0].ReceiverId should be exactly $ReceiverId" {
+      $Result[0].ReceiverId | Should -BeExactly $ReceiverId
     }
   }
 }
