@@ -138,20 +138,22 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Mac = (0..5 |
-      ForEach-Object { '{0:x}{1:x}' -f (Get-Random -Minimum 0 -Maximum 15), (Get-Random -Minimum 0 -Maximum 15)}) -join ''
-  [int]$ParentId = (($UMS.ThinclientDirectories).where{$_.name -eq 'Devices'}).id
+  $Name = $UMS.UMSThinclient[2].NameNew
+  $Mac = $UMS.UMSThinclient[2].MacNew
+  $FirmwareId = $UMS.UMSThinclient[2].FirmwareIdNew
+  $ParentId = $UMS.UMSThinclient[2].ParentId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Name'             = $Name
     '*-UMS*:Mac'              = $Mac
-    '*-UMS*:FirmwareId'       = $UMS.Firmware.Id[0]
+    '*-UMS*:FirmwareId'       = $FirmwareId
     '*-UMS*:ParentId'         = $ParentId
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -168,6 +170,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
     It 'Result[0].Id should have type [int]' {
       $Result[0].Id | Should -HaveType [int]
+    }
+
+    It "Result[0].Name should be exactly $Name" {
+      $Result[0].Name | Should -BeExactly $Name
+    }
+
+    It "Result[0].Mac should be exactly $Mac" {
+      $Result[0].Mac | Should -BeExactly $Mac
     }
 
     It "Result[0].ParentId should be exactly $ParentId" {
