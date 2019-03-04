@@ -144,7 +144,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.RmGuiServerVersionshould be have type [String]' {
+    It 'Result.RmGuiServerVersion should have type [String]' {
       $Result.RmGuiServerVersion | Should -HaveType [String]
     }
 
@@ -152,7 +152,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.RmGuiServerVersion | Should -BeExactly $RmGuiServerVersion
     }
 
-    It 'Result.BuildNumber should be have type [Int]' {
+    It 'Result.BuildNumber should have type [Int]' {
       $Result.BuildNumber | Should -HaveType [Int]
     }
 
