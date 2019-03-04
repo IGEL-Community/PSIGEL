@@ -22,7 +22,7 @@ function New-UMSFunctionString
   param (
     [Parameter(Mandatory)]
     [ValidateSet('short', 'details', 'online', 'shadow', 'children')]
-    [string]
+    [String]
     $Facet
   )
 

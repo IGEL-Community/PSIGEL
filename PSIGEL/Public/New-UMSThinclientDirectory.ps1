@@ -53,9 +53,9 @@ function New-UMSThinclientDirectory
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message' = [string]$APIObject.message
-        'Id'      = [int]$APIObject.id
-        'Name'    = [string]$APIObject.name
+        'Message' = [String]$APIObject.message
+        'Id'      = [Int]$APIObject.id
+        'Name'    = [String]$APIObject.name
       }
       New-Object psobject -Property $Properties
     }

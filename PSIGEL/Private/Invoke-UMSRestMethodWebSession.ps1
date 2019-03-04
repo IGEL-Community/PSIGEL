@@ -43,20 +43,20 @@ function Invoke-UMSRestMethodWebSession
     $SecurityProtocol,
 
     [Parameter(Mandatory)]
-    [string]
+    [String]
     $Uri,
 
-    [string]
+    [String]
     $Body,
 
-    [string]
+    [String]
     $ContentType,
 
     $Headers,
 
     [Parameter(Mandatory)]
     [ValidateSet('Get', 'Post', 'Put', 'Delete')]
-    [string]
+    [String]
     $Method
   )
 

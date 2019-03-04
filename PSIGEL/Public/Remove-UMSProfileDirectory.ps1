@@ -23,7 +23,7 @@ function Remove-UMSProfileDirectory
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int]
+    [Int]
     $Id
   )
 
@@ -49,8 +49,8 @@ function Remove-UMSProfileDirectory
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message' = [string]$APIObject.Message
-        'Id'      = [int]$Id
+        'Message' = [String]$APIObject.Message
+        'Id'      = [Int]$Id
       }
       New-Object psobject -Property $Properties
     }

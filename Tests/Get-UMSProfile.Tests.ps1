@@ -93,8 +93,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
 
       It 'Result.IsMasterProfile should have type [bool]' {
@@ -140,8 +140,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
 
       It 'Result.IsMasterProfile should have type [bool]' {
@@ -200,8 +200,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should have type [int]' {
-      $Result.Id | Should -HaveType [int]
+    It 'Result.Id should have type [Int]' {
+      $Result.Id | Should -HaveType [Int]
     }
 
     It "Result.Id should be exactly $($UMS.UMSProfile[0].id)" {

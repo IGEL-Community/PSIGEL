@@ -65,11 +65,11 @@ function Get-UMSProfileDirectory
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Id'         = [int]$APIObject.id
-        'Name'       = [string]$APIObject.name
-        'ParentId'   = [int]$APIObject.parentID
+        'Id'         = [Int]$APIObject.id
+        'Name'       = [String]$APIObject.name
+        'ParentId'   = [Int]$APIObject.parentID
         'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
-        'ObjectType' = [string]$APIObject.objectType
+        'ObjectType' = [String]$APIObject.objectType
       }
       switch ($Facet)
       {
@@ -78,8 +78,8 @@ function Get-UMSProfileDirectory
           $DirectoryChildren = foreach ($child in $APIObject.DirectoryChildren)
           {
             $ChildProperties = [ordered]@{
-              'ObjectType' = [string]$child.objectType
-              'Id'         = [int]$child.id
+              'ObjectType' = [String]$child.objectType
+              'Id'         = [Int]$child.id
             }
             New-Object psobject -Property $ChildProperties
           }

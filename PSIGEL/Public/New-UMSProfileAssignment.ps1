@@ -23,16 +23,16 @@
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int]
+    [Int]
     $Id,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
-    [int]
+    [Int]
     $ReceiverId,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
     [ValidateSet('tc', 'tcdirectory')]
-    [string]
+    [String]
     $ReceiverType
   )
 
@@ -85,10 +85,10 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message'      = [string]('{0}.' -f $APIObject.Message)
-        'Id'           = [int]$Id
-        'ReceiverId'   = [int]$ReceiverId
-        'ReceiverType' = [string]$ReceiverType
+        'Message'      = [String]('{0}.' -f $APIObject.Message)
+        'Id'           = [Int]$Id
+        'ReceiverId'   = [Int]$ReceiverId
+        'ReceiverType' = [String]$ReceiverType
       }
       New-Object psobject -Property $Properties
     }

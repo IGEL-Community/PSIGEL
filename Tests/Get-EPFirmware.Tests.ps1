@@ -44,7 +44,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     It 'Result should have type string' {
-      $Result | Should -HaveType ([string])
+      $Result | Should -HaveType ([String])
     }
 
     It 'Result Count should be 1' {

@@ -90,8 +90,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should Be 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
     }
 
@@ -130,8 +130,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should Be 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
     }
 
@@ -190,8 +190,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.DirectoryChildren[0].Id | Should Be 2
       }
 
-      It 'Result.DirectoryChildren[0].Id should have type [int]' {
-        $Result.DirectoryChildren[0].Id | Should -HaveType [int]
+      It 'Result.DirectoryChildren[0].Id should have type [Int]' {
+        $Result.DirectoryChildren[0].Id | Should -HaveType [Int]
       }
     }
 

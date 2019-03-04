@@ -10,7 +10,7 @@ $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $P
 
 $PSDefaultParameterValues = @{
   '*:Computername'          = $UMS.Computername
-  '*-UMS*:TCPPort'          = [int]$UMS.TCPPort
+  '*-UMS*:TCPPort'          = [Int]$UMS.TCPPort
   '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
   '*-UMS*:Confirm'          = $false
 }

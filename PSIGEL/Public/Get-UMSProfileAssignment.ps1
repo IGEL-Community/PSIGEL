@@ -23,7 +23,7 @@
     $WebSession,
 
     [Parameter(ValueFromPipeline, Mandatory)]
-    [int]
+    [Int]
     $Id,
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Directory')]
@@ -62,11 +62,11 @@
       $ProfileColl = foreach ($child in $APIObject)
       {
         $ProfileProperties = [ordered]@{
-          'Id'                 = [int]$child.assignee.id
-          'Type'               = [string]$child.assignee.type
-          'ReceiverId'         = [int]$child.receiver.id
-          'ReceiverType'       = [string]$child.receiver.type
-          'AssignmentPosition' = [int]$child.assignmentPosition
+          'Id'                 = [Int]$child.assignee.id
+          'Type'               = [String]$child.assignee.type
+          'ReceiverId'         = [Int]$child.receiver.id
+          'ReceiverType'       = [String]$child.receiver.type
+          'AssignmentPosition' = [Int]$child.assignmentPosition
         }
         New-Object psobject -Property $ProfileProperties
       }

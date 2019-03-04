@@ -59,12 +59,12 @@ path="/ums_filetransfer/IGEL_Universal_Desktop_LX-4.14.300"
     }
 
     It 'All result properties should have type string' {
-      $Result.Protocol | Should -HaveType ([string])
-      $Result.Hostname | Should -HaveType ([string])
-      $Result.Port | Should -HaveType ([string])
-      $Result.Username | Should -HaveType ([string])
-      $Result.Password | Should -HaveType ([string])
-      $Result.Path | Should -HaveType ([string])
+      $Result.Protocol | Should -HaveType ([String])
+      $Result.Hostname | Should -HaveType ([String])
+      $Result.Port | Should -HaveType ([String])
+      $Result.Username | Should -HaveType ([String])
+      $Result.Password | Should -HaveType ([String])
+      $Result.Path | Should -HaveType ([String])
     }
 
     It 'Result should have type PSCustomObject' {

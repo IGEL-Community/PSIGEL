@@ -23,7 +23,7 @@ function Update-UMSProfileDirectory
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int]
+    [Int]
     $Id,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
@@ -57,8 +57,8 @@ function Update-UMSProfileDirectory
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message' = [string]$APIObject.message
-        'Id'      = [int]$Id
+        'Message' = [String]$APIObject.message
+        'Id'      = [Int]$Id
       }
       New-Object psobject -Property $Properties
     }

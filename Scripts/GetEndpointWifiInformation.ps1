@@ -4,7 +4,7 @@ $UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
 $RootCredPath = 'C:\Credentials\TCRoot.cred'
 $RootCredential = (Import-Clixml -Path $RootCredPath)
 
-[int]$DirID = 141
+[Int]$DirID = 141
 
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'   = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
@@ -31,14 +31,14 @@ $UpdateConfigurationColl = $OnlineEndPointColl |
 $UpdateConfigurationColl |
   Select-Object Host, Interface, ESSID, Mode, Frequency, AccessPoint, BitRate, @{
   name       = 'LinkQuality'
-  expression = { [int]([int]($_.LinkQuality -replace ('/.*', '')) / [int]($_.LinkQuality -replace ('^\d{2,3}/', '')) * 100) }
+  expression = { [Int]([Int]($_.LinkQuality -replace ('/.*', '')) / [Int]($_.LinkQuality -replace ('^\d{2,3}/', '')) * 100) }
 }, SignalLevel |
   Sort-Object -Property @{
-  Expression = {[int]$_.LinkQuality}
+  Expression = {[Int]$_.LinkQuality}
 }, @{
-  Expression = {[int]$_.BitRate}
+  Expression = {[Int]$_.BitRate}
 }, @{
-  Expression = {[int]$_.SignalLevel}
+  Expression = {[Int]$_.SignalLevel}
 } |
   Format-Table -AutoSize
 

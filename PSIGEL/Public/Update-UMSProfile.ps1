@@ -23,7 +23,7 @@
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int]
+    [Int]
     $Id,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
@@ -57,8 +57,8 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message' = [string]('{0}.' -f $APIObject.message)
-        'Id'      = [int]$Id
+        'Message' = [String]('{0}.' -f $APIObject.message)
+        'Id'      = [Int]$Id
       }
       New-Object psobject -Property $Properties
     }

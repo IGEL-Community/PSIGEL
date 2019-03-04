@@ -90,8 +90,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0].Id | Should BeExactly 2
       }
 
-      It 'Result[0].Id should have type [int]' {
-        $Result[0].Id | Should -HaveType [int]
+      It 'Result[0].Id should have type [Int]' {
+        $Result[0].Id | Should -HaveType [Int]
       }
 
       It "Result[0].Message should be exactly 'Update successful.'" {
@@ -169,12 +169,12 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].Id should have type [int]' {
-      $Result[0].Id | Should -HaveType [int]
+    It 'Result[0].Id should have type [Int]' {
+      $Result[0].Id | Should -HaveType [Int]
     }
 
-    It 'Result[0].Type should have type [string]' {
-      $Result[0].Type | Should -HaveType [string]
+    It 'Result[0].Type should have type [String]' {
+      $Result[0].Type | Should -HaveType [String]
     }
 
     It 'Result[0].Type should not be null or empty' {

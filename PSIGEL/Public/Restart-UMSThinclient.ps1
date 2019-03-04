@@ -56,12 +56,12 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Message'  = [string]('{0}.' -f $APIObject.CommandExecList.message)
-        'Id'       = [int]$Id
-        'ExecId'   = [string]$APIObject.CommandExecList.execID
-        'Mac'      = [string]$APIObject.CommandExecList.mac
+        'Message'  = [String]('{0}.' -f $APIObject.CommandExecList.message)
+        'Id'       = [Int]$Id
+        'ExecId'   = [String]$APIObject.CommandExecList.execID
+        'Mac'      = [String]$APIObject.CommandExecList.mac
         'ExecTime' = [int64]$APIObject.CommandExecList.exectime
-        'State'    = [string]$APIObject.CommandExecList.state
+        'State'    = [String]$APIObject.CommandExecList.state
       }
       New-Object psobject -Property $Properties
     }

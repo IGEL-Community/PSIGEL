@@ -23,7 +23,7 @@
     $WebSession,
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
-    [int]
+    [Int]
     $Id
   )
 
@@ -57,10 +57,10 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Id'           = [int]$APIObject.id
-        'Product'      = [string]$APIObject.product
-        'Version'      = [string]$APIObject.version
-        'FirmwareType' = [string]$APIObject.firmwareType
+        'Id'           = [Int]$APIObject.id
+        'Product'      = [String]$APIObject.product
+        'Version'      = [String]$APIObject.version
+        'FirmwareType' = [String]$APIObject.firmwareType
       }
       New-Object psobject -Property $Properties
     }

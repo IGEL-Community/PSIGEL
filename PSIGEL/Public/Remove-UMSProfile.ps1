@@ -23,7 +23,7 @@
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int]
+    [Int]
     $Id
   )
 
@@ -51,8 +51,8 @@
       if ($APIObject.Message -match '^(?<Message>Deleted profile) with id (?<Id>\d+)$')
       {
         $Properties = [ordered]@{
-          'Message' = [string]('{0}.' -f $Matches.Message)
-          'Id'      = [int]$Matches.Id
+          'Message' = [String]('{0}.' -f $Matches.Message)
+          'Id'      = [Int]$Matches.Id
         }
       }
       New-Object psobject -Property $Properties

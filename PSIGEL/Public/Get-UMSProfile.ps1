@@ -23,7 +23,7 @@
     $WebSession,
 
     [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
-    [int]
+    [Int]
     $Id
   )
 
@@ -57,14 +57,14 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'FirmwareId'        = [int]$APIObject.firmwareID
+        'FirmwareId'        = [Int]$APIObject.firmwareID
         'IsMasterProfile'   = [System.Convert]::ToBoolean($APIObject.isMasterProfile)
         'OverridesSessions' = [System.Convert]::ToBoolean($APIObject.overridesSessions)
-        'Id'                = [int]$APIObject.id
-        'Name'              = [string]$APIObject.name
-        'ParentId'          = [int]$APIObject.parentID
+        'Id'                = [Int]$APIObject.id
+        'Name'              = [String]$APIObject.name
+        'ParentId'          = [Int]$APIObject.parentID
         'MovedToBin'        = [System.Convert]::ToBoolean($APIObject.movedToBin)
-        'ObjectType'        = [string]$APIObject.objectType
+        'ObjectType'        = [String]$APIObject.objectType
       }
       New-Object psobject -Property $Properties
     }

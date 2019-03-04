@@ -99,8 +99,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0].id | Should BeExactly 2
       }
 
-      It 'Result[0].id should have type [int]' {
-        $Result[0].id | Should -HaveType [int]
+      It 'Result[0].id should have type [Int]' {
+        $Result[0].id | Should -HaveType [Int]
       }
 
     }

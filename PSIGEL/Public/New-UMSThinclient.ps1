@@ -28,7 +28,7 @@
     $Mac,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
-    [int]
+    [Int]
     $FirmwareId,
 
     [Parameter(ValueFromPipelineByPropertyName)]
@@ -36,7 +36,7 @@
     $Name,
 
     [Parameter(ValueFromPipelineByPropertyName)]
-    [int]
+    [Int]
     $ParentId = -1,
 
     [Parameter(ValueFromPipelineByPropertyName)]
@@ -111,11 +111,11 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Mac'      = [string]$Mac
-        'Message'  = [string]$APIObject.message
-        'Id'       = [int]$APIObject.id
-        'Name'     = [string]$APIObject.name
-        'ParentId' = [int]$APIObject.parentID
+        'Mac'      = [String]$Mac
+        'Message'  = [String]$APIObject.message
+        'Id'       = [Int]$APIObject.id
+        'Name'     = [String]$APIObject.name
+        'ParentId' = [Int]$APIObject.parentID
       }
       New-Object psobject -Property $Properties
     }

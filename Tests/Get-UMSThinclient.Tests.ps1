@@ -104,8 +104,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
     }
 
@@ -158,8 +158,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should BeExactly 2
       }
 
-      It 'Result.Id should have type [int]' {
-        $Result.Id | Should -HaveType [int]
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
     }
 
@@ -346,8 +346,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result.NetworkSpeed should have type [int]' {
-        $Result.NetworkSpeed | Should -HaveType [int]
+      It 'Result.NetworkSpeed should have type [Int]' {
+        $Result.NetworkSpeed | Should -HaveType [Int]
       }
 
       It 'Result.LastBoottime should have type [datetime]' {

@@ -97,8 +97,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0].Id | Should BeExactly 2
       }
 
-      It 'Result[0].Id should have type [int]' {
-        $Result[0].Id | Should -HaveType [int]
+      It 'Result[0].Id should have type [Int]' {
+        $Result[0].Id | Should -HaveType [Int]
       }
     }
 
@@ -145,8 +145,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0].Id | Should BeExactly 2
       }
 
-      It 'Result[0].Id should have type [int]' {
-        $Result[0].Id | Should -HaveType [int]
+      It 'Result[0].Id should have type [Int]' {
+        $Result[0].Id | Should -HaveType [Int]
       }
     }
 
@@ -203,8 +203,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should have type [int]' {
-      $Result.Id | Should -HaveType [int]
+    It 'Result.Id should have type [Int]' {
+      $Result.Id | Should -HaveType [Int]
     }
 
     It "Result.Id should be exactly $Id)" {

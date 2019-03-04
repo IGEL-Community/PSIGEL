@@ -43,12 +43,12 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'RmGuiServerVersion' = [string]$APIObject.rmGuiServerVersion
-        'BuildNumber'        = [int]$APIObject.buildNumber
-        'ActiveMqVersion'    = [string]$APIObject.activeMQVersion
-        'DerbyVersion'       = [string]$APIObject.derbyVersion
-        'ServerUuid'         = [string]$APIObject.serverUUID
-        'Server'             = [string]$APIObject.server
+        'RmGuiServerVersion' = [String]$APIObject.rmGuiServerVersion
+        'BuildNumber'        = [Int]$APIObject.buildNumber
+        'ActiveMqVersion'    = [String]$APIObject.activeMQVersion
+        'DerbyVersion'       = [String]$APIObject.derbyVersion
+        'ServerUuid'         = [String]$APIObject.serverUUID
+        'Server'             = [String]$APIObject.server
       }
       New-Object psobject -Property $Properties
     }

@@ -62,7 +62,7 @@ Get the ID in UMS via mouse-over:
 ![TCDIRID](../Docs/Media/TCDIRID.png)
 
 ```powershell
-[int]$DirID = 203
+[Int]$DirID = 203
 ```
 
 ### Set variables - PSDefaultParameterValues
@@ -136,14 +136,14 @@ Pipe output to `Select-Object` and convert property LinkQuality to percentage.
 $UpdateConfigurationColl |
   Select-Object Host, Interface, ESSID, Mode, Frequency, AccessPoint, BitRate, @{
   name       = 'LinkQuality'
-  expression = { [int]([int]($_.LinkQuality -replace ('/.*', '')) / [int]($_.LinkQuality -replace ('^\d{2,3}/', '')) * 100) }
+  expression = { [Int]([Int]($_.LinkQuality -replace ('/.*', '')) / [Int]($_.LinkQuality -replace ('^\d{2,3}/', '')) * 100) }
 }, SignalLevel |
   Sort-Object -Property @{
-  Expression = {[int]$_.LinkQuality}
+  Expression = {[Int]$_.LinkQuality}
 }, @{
-  Expression = {[int]$_.BitRate}
+  Expression = {[Int]$_.BitRate}
 }, @{
-  Expression = {[int]$_.SignalLevel}
+  Expression = {[Int]$_.SignalLevel}
 } |
   Format-Table -AutoSize
 }

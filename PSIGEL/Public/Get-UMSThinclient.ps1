@@ -62,14 +62,14 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Id'         = [int]$APIObject.id
-        'ObjectType' = [string]$APIObject.objectType
-        'UnitId'     = [string]$APIObject.unitID
-        'Mac'        = [string]$APIObject.mac
-        'Name'       = [string]$APIObject.name
-        'ParentId'   = [int]$APIObject.parentID
-        'FirmwareId' = [int]$APIObject.firmwareID
-        'LastIp'     = [string]$APIObject.lastIP
+        'Id'         = [Int]$APIObject.id
+        'ObjectType' = [String]$APIObject.objectType
+        'UnitId'     = [String]$APIObject.unitID
+        'Mac'        = [String]$APIObject.mac
+        'Name'       = [String]$APIObject.name
+        'ParentId'   = [Int]$APIObject.parentID
+        'FirmwareId' = [Int]$APIObject.firmwareID
+        'LastIp'     = [String]$APIObject.lastIP
         'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
       }
       switch ($Facet)
@@ -89,40 +89,40 @@
         details
         {
           $Properties += [ordered]@{
-            'NetworkName'               = [string]$APIObject.networkName
-            'Comment'                   = [string]$APIObject.comment
-            'ProductId'                 = [string]$APIObject.productId
-            'CpuSpeed'                  = [int]$APIObject.cpuSpeed
-            'CpuType'                   = [string]$APIObject.cpuType
-            'DeviceType'                = [string]$APIObject.deviceType
-            'DeviceSerialNumber'        = [string]$APIObject.deviceSerialNumber
-            'OsType'                    = [string]$APIObject.osType
-            'FlashSize'                 = [int]$APIObject.flashSize
-            'MemorySize'                = [int]$APIObject.memorySize
-            'NetworkSpeed'              = [int]$APIObject.networkSpeed
-            'GraphicsChipset0'          = [string]$APIObject.graphicsChipset0
-            'GraphicsChipset1'          = [string]$APIObject.graphicsChipset1
-            'MonitorVendor1'            = [string]$APIObject.monitorVendor1
-            'MonitorModel1'             = [string]$APIObject.monitorModel1
-            'MonitorSerialnumber1'      = [string]$APIObject.monitorSerialnumber1
-            'MonitorSize1'              = [int]$APIObject.monitorSize1
-            'MonitorNativeResolution1'  = [string]$APIObject.monitorNativeResolution1
-            'Monitor1YearOfManufacture' = [int]$APIObject.monitor1YearOfManufacture
-            'Monitor1WeekOfManufacture' = [int]$APIObject.monitor1WeekOfManufacture
-            'MonitorVendor2'            = [string]$APIObject.monitorVendor2
-            'MonitorModel2'             = [string]$APIObject.monitorModel2
-            'MonitorSerialnumber2'      = [string]$APIObject.monitorSerialnumber2
-            'MonitorSize2'              = [int]$APIObject.monitorSize2
-            'MonitorNativeResolution2'  = [string]$APIObject.monitorNativeResolution2
-            'Monitor2YearOfManufacture' = [int]$APIObject.monitor2YearOfManufacture
-            'Monitor2WeekOfManufacture' = [int]$APIObject.monitor2WeekOfManufacture
-            'BiosVendor'                = [string]$APIObject.biosVendor
-            'BiosVersion'               = [string]$APIObject.biosVersion
+            'NetworkName'               = [String]$APIObject.networkName
+            'Comment'                   = [String]$APIObject.comment
+            'ProductId'                 = [String]$APIObject.productId
+            'CpuSpeed'                  = [Int]$APIObject.cpuSpeed
+            'CpuType'                   = [String]$APIObject.cpuType
+            'DeviceType'                = [String]$APIObject.deviceType
+            'DeviceSerialNumber'        = [String]$APIObject.deviceSerialNumber
+            'OsType'                    = [String]$APIObject.osType
+            'FlashSize'                 = [Int]$APIObject.flashSize
+            'MemorySize'                = [Int]$APIObject.memorySize
+            'NetworkSpeed'              = [Int]$APIObject.networkSpeed
+            'GraphicsChipset0'          = [String]$APIObject.graphicsChipset0
+            'GraphicsChipset1'          = [String]$APIObject.graphicsChipset1
+            'MonitorVendor1'            = [String]$APIObject.monitorVendor1
+            'MonitorModel1'             = [String]$APIObject.monitorModel1
+            'MonitorSerialnumber1'      = [String]$APIObject.monitorSerialnumber1
+            'MonitorSize1'              = [Int]$APIObject.monitorSize1
+            'MonitorNativeResolution1'  = [String]$APIObject.monitorNativeResolution1
+            'Monitor1YearOfManufacture' = [Int]$APIObject.monitor1YearOfManufacture
+            'Monitor1WeekOfManufacture' = [Int]$APIObject.monitor1WeekOfManufacture
+            'MonitorVendor2'            = [String]$APIObject.monitorVendor2
+            'MonitorModel2'             = [String]$APIObject.monitorModel2
+            'MonitorSerialnumber2'      = [String]$APIObject.monitorSerialnumber2
+            'MonitorSize2'              = [Int]$APIObject.monitorSize2
+            'MonitorNativeResolution2'  = [String]$APIObject.monitorNativeResolution2
+            'Monitor2YearOfManufacture' = [Int]$APIObject.monitor2YearOfManufacture
+            'Monitor2WeekOfManufacture' = [Int]$APIObject.monitor2WeekOfManufacture
+            'BiosVendor'                = [String]$APIObject.biosVendor
+            'BiosVersion'               = [String]$APIObject.biosVersion
             'BiosDate'                  = [datetime]$APIObject.biosDate
-            'TotalUsagetime'            = [int]$APIObject.totalUsagetime
-            'TotalUptime'               = [int]$APIObject.totalUptime
+            'TotalUsagetime'            = [Int]$APIObject.totalUsagetime
+            'TotalUptime'               = [Int]$APIObject.totalUptime
             'LastBoottime'              = [datetime]$APIObject.lastBoottime
-            'BatteryLevel'              = [int]$APIObject.batteryLevel
+            'BatteryLevel'              = [Int]$APIObject.batteryLevel
           }
         }
       }

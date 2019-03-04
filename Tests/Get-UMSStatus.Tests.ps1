@@ -88,8 +88,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.BuildNumber | Should Be 40023
       }
 
-      It 'Result.BuildNumber should have type [int]' {
-        $Result.BuildNumber | Should -HaveType [int]
+      It 'Result.BuildNumber should have type [Int]' {
+        $Result.BuildNumber | Should -HaveType [Int]
       }
     }
 

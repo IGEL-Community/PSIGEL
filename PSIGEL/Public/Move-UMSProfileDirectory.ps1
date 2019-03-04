@@ -23,11 +23,11 @@ function Move-UMSProfileDirectory
     $WebSession,
 
     [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
-    [int]
+    [Int]
     $Id,
 
     [Parameter(Mandatory)]
-    [int]
+    [Int]
     $DestId
   )
 
@@ -60,8 +60,8 @@ function Move-UMSProfileDirectory
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'Id'      = [int]$APIObject.id
-        'Results' = [string]('{0}.' -f $APIObject.results)
+        'Id'      = [Int]$APIObject.id
+        'Results' = [String]('{0}.' -f $APIObject.results)
       }
       New-Object psobject -Property $Properties
     }
