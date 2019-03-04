@@ -34,7 +34,7 @@
   Begin
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/' -f $UriArray)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories' -f $UriArray)
     if ($Facet)
     {
       $FunctionString = New-UMSFunctionString -Facet $Facet
