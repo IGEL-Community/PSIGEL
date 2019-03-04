@@ -248,7 +248,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result.Id should have type [int]' {
       $Result.Id | Should -HaveType [int]
     }
 
@@ -256,7 +256,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -BeExactly $Id
     }
 
-    It 'Result.DirectoryChildren.ObjectType should be have type [String]' {
+    It 'Result.DirectoryChildren.ObjectType should have type [String]' {
       $Result.DirectoryChildren.ObjectType | Should -HaveType [String]
     }
 

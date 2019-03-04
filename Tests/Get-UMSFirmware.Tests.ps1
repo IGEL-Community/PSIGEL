@@ -186,7 +186,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result.Id should have type [int]' {
       $Result.Id | Should -HaveType [int]
     }
 
@@ -194,7 +194,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -BeExactly $UMS.UMSFirmware[0].id
     }
 
-    It 'Result.Version should be have type [String]' {
+    It 'Result.Version should have type [String]' {
       $Result.Version | Should -HaveType [String]
     }
 

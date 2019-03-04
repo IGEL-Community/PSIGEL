@@ -203,7 +203,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result.Id should have type [int]' {
       $Result.Id | Should -HaveType [int]
     }
 
@@ -211,7 +211,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -BeExactly $Id
     }
 
-    It 'Result.ReceiverID should be have type [Int]' {
+    It 'Result.ReceiverID should have type [Int]' {
       $Result.ReceiverID | Should -HaveType [Int]
     }
 

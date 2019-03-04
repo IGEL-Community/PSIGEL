@@ -97,7 +97,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should -HaveType [int]
       }
 
-      It 'Result.IsMasterProfile should be have type [bool]' {
+      It 'Result.IsMasterProfile should have type [bool]' {
         $Result.IsMasterProfile | Should -HaveType [bool]
       }
     }
@@ -144,7 +144,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result.Id | Should -HaveType [int]
       }
 
-      It 'Result.IsMasterProfile should be have type [bool]' {
+      It 'Result.IsMasterProfile should have type [bool]' {
         $Result.IsMasterProfile | Should -HaveType [bool]
       }
     }
@@ -200,7 +200,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should be have type [int]' {
+    It 'Result.Id should have type [int]' {
       $Result.Id | Should -HaveType [int]
     }
 
@@ -208,7 +208,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -BeExactly $UMS.UMSProfile[0].id
     }
 
-    It 'Result.Name should be have type [String]' {
+    It 'Result.Name should have type [String]' {
       $Result.Name | Should -HaveType [String]
     }
 
