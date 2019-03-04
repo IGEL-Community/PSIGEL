@@ -61,7 +61,7 @@ function Move-UMSProfileDirectory
     {
       $Properties = [ordered]@{
         'Id'      = [int]$APIObject.id
-        'Results' = [string]$APIObject.results
+        'Results' = [string]('{0}.' -f $APIObject.results)
       }
       New-Object psobject -Property $Properties
     }
