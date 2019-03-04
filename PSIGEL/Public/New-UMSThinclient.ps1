@@ -111,6 +111,7 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
+        'Mac'      = [string]$Mac
         'Message'  = [string]$APIObject.message
         'Id'       = [int]$APIObject.id
         'Name'     = [string]$APIObject.name
