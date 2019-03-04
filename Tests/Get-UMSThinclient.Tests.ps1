@@ -377,15 +377,19 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSThinclient[0].Id
+  $Mac = $UMS.UMSThinclient[0].Mac
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -396,17 +400,27 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSThinclient }  | Should Not Throw
+      { $Script:Result = Get-UMSThinclient } | Should Not Throw
     }
-
-    $Result = Get-UMSThinclient
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].Id should be have type [int]' {
-      $Result[0].Id | Should -HaveType [int]
+    It 'Result.Id should have type [Int]' {
+      $Result.Id | Should -HaveType [Int]
+    }
+
+    It "Result.Id should be exactly $Id" {
+      $Result.Id | Should -BeExactly $Id
+    }
+
+    It 'Result.Mac should have type [String]' {
+      $Result.Mac | Should -HaveType [String]
+    }
+
+    It "Result.Mac should be exactly $Mac" {
+      $Result.Mac | Should -BeExactly $Mac
     }
   }
 }
