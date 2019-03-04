@@ -135,7 +135,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = 'NewProfileDirectory'
+  $Name = $UMS.UMSProfileDirectory[2].NameNew
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -144,7 +144,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:Name'             = $Name
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -152,7 +152,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSProfileDirectory -Name $Name} | Should Not Throw
+      { $Script:Result = New-UMSProfileDirectory } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -163,7 +163,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result[0].Name should not be exactly $Name" {
+    It "Result[0].Name should be exactly $Name" {
       $Result[0].Name | Should -BeExactly $Name
     }
   }
