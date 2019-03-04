@@ -72,7 +72,9 @@
       {
         "Id": "463",
         "ReceiverID": "457",
-        "ReceiverType": "tcdirectory"
+        "ReceiverType": "tcdirectory",
+        "NewReceiverId": "462",
+        "NewReceiverType": "tc"
       },
       {
         "Id": "464",
