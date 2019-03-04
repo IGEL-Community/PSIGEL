@@ -43,12 +43,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSThinclientDirectory Should not throw' {
-        { Get-UMSThinclientDirectory } | Should -Not -Throw
+      It 'Get-UMSThinclientDirectoryDirectory Should not throw' {
+        { Get-UMSThinclientDirectoryDirectory } | Should -Not -Throw
       }
 
-      It 'Get-UMSThinclientDirectory -ApiVersion 10 Stop Should throw' {
-        { Get-UMSThinclientDirectory -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSThinclientDirectoryDirectory -ApiVersion 10 Stop Should throw' {
+        { Get-UMSThinclientDirectoryDirectory -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -67,7 +67,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSThinclientDirectory
+      $Result = Get-UMSThinclientDirectoryDirectory
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSThinclientDirectory -Id 2
+      $Result = Get-UMSThinclientDirectoryDirectory -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -158,7 +158,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclientDirectory -Id 2 -Facet children
+      $Result = Get-UMSThinclientDirectoryDirectory -Id 2 -Facet children
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -199,7 +199,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Get-UMSThinclientDirectory } | should throw 'Error'
+        { Get-UMSThinclientDirectoryDirectory } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -217,15 +217,19 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSThinclientDirectory[0].Id
+  $Name = $UMS.UMSThinclientDirectory[0].Name
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -236,25 +240,27 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSThinclientDirectory -Id 71} | Should Not Throw
+      { $Script:Result = Get-UMSThinclientDirectory } | Should Not Throw
     }
-
-    $Result = Get-UMSThinclientDirectory -Id 71
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].Id should be have type [int]' {
-      $Result[0].Id | Should -HaveType [int]
+    It 'Result.Id should have type [Int]' {
+      $Result.Id | Should -HaveType [Int]
     }
 
-    It 'Result[0].Name should be have type [string]' {
-      $Result[0].Name | Should -HaveType [string]
+    It "Result.Id should be exactly $Id" {
+      $Result.Id | Should -BeExactly $Id
     }
 
-    It 'Result[0].Name should not be null or empty' {
-      $Result[0].Name | Should -Not -BeNullOrEmpty
+    It 'Result.Name should have type [String]' {
+      $Result.Name | Should -HaveType [String]
+    }
+
+    It "Result.Name should be exactly $Name" {
+      $Result.Name | Should -BeExactly $Name
     }
   }
 }
