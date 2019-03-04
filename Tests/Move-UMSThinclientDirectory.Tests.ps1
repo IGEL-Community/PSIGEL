@@ -136,8 +136,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = (($UMS.ThinclientDirectories).where{$_.name -eq '[01]'}).id
-  $DestId = (($UMS.ThinclientDirectories).where{$_.name -eq '[02]'}).id
+  $Id = $UMS.UMSThinclientDirectory[0].Id
+  $DestId = $UMS.UMSThinclientDirectory[0].DestId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -147,7 +147,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:DestId'           = $DestId
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -166,8 +166,12 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [int]
     }
 
-    It "Result[0].Id should not be exactly $Id" {
+    It "Result[0].Id should be exactly $Id" {
       $Result[0].Id | Should -BeExactly $Id
+    }
+
+    It "Result[0].Results should be exactly 'successful.'" {
+      $Result[0].Results | Should -BeExactly 'successful.'
     }
   }
 }
