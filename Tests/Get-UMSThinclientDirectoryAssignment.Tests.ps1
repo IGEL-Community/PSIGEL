@@ -127,15 +127,20 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSThinclientDirectoryAssignment[0].Id
+  $ReceiverType = $UMS.UMSThinclientDirectoryAssignment.ReceiverType
+  $AssigneeId = $UMS.UMSThinclientDirectoryAssignment.AssigneeId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -146,25 +151,35 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Get-UMSThinclientDirectoryAssignment -Id 71} | Should Not Throw
+      { $Script:Result = Get-UMSThinclientDirectoryAssignment } | Should Not Throw
     }
-
-    $Result = Get-UMSThinclientDirectoryAssignment -Id 71
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[0].Id should be have type [int]' {
-      $Result[0].Id | Should -HaveType [int]
+    It 'Result.Id should have type [Int]' {
+      $Result.Id | Should -HaveType [Int]
     }
 
-    It 'Result[0].Type should be have type [string]' {
-      $Result[0].Type | Should -HaveType [string]
+    It "Result.Id should be exactly $UMS.UMSThinclientDirectoryAssignment.Id" {
+      $Result.Id | Should -BeExactly $UMS.UMSThinclientDirectoryAssignment.Id
     }
 
-    It 'Result[0].Type should not be null or empty' {
-      $Result[0].Type | Should -Not -BeNullOrEmpty
+    It 'Result.ReceiverType should have type [String]' {
+      $Result.ReceiverType | Should -HaveType [String]
+    }
+
+    It "Result.ReceiverType should be exactly $ReceiverType)" {
+      $Result.ReceiverType | Should -BeExactly $ReceiverType
+    }
+
+    It 'Result.AssigneeID should have type [Int]' {
+      $Result.AssigneeID | Should -HaveType [Int]
+    }
+
+    It "Result.AssigneeID should be exactly $AssigneeId)" {
+      $Result.AssigneeID | Should -BeExactly $AssigneeId
     }
   }
 }
