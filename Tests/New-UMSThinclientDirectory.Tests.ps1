@@ -44,8 +44,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "New-UMSThinclientDirectory -Name 'NewName' Should not throw" {
-        { New-UMSThinclientDirectory -Name 'NewName' } | Should -Not -Throw
+      It "New-UMSThinclientDirectory -Name 'NameNew' Should not throw" {
+        { New-UMSThinclientDirectory -Name 'NameNew' } | Should -Not -Throw
       }
     }
 
@@ -56,12 +56,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           [pscustomobject]@{
             message = 'Directory successfully inserted.'
             id      = '2'
-            name    = 'NewName'
+            name    = 'NameNew'
           }
         )
       }
 
-      $Result = New-UMSThinclientDirectory -Name 'NewName'
+      $Result = New-UMSThinclientDirectory -Name 'NameNew'
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,7 +93,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = New-UMSThinclientDirectory -Name 'NewName' -WhatIf
+      $Result = New-UMSThinclientDirectory -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -112,8 +112,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It "New-UMSThinclientDirectory -Name 'NewName' -ApiVersion 10 -ErrorAction Stop Should throw" {
-        { New-UMSThinclientDirectory -Name 'NewName' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "New-UMSThinclientDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop Should throw" {
+        { New-UMSThinclientDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -136,8 +136,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = '[New{0}]' -f ((0..1 |
-        ForEach-Object { '{0}' -f (Get-Random -Minimum 0 -Maximum 9)}) -join '')
+  $Name = $UMS.UMSThinclientDirectory[3].NameNew
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -146,7 +145,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:Name'             = $Name
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -167,6 +166,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
     It "Result[0].Name should be exactly $Name" {
       $Result[0].Name | Should -BeExactly $Name
+    }
+
+    It "Result[0].Message should be exactly 'Directory successfully inserted.'" {
+      $Result[0].Message | Should -BeExactly 'Directory successfully inserted.'
     }
   }
 }

@@ -73,8 +73,8 @@
         "Id": "463",
         "ReceiverID": "457",
         "ReceiverType": "tcdirectory",
-        "NewReceiverId": "462",
-        "NewReceiverType": "tc"
+        "ReceiverIdNew": "462",
+        "ReceiverTypeNew": "tc"
       },
       {
         "Id": "464",
@@ -197,8 +197,7 @@
         "ParentId": "-1"
       },
       {
-        "NewName": "P_TCDir04",
-        "ParentId": "-1"
+        "NameNew": "P_TCDir04"
       }
     ],
     "UMSThinclientDirectoryAssignment": [

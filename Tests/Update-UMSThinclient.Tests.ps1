@@ -44,12 +44,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "Update-UMSThinclient -Id 2 -Name 'NewName' Should not throw" {
-        { Update-UMSThinclient -Id 2 -Name 'NewName' } | Should -Not -Throw
+      It "Update-UMSThinclient -Id 2 -Name 'NameNew' Should not throw" {
+        { Update-UMSThinclient -Id 2 -Name 'NameNew' } | Should -Not -Throw
       }
 
-      It "Update-UMSThinclient -Id 2 -Name 'NewName' -ApiVersion 10 Stop Should throw" {
-        { Update-UMSThinclient -Id 2 -Name 'NewName' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 Stop Should throw" {
+        { Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It "Update-UMSThinclient -Id 2 Should throw" {
@@ -70,7 +70,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       $Params = @{
         Id            = 2
-        Name          = 'NewName'
+        Name          = 'NameNew'
         Site          = 'NewSite'
         Department    = 'NewDepartment'
         CostCenter    = 'NewCostCenter'
@@ -120,7 +120,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Update-UMSThinclient -Id 2 -Name 'NewName' -WhatIf
+      $Result = Update-UMSThinclient -Id 2 -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -139,8 +139,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      it "Update-UMSThinclient -Id 2 -Name 'NewName' -ApiVersion 10 -ErrorAction Stop should throw Error" {
-        { Update-UMSThinclient -Id 2 -Name 'NewName' -ApiVersion 10 -ErrorAction Stop } | should -Throw
+      it "Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop should throw Error" {
+        { Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -178,10 +178,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Update-UMSThinclient -Id 2 -Name 'NewName'} | Should Not Throw
+      { Update-UMSThinclient -Id 2 -Name 'NameNew'} | Should Not Throw
     }
 
-    $Result = Update-UMSThinclient -Id 2 -Name 'NewName'
+    $Result = Update-UMSThinclient -Id 2 -Name 'NameNew'
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty

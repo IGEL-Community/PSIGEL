@@ -43,8 +43,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "New-UMSProfileDirectory -Name 'NewName' Should not throw" {
-        { New-UMSProfileDirectory -Name 'NewName' } | Should -Not -Throw
+      It "New-UMSProfileDirectory -Name 'NameNew' Should not throw" {
+        { New-UMSProfileDirectory -Name 'NameNew' } | Should -Not -Throw
       }
     }
 
@@ -55,12 +55,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           [pscustomobject]@{
             message = 'Directory successfully inserted.'
             id      = '2'
-            name    = 'NewName'
+            name    = 'NameNew'
           }
         )
       }
 
-      $Result = New-UMSProfileDirectory -Name 'NewName'
+      $Result = New-UMSProfileDirectory -Name 'NameNew'
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -92,7 +92,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = New-UMSProfileDirectory -Name 'NewName' -WhatIf
+      $Result = New-UMSProfileDirectory -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -111,8 +111,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It "New-UMSProfileDirectory -Name 'NewName' -ApiVersion 10 -ErrorAction Stop Should throw" {
-        { New-UMSProfileDirectory -Name 'NewName' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "New-UMSProfileDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop Should throw" {
+        { New-UMSProfileDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {

@@ -193,8 +193,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
   $Id = $UMS.UMSProfileAssignment[0].Id
-  $ReceiverId = $UMS.UMSProfileAssignment[0].NewReceiverId
-  $ReceiverType = $UMS.UMSProfileAssignment[0].NewReceiverType
+  $ReceiverId = $UMS.UMSProfileAssignment[0].ReceiverIdNew
+  $ReceiverType = $UMS.UMSProfileAssignment[0].ReceiverTypeNew
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential

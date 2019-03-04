@@ -43,12 +43,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "Update-UMSProfileDirectory -Id 2 -Name 'NewName' Should not throw" {
-        { Update-UMSProfileDirectory -Id 2 -Name 'NewName' } | Should -Not -Throw
+      It "Update-UMSProfileDirectory -Id 2 -Name 'NameNew' Should not throw" {
+        { Update-UMSProfileDirectory -Id 2 -Name 'NameNew' } | Should -Not -Throw
       }
 
-      It "Update-UMSProfileDirectory -Id 2 -Name 'NewName' -ApiVersion 10 Stop Should throw" {
-        { Update-UMSProfileDirectory -Id 2 -Name 'NewName' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "Update-UMSProfileDirectory -Id 2 -Name 'NameNew' -ApiVersion 10 Stop Should throw" {
+        { Update-UMSProfileDirectory -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -63,7 +63,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Update-UMSProfileDirectory -Id 2 -Name 'NewName'
+      $Result = Update-UMSProfileDirectory -Id 2 -Name 'NameNew'
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -103,7 +103,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Update-UMSProfileDirectory -Id 2 -Name 'NewName' -WhatIf
+      $Result = Update-UMSProfileDirectory -Id 2 -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -123,7 +123,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Update-UMSProfileDirectory -Id 2 -Name 'NewName' } | should throw 'Error'
+        { Update-UMSProfileDirectory -Id 2 -Name 'NameNew' } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -160,10 +160,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Update-UMSProfileDirectory -Id 2 -Name 'NewName'} | Should Not Throw
+      { Update-UMSProfileDirectory -Id 2 -Name 'NameNew'} | Should Not Throw
     }
 
-    $Result = Update-UMSProfileDirectory -Id 2 -Name 'NewName'
+    $Result = Update-UMSProfileDirectory -Id 2 -Name 'NameNew'
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty

@@ -57,7 +57,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           [pscustomobject]@{
             message  = 'Thin client successfully inserted.'
             id       = '2'
-            name     = 'NewName'
+            name     = 'NameNew'
             parentID = -1
           }
         )

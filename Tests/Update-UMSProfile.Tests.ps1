@@ -43,12 +43,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "Update-UMSProfile -Id 2 -Name 'NewName' Should not throw" {
-        { Update-UMSProfile -Id 2 -Name 'NewName' } | Should -Not -Throw
+      It "Update-UMSProfile -Id 2 -Name 'NameNew' Should not throw" {
+        { Update-UMSProfile -Id 2 -Name 'NameNew' } | Should -Not -Throw
       }
 
-      It "Update-UMSProfile -Id 2 -Name 'NewName' -ApiVersion 10 Stop Should throw" {
-        { Update-UMSProfile -Id 2 -Name 'NewName' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "Update-UMSProfile -Id 2 -Name 'NameNew' -ApiVersion 10 Stop Should throw" {
+        { Update-UMSProfile -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -63,7 +63,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Update-UMSProfile -Id 2 -Name 'NewName'
+      $Result = Update-UMSProfile -Id 2 -Name 'NameNew'
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -103,7 +103,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Update-UMSProfile -Id 2 -Name 'NewName' -WhatIf
+      $Result = Update-UMSProfile -Id 2 -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -160,10 +160,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Update-UMSProfile -Id 2 -Name 'NewName'} | Should Not Throw
+      { Update-UMSProfile -Id 2 -Name 'NameNew'} | Should Not Throw
     }
 
-    $Result = Update-UMSProfile -Id 2 -Name 'NewName'
+    $Result = Update-UMSProfile -Id 2 -Name 'NameNew'
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
