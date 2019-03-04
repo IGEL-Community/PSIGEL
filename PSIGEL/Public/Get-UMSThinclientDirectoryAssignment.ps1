@@ -48,10 +48,11 @@ function Get-UMSThinclientDirectoryAssignment
       $ProfileColl = foreach ($child in $APIObject)
       {
         $ProfileProperties = [ordered]@{
-          'Id'                 = [int]$child.assignee.id
-          'Type'               = [string]$child.assignee.type
+          'Id'                 = [int]$Id
           'ReceiverId'         = [int]$child.receiver.id
           'ReceiverType'       = [string]$child.receiver.type
+          'AssigneeId'         = [int]$child.assignee.id
+          'AssigneeType'       = [string]$child.assignee.type
           'AssignmentPosition' = [int]$child.assignmentPosition
         }
         New-Object psobject -Property $ProfileProperties
