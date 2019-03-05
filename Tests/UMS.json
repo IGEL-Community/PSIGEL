@@ -36,8 +36,8 @@
         "New-UMSProfileDirectory",
         "New-UMSThinclient",
         "New-UMSThinclientDirectory",
-        "Remove-UMSProfile",
         "Remove-UMSProfileAssignment",
+        "Remove-UMSProfile",
         "Remove-UMSProfileDirectory",
         "Remove-UMSThinclient",
         "Remove-UMSThinclientDirectory",
@@ -178,7 +178,7 @@
         "Id": "457",
         "Name": "P_TCDir01",
         "ParentId": "-1",
-        "DestId": "629",
+        "DestId": "458",
         "DirectoryChildren": {
           "ObjectType": "tc",
           "Id": "461"
