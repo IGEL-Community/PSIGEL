@@ -53,7 +53,7 @@ function Move-UMSProfile
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    if ($PSCmdlet.ShouldProcess(('ID: {0} to DestID: {1}' -f $Id, $DestId)))
+    if ($PSCmdlet.ShouldProcess(('Id: {0} to DestID: {1}' -f $Id, $DestId)))
     {
       $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
