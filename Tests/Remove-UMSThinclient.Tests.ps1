@@ -78,8 +78,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It "Result.Message should be exactly 'Offline deletion successful.'" {
-        $Result.Message | Should Be 'Offline deletion successful.'
+      It "Result.Message should be exactly 'Offline deletion successful'" {
+        $Result.Message | Should Be 'Offline deletion successful'
       }
 
       It 'Result.Id should be exactly 2' {
