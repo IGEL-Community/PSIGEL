@@ -141,18 +141,23 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 
-  $User = 'igelums'
-  $CredPath = 'C:\Credentials\UMSRmdb.cred'
+  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
+    ConvertFrom-Json
+  $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($User, $Password)
+  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Id = $UMS.UMSProfileDirectory[0].Id
+  $NameUpdate = $UMS.UMSProfileDirectory[0].NameUpdate
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = 'localhost'
-    '*-UMS*:SecurityProtocol' = 'Tls12'
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
+    '*-UMS*:Name'             = $NameUpdate
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -160,10 +165,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { Update-UMSProfileDirectory -Id 2 -Name 'NameNew'} | Should Not Throw
+      { $Script:Result = Update-UMSProfileDirectory } | Should Not Throw
     }
-
-    $Result = Update-UMSProfileDirectory -Id 2 -Name 'NameNew'
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
@@ -173,12 +176,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [Int]
     }
 
-    It 'Result[0].Type should have type [String]' {
-      $Result[0].Type | Should -HaveType [String]
-    }
-
-    It 'Result[0].Type should not be null or empty' {
-      $Result[0].Type | Should -Not -BeNullOrEmpty
+    It "Result[0].Message should be exactly 'Updated directory successfully.'" {
+      $Result[0].Message | Should -BeExactly 'Updated directory successfully.'
     }
   }
 }
