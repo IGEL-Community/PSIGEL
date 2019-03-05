@@ -184,7 +184,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Mac | Should -BeExactly $Mac
     }
 
-    It "Result[0].Message should be exactly 'Deletion successful.' or 'Connection refused: connect.'" {
+    It "Result[0].Message should be exactly 'Connection refused: connect.'" {
       $Result[0].Message | Should -BeExactly 'Connection refused: connect.'
     }
   }
