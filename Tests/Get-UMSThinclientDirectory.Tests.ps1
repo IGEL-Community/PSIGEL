@@ -43,12 +43,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSThinclientDirectoryDirectory Should not throw' {
-        { Get-UMSThinclientDirectoryDirectory } | Should -Not -Throw
+      It 'Get-UMSThinclientDirectory Should not throw' {
+        { Get-UMSThinclientDirectory } | Should -Not -Throw
       }
 
-      It 'Get-UMSThinclientDirectoryDirectory -ApiVersion 10 Stop Should throw' {
-        { Get-UMSThinclientDirectoryDirectory -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSThinclientDirectory -ApiVersion 10 Stop Should throw' {
+        { Get-UMSThinclientDirectory -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -67,7 +67,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSThinclientDirectoryDirectory
+      $Result = Get-UMSThinclientDirectory
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSThinclientDirectoryDirectory -Id 2
+      $Result = Get-UMSThinclientDirectory -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -158,7 +158,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclientDirectoryDirectory -Id 2 -Facet children
+      $Result = Get-UMSThinclientDirectory -Id 2 -Facet children
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -199,7 +199,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Get-UMSThinclientDirectoryDirectory } | should throw 'Error'
+        { Get-UMSThinclientDirectory } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
