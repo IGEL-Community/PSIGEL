@@ -22,43 +22,43 @@ function Get-EPUpdateConfiguration
     try
     {
       $CommandResultColl = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
+      $Properties = [ordered]@{
+        Host = [String]$SSHSession.Host
+      }
+      foreach ($CommandResult in $CommandResultColl)
+      {
+        if ($CommandResult -match $PatternProtocol)
+        {
+          $Properties.Protocol = [String]$matches.Protocol
+        }
+        if ($CommandResult -match $PatternHostname)
+        {
+          $Properties.Hostname = [String]$matches.Hostname
+        }
+        if ($CommandResult -match $PatternPort)
+        {
+          $Properties.Port = [Int]$matches.Port
+        }
+        if ($CommandResult -match $PatternUsername)
+        {
+          $Properties.Username = [String]$matches.Username
+        }
+        if ($CommandResult -match $PatternPassword)
+        {
+          $Properties.Password = [String]$matches.Password
+        }
+        if ($CommandResult -match $PatternPath)
+        {
+          $Properties.Path = [String]$matches.Path
+        }
+      }
+      $Result = New-Object psobject -Property $Properties
+      $Result
     }
     catch
     {
       Write-Output -InputObject $PSItem.Exception.Message
     }
-    $Properties = [ordered]@{
-      Host = [String]$SSHSession.Host
-    }
-    foreach ($CommandResult in $CommandResultColl)
-    {
-      if ($CommandResult -match $PatternProtocol)
-      {
-        $Properties.Protocol = [String]$matches.Protocol
-      }
-      if ($CommandResult -match $PatternHostname)
-      {
-        $Properties.Hostname = [String]$matches.Hostname
-      }
-      if ($CommandResult -match $PatternPort)
-      {
-        $Properties.Port = [Int]$matches.Port
-      }
-      if ($CommandResult -match $PatternUsername)
-      {
-        $Properties.Username = [String]$matches.Username
-      }
-      if ($CommandResult -match $PatternPassword)
-      {
-        $Properties.Password = [String]$matches.Password
-      }
-      if ($CommandResult -match $PatternPath)
-      {
-        $Properties.Path = [String]$matches.Path
-      }
-    }
-    $Result = New-Object psobject -Property $Properties
-    $Result
   }
   end
   {
