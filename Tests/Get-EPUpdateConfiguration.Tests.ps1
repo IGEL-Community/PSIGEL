@@ -28,12 +28,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Mock 'Invoke-SSHCommandStream' {
       @'
 [UPDATECONF]
-protocol="https"
-hostname="UMSSERVER.acme.org"
+protocol="http"
+hostname="igelrmserver.acme.org"
 port="8443"
-username="IGEL_INTERNAL_FIRMWAREUPDATE_USER"
-password="00254322502457243420006e1a6d5d3e50275c2f0e60413a1f7f00275c2e8c7d5e2a587e5e290f"
-path="/ums_filetransfer/IGEL_Universal_Desktop_LX-4.14.300"
+username="igelums"
+password="00a8430e21213a154e5c2f"
+path="ums_filetransfer/IGEL_Universal_Desktop_LX-10.05.500"
 '@
     }
     Mock 'Write-Output' {}
@@ -49,31 +49,42 @@ path="/ums_filetransfer/IGEL_Universal_Desktop_LX-4.14.300"
       Assert-MockCalled @AMCParams
     }
 
-    It 'All result properties should be populated' {
-      ($Result | Get-Member).where{$_.Name -eq 'Protocol'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Hostname'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Port'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Username'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Password'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Path'} | Should be $true
-    }
-
-    It 'All result properties should have type string' {
-      $Result.Protocol | Should -HaveType ([String])
-      $Result.Hostname | Should -HaveType ([String])
-      $Result.Port | Should -HaveType ([String])
-      $Result.Username | Should -HaveType ([String])
-      $Result.Password | Should -HaveType ([String])
-      $Result.Path | Should -HaveType ([String])
-    }
-
-    It 'Result should have type PSCustomObject' {
-      $Result | Should -HaveType ([System.Management.Automation.PSCustomObject])
-    }
-
     It 'Result Count should be 1' {
       @($Result).Count | Should Be 1
     }
+
+    It 'Result should have type [pscustomobject]' {
+      $Result | Should -HaveType [pscustomobject]
+    }
+
+    It 'Result.Protocol should be exactly http' {
+      $Result.Protocol | Should BeExactly 'http'
+    }
+
+    It 'Result.Hostname should be exactly igelrmserver.acme.org' {
+      $Result.Hostname | Should BeExactly 'igelrmserver.acme.org'
+    }
+
+    It 'Result.Port should have type [Int]' {
+      $Result.Port | Should -HaveType [Int]
+    }
+
+    It 'Result.Port should be exactly 8443' {
+      $Result.Port | Should BeExactly 8443
+    }
+
+    It 'Result.Username should be exactly igelums' {
+      $Result.Username | Should BeExactly 'igelums'
+    }
+
+    It 'Result.Password should be exactly 00a8430e21213a154e5c2f' {
+      $Result.Password | Should BeExactly '00a8430e21213a154e5c2f'
+    }
+
+    It 'Result.Path should be exactly ums_filetransfer/IGEL_Universal_Desktop_LX-10.05.500' {
+      $Result.Path | Should BeExactly 'ums_filetransfer/IGEL_Universal_Desktop_LX-10.05.500'
+    }
+
 
     It 'Assert Write-Output is called exactly 0 times' {
       $AMCParams = @{
@@ -104,19 +115,4 @@ path="/ums_filetransfer/IGEL_Universal_Desktop_LX-4.14.300"
       $Result | Should BeNullOrEmpty
     }
   }
-}
-
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  <#
-  BeforeAll {
-    $Global:ConfirmPreference = 'None'
-    . ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName)
-    $PSDefaultParameterValues = @{
-      #'*:SSHSession' = New-MockObject -Type 'SSH.SshSession'
-    }
-  }
-  It "doesn't throw" {
-    { Get-EPFirmware }  | Should Not Throw
-  }
-  #>
 }
