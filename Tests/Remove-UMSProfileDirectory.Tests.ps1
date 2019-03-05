@@ -95,7 +95,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory' -WhatIf
+      $Result = Remove-UMSProfileDirectory -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -138,17 +138,17 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $ID = 552
+  $Id = $UMS.UMSProfileDirectory[3].Id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Confirm'          = $false
     '*-UMS*:Id'               = $Id
+    '*-UMS*:Confirm'          = $false
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -156,7 +156,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Remove-UMSProfile } | Should Not Throw
+      { $Script:Result = Remove-UMSProfileDirectory } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -169,6 +169,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
     It "Result[0].Id should be exactly $Id" {
       $Result[0].Id | Should -BeExactly $Id
+    }
+
+    It "Result[0].Message should be exactly 'Deletion successful.'" {
+      $Result[0].Message | Should -BeExactly 'Deletion successful.'
     }
   }
 }
