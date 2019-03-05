@@ -9,7 +9,7 @@ $RootCredential = (Import-Clixml -Path $RootCredPath)
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'       = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
   '*-UMS*:Computername'     = 'igelrmserver.acme.org'
-  '*-UMS*:SecurityProtocol' = 'Tls'
+  '*-UMS*:SecurityProtocol' = 'Tls12'
 }
 
 $WebSession = New-UMSAPICookie
