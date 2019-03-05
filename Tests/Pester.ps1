@@ -56,7 +56,7 @@ foreach ($Function in $UMS.TestOrder.Public)
     Script       = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Function
     CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Function
     Tag          = 'UnitTests'
-    Show         = 'Summary'
+    Show         = 'Failed'
   }
   Invoke-Pester @IVPParams
 }
