@@ -56,7 +56,7 @@
         $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
       }
     }
-    if ($PSCmdlet.ShouldProcess('TCID: {0}' -f $TCID))
+    if ($PSCmdlet.ShouldProcess('Id: {0}' -f $ID))
     {
       $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
@@ -67,7 +67,7 @@
         'Offline'
         {
           $Properties = [ordered]@{
-            'Message' = [String]('{0}.' -f $APIObject.Message)
+            'Message' = [String]('{0}' -f $APIObject.Message)
             'Id'      = [Int]$Id
           }
         }
