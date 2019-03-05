@@ -1,12 +1,13 @@
 $UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
 $UMSUser = 'rmdb'
 $UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
-$RootCredPath = 'C:\Credentials\TCRoot.cred'
-$RootCredential = (Import-Clixml -Path $RootCredPath)
+#Id of the thinclientdirectory
+[Int]$TcDirId = 999
 
 $PSDefaultParameterValues = @{
-  '*-UMS*:Credential'   = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
-  '*-UMS*:Computername' = 'srvums02.bfw.local'
+  '*-UMS*:Credential'       = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
+  '*-UMS*:Computername'     = 'igelrmserver.acme.org'
+  '*-UMS*:SecurityProtocol' = 'Tls12'
 }
 
 $WebSession = New-UMSAPICookie
@@ -15,7 +16,8 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-$TCColl = Get-UMSThinclient -Details full
+$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Facet children).DirectoryChildren
+$TCColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Facet details
 
 $ExportExcelParams = @{
   Path              = 'C:\Temp\demo.xlsx'
