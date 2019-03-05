@@ -25,7 +25,11 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 
   Context "Code Execution" {
-    Mock 'Invoke-SSHCommandStream' {' 1  Aa.: ! '}
+    Mock 'Invoke-SSHCommandStream' {
+      @'
+10.05.500.01
+'@
+    }
     Mock 'Write-Output' {}
 
     $Result = Get-EPFirmware
@@ -39,17 +43,18 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Assert-MockCalled @AMCParams
     }
 
-    It 'Result should be without white spaces' {
-      $Result | Should BeExactly '1Aa.:!'
-    }
-
-    It 'Result should have type string' {
-      $Result | Should -HaveType ([String])
-    }
-
     It 'Result Count should be 1' {
       @($Result).Count | Should Be 1
     }
+
+    It 'Result should have type [pscustomobject]' {
+      $Result | Should -HaveType [pscustomobject]
+    }
+
+    It 'Result.Version should be exactly 10.05.500.01' {
+      $Result.Version | Should BeExactly '10.05.500.01'
+    }
+
 
     It 'Assert Write-Output is called exactly 0 times' {
       $AMCParams = @{
@@ -80,19 +85,4 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       $Result | Should BeNullOrEmpty
     }
   }
-}
-
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  <#
-  BeforeAll {
-    $Global:ConfirmPreference = 'None'
-    . ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName)
-    $PSDefaultParameterValues = @{
-      #'*:SSHSession' = New-MockObject -Type 'SSH.SshSession'
-    }
-  }
-  It "doesn't throw" {
-    { Get-EPFirmware }  | Should Not Throw
-  }
-  #>
 }
