@@ -27,11 +27,20 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   Context "Code Execution" {
     Mock 'Invoke-SSHCommandStream' {
       @'
+wlan0     IEEE 802.11  ESSID:"WLAN-0123456"
+          Mode:Managed  Frequency:5.18 GHz  Access Point: 00:42:4C:24:E8:F9
+          Bit Rate=54 Mb/s   Tx-Power=20 dBm
+          Retry short  long limit:2   RTS thr:off   Fragment thr:off
+          Encryption key:off
+          Power Management:off
+          Link Quality=66/70  Signal level=-44 dBm
+          Rx invalid nwid:0  Rx invalid crypt:0  Rx invalid frag:0
+          Tx excessive retries:0  Invalid misc:17   Missed beacon:0
 '@
     }
     Mock 'Write-Output' {}
 
-    $Result = Get-EPWifiConnection -Interface 'wlan0'
+    $Result = Get-EPWifiConnection
 
     It 'Assert Invoke-SSHCommandStream is called exactly 1 time' {
       $AMCParams = @{
@@ -42,31 +51,74 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Assert-MockCalled @AMCParams
     }
 
-    It 'All result properties should be populated' {
-      ($Result | Get-Member).where{$_.Name -eq 'Protocol'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Hostname'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Port'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Username'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Password'} | Should be $true
-      ($Result | Get-Member).where{$_.Name -eq 'Path'} | Should be $true
-    }
-
-    It 'All result properties should have type string' {
-      $Result.Protocol | Should -HaveType ([String])
-      $Result.Hostname | Should -HaveType ([String])
-      $Result.Port | Should -HaveType ([String])
-      $Result.Username | Should -HaveType ([String])
-      $Result.Password | Should -HaveType ([String])
-      $Result.Path | Should -HaveType ([String])
-    }
-
-    It 'Result should have type PSCustomObject' {
-      $Result | Should -HaveType ([System.Management.Automation.PSCustomObject])
-    }
-
     It 'Result Count should be 1' {
       @($Result).Count | Should Be 1
     }
+
+    It 'Result should have type [pscustomobject]' {
+      $Result | Should -HaveType [pscustomobject]
+    }
+
+    It 'Result.ESSID should be exactly WLAN-0123456' {
+      $Result.ESSID | Should BeExactly 'WLAN-0123456'
+    }
+
+    It 'Result.Mode should be exactly Managed' {
+      $Result.Mode | Should BeExactly 'Managed'
+    }
+
+    It 'Result.Frequency should have type [Single]' {
+      $Result.Frequency | Should -HaveType [Single]
+    }
+
+    It 'Result.Frequency should be exactly 5.18' {
+      $Result.Frequency | Should BeExactly '5.18'
+    }
+
+    It 'Result.AccessPoint should be exactly 00:42:4C:24:E8:F9' {
+      $Result.AccessPoint | Should BeExactly '00:42:4C:24:E8:F9'
+    }
+
+    It 'Result.BitRate should have type [Int]' {
+      $Result.BitRate | Should -HaveType [Int]
+    }
+    
+    It 'Result.BitRate should be exactly 54' {
+      $Result.BitRate | Should BeExactly 54
+    }
+    
+    It 'Result.TxPower should have type [Int]' {
+      $Result.TxPower | Should -HaveType [Int]
+    }
+
+    It 'Result.TxPower should be exactly 20' {
+      $Result.TxPower | Should BeExactly 20
+    }
+
+    It 'Result.LinkQualityActual should have type [Int]' {
+      $Result.LinkQualityActual | Should -HaveType [Int]
+    }
+
+    It 'Result.LinkQualityActual should be exactly 66' {
+      $Result.LinkQualityActual | Should BeExactly 66
+    }
+
+    It 'Result.LinkQualityMax should have type [Int]' {
+      $Result.LinkQualityMax | Should -HaveType [Int]
+    }
+
+    It 'Result.LinkQualityMax should be exactly 70' {
+      $Result.LinkQualityMax | Should BeExactly 70
+    }
+
+    It 'Result.SignalLevel should have type [Int]' {
+      $Result.SignalLevel | Should -HaveType [Int]
+    }
+
+    It 'Result.SignalLevel should be exactly -44' {
+      $Result.SignalLevel | Should BeExactly -44
+    }
+
 
     It 'Assert Write-Output is called exactly 0 times' {
       $AMCParams = @{
@@ -97,19 +149,4 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       $Result | Should BeNullOrEmpty
     }
   }
-}
-
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  <#
-  BeforeAll {
-    $Global:ConfirmPreference = 'None'
-    . ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName)
-    $PSDefaultParameterValues = @{
-      #'*:SSHSession' = New-MockObject -Type 'SSH.SshSession'
-    }
-  }
-  It "doesn't throw" {
-    { Get-EPFirmware }  | Should Not Throw
-  }
-  #>
 }
