@@ -185,9 +185,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result[0].Message should be exactly 'Deletion successful.' or 'Connection refused: connect.'" {
-      $Result[0].Message | Should -BeExactly (
-        'Deletion successful.' -or 'Connection refused: connect.'
-      )
+      $Result[0].Message | Should -BeExactly 'Connection refused: connect.'
     }
   }
 }
