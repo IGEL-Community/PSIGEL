@@ -146,25 +146,26 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $ID = 552
+  $Id = $UMS.UMSThinclient[1].Id
+  $Mac = $UMS.UMSThinclient[1].Mac
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Confirm'          = $false
     '*-UMS*:Id'               = $Id
+    '*-UMS*:Confirm'          = $false
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "All" {
+  Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Remove-UMSProfile } | Should Not Throw
+      { $Script:Result = Stop-UMSThinclient } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -177,6 +178,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
     It "Result[0].Id should be exactly $Id" {
       $Result[0].Id | Should -BeExactly $Id
+    }
+
+    It "Result[0].Mac should be exactly $Mac" {
+      $Result[0].Mac | Should -BeExactly $Mac
+    }
+
+    It "Result[0].Message should be exactly 'Connection refused: connect.'" {
+      $Result[0].Message | Should -BeExactly 'Connection refused: connect.'
     }
   }
 }
