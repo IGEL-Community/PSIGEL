@@ -138,17 +138,17 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $ID = 552
+  $Id = $UMS.UMSProfile[1].Id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Confirm'          = $false
     '*-UMS*:Id'               = $Id
+    '*-UMS*:Confirm'          = $false
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -169,6 +169,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
     It "Result[0].Id should be exactly $Id" {
       $Result[0].Id | Should -BeExactly $Id
+    }
+
+    It "Result[0].Message should be exactly 'Deleted profile.'" {
+      $Result[0].Message | Should -BeExactly 'Deleted profile.'
     }
   }
 }
