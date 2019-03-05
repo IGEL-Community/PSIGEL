@@ -30,56 +30,56 @@ function Get-EPWifiConnection
     try
     {
       $CommandResultColl = Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command
+      $Properties = [ordered]@{
+        Host      = [String]$SSHSession.Host
+        Interface = [String]$Interface
+      }
+      foreach ($CommandResult in $CommandResultColl)
+      {
+        if ($CommandResult -match $PatternESSID)
+        {
+          $Properties.ESSID = [String]$matches.ESSID
+        }
+        if ($CommandResult -match $PatternMode)
+        {
+          $Properties.Mode = [String]$matches.Mode
+        }
+        if ($CommandResult -match $PatternFrequency)
+        {
+          $Properties.Frequency = [Single]$matches.Frequency
+        }
+        if ($CommandResult -match $PatternAccessPoint)
+        {
+          $Properties.AccessPoint = [String]$matches.AccessPoint
+        }
+        if ($CommandResult -match $PatternBitRate)
+        {
+          $Properties.BitRate = [Int]$matches.BitRate
+        }
+        if ($CommandResult -match $PatternTxPower)
+        {
+          $Properties.TxPower = [Int]$matches.TxPower
+        }
+        if ($CommandResult -match $PatternLinkQualityActual)
+        {
+          $Properties.LinkQualityActual = [Int]$matches.LinkQualityActual
+        }
+        if ($CommandResult -match $PatternLinkQualityMax)
+        {
+          $Properties.LinkQualityMax = [Int]$matches.LinkQualityMax
+        }
+        if ($CommandResult -match $PatternSignalLevel)
+        {
+          $Properties.SignalLevel = [Int]$matches.SignalLevel
+        }
+      }
+      $Result = New-Object psobject -Property $Properties
+      $Result
     }
     catch
     {
       Write-Output -InputObject $PSItem.Exception.Message
     }
-    $Properties = [ordered]@{
-      Host      = [String]$SSHSession.Host
-      Interface = [String]$Interface
-    }
-    foreach ($CommandResult in $CommandResultColl)
-    {
-      if ($CommandResult -match $PatternESSID)
-      {
-        $Properties.ESSID = [String]$matches.ESSID
-      }
-      if ($CommandResult -match $PatternMode)
-      {
-        $Properties.Mode = [String]$matches.Mode
-      }
-      if ($CommandResult -match $PatternFrequency)
-      {
-        $Properties.Frequency = [Single]$matches.Frequency
-      }
-      if ($CommandResult -match $PatternAccessPoint)
-      {
-        $Properties.AccessPoint = [String]$matches.AccessPoint
-      }
-      if ($CommandResult -match $PatternBitRate)
-      {
-        $Properties.BitRate = [Int]$matches.BitRate
-      }
-      if ($CommandResult -match $PatternTxPower)
-      {
-        $Properties.TxPower = [Int]$matches.TxPower
-      }
-      if ($CommandResult -match $PatternLinkQualityActual)
-      {
-        $Properties.LinkQualityActual = [Int]$matches.LinkQualityActual
-      }
-      if ($CommandResult -match $PatternLinkQualityMax)
-      {
-        $Properties.LinkQualityMax = [Int]$matches.LinkQualityMax
-      }
-      if ($CommandResult -match $PatternSignalLevel)
-      {
-        $Properties.SignalLevel = [Int]$matches.SignalLevel
-      }
-    }
-    $Result = New-Object psobject -Property $Properties
-    $Result
   }
   end
   {
