@@ -15,13 +15,17 @@ function Get-EPFirmware
   {
     try
     {
-      $Result = (Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command) -replace ('\s', '')
-      $Result
+      $CommandResultColl = (Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command) -replace ('\s', '')
     }
     catch
     {
       Write-Output -InputObject $PSItem.Exception.Message
     }
+    $Properties = [ordered]@{
+      'Version' = [string]$CommandResultColl
+    }
+    $Result = New-Object psobject -Property $Properties
+    $Result
   }
   end
   {
