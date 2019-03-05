@@ -42,7 +42,7 @@
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    if ($PSCmdlet.ShouldProcess('ProfileID: {0}' -f $Id))
+    if ($PSCmdlet.ShouldProcess('Id: {0}' -f $Id))
     {
       $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
