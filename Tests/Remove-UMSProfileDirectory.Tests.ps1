@@ -95,7 +95,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Remove-UMSProfileDirectory -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory' -WhatIf
+      $Result = Remove-UMSProfileDirectory -Id 2 -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
