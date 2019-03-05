@@ -42,7 +42,7 @@ function Remove-UMSThinclientDirectory
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    if ($PSCmdlet.ShouldProcess('DIRID: {0}' -f $Id))
+    if ($PSCmdlet.ShouldProcess('Id: {0}' -f $Id))
     {
       $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
