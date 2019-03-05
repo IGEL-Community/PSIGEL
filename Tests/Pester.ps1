@@ -1,3 +1,11 @@
+param
+(
+  [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
+  [String]
+  #$Tags = 'All'
+  #$Tags = 'UnitTests'
+  $Tags = 'IntegrationTests'
+)
 $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
 $ModuleName = Split-Path $ModuleRoot -Leaf
@@ -47,16 +55,29 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-#Invoke-Pester -Script $Script -CodeCoverage $CodeCoverage -Tag UnitTests
-#Invoke-Pester -Script $Script -Tag IntegrationTests
 
 foreach ($Function in $UMS.TestOrder.Public)
 {
   $IVPParams = @{
-    Script       = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Function
-    CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Function
-    Tag          = 'UnitTests'
-    Show         = 'Failed'
+    Script     = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Function
+    Show       = 'Failed'
+    OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Function
+  }
+  switch ($Tags)
+  {
+    'All'
+    {
+      $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Function
+    }
+    'UnitTests'
+    {
+      $IVPParams.Tag = 'UnitTests'
+      $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Function
+    }
+    'IntegrationTests'
+    {
+      $IVPParams.Tag = 'IntegrationTests'
+    }
   }
   Invoke-Pester @IVPParams
 }
