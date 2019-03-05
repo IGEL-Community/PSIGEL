@@ -138,8 +138,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclientDirectory[0].Id
-  $Mac = $UMS.UMSThinclientDirectory[0].Mac
+  $Id = $UMS.UMSThinclientDirectory[2].Id
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
