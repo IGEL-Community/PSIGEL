@@ -22,7 +22,7 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline, Mandatory)]
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Mandatory)]
     [Int]
     $Id
   )

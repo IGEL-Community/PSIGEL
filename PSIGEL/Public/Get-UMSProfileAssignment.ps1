@@ -26,7 +26,7 @@
     [Int]
     $Id,
 
-    [Parameter(ValueFromPipeline, ParameterSetName = 'Directory')]
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Directory')]
     [switch]
     $Directory
   )

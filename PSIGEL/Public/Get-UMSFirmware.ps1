@@ -21,8 +21,7 @@
 
     [Parameter(Mandatory)]
     $WebSession,
-
-    [Parameter(ValueFromPipeline, ParameterSetName = 'Id')]
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Id')]
     [Int]
     $Id
   )
