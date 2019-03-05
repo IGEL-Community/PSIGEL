@@ -127,7 +127,6 @@
         "ParentId": "457",
         "DestId": "458",
         "Comment": "Comment",
-        "CommentUpdate": "Comment_Update",
         "Online": "false",
         "ShadowSecret": {
           "certificate": "",
@@ -142,6 +141,7 @@
         "ParentId": "458",
         "DestId": "457",
         "Comment": "Comment",
+        "CommentUpdate": "Comment_Update",
         "Online": "false",
         "ShadowSecret": {
           "certificate": "",
@@ -177,7 +177,6 @@
       {
         "Id": "457",
         "Name": "P_TCDir01",
-        "NameUpdate": "P_TCDir01_Update",
         "ParentId": "-1",
         "DestId": "629",
         "DirectoryChildren": {
@@ -188,6 +187,7 @@
       {
         "Id": "458",
         "Name": "P_TCDir02",
+        "NameUpdate": "P_TCDir02_Update",
         "ParentId": "-1",
         "DestId": "629",
         "DirectoryChildren": {
