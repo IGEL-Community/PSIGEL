@@ -210,7 +210,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCID
-ID of the Thinclient to get
+ID of the Thinclient
 
 ```yaml
 Type: Int32
