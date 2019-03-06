@@ -61,7 +61,7 @@ function Move-UMSThinclientDirectory
     {
       $Properties = [ordered]@{
         'Id'      = [Int]$APIObject.id
-        'Results' = [String]('{0}.' -f $APIObject.results)
+        'Message' = [String]('{0}.' -f $APIObject.results)
       }
       New-Object psobject -Property $Properties
     }
