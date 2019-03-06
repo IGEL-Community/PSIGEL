@@ -22,7 +22,7 @@ function Move-UMSThinclientDirectory
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [Int]
     $Id,
 
