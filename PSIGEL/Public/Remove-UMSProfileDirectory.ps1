@@ -29,14 +29,14 @@ function Remove-UMSProfileDirectory
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $UriArray)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories' -f $UriArray)
   }
   Process
   {
     $Params = @{
       WebSession       = $WebSession
-      Uri              = $BaseURL
+      Uri              = ('{0}/{1}' -f $BaseURL, $Id)
       Method           = 'Delete'
       ContentType      = 'application/json'
       Headers          = @{}
