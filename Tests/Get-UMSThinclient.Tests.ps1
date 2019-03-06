@@ -355,6 +355,91 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
+    Context "Facet details no datetime" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {
+        [pscustomobject]@{
+          mac                       = '0123456789AB'
+          firmwareID                = '1'
+          lastIP                    = '192.168.0.1'
+          comment                   = 'comment'
+          productId                 = 'UC1-LX'
+          cpuSpeed                  = '1608'
+          cpuType                   = 'Intel(R) Core(TM) i7-7Y75 CPU @ 1.30GHz'
+          deviceType                = 'Legacy x86 system'
+          deviceSerialNumber        = '0'
+          osType                    = 'IGEL Linux 11 (Kernel Version 4.18.20)'
+          flashSize                 = '1985'
+          memorySize                = '1990'
+          networkSpeed              = '100'
+          graphicsChipset0          = 'VMware Inc. Abstract VGA II Adapter'
+          graphicsChipset1          = ''
+          monitorVendor1            = ''
+          monitorModel1             = ''
+          monitorSerialnumber1      = ''
+          monitorNativeResolution1  = ''
+          monitor1YearOfManufacture = ''
+          monitor1WeekOfManufacture = ''
+          monitorVendor2            = ''
+          monitorModel2             = ''
+          monitorSerialnumber2      = ''
+          monitorSize2              = '0,0'
+          monitorNativeResolution2  = ''
+          monitor2YearOfManufacture = ''
+          monitor2WeekOfManufacture = ''
+          biosVendor                = 'innotek GmbH'
+          biosVersion               = 'VirtualBox'
+          biosDate                  = ''
+          totalUsagetime            = '5433000'
+          totalUptime               = '5472000'
+          lastBoottime              = ''
+          batteryLevel              = '97'
+          id                        = '2'
+          name                      = 'endpoint01'
+          parentID                  = '3'
+          movedToBin                = 'False'
+          objectType                = 'tc'
+        }
+      }
+      Mock 'New-UMSFunctionString' {}
+
+      $Result = Get-UMSThinclient -Id 2 -Facet details
+
+      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'New-UMSFunctionString'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should have type pscustomobject' {
+        $Result | Should -HaveType ([pscustomobject])
+      }
+
+      It 'Result should have 1 element' {
+        @($Result).Count | Should BeExactly 1
+      }
+
+      It 'Result.BiosDate should be bull or empty' {
+        $Result.BiosDate | Should -BeNullOrEmpty
+      }
+
+      It 'Result.LastBoottime should be bull or empty' {
+        $Result.LastBoottime | Should -BeNullOrEmpty
+      }
+    }
+
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
