@@ -33,8 +33,8 @@ function Update-UMSProfileDirectory
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}' -f $UriArray)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories' -f $UriArray)
   }
   Process
   {
@@ -43,7 +43,7 @@ function Update-UMSProfileDirectory
     }
     $Params = @{
       WebSession       = $WebSession
-      Uri              = $BaseURL
+      Uri              = ('{0}/{1}' -f $BaseURL, $Id)
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
