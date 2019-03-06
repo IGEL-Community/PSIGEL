@@ -38,9 +38,8 @@
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray)
-    #$Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}' -f $UriArray
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
   }
   Process
   {
@@ -48,11 +47,11 @@
     {
       'tc'
       {
-        $Uri = '{0}/assignments/thinclients' -f $BaseURL
+        $Uri = '{0}/{1}/assignments/thinclients' -f $BaseURL, $Id
       }
       'tcdirectory'
       {
-        $Uri = '{0}/assignments/tcdirectories' -f $BaseURL
+        $Uri = '{0}/{1}/assignments/tcdirectories' -f $BaseURL, $Id
       }
     }
     $Body = ConvertTo-Json @(
