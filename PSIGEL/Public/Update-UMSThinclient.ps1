@@ -67,8 +67,8 @@
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients/{3}' -f $UriArray)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
   }
   Process
   {
@@ -116,7 +116,7 @@
         $Body = ConvertTo-Json $BodyHashTable
         $Params = @{
           WebSession       = $WebSession
-          Uri              = $BaseURL
+          Uri              = ('{0}/{1}' -f $BaseURL, $Id)
           Body             = $Body
           Method           = 'Put'
           ContentType      = 'application/json'
