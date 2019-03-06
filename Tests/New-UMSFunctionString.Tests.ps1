@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Facet'
+    $KnownParameters = 'Option'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -36,19 +36,19 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      It "New-UMSFunctionString -Facet 'short' Should not throw" {
-        { New-UMSFunctionString -Facet 'short'} | Should -Not -Throw
+      It "New-UMSFunctionString -Option 'short' Should not throw" {
+        { New-UMSFunctionString -Option 'short'} | Should -Not -Throw
       }
 
-      It "New-UMSFunctionString -Facet 'nonexisting' -ErrorAction Stop Should throw" {
-        { New-UMSFunctionString -Facet 'nonexisting' -ErrorAction Stop } | Should -Throw
+      It "New-UMSFunctionString -Option 'nonexisting' -ErrorAction Stop Should throw" {
+        { New-UMSFunctionString -Option 'nonexisting' -ErrorAction Stop } | Should -Throw
       }
 
     }
 
-    Context "Facet short" {
+    Context "Option short" {
 
-      $Result = New-UMSFunctionString -Facet short
+      $Result = New-UMSFunctionString -Option short
 
       It 'Result should have type String' {
         $Result | Should -HaveType ([String])
