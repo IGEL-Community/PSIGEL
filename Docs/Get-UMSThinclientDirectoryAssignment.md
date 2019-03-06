@@ -115,7 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### -DIRID
-ID of the Thinclient Directory to get assignments for
+ID of the Thinclient Directory assignments for
 
 ```yaml
 Type: Int32
