@@ -170,8 +170,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -BeExactly $Id
     }
 
-    It "Result[0].Results should be exactly 'successful.'" {
-      $Result[0].Results | Should -BeExactly 'successful.'
+    It "Result[0].Message should be exactly 'successful.'" {
+      $Result[0].Message | Should -BeExactly 'successful.'
     }
   }
 }
