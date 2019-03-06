@@ -29,14 +29,14 @@
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
   }
   Process
   {
     $Params = @{
       WebSession       = $WebSession
-      Uri              = $BaseURL
+      Uri              = ('{0}/{1}' -f $BaseURL, $Id)
       Method           = 'Delete'
       ContentType      = 'application/json'
       Headers          = @{}
