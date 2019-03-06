@@ -319,7 +319,7 @@ SignalLevel : -54</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>FileID</maml:name>
           <maml:Description>
-            <maml:para>ID of File to get</maml:para>
+            <maml:para>ID of File</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -382,7 +382,7 @@ SignalLevel : -54</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>FileID</maml:name>
         <maml:Description>
-          <maml:para>ID of File to get</maml:para>
+          <maml:para>ID of File</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -523,7 +523,7 @@ DIRID          : 50194</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>ID of Directoriy to get</maml:para>
+            <maml:para>ID of Directoriy</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -586,7 +586,7 @@ DIRID          : 50194</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>ID of Directoriy to get</maml:para>
+          <maml:para>ID of Directoriy</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -702,7 +702,7 @@ DIRID NAME MEMBEROF MOVEDTOBIN
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>FirmwareID</maml:name>
           <maml:Description>
-            <maml:para>ID of the firmware to get</maml:para>
+            <maml:para>ID of the firmware</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -765,7 +765,7 @@ DIRID NAME MEMBEROF MOVEDTOBIN
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>FirmwareID</maml:name>
         <maml:Description>
-          <maml:para>ID of the firmware to get</maml:para>
+          <maml:para>ID of the firmware</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -894,7 +894,7 @@ links        : {}</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
           <maml:name>JobID</maml:name>
           <maml:Description>
-            <maml:para>ID of Job to get</maml:para>
+            <maml:para>ID of Job</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -933,7 +933,7 @@ links        : {}</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="4" aliases="none">
         <maml:name>JobID</maml:name>
         <maml:Description>
-          <maml:para>ID of Job to get</maml:para>
+          <maml:para>ID of Job</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1098,7 +1098,7 @@ DIRID       : 85201</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>ID of Job Directory to get</maml:para>
+            <maml:para>ID of Job Directory</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1161,7 +1161,7 @@ DIRID       : 85201</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>ID of Job Directory to get</maml:para>
+          <maml:para>ID of Job Directory</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1279,7 +1279,7 @@ DIRID NAME     MEMBEROF MOVEDTOBIN
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ProfileID</maml:name>
           <maml:Description>
-            <maml:para>ID of the profile to get</maml:para>
+            <maml:para>ID of the profile</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1342,7 +1342,7 @@ DIRID NAME     MEMBEROF MOVEDTOBIN
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ProfileID</maml:name>
         <maml:Description>
-          <maml:para>ID of the profile to get</maml:para>
+          <maml:para>ID of the profile</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1666,7 +1666,7 @@ id    type
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Profile Directory to get</maml:para>
+            <maml:para>ID of the Profile Directory</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1741,7 +1741,7 @@ id    type
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Profile Directory to get</maml:para>
+          <maml:para>ID of the Profile Directory</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2035,7 +2035,7 @@ links              : {}</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="6" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient to get</maml:para>
+            <maml:para>ID of the Thinclient</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2110,7 +2110,7 @@ links              : {}</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="6" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient to get</maml:para>
+          <maml:para>ID of the Thinclient</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2311,7 +2311,7 @@ links        : {}</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient to get assignments for</maml:para>
+            <maml:para>ID of the Thinclient assignments for</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2374,7 +2374,7 @@ links        : {}</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient to get assignments for</maml:para>
+          <maml:para>ID of the Thinclient assignments for</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2505,7 +2505,7 @@ assignee                  receiver                      assignmentPosition links
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Directory to get</maml:para>
+            <maml:para>ID of the Directory</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2580,7 +2580,7 @@ assignee                  receiver                      assignmentPosition links
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Directory to get</maml:para>
+          <maml:para>ID of the Directory</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2718,7 +2718,7 @@ tcdirectory 230</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient Directory to get assignments for</maml:para>
+            <maml:para>ID of the Thinclient Directory assignments for</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2803,7 +2803,7 @@ tcdirectory 230</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient Directory to get assignments for</maml:para>
+          <maml:para>ID of the Thinclient Directory assignments for</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2948,7 +2948,7 @@ assignee                 receiver                    assignmentPosition links
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ViewID</maml:name>
           <maml:Description>
-            <maml:para>ID of the views to get.</maml:para>
+            <maml:para>ID of the views.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3011,7 +3011,7 @@ assignee                 receiver                    assignmentPosition links
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ViewID</maml:name>
         <maml:Description>
-          <maml:para>ID of the views to get.</maml:para>
+          <maml:para>ID of the views.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3141,7 +3141,7 @@ DIRID       : 73729</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DirID</maml:name>
           <maml:Description>
-            <maml:para>ID of the View Directory to get</maml:para>
+            <maml:para>ID of the View Directory</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3204,7 +3204,7 @@ DIRID       : 73729</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DirID</maml:name>
         <maml:Description>
-          <maml:para>ID of the View Directory to get</maml:para>
+          <maml:para>ID of the View Directory</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
