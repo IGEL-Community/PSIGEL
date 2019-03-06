@@ -33,8 +33,8 @@ function Update-UMSThinclientDirectory
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories/{3}' -f $UriArray)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/tcdirectories' -f $UriArray)
   }
   Process
   {
@@ -43,7 +43,7 @@ function Update-UMSThinclientDirectory
     }
     $Params = @{
       WebSession       = $WebSession
-      Uri              = $BaseURL
+      Uri              = ('{0}/{1}' -f $BaseURL, $Id)
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
