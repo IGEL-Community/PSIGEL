@@ -150,7 +150,7 @@ Accept wildcard characters: False
 ```
 
 ### -DIRID
-ID of the Profile Directory to get
+ID of the Profile Directory
 
 ```yaml
 Type: Int32
