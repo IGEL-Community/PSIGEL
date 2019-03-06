@@ -124,7 +124,7 @@ Accept wildcard characters: False
 ```
 
 ### -FirmwareID
-ID of the firmware to get
+ID of the firmware
 
 ```yaml
 Type: Int32
