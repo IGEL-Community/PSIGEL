@@ -24,7 +24,7 @@ function Get-UMSProfileDirectory
 
     [ValidateSet('children')]
     [String]
-    $Facet,
+    $Option,
 
     [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Id')]
     [Int]
@@ -35,9 +35,9 @@ function Get-UMSProfileDirectory
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray)
-    if ($Facet)
+    if ($Option)
     {
-      $FunctionString = New-UMSFunctionString -Facet $Facet
+      $FunctionString = New-UMSFunctionString -Option $Option
     }
   }
   Process
@@ -71,7 +71,7 @@ function Get-UMSProfileDirectory
         'MovedToBin' = [System.Convert]::ToBoolean($APIObject.movedToBin)
         'ObjectType' = [String]$APIObject.objectType
       }
-      switch ($Facet)
+      switch ($Option)
       {
         'children'
         {
