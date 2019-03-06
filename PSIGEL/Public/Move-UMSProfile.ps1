@@ -61,7 +61,7 @@ function Move-UMSProfile
     {
       $Properties = [ordered]@{
         'Id'      = [Int]$APIObject.id
-        'Results' = [String]$APIObject.results
+        'Message' = [String]$APIObject.results
       }
       New-Object psobject -Property $Properties
     }
