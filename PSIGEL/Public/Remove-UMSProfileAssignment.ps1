@@ -38,8 +38,8 @@
 
   Begin
   {
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $Id)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray)
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
   }
   Process
   {
@@ -47,11 +47,11 @@
     {
       'tc'
       {
-        $Uri = '{0}/assignments/thinclients/{1}' -f $BaseURL, $ReceiverId
+        $Uri = '{0}/{1}/assignments/thinclients/{2}' -f $BaseURL, $Id, $ReceiverId
       }
       'tcdirectory'
       {
-        $Uri = '{0}/assignments/tcdirectories/{1}' -f $BaseURL, $ReceiverId
+        $Uri = '{0}/{1}/assignments/tcdirectories/{2}' -f $BaseURL, $Id, $ReceiverId
       }
     }
     $Params = @{
