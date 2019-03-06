@@ -118,11 +118,25 @@
             'Monitor2WeekOfManufacture' = [Int]$APIObject.monitor2WeekOfManufacture
             'BiosVendor'                = [String]$APIObject.biosVendor
             'BiosVersion'               = [String]$APIObject.biosVersion
-            'BiosDate'                  = [datetime]$APIObject.biosDate
             'TotalUsagetime'            = [Int64]$APIObject.totalUsagetime
             'TotalUptime'               = [Int64]$APIObject.totalUptime
-            'LastBoottime'              = [datetime]$APIObject.lastBoottime
             'BatteryLevel'              = [Int]$APIObject.batteryLevel
+          }
+          if ($APIObject.lastBoottime)
+          {
+            $Properties.Add('LastBootTime', [datetime]$APIObject.lastBoottime)
+          }
+          else
+          {
+            $Properties.Add('LastBootTime', '')
+          }
+          if ($APIObject.biosDate)
+          {
+            $Properties.Add('BiosDate', [datetime]$APIObject.biosDate)
+          }
+          else
+          {
+            $Properties.Add('BiosDate', '')
           }
         }
       }
