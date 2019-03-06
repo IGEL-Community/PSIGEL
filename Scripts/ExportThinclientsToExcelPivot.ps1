@@ -16,8 +16,8 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Facet children).DirectoryChildren
-$TCColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Facet details
+$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Option children).DirectoryChildren
+$TCColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Option details
 
 $ExportExcelParams = @{
   Path              = 'C:\Temp\demo.xlsx'
