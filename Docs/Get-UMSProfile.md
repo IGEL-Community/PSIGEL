@@ -126,7 +126,7 @@ Accept wildcard characters: False
 ```
 
 ### -ProfileID
-ID of the profile to get
+ID of the profile
 
 ```yaml
 Type: Int32
