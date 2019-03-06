@@ -22,11 +22,11 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline, Mandatory)]
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Mandatory)]
     [Int]
     $Id,
 
-    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Directory')]
+    [Parameter(ValueFromPipeline, ParameterSetName = 'Directory')]
     [switch]
     $Directory
   )
