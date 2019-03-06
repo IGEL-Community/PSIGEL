@@ -154,7 +154,7 @@ Accept wildcard characters: False
 ```
 
 ### -DirID
-ID of the Directory to get
+ID of the Directory
 
 ```yaml
 Type: Int32
