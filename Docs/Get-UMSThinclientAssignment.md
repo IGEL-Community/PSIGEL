@@ -113,7 +113,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCID
-ID of the Thinclient to get assignments for
+ID of the Thinclient assignments for
 
 ```yaml
 Type: Int32
