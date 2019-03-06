@@ -18,8 +18,8 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Facet children).DirectoryChildren
-$EndPointColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Facet online
+$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Option children).DirectoryChildren
+$EndPointColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Option online
 $OnlineEndPointColl = $EndPointColl.Where{$_.Online -eq $true}
 
 $UpdateConfigurationColl = $OnlineEndPointColl |
