@@ -23,12 +23,12 @@ Gets wifi connection from a device via Posh-SSH.
 
 ### Example 1
 ```powershell
-PS C:\> $SSHSessionParam = @{
+PS C:\> $Params = @{
   ComputerName = 'Device01'
   Credential   = Get-Credential
   AcceptKey    = $true
 }
-$SSHSession = New-SSHSession @SSHSessionParam
+$SSHSession = New-SSHSession @Params
 
 Get-OSUpdateConfiguration -SSHSession $SSHSession
 ```
