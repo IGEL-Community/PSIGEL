@@ -3,8 +3,8 @@ param
   [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
   [String]
   #$Tags = 'All'
-  #$Tags = 'UnitTests'
-  $Tags = 'IntegrationTests'
+  $Tags = 'UnitTests'
+  #$Tags = 'IntegrationTests'
 )
 $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
