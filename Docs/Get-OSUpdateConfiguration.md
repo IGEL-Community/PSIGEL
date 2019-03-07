@@ -23,10 +23,27 @@ Gets update configuration from a device via Posh-SSH.
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $SSHSessionParam = @{
+  ComputerName = 'Device01'
+  Credential   = Get-Credential
+  AcceptKey    = $true
+}
+$SSHSession = New-SSHSession @SSHSessionParam
+
+Get-OSUpdateConfiguration -SSHSession $SSHSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Host     : Device01
+Protocol : http
+Hostname : igelrmserver
+Port     : 9080
+Username : igelums
+Password : 0009330f34121a177eb62d
+Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.05.500
+```
 
 ## PARAMETERS
 

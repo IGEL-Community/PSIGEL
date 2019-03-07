@@ -23,10 +23,31 @@ Gets wifi connection from a device via Posh-SSH.
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $SSHSessionParam = @{
+  ComputerName = 'Device01'
+  Credential   = Get-Credential
+  AcceptKey    = $true
+}
+$SSHSession = New-SSHSession @SSHSessionParam
+
+Get-OSUpdateConfiguration -SSHSession $SSHSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Host              : Device01
+Interface         : wlan0
+ESSID             : WLAN-0123456
+Mode              : Managed
+Frequency         : 5,18
+AccessPoint       : 00:42:6D:36:F8:E8
+BitRate           : 18
+TxPower           : 20
+LinkQualityActual : 68
+LinkQualityMax    : 70
+SignalLevel       : -42
+```
 
 ## PARAMETERS
 
