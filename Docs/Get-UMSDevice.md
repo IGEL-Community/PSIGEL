@@ -32,10 +32,104 @@ Gets information on a device via API.
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession
 ```
 
-{{ Add example description here }}
+Get 'short' information on all devices:
+
+```console
+Id         : 58
+ObjectType : tc
+UnitId     : 080027B0F6E2
+Mac        : 080027B0F6E2
+Name       : V10-01
+ParentId   : 71
+FirmwareId : 3
+LastIp     : 192.168.56.102
+MovedToBin : False
+
+Id         : 195
+ObjectType : tc
+UnitId     : 00515734C234
+Mac        : 00515734C234
+Name       : V11-01
+ParentId   : 71
+FirmwareId : 2
+LastIp     : 192.168.56.101
+MovedToBin : False
+```
+
+### Example 2
+```powershell
+PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 58 -Filter online
+```
+
+Get 'online' information on device with ID 195
+
+```console
+Id         : 195
+ObjectType : tc
+UnitId     : 00515734C234
+Mac        : 00515734C234
+Name       : V11-01
+ParentId   : 71
+FirmwareId : 2
+LastIp     : 192.168.56.101
+MovedToBin : False
+```
+
+### Example 3
+```powershell
+PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 195 -Filter details
+```
+
+Get 'details' information on device with ID 195
+
+```console
+Id                        : 195
+ObjectType                : tc
+UnitId                    : 00515734C234
+Mac                       : 00515734C234
+Name                      : V11-01
+ParentId                  : 71
+FirmwareId                : 2
+LastIp                    : 192.168.56.101
+MovedToBin                : False
+NetworkName               : V11-01
+Comment                   : [SingleLicensed]
+ProductId                 : UC1-LX
+CpuSpeed                  : 1608
+CpuType                   : Intel(R) Core(TM) i7-7Y75 CPU @ 1.30GHz
+DeviceType                : Legacy x86 system
+DeviceSerialNumber        : 0
+OsType                    : IGEL Linux 11 (Kernel Version 4.18.20)
+FlashSize                 : 1985
+MemorySize                : 1990
+NetworkSpeed              : 100
+GraphicsChipset0          : VMware Inc. Abstract VGA II Adapter
+GraphicsChipset1          :
+MonitorVendor1            :
+MonitorModel1             :
+MonitorSerialnumber1      :
+MonitorSize1              : 0
+MonitorNativeResolution1  :
+Monitor1YearOfManufacture : 0
+Monitor1WeekOfManufacture : 0
+MonitorVendor2            :
+MonitorModel2             :
+MonitorSerialnumber2      :
+MonitorSize2              : 0
+MonitorNativeResolution2  :
+Monitor2YearOfManufacture : 0
+Monitor2WeekOfManufacture : 0
+BiosVendor                : innotek GmbH
+BiosVersion               : VirtualBox
+TotalUsagetime            : 40341000
+TotalUptime               : 1035000
+BatteryLevel              : 63
+LastBootTime              : 07.03.2019 15:45:00
+BiosDate                  : 01.12.2006 00:00:00
+```
 
 ## PARAMETERS
 
