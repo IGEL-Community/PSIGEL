@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSEndpointDirectory
 
 ## SYNOPSIS
-Gets information on a endpoint directory.
+Gets information on an endpoint directory.
 
 ## SYNTAX
 
@@ -26,7 +26,7 @@ Get-UMSEndpointDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-Gets information on a endpoint directory via API.
+Gets information on an endpoint directory via API.
 
 ## EXAMPLES
 

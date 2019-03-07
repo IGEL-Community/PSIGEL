@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSEndpoint
 
 ## SYNOPSIS
-Gets information on a endpoint.
+Gets information on an endpoint.
 
 ## SYNTAX
 
@@ -26,7 +26,7 @@ Get-UMSEndpoint [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <In
 ```
 
 ## DESCRIPTION
-Gets information on a endpoint via API.
+Gets information on an endpoint via API.
 
 ## EXAMPLES
 

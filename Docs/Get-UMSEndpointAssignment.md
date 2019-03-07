@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSEndpointAssignment
 
 ## SYNOPSIS
-Gets information on a profile or master profile assignment of a endpoint.
+Gets information on a profile or master profile assignment of an endpoint.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Get-UMSEndpointAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVe
 ```
 
 ## DESCRIPTION
-Gets information on a profile or master profile assignment of a endpoint via API.
+Gets information on a profile or master profile assignment of an endpoint via API.
 
 ## EXAMPLES
 

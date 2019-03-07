@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSProfileAssignment
 
 ## SYNOPSIS
-Gets information on a endpoint or endpoint assignment of a profile.
+Gets information on an endpoint or endpoint directory assignment of a profile.
 
 ## SYNTAX
 
@@ -25,7 +25,7 @@ Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-Gets information on a endpoint or endpoint assignment of a profile via API.
+Gets information on an endpoint or endpoint directory assignment of a profile via API.
 
 ## EXAMPLES
 

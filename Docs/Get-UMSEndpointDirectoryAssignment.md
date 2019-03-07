@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSEndpointDirectoryAssignment
 
 ## SYNOPSIS
-Gets information on a profile or master profile assignment of a endpoint directory.
+Gets information on a profile or master profile assignment of an endpoint directory.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Get-UMSEndpointDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32>]
 ```
 
 ## DESCRIPTION
-Gets information on a profile or master profile assignment of a endpoint directory via API.
+Gets information on a profile or master profile assignment of an endpoint directory via API.
 
 ## EXAMPLES
 
