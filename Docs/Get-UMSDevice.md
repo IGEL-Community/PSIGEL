@@ -35,7 +35,7 @@ Gets information on a device via API.
 PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession
 ```
 
-Get 'short' information on all devices:
+Get 'short' information on all devices.
 
 ```console
 Id         : 58
@@ -64,7 +64,7 @@ MovedToBin : False
 PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 58 -Filter online
 ```
 
-Get 'online' information on device with ID 195
+Get 'online' information on device with ID 195.
 
 ```console
 Id         : 195
@@ -84,7 +84,7 @@ Online     : True
 PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 195 -Filter details
 ```
 
-Get 'details' information on device with ID 195
+Get 'details' information on device with ID 195.
 
 ```console
 Id                        : 195
