@@ -76,6 +76,7 @@ ParentId   : 71
 FirmwareId : 2
 LastIp     : 192.168.56.101
 MovedToBin : False
+Online     : True
 ```
 
 ### Example 3
