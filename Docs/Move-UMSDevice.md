@@ -1,11 +1,11 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSDevice.md
+online version:
 schema: 2.0.0
 ---
 
-# Update-UMSProfileDirectory
+# Move-UMSDevice
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,8 +13,8 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Update-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-Name] <String> [-WhatIf] [-Confirm]
+Move-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-DestId] <Int32> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -78,6 +78,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -DestId
+{{Fill DestId Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Id
 ID of the {{}}
 
@@ -90,21 +105,6 @@ Required: True
 Position: 5
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -Name
-{{Fill Name Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 6
-Default value: None
-Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
@@ -177,8 +177,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### System.Int32
-
-### System.String
 
 ## OUTPUTS
 

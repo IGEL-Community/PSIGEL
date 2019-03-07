@@ -16,32 +16,32 @@
         "Get-UMSProfileDirectory",
         "Get-UMSProfileAssignment",
         "Get-UMSStatus",
-        "Get-UMSEndpoint",
-        "Get-UMSEndpointAssignment",
-        "Get-UMSEndpointDirectory",
-        "Get-UMSEndpointDirectoryAssignment",
-        "Start-UMSEndpoint",
-        "Send-UMSEndpointSetting",
-        "Restart-UMSEndpoint",
-        "Stop-UMSEndpoint",
+        "Get-UMSDevice",
+        "Get-UMSDeviceAssignment",
+        "Get-UMSDeviceDirectory",
+        "Get-UMSDeviceDirectoryAssignment",
+        "Start-UMSDevice",
+        "Send-UMSDeviceSetting",
+        "Restart-UMSDevice",
+        "Stop-UMSDevice",
         "Update-UMSProfile",
         "Update-UMSProfileDirectory",
-        "Update-UMSEndpoint",
-        "Update-UMSEndpointDirectory",
+        "Update-UMSDevice",
+        "Update-UMSDeviceDirectory",
         "Move-UMSProfile",
         "Move-UMSProfileDirectory",
-        "Move-UMSEndpoint",
-        "Move-UMSEndpointDirectory",
+        "Move-UMSDevice",
+        "Move-UMSDeviceDirectory",
         "New-UMSProfileAssignment",
         "New-UMSProfileDirectory",
-        "New-UMSEndpoint",
-        "New-UMSEndpointDirectory",
+        "New-UMSDevice",
+        "New-UMSDeviceDirectory",
         "Remove-UMSProfileAssignment",
         "Remove-UMSProfile",
         "Remove-UMSProfileDirectory",
-        "Remove-UMSEndpoint",
-        "Remove-UMSEndpointDirectory",
-        "Reset-UMSEndpoint"
+        "Remove-UMSDevice",
+        "Remove-UMSDeviceDirectory",
+        "Reset-UMSDevice"
       ],
       "Private": []
     },
@@ -118,7 +118,7 @@
         "BuildNumber": "40023"
       }
     ],
-    "UMSEndpoint": [
+    "UMSDevice": [
       {
         "Id": "461",
         "ObjectType": "tc",
@@ -155,7 +155,7 @@
         "ParentId": "457"
       }
     ],
-    "UMSEndpointAssignment": [
+    "UMSDeviceAssignment": [
       {
         "Id": "461",
         "ReceiverId": "461",
@@ -173,7 +173,7 @@
         "AssignmentPosition": "1"
       }
     ],
-    "UMSEndpointDirectory": [
+    "UMSDeviceDirectory": [
       {
         "Id": "457",
         "Name": "P_TCDir01",
@@ -204,7 +204,7 @@
         "NameNew": "P_TCDir04"
       }
     ],
-    "UMSEndpointDirectoryAssignment": [
+    "UMSDeviceDirectoryAssignment": [
       {
         "Id": "457",
         "ReceiverID": "457",

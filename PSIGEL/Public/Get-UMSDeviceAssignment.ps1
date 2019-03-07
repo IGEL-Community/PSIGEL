@@ -1,6 +1,6 @@
-﻿function Get-UMSProfileAssignment
+﻿function Get-UMSDeviceAssignment
 {
-  [CmdletBinding(DefaultParameterSetName = 'Device')]
+  [CmdletBinding()]
   param
   (
     [Parameter(Mandatory)]
@@ -24,48 +24,35 @@
 
     [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Mandatory)]
     [Int]
-    $Id,
-
-    [Parameter(ValueFromPipeline, ParameterSetName = 'Directory')]
-    [switch]
-    $Directory
+    $Id
   )
+
   Begin
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
   }
   Process
   {
     $Params = @{
       WebSession       = $WebSession
+      Uri              = '{0}/{1}/assignments/profiles' -f $BaseURL, $Id
       Method           = 'Get'
       ContentType      = 'application/json'
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    Switch ($PsCmdlet.ParameterSetName)
-    {
-      'Device'
-      {
-        $Params.Add('Uri', ('{0}/{1}/assignments/thinclients' -f $BaseURL, $Id))
-      }
-      'Directory'
-      {
-        $Params.Add('Uri', ('{0}/{1}/assignments/tcdirectories' -f $BaseURL, $Id))
-      }
-    }
-    $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+    $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $ProfileColl = foreach ($child in $APIObject)
       {
         $ProfileProperties = [ordered]@{
-          'Id'                 = [Int]$child.assignee.id
-          'Type'               = [String]$child.assignee.type
+          'Id'                 = [Int]$Id
           'ReceiverId'         = [Int]$child.receiver.id
           'ReceiverType'       = [String]$child.receiver.type
+          'AssigneeId'         = [Int]$child.assignee.id
+          'AssigneeType'       = [String]$child.assignee.type
           'AssignmentPosition' = [Int]$child.assignmentPosition
         }
         New-Object psobject -Property $ProfileProperties
@@ -78,3 +65,4 @@
   {
   }
 }
+

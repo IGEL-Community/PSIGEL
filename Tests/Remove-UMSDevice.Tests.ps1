@@ -23,11 +23,11 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id', 'Directory'
+    [object[]]$Params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id', 'Online'
 
     It "Should contain our specific parameters" {
-      (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
+      (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
             Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
@@ -35,46 +35,31 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
 
     $PSDefaultParameterValues = @{
-      '*:WebSession'                = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername'              = 'igelrmserver.acme.org'
-      'Get-UMSProfileAssignment:Id' = 2
+      '*:WebSession'   = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:Computername' = 'igelrmserver.acme.org'
+      '*:Confirm'      = $false
     }
 
     Context "General Execution" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSProfileAssignment Should not throw' {
-        { Get-UMSProfileAssignment } | Should -Not -Throw
+      It "Remove-UMSDevice -Id 2 Should not throw" {
+        { Remove-UMSDevice -Id 2 } | Should -Not -Throw
       }
-
-      It 'Get-UMSProfileAssignment -ApiVersion 10 Stop Should throw' {
-        { Get-UMSProfileAssignment -ApiVersion 10 -ErrorAction Stop } | Should -Throw
-      }
-
     }
 
-    Context "ParameterSetName Device" {
+    Context "ParmeterSet Offline" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         (
           [pscustomobject]@{
-            SyncRoot = @{
-              assignee           = @{
-                id   = '2'
-                type = 'profile'
-              }
-              receiver           = @{
-                id   = '2'
-                type = 'tc'
-              }
-              assignmentPosition = 0
-            }
+            message = 'Offline deletion successful'
           }
         )
       }
 
-      $Result = Get-UMSProfileAssignment -Id 2
+      $Result = Remove-UMSDevice -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,36 +78,38 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].Id should be exactly 2' {
-        $Result[0].Id | Should BeExactly 2
+      It "Result.Message should be exactly 'Offline deletion successful'" {
+        $Result.Message | Should Be 'Offline deletion successful'
       }
 
-      It 'Result[0].Id should have type [Int]' {
-        $Result[0].Id | Should -HaveType [Int]
+      It 'Result.Id should be exactly 2' {
+        $Result.Id | Should Be 2
+      }
+
+      It 'Result.Id should have type [Int]' {
+        $Result.Id | Should -HaveType [Int]
       }
     }
 
-    Context "ParameterSetName Directory" {
+    Context "ParameterSet Online" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         (
           [pscustomobject]@{
-            SyncRoot = @{
-              assignee           = @{
-                id   = '2'
-                type = 'profile'
+            CommandExecList = (
+              @{
+                execID   = 'ID-PM-MH-WIN7-UMS-63885-1424682219085-5-0'
+                mac      = '008064AD82FB'
+                message  = 'OK'
+                exectime = '1424698605821'
+                state    = 'SUCCESS'
               }
-              receiver           = @{
-                id   = '2'
-                type = 'tcdirectory'
-              }
-              assignmentPosition = 0
-            }
+            )
           }
         )
       }
 
-      $Result = Get-UMSProfileAssignment -Id 2 -Directory
+      $Result = Remove-UMSDevice -Id 2 -Online
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -141,20 +128,44 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].Id should be exactly 2' {
-        $Result[0].Id | Should BeExactly 2
+      It "Result[0].CommandExecList.Message should be exactly 'OK.'" {
+        $Result[0].Message | Should Be 'OK.'
+      }
+
+      It 'Result[0].CommandExecList.Id should be exactly 2' {
+        $Result[0].Id | Should Be 2
       }
 
       It 'Result[0].Id should have type [Int]' {
         $Result[0].Id | Should -HaveType [Int]
+      }
+    }
+
+    Context "Whatif" {
+
+      Mock 'Invoke-UMSRestMethodWebSession' {}
+
+      $Result = Remove-UMSDevice -Id 2 -WhatIf
+
+      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+        $AMCParams = @{
+          CommandName = 'Invoke-UMSRestMethodWebSession'
+          Times       = 0
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should be null or empty' {
+        $Result | Should BeNullOrEmpty
       }
     }
 
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      it 'should throw Error' {
-        { Get-UMSProfileAssignment } | should throw 'Error'
+      It "Remove-UMSDevice -Id 2 -ApiVersion 10 -ErrorAction Stop Should throw" {
+        { Remove-UMSDevice -Id 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -177,18 +188,18 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSProfileAssignment[0].id
-  $ReceiverID = $UMS.UMSProfileAssignment[0].ReceiverID
+  $Id = $UMS.UMSDevice[0].Id
+  $Mac = $UMS.UMSDevice[0].Mac
 
   $PSDefaultParameterValues = @{
-    '*-UMS*:Credential'                  = $Credential
-    '*-UMS*:Computername'                = $UMS.Computername
-    '*-UMS*:SecurityProtocol'            = $UMS.SecurityProtocol
-    '*-UMS*:Id'                          = $Id
-    'Get-UMSProfileAssignment:Directory' = $true
+    '*-UMS*:Credential'       = $Credential
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
+    '*-UMS*:Confirm'          = $false
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
@@ -196,27 +207,23 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSProfileAssignment } | Should Not Throw
+      { $Script:Result = Remove-UMSDevice } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should have type [Int]' {
-      $Result.Id | Should -HaveType [Int]
+    It 'Result[0].Id should have type [Int]' {
+      $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result.Id should be exactly $Id)" {
-      $Result.Id | Should -BeExactly $Id
+    It "Result[0].Id should be exactly $Id" {
+      $Result[0].Id | Should -BeExactly $Id
     }
 
-    It 'Result.ReceiverID should have type [Int]' {
-      $Result.ReceiverID | Should -HaveType [Int]
-    }
-
-    It "Result.ReceiverID should be exactly $ReceiverID" {
-      $Result.ReceiverID | Should -BeExactly $ReceiverID
+    It "Result[0].Message should be exactly 'Offline deletion successful.'" {
+      $Result[0].Message | Should -BeExactly 'Offline deletion successful.'
     }
   }
 }

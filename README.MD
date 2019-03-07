@@ -1,12 +1,12 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL-Database (until the API supports all functions) and the IGEL OS Endpoints (e.g. Endpoints) via SSH.
+This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL-Database (until the API supports all functions) and the IGEL OS Devices (e.g. Devices) via SSH.
 
 **API (/MSSQL)** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
 
 **SSH** functions got the noun-prefix **EP** (for EndPoint), e.g. Get-**EP**Something
 
-To connect to the Endpoints via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
+To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
 
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie):
 
@@ -50,7 +50,7 @@ Firmware |[API](#get-umsfirmware)|-
 
 Item | Get | New | Update | Move | Remove | Start | Restart | Settings | Stop | Reset
 -----|-----|-----|--------|------|--------|-------|---------|----------|------|------
-Thin Client |[API](#get-umsendpoint)|[API](#new-umsendpoint)|[API](#update-umsendpoint)|[API](#move-umsendpoint)|[API](#remove-umsendpoint)|[API](#start-umsendpoint)|[API](#restart-umsendpoint)|[API](#send-umsendpointsetting)|[API](#stop-umsendpoint)|[API](#reset-umsendpoint)
+Thin Client |[API](#get-umsdevice)|[API](#new-umsdevice)|[API](#update-umsdevice)|[API](#move-umsdevice)|[API](#remove-umsdevice)|[API](#start-umsdevice)|[API](#restart-umsdevice)|[API](#send-umsdevicesetting)|[API](#stop-umsdevice)|[API](#reset-umsdevice)
 
 ### API/SQL Other Items
 
@@ -60,7 +60,7 @@ Profile |[API](#get-umsprofile)|-|[API](#remove-umsprofileassignment)|[API](#mov
 Profile Directory |[API](#get-umsprofileDirectory)|[API](#new-umsprofiledirectory)|[API](#update-umsprofiledirectoryname)|[API](#move-umsprofiledirectory)|[API](#remove-umsprofiledirectory)
 Master Profile |API|-|API|API|API
 Master Profile Directory |API|API|API|API|API
-Thin Client Directory |[API](#get-umsendpointdirectory)|[API](#new-umsendpointdirectory)|[API](#update-umsendpointdirectoryname)|[API](#move-umsendpointdirectory)|[API](#remove-umsendpointdirectory)
+Thin Client Directory |[API](#get-umsdevicedirectory)|[API](#new-umsdevicedirectory)|[API](#update-umsdevicedirectoryname)|[API](#move-umsdevicedirectory)|[API](#remove-umsdevicedirectory)
 |View |[SQL](#get-umsview)|-|SQL|-|-
 View Directory |[SQL](#get-umsviewdirectory)|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
@@ -72,8 +72,8 @@ File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
 
 |Item | Get | Update | Remove
 |-----|-----|--------|-------
-Thin Client |[API](#get-umsendpointassignment) |-|-
-Thin Client Directory |[API](#get-umsendpointdirectoryassignment) |-|-
+Thin Client |[API](#get-umsdeviceassignment) |-|-
+Thin Client Directory |[API](#get-umsdevicedirectoryassignment) |-|-
 Profile |[API](#get-umsprofileassignment) |[API](#update-umsprofileassignment) |[API](#remove-umsprofileassignment)
 Master Profile |API|-|-
 
@@ -117,7 +117,7 @@ Get information on profiles on the UMS instance.
 
 ### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
 
-Get the Endpoints and directories the profile is assigned to.
+Get the Devices and directories the profile is assigned to.
 
 ### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
 
@@ -127,19 +127,19 @@ Get information on Profile Directories.
 
 Get diagnostic information about the UMS instance.
 
-### [Get-UMSEndpoint](/Docs/Get-UMSEndpoint.md)
+### [Get-UMSDevice](/Docs/Get-UMSDevice.md)
 
-Get Endpoints.
+Get Devices.
 
-### [Get-UMSEndpointAssignment](/Docs/Get-UMSEndpointAssignment.md)
+### [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
 
 Get the profile and master profile assignments for the specified thin client, in order of their application.
 
-### [Get-UMSEndpointDirectory](/Docs/Get-UMSEndpointDirectory.md)
+### [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
 
 Get information on Thin Client Directories.
 
-### [Get-UMSEndpointDirectoryAssignment](/Docs/Get-UMSEndpointDirectoryAssignment.md)
+### [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
 
 Get the profile and master profile assignments for the specified thincient directory, in order of their application.
 
@@ -159,13 +159,13 @@ Moves Profiles into the specified Profile Directory.
 
 Moves Profile Directories into the specified Profile Directory.
 
-### [Move-UMSEndpoint](/Docs/Move-UMSEndpoint.md)
+### [Move-UMSDevice](/Docs/Move-UMSDevice.md)
 
-Moves Endpoints into the specified Endpoint Directory.
+Moves Devices into the specified Device Directory.
 
-### [Move-UMSEndpointDirectory](/Docs/Move-UMSEndpointDirectory.md)
+### [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
 
-Moves Endpoint Directories into the specified Endpoint Directory.
+Moves Device Directories into the specified Device Directory.
 
 ### [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
 
@@ -175,13 +175,13 @@ Creates Websession Cookie for IGEL UMS RestAPI.
 
 Creates a Profile Directory.
 
-### [New-UMSEndpoint](/Docs/New-UMSEndpoint.md)
+### [New-UMSDevice](/Docs/New-UMSDevice.md)
 
 Creates a new ThinClient.
 
-### [New-UMSEndpointDirectory](/Docs/New-UMSEndpointDirectory.md)
+### [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
 
-Creates a Endpoint Directory.
+Creates a Device Directory.
 
 ### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
 
@@ -189,39 +189,39 @@ Deletes profile.
 
 ### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
 
-Deletes assignment of the specified profile to the specified Endpoint or Endpoint directory.
+Deletes assignment of the specified profile to the specified Device or Device directory.
 
 ### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
 
 Removes a profile directory.
 
-### [Remove-UMSEndpoint](/Docs/Remove-UMSEndpoint.md)
+### [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
 
-Removes a Endpoint completely (without recycle bin).
+Removes a Device completely (without recycle bin).
 
-### [Remove-UMSEndpointDirectory](/Docs/Remove-UMSEndpointDirectory.md)
+### [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
 
-Removes a Endpoint directory.
+Removes a Device directory.
 
-### [Reset-UMSEndpoint](/Docs/Reset-UMSEndpoint.md)
+### [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
 
 Resets all thin clients listed in the request body to factory defaults and removes them from the UMS completely (without recycle bin).
 
-### [Restart-UMSEndpoint](/Docs/Restart-UMSEndpoint.md)
+### [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
 
-Restarts Endpoints.
+Restarts Devices.
 
-### [Send-UMSEndpointSetting](/Docs/Send-UMSEndpointSetting.md)
+### [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
 
 Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
-### [Start-UMSEndpoint](/Docs/Start-UMSEndpoint.md)
+### [Start-UMSDevice](/Docs/Start-UMSDevice.md)
 
-Wakes Up Endpoints (WOL).
+Wakes Up Devices (WOL).
 
-### [Stop-UMSEndpoint](/Docs/Stop-UMSEndpoint.md)
+### [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
 
-Shuts Down Endpoints.
+Shuts Down Devices.
 
 ### [Update-UMSJobStartDate](/Docs/Update-UMSJobStartDate.md)
 
@@ -229,7 +229,7 @@ Update Job Startdate.
 
 ### [Update-UMSProfileAssignment](/Docs/Update-UMSProfileAssignment.md)
 
-Assigns a profile to a Endpoint or a Endpoint directory.
+Assigns a profile to a Device or a Device directory.
 
 ### [Update-UMSProfileDirectoryName](/Docs/Update-UMSProfileDirectoryName.md)
 
@@ -239,27 +239,27 @@ Updates a Profile Directory name.
 
 Updates a profile name.
 
-### [Update-UMSEndpoint](/Docs/Update-UMSEndpoint.md)
+### [Update-UMSDevice](/Docs/Update-UMSDevice.md)
 
-Updates properties of a Endpoint.
+Updates properties of a Device.
 
-### [Update-UMSEndpointDirectoryName](/Docs/Update-UMSEndpointDirectoryName.md)
+### [Update-UMSDeviceDirectoryName](/Docs/Update-UMSDeviceDirectoryName.md)
 
 Updates a Profile Directory name.
 
 ## Scripts
 
-### [GetEndpointWifiInformationViaSSH](/Docs/GetEndpointWifiInformationViaSSH.md)
+### [GetDeviceWifiInformationViaSSH](/Docs/GetDeviceWifiInformationViaSSH.md)
 
-Get Endpoint WiFi Information via SSH.
+Get Device WiFi Information via SSH.
 
 ### GetUMSDirectoryStructure
 
-Get Endpoint Directory Structure. Expects 4 Tier-Directory Structure . (e.g. Base / Organisation / Campus / Room)
+Get Device Directory Structure. Expects 4 Tier-Directory Structure . (e.g. Base / Organisation / Campus / Room)
 
 ### RemoveParallelAppliedProfiles
 
-Removes Profiles from Endpoints if they are applied parallel.
+Removes Profiles from Devices if they are applied parallel.
 
 ## Private functions
 

@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id', 'Directory'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -35,46 +35,44 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
 
     $PSDefaultParameterValues = @{
-      '*:WebSession'                = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername'              = 'igelrmserver.acme.org'
-      'Get-UMSProfileAssignment:Id' = 2
+      '*:WebSession'                   = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:Computername'                 = 'igelrmserver.acme.org'
+      'Get-UMSDeviceAssignment:Id' = 2
     }
 
     Context "General Execution" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSProfileAssignment Should not throw' {
-        { Get-UMSProfileAssignment } | Should -Not -Throw
+      It 'Get-UMSDeviceAssignment Should not throw' {
+        { Get-UMSDeviceAssignment } | Should -Not -Throw
       }
 
-      It 'Get-UMSProfileAssignment -ApiVersion 10 Stop Should throw' {
-        { Get-UMSProfileAssignment -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSDeviceAssignment -ApiVersion 10 Stop Should throw' {
+        { Get-UMSDeviceAssignment -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
 
-    Context "ParameterSetName Device" {
+    Context "All" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         (
           [pscustomobject]@{
-            SyncRoot = @{
-              assignee           = @{
-                id   = '2'
-                type = 'profile'
-              }
-              receiver           = @{
-                id   = '2'
-                type = 'tc'
-              }
-              assignmentPosition = 0
+            assignee           = @{
+              id   = '2'
+              type = 'profile'
             }
+            Receiver           = @{
+              id   = '2'
+              type = 'tc'
+            }
+            assignmentPosition = 0
           }
         )
       }
 
-      $Result = Get-UMSProfileAssignment -Id 2
+      $Result = Get-UMSDeviceAssignment -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,68 +91,25 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         @($Result).Count | Should BeExactly 1
       }
 
-      It 'Result[0].Id should be exactly 2' {
-        $Result[0].Id | Should BeExactly 2
+      It 'Result[0] should have type [pscustomobject]' {
+        $Result[0] | Should -HaveType [pscustomobject]
       }
 
-      It 'Result[0].Id should have type [Int]' {
-        $Result[0].Id | Should -HaveType [Int]
-      }
-    }
-
-    Context "ParameterSetName Directory" {
-
-      Mock 'Invoke-UMSRestMethodWebSession' {
-        (
-          [pscustomobject]@{
-            SyncRoot = @{
-              assignee           = @{
-                id   = '2'
-                type = 'profile'
-              }
-              receiver           = @{
-                id   = '2'
-                type = 'tcdirectory'
-              }
-              assignmentPosition = 0
-            }
-          }
-        )
+      It 'Result[0].id should be exactly 2' {
+        $Result[0].id | Should BeExactly 2
       }
 
-      $Result = Get-UMSProfileAssignment -Id 2 -Directory
-
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
-        $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
-          Times       = 1
-          Exactly     = $true
-        }
-        Assert-MockCalled @AMCParams
+      It 'Result[0].id should have type [Int]' {
+        $Result[0].id | Should -HaveType [Int]
       }
 
-      It 'Result should have type pscustomobject' {
-        $Result | Should -HaveType ([pscustomobject])
-      }
-
-      It 'Result should have 1 element' {
-        @($Result).Count | Should BeExactly 1
-      }
-
-      It 'Result[0].Id should be exactly 2' {
-        $Result[0].Id | Should BeExactly 2
-      }
-
-      It 'Result[0].Id should have type [Int]' {
-        $Result[0].Id | Should -HaveType [Int]
-      }
     }
 
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Get-UMSProfileAssignment } | should throw 'Error'
+        { Get-UMSDeviceAssignment } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -177,15 +132,15 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSProfileAssignment[0].id
-  $ReceiverID = $UMS.UMSProfileAssignment[0].ReceiverID
+  $Id = $UMS.UMSDeviceAssignment[0].Id
+  $ReceiverType = $UMS.UMSDeviceAssignment.ReceiverType
+  $AssigneeId = $UMS.UMSDeviceAssignment.AssigneeId
 
   $PSDefaultParameterValues = @{
-    '*-UMS*:Credential'                  = $Credential
-    '*-UMS*:Computername'                = $UMS.Computername
-    '*-UMS*:SecurityProtocol'            = $UMS.SecurityProtocol
-    '*-UMS*:Id'                          = $Id
-    'Get-UMSProfileAssignment:Directory' = $true
+    '*-UMS*:Credential'       = $Credential
+    '*-UMS*:Computername'     = $UMS.Computername
+    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Id'               = $Id
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -196,7 +151,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSProfileAssignment } | Should Not Throw
+      { $Script:Result = Get-UMSDeviceAssignment } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -207,16 +162,24 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -HaveType [Int]
     }
 
-    It "Result.Id should be exactly $Id)" {
-      $Result.Id | Should -BeExactly $Id
+    It "Result.Id should be exactly $UMS.UMSDeviceAssignment.Id" {
+      $Result.Id | Should -BeExactly $UMS.UMSDeviceAssignment.Id
     }
 
-    It 'Result.ReceiverID should have type [Int]' {
-      $Result.ReceiverID | Should -HaveType [Int]
+    It 'Result.ReceiverType should have type [String]' {
+      $Result.ReceiverType | Should -HaveType [String]
     }
 
-    It "Result.ReceiverID should be exactly $ReceiverID" {
-      $Result.ReceiverID | Should -BeExactly $ReceiverID
+    It "Result.ReceiverType should be exactly $ReceiverType)" {
+      $Result.ReceiverType | Should -BeExactly $ReceiverType
+    }
+
+    It 'Result.AssigneeID should have type [Int]' {
+      $Result.AssigneeID | Should -HaveType [Int]
+    }
+
+    It "Result.AssigneeID should be exactly $AssigneeId)" {
+      $Result.AssigneeID | Should -BeExactly $AssigneeId
     }
   }
 }

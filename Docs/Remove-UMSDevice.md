@@ -1,20 +1,28 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSDevice.md
+online version:
 schema: 2.0.0
 ---
 
-# Update-UMSProfileDirectory
+# Remove-UMSDevice
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
 
 ## SYNTAX
 
+### Offline (Default)
 ```
-Update-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-Name] <String> [-WhatIf] [-Confirm]
+Remove-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### Online
+```
+Remove-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-Online] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -42,7 +50,7 @@ Aliases:
 Accepted values: 3
 
 Required: False
-Position: 2
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -57,7 +65,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 0
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -87,24 +95,24 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 5
+Position: Benannt
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
-### -Name
-{{Fill Name Description}}
+### -Online
+{{Fill Online Description}}
 
 ```yaml
-Type: String
-Parameter Sets: (All)
+Type: SwitchParameter
+Parameter Sets: Online
 Aliases:
 
-Required: True
-Position: 6
+Required: False
+Position: Benannt
 Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -118,7 +126,7 @@ Aliases:
 Accepted values: Tls12, Tls11, Tls, Ssl3
 
 Required: False
-Position: 3
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -133,7 +141,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 1
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -148,7 +156,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 4
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -177,8 +185,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### System.Int32
-
-### System.String
 
 ## OUTPUTS
 

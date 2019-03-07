@@ -1,9 +1,9 @@
 ﻿<#
       .Synopsis
-      Gets Endpoint Directory Structure from API
+      Gets Device Directory Structure from API
 
       .DESCRIPTION
-      Gets Endpoint Directory Structure from API. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
+      Gets Device Directory Structure from API. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -57,7 +57,7 @@ Switch ($WebSession)
   }
 }
 
-$DirColl = Get-UMSEndpointDirectory -Computername $Computername -WebSession $WebSession
+$DirColl = Get-UMSDeviceDirectory -Computername $Computername -WebSession $WebSession
 $Tier1Coll = $DirColl | Where-Object {
   $_.parentID -eq -1
 }

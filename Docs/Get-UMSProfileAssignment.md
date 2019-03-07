@@ -8,11 +8,11 @@ schema: 2.0.0
 # Get-UMSProfileAssignment
 
 ## SYNOPSIS
-Gets information on an endpoint or endpoint directory assignment of a profile.
+Gets information on an device or device directory assignment of a profile.
 
 ## SYNTAX
 
-### Endpoint (Default)
+### Device (Default)
 ```
 Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [<CommonParameters>]
@@ -25,7 +25,7 @@ Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-Gets information on an endpoint or endpoint directory assignment of a profile via API.
+Gets information on an device or device directory assignment of a profile via API.
 
 ## EXAMPLES
 
@@ -70,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -Directory
-Switch from endpoints to endpoint directories
+Switch from devices to device directories
 
 ```yaml
 Type: SwitchParameter

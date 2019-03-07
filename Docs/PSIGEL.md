@@ -35,17 +35,17 @@ Locale: en-US
 ### [Get-UMSStatus](Get-UMSStatus.md)
 {{Manually Enter Get-UMSStatus Description Here}}
 
-### [Get-UMSEndpoint](Get-UMSEndpoint.md)
-{{Manually Enter Get-UMSEndpoint Description Here}}
+### [Get-UMSDevice](Get-UMSDevice.md)
+{{Manually Enter Get-UMSDevice Description Here}}
 
-### [Get-UMSEndpointAssignment](Get-UMSEndpointAssignment.md)
-{{Manually Enter Get-UMSEndpointAssignment Description Here}}
+### [Get-UMSDeviceAssignment](Get-UMSDeviceAssignment.md)
+{{Manually Enter Get-UMSDeviceAssignment Description Here}}
 
-### [Get-UMSEndpointDirectory](Get-UMSEndpointDirectory.md)
-{{Manually Enter Get-UMSEndpointDirectory Description Here}}
+### [Get-UMSDeviceDirectory](Get-UMSDeviceDirectory.md)
+{{Manually Enter Get-UMSDeviceDirectory Description Here}}
 
-### [Get-UMSEndpointDirectoryAssignment](Get-UMSEndpointDirectoryAssignment.md)
-{{Manually Enter Get-UMSEndpointDirectoryAssignment Description Here}}
+### [Get-UMSDeviceDirectoryAssignment](Get-UMSDeviceDirectoryAssignment.md)
+{{Manually Enter Get-UMSDeviceDirectoryAssignment Description Here}}
 
 ### [Move-UMSProfile](Move-UMSProfile.md)
 {{Manually Enter Move-UMSProfile Description Here}}
@@ -53,11 +53,11 @@ Locale: en-US
 ### [Move-UMSProfileDirectory](Move-UMSProfileDirectory.md)
 {{Manually Enter Move-UMSProfileDirectory Description Here}}
 
-### [Move-UMSEndpoint](Move-UMSEndpoint.md)
-{{Manually Enter Move-UMSEndpoint Description Here}}
+### [Move-UMSDevice](Move-UMSDevice.md)
+{{Manually Enter Move-UMSDevice Description Here}}
 
-### [Move-UMSEndpointDirectory](Move-UMSEndpointDirectory.md)
-{{Manually Enter Move-UMSEndpointDirectory Description Here}}
+### [Move-UMSDeviceDirectory](Move-UMSDeviceDirectory.md)
+{{Manually Enter Move-UMSDeviceDirectory Description Here}}
 
 ### [New-UMSAPICookie](New-UMSAPICookie.md)
 {{Manually Enter New-UMSAPICookie Description Here}}
@@ -68,11 +68,11 @@ Locale: en-US
 ### [New-UMSProfileDirectory](New-UMSProfileDirectory.md)
 {{Manually Enter New-UMSProfileDirectory Description Here}}
 
-### [New-UMSEndpoint](New-UMSEndpoint.md)
-{{Manually Enter New-UMSEndpoint Description Here}}
+### [New-UMSDevice](New-UMSDevice.md)
+{{Manually Enter New-UMSDevice Description Here}}
 
-### [New-UMSEndpointDirectory](New-UMSEndpointDirectory.md)
-{{Manually Enter New-UMSEndpointDirectory Description Here}}
+### [New-UMSDeviceDirectory](New-UMSDeviceDirectory.md)
+{{Manually Enter New-UMSDeviceDirectory Description Here}}
 
 ### [Remove-UMSProfile](Remove-UMSProfile.md)
 {{Manually Enter Remove-UMSProfile Description Here}}
@@ -83,26 +83,26 @@ Locale: en-US
 ### [Remove-UMSProfileDirectory](Remove-UMSProfileDirectory.md)
 {{Manually Enter Remove-UMSProfileDirectory Description Here}}
 
-### [Remove-UMSEndpoint](Remove-UMSEndpoint.md)
-{{Manually Enter Remove-UMSEndpoint Description Here}}
+### [Remove-UMSDevice](Remove-UMSDevice.md)
+{{Manually Enter Remove-UMSDevice Description Here}}
 
-### [Remove-UMSEndpointDirectory](Remove-UMSEndpointDirectory.md)
-{{Manually Enter Remove-UMSEndpointDirectory Description Here}}
+### [Remove-UMSDeviceDirectory](Remove-UMSDeviceDirectory.md)
+{{Manually Enter Remove-UMSDeviceDirectory Description Here}}
 
-### [Reset-UMSEndpoint](Reset-UMSEndpoint.md)
-{{Manually Enter Reset-UMSEndpoint Description Here}}
+### [Reset-UMSDevice](Reset-UMSDevice.md)
+{{Manually Enter Reset-UMSDevice Description Here}}
 
-### [Restart-UMSEndpoint](Restart-UMSEndpoint.md)
-{{Manually Enter Restart-UMSEndpoint Description Here}}
+### [Restart-UMSDevice](Restart-UMSDevice.md)
+{{Manually Enter Restart-UMSDevice Description Here}}
 
-### [Send-UMSEndpointSetting](Send-UMSEndpointSetting.md)
-{{Manually Enter Send-UMSEndpointSetting Description Here}}
+### [Send-UMSDeviceSetting](Send-UMSDeviceSetting.md)
+{{Manually Enter Send-UMSDeviceSetting Description Here}}
 
-### [Start-UMSEndpoint](Start-UMSEndpoint.md)
-{{Manually Enter Start-UMSEndpoint Description Here}}
+### [Start-UMSDevice](Start-UMSDevice.md)
+{{Manually Enter Start-UMSDevice Description Here}}
 
-### [Stop-UMSEndpoint](Stop-UMSEndpoint.md)
-{{Manually Enter Stop-UMSEndpoint Description Here}}
+### [Stop-UMSDevice](Stop-UMSDevice.md)
+{{Manually Enter Stop-UMSDevice Description Here}}
 
 ### [Update-UMSProfile](Update-UMSProfile.md)
 {{Manually Enter Update-UMSProfile Description Here}}
@@ -110,9 +110,9 @@ Locale: en-US
 ### [Update-UMSProfileDirectory](Update-UMSProfileDirectory.md)
 {{Manually Enter Update-UMSProfileDirectory Description Here}}
 
-### [Update-UMSEndpoint](Update-UMSEndpoint.md)
-{{Manually Enter Update-UMSEndpoint Description Here}}
+### [Update-UMSDevice](Update-UMSDevice.md)
+{{Manually Enter Update-UMSDevice Description Here}}
 
-### [Update-UMSEndpointDirectory](Update-UMSEndpointDirectory.md)
-{{Manually Enter Update-UMSEndpointDirectory Description Here}}
+### [Update-UMSDeviceDirectory](Update-UMSDeviceDirectory.md)
+{{Manually Enter Update-UMSDeviceDirectory Description Here}}
 
