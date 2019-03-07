@@ -158,7 +158,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSProfileDirectory -Id 2 -Option children
+      $Result = Get-UMSProfileDirectory -Id 2 -Filter children
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{

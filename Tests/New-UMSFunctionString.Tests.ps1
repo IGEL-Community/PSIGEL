@@ -36,19 +36,19 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      It "New-UMSFunctionString -Option 'short' Should not throw" {
-        { New-UMSFunctionString -Option 'short'} | Should -Not -Throw
+      It "New-UMSFunctionString -Filter 'short' Should not throw" {
+        { New-UMSFunctionString -Filter 'short'} | Should -Not -Throw
       }
 
-      It "New-UMSFunctionString -Option 'nonexisting' -ErrorAction Stop Should throw" {
-        { New-UMSFunctionString -Option 'nonexisting' -ErrorAction Stop } | Should -Throw
+      It "New-UMSFunctionString -Filter 'nonexisting' -ErrorAction Stop Should throw" {
+        { New-UMSFunctionString -Filter 'nonexisting' -ErrorAction Stop } | Should -Throw
       }
 
     }
 
     Context "Option short" {
 
-      $Result = New-UMSFunctionString -Option short
+      $Result = New-UMSFunctionString -Filter short
 
       It 'Result should have type String' {
         $Result | Should -HaveType ([String])

@@ -180,7 +180,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Option online
+      $Result = Get-UMSThinclient -Id 2 -Filter online
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -237,7 +237,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Option shadow
+      $Result = Get-UMSThinclient -Id 2 -Filter shadow
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -318,7 +318,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Option details
+      $Result = Get-UMSThinclient -Id 2 -Filter details
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{
@@ -403,7 +403,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFunctionString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Option details
+      $Result = Get-UMSThinclient -Id 2 -Filter details
 
       It 'Assert New-UMSFunctionString is called exactly 1 time' {
         $AMCParams = @{

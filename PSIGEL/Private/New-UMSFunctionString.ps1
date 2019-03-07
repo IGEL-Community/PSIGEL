@@ -2,19 +2,19 @@ function New-UMSFunctionString
 {
   <#
   .EXAMPLE
-  New-UMSFunctionString -Option 'short' -Whatif
+  New-UMSFunctionString -Filter 'short' -Whatif
 
   .EXAMPLE
-  New-UMSFunctionString -Option 'full'
+  New-UMSFunctionString -Filter 'full'
 
   .EXAMPLE
-  New-UMSFunctionString -Option 'online'
+  New-UMSFunctionString -Filter 'online'
 
   .EXAMPLE
-  New-UMSFunctionString -Option 'shadow'
+  New-UMSFunctionString -Filter 'shadow'
 
   .EXAMPLE
-  New-UMSFunctionString -Option 'children'
+  New-UMSFunctionString -Filter 'children'
 
   #>
 
@@ -23,7 +23,7 @@ function New-UMSFunctionString
     [Parameter(Mandatory)]
     [ValidateSet('short', 'details', 'online', 'shadow', 'children')]
     [String]
-    $Option
+    $Filter
   )
 
   begin
@@ -31,9 +31,9 @@ function New-UMSFunctionString
   }
   process
   {
-    if ($PSCmdlet.ShouldProcess($Option))
+    if ($PSCmdlet.ShouldProcess($Filter))
     {
-      $Result = '?facets={0}' -f $Option
+      $Result = '?facets={0}' -f $Filter
     }
     $Result
   }
