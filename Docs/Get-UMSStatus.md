@@ -1,51 +1,54 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-Status.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSStatus
 
 ## SYNOPSIS
-Gets diagnostic information.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
 Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-SecurityProtocol <String[]>] [-WebSession] <Object> [<CommonParameters>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets diagnostic information from UMS via API.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
-```
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-}
-Get-UMSStatus @Params
-
-rmGuiServerVersion : 5.08.100
-buildNumber        : 33604
-activeMQVersion    : 5.6.0
-derbyVersion       : 10.12.1.1
-serverUUID         : 473de374-49d1-47dc-9842-c1429a561435
-server             : UMSSERVER.acme.org:8443
-links              : {}
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Gets UMSSERVER status
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -53,14 +56,30 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TCPPort
-TCP Port (Default: 8443)
+{{Fill TCPPort Description}}
 
 ```yaml
 Type: Int32
@@ -68,29 +87,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -WebSession
-Websession Cookie
+{{Fill WebSession Description}}
 
 ```yaml
 Type: Object
@@ -104,29 +108,17 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SecurityProtocol
-{{Fill SecurityProtocol Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### Keine
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

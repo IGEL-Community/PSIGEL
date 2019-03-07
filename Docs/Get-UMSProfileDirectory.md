@@ -1,77 +1,62 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfileDirectory.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSProfileDirectory
 
 ## SYNOPSIS
-Get Profile Directories.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ### All (Default)
 ```
-Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-SecurityProtocol <String[]>] -WebSession <Object> [-Filter <String>] [<CommonParameters>]
+Get-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Filter] <String>] [<CommonParameters>]
 ```
 
 ### Id
 ```
-Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-SecurityProtocol <String[]>] -WebSession <Object> [-Filter <String>] [-Id <Int32>] [<CommonParameters>]
+Get-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Filter] <String>] [[-Id] <Int32>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get Profile Directories from UMS via API.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
-```
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-}
-Get-UMSProfileDirectory @Params
-
-id         : 477
-name       : 04_Network
-parentID   : 421
-movedToBin : False
-objectType : profiledirectory
-links      : {}
-
-id         : 446
-name       : 01_Sessions
-parentID   : 421
-movedToBin : False
-objectType : profiledirectory
-links      : {}
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Gets information on all Profile Directories
-
-### Example 2
-```
-(446 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-
-objectType id
----------- --
-profile    449
-profile    10780
-profile    450
-```
-
-Gets children of the Profile Directory with ID 446
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -79,52 +64,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCPPort
-TCP Port API (Default: 8443)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WebSession
-Websession Cookie
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -137,9 +77,10 @@ Accept wildcard characters: False
 Type: String
 Parameter Sets: (All)
 Aliases:
+Accepted values: children
 
 Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -154,7 +95,7 @@ Parameter Sets: Id
 Aliases:
 
 Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
@@ -167,9 +108,40 @@ Accept wildcard characters: False
 Type: String[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
 
 Required: False
-Position: Named
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+{{Fill TCPPort Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+{{Fill WebSession Description}}
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -181,8 +153,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

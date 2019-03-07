@@ -1,58 +1,55 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSThinclientDirectory.md
+online version:
 schema: 2.0.0
 ---
 
 # Move-UMSThinclientDirectory
 
 ## SYNOPSIS
-Move Thinclient Directories.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
 Move-UMSThinclientDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> -DestId <Int32> [-WhatIf] [-Confirm]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-DestId] <Int32> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Moves Thinclient Directories into the specified Thinclient Directory from UMS via API.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
-```
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-  DIRID        = 49289
-  DDIRID       = 49552
-  Confirm      = $true
-}
-Move-UMSThinclientDirectory @Params
-
-id    results
---    -------
-49289 successful
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Moves Thinclient Directorie with ID 49289 into the Thinclient Directory with ID 49552 and prompts for confirmation
-
-### Example 2
-```
-49289, 49291 | Move-UMSThinclientDirectory -Computername 'UMSSERVER' -DDIRID 772
-```
-
-Moves Thinclient Directories with ID 49289, 49291 into the specified Thinclient Directory.
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -60,14 +57,75 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DestId
+{{Fill DestId Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 6
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TCPPort
-TCP Port API (Default: 8443)
+{{Fill TCPPort Description}}
 
 ```yaml
 Type: Int32
@@ -75,29 +133,14 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -WebSession
-Websession Cookie
+{{Fill WebSession Description}}
 
 ```yaml
 Type: Object
@@ -121,67 +164,7 @@ Parameter Sets: (All)
 Aliases: wi
 
 Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DestId
-{{Fill DestId Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Id
-{{Fill Id Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -SecurityProtocol
-{{Fill SecurityProtocol Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -193,8 +176,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

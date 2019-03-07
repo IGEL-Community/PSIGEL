@@ -1,77 +1,61 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfile.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSProfile
 
 ## SYNOPSIS
-Get profiles.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ### All (Default)
 ```
 Get-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-SecurityProtocol <String[]>] [-WebSession] <Object> [<CommonParameters>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [<CommonParameters>]
 ```
 
 ### Id
 ```
 Get-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-SecurityProtocol <String[]>] [-WebSession] <Object> [-Id <Int32>] [<CommonParameters>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Id] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets profiles from UMS via API.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
-```
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-}
-Get-UMSProfile @Params
-
-firmwareID        : 8
-isMasterProfile   : False
-overridesSessions : False
-id                : 84629
-name              : Test2
-parentID          : 28793
-movedToBin        : False
-objectType        : profile
-links             : {}
-
-firmwareID        : 30
-isMasterProfile   : False
-overridesSessions : False
-id                : 86995
-name              : 07|Update_PartialUpdate_LanguagePackGerman|UDW
-parentID          : 11726
-movedToBin        : False
-objectType        : profile
-links             : {}
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Gets information on all profiles on the UMS instance.
-
-### Example 2
-```
-499, 501 | Get-UMSProfile -Computername 'UMSSERVER'
-```
-
-Gets information on the profile with ProfileID 499 and 501.
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -79,53 +63,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Benannt
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCPPort
-TCP Port (Default: 8443)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WebSession
-Websession Cookie
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 4
-Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -139,7 +78,7 @@ Parameter Sets: Id
 Aliases:
 
 Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
@@ -152,9 +91,40 @@ Accept wildcard characters: False
 Type: String[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
 
 Required: False
-Position: Named
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+{{Fill TCPPort Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+{{Fill WebSession Description}}
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -166,8 +136,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

@@ -1,66 +1,87 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSThinclient.md
+online version:
 schema: 2.0.0
 ---
 
 # New-UMSThinclient
 
 ## SYNOPSIS
-Creates a new thinclient from Rest API.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
 New-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-SecurityProtocol <String[]>] [-WebSession] <Object> [-Mac] <String> [-FirmwareId] <Int32> [[-Name] <String>]
- [[-ParentId] <Int32>] [[-Site] <String>] [[-Department] <String>] [[-CostCenter] <String>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Mac] <String> [-FirmwareId] <Int32>
+ [[-Name] <String>] [[-ParentId] <Int32>] [[-Site] <String>] [[-Department] <String>] [[-CostCenter] <String>]
  [[-LastIP] <String>] [[-Comment] <String>] [[-AssetId] <String>] [[-InserviceDate] <String>]
  [[-SerialNumber] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a new thinclient from Rest API.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
-```
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername  = $Computername
-  WebSession    = New-UMSAPICookie -Computername $Computername
-  Mac           = '012345678910'
-  FirmwareID    = 9
-  Name          = 'TC012345'
-  ParentID      = 772
-  Site          = 'Leipzig'
-  Department    = 'Marketing'
-  CostCenter    = '50100'
-  LastIP        = '192.168.0.10'
-  Comment       = 'New Thinclient'
-  AssetID       = '012345'
-  InserviceDate = '01.01.2018'
-  SerialNumber  = '12A3B4C56B12345A6BC'
-  Confirm       = $true
-}
-New-UMSThinclient @Params
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Creates a new thinclient with all possible attributes, after confirmation.
-
-### Example 2
-```
-New-UMSThinclient -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9
-```
-
-Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AssetId
+{{Fill AssetId Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 14
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Comment
+{{Fill Comment Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 13
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -68,59 +89,104 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TCPPort
-TCP Port (Default: 8443)
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: Int32
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
-Position: 2
-Default value: 8443
+Position: Benannt
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ApiVersion
-API Version to use (Default: 3)
+### -CostCenter
+{{Fill CostCenter Description}}
 
 ```yaml
-Type: Int32
+Type: String
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
-Default value: 3
-Accept pipeline input: False
+Position: 11
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -WebSession
-Websession Cookie
+### -Department
+{{Fill Department Description}}
 
 ```yaml
-Type: Object
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 10
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -FirmwareId
+{{Fill FirmwareId Description}}
+
+```yaml
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 4
+Position: 6
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -InserviceDate
+{{Fill InserviceDate Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 15
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -LastIP
+{{Fill LastIP Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 12
+Default value: None
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
 ### -Mac
-Mac-Address in format '001122AABBCC'
+{{Fill Mac Description}}
 
 ```yaml
 Type: String
@@ -135,7 +201,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-Hostname of the Thinclient
+{{Fill Name Description}}
 
 ```yaml
 Type: String
@@ -149,98 +215,39 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Site
-Thinclient Attribute Site
+### -ParentId
+{{Fill ParentId Description}}
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 9
+Position: 8
 Default value: None
 Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
-### -Department
-Thinclient Attribute Department
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
 
 ```yaml
-Type: String
+Type: String[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
 
 Required: False
-Position: 10
+Position: 3
 Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -CostCenter
-Thinclient Attribute CostCenter
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 11
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -LastIP
-Thinclient Attribute LastIP
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 12
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Comment
-Thinclient Attribute Comment
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 13
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -InserviceDate
-Thinclient Attribute InserviceDate
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 15
-Default value: None
-Accept pipeline input: True (ByPropertyName)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -SerialNumber
-Thinclient Attribute SerialNumber
+{{Fill SerialNumber Description}}
 
 ```yaml
 Type: String
@@ -254,6 +261,51 @@ Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
+### -Site
+{{Fill Site Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 9
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -TCPPort
+{{Fill TCPPort Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+{{Fill WebSession Description}}
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
@@ -264,82 +316,7 @@ Parameter Sets: (All)
 Aliases: wi
 
 Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -AssetId
-Thinclient Attribute AssetID
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 14
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -FirmwareId
-FirmwareID of the Thinclient
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 6
-Default value: 0
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -ParentId
-ID of the parent directory of the thinclient (Default: -1)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 8
-Default value: -1
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -SecurityProtocol
-{{Fill SecurityProtocol Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -351,8 +328,13 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.String
+
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

@@ -1,60 +1,54 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectoryAssignment.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSThinclientDirectoryAssignment
 
 ## SYNOPSIS
-Get the profile and master profile assignments.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
 Get-UMSThinclientDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [<CommonParameters>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get the profile and master profile assignments for the specified Thinclient directory, in order of their application from UMS via API.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
-```
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-  DIRID        = 772
-}
-Get-UMSThinclientDirectoryAssignment @Params
-
-assignee                 receiver                    assignmentPosition links
---------                 --------                    ------------------ -----
-@{id=423; type=profile}  @{id=772; type=tcdirectory}                  0 {}
-@{id=431; type=profile}  @{id=772; type=tcdirectory}                  1 {}
-@{id=436; type=profile}  @{id=772; type=tcdirectory}                  2 {}
-@{id=438; type=profile}  @{id=772; type=tcdirectory}                  3 {}
-@{id=441; type=profile}  @{id=772; type=tcdirectory}                  4 {}
-@{id=444; type=profile}  @{id=772; type=tcdirectory}                  5 {}
+```powershell
+PS C:\> {{ Add example code here }}
 ```
 
-Gets the profile and master profile assignments for Thinclient Directory 772
-
-### Example 2
-```
-774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'
-```
-
-Gets the profile and master profile assignments for the Thinclient Directory with ID 774
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -62,52 +56,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCPPort
-TCP Port API (Default: 8443)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WebSession
-Websession Cookie
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 4
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -122,7 +71,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
+Position: 5
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
@@ -135,9 +84,40 @@ Accept wildcard characters: False
 Type: String[]
 Parameter Sets: (All)
 Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
 
 Required: False
-Position: Named
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+{{Fill TCPPort Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+{{Fill WebSession Description}}
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -149,8 +129,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

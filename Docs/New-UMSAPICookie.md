@@ -1,36 +1,54 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSAPICookie.md
+online version:
 schema: 2.0.0
 ---
 
 # New-UMSAPICookie
 
 ## SYNOPSIS
-Creates Websession Cookie for IGEL UMS RestAPI.
+{{Fill in the Synopsis}}
 
 ## SYNTAX
 
 ```
 New-UMSAPICookie [-Computername] <String> [[-TCPPort] <Int32>] [[-Credential] <PSCredential>]
- [[-ApiVersion] <Int32>] [-SecurityProtocol <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ApiVersion] <Int32>] [[-SecurityProtocol] <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates Websession Cookie for IGEL UMS RestAPI.
+{{Fill in the Description}}
 
 ## EXAMPLES
 
 ### Example 1
+```powershell
+PS C:\> {{ Add example code here }}
 ```
-New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443
-```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
+### -ApiVersion
+{{Fill ApiVersion Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Computername
-Computername of the UMS Server
+{{Fill Computername Description}}
 
 ```yaml
 Type: String
@@ -38,29 +56,29 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TCPPort
-TCP Port (Default: 8443)
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: Int32
+Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: cf
 
 Required: False
-Position: 2
-Default value: 8443
+Position: Benannt
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Credential
-Credential for API Requests (Default: Get-Credential -Message 'Enter your credentials')
+{{Fill Credential Description}}
 
 ```yaml
 Type: PSCredential
@@ -68,14 +86,30 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
-Default value: (Get-Credential -Message 'Enter your credentials')
+Position: 2
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ApiVersion
-API Version to use (Default: 3)
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+{{Fill TCPPort Description}}
 
 ```yaml
 Type: Int32
@@ -83,8 +117,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 4
-Default value: 3
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -99,37 +133,7 @@ Parameter Sets: (All)
 Aliases: wi
 
 Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: False
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -SecurityProtocol
-{{Fill SecurityProtocol Description}}
-
-```yaml
-Type: String[]
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -141,9 +145,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
+### Keine
+
 ## OUTPUTS
 
-### Object for use in Invoke-RestMethod -WebSession Parameter (Cookie)
+### System.Object
 ## NOTES
 
 ## RELATED LINKS
