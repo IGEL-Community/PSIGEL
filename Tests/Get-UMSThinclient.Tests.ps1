@@ -70,13 +70,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           }
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSThinclient
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }
@@ -124,13 +124,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           links      = '{}'
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSThinclient -Id 2
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }
@@ -178,13 +178,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType = 'tc'
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSThinclient -Id 2 -Filter online
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }
@@ -235,13 +235,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType   = 'tc'
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSThinclient -Id 2 -Filter shadow
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }
@@ -316,13 +316,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType                = 'tc'
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSThinclient -Id 2 -Filter details
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }
@@ -401,13 +401,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType                = 'tc'
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSThinclient -Id 2 -Filter details
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }

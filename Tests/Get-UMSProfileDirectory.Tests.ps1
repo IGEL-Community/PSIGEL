@@ -156,13 +156,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           objectType        = 'profiledirectory'
         }
       }
-      Mock 'New-UMSFunctionString' {}
+      Mock 'New-UMSFilterString' {}
 
       $Result = Get-UMSProfileDirectory -Id 2 -Filter children
 
-      It 'Assert New-UMSFunctionString is called exactly 1 time' {
+      It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'New-UMSFunctionString'
+          CommandName = 'New-UMSFilterString'
           Times       = 1
           Exactly     = $true
         }

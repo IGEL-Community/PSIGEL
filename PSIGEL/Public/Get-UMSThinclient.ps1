@@ -34,7 +34,7 @@
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = ('https://{0}:{1}/umsapi/v{2}/thinclients' -f $UriArray)
-    $FunctionString = New-UMSFunctionString -Filter $Filter
+    $FilterString = New-UMSFilterString -Filter $Filter
   }
   Process
   {
@@ -49,12 +49,12 @@
     {
       'All'
       {
-        $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FunctionString))
+        $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FilterString))
         $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
       'Id'
       {
-        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $Id, $FunctionString))
+        $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $Id, $FilterString))
         $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }

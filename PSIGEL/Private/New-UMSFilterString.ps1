@@ -1,20 +1,20 @@
-function New-UMSFunctionString
+function New-UMSFilterString
 {
   <#
   .EXAMPLE
-  New-UMSFunctionString -Filter 'short' -Whatif
+  New-UMSFilterString -Filter 'short' -Whatif
 
   .EXAMPLE
-  New-UMSFunctionString -Filter 'full'
+  New-UMSFilterString -Filter 'full'
 
   .EXAMPLE
-  New-UMSFunctionString -Filter 'online'
+  New-UMSFilterString -Filter 'online'
 
   .EXAMPLE
-  New-UMSFunctionString -Filter 'shadow'
+  New-UMSFilterString -Filter 'shadow'
 
   .EXAMPLE
-  New-UMSFunctionString -Filter 'children'
+  New-UMSFilterString -Filter 'children'
 
   #>
 
