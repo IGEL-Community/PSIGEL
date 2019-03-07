@@ -32,7 +32,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -ApiVersion
-{{Fill ApiVersion Description}}
+API Version to use (Default: 3)
 
 ```yaml
 Type: Int32
@@ -48,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -Computername
-{{Fill Computername Description}}
+Computername of the UMS Server
 
 ```yaml
 Type: String
@@ -93,7 +93,7 @@ Accept wildcard characters: False
 ```
 
 ### -SecurityProtocol
-{{Fill SecurityProtocol Description}}
+Set SSL/TLS protocol
 
 ```yaml
 Type: String[]
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCPPort
-{{Fill TCPPort Description}}
+TCP Port API
 
 ```yaml
 Type: Int32
