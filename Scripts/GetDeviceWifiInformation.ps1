@@ -25,7 +25,7 @@ $OnlineDeviceColl = $DeviceColl.Where{$_.Online -eq $true}
 $UpdateConfigurationColl = $OnlineDeviceColl |
   Invoke-Parallel -RunspaceTimeout 10 -ScriptBlock {
   $SshSession = New-SSHSession -Computername $_.Name -Credential $Using:RootCredential -AcceptKey
-  Get-DeviceWifiConnection -SSHSession $SshSession
+  Get-OSWifiConnection -SSHSession $SshSession
   $null = Remove-SSHSession -SSHSession $SshSession
 }
 

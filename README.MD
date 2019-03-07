@@ -1,30 +1,20 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL-Database (until the API supports all functions) and the IGEL OS Devices (e.g. Devices) via SSH.
+This is a module to interact with the IGEL UMS via API and IGEL OS Devices via SSH.
 
-**API (/MSSQL)** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
+**API** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
 
-**SSH** functions got the noun-prefix **EP** (for Device), e.g. Get-**EP**Something
+**SSH** functions got the noun-prefix **OS** (for Device), e.g. Get-**OS**Something
 
 To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
 
-The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](#new-umsapicookie):
+The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/#new-umsapicookie):
 
 ```powershell
-$Websession = New-UMSAPICookie -Computername UMSSERVER -TCPPort 8443
+$Websession = New-UMSAPICookie -Computername igelrmserver
 ```
 
-If you did not provide a websession-cookie, one will be created.
-
-To connect to the **MSSQL** Database it may be required to provide credential:
-
-```powershell
-$Credential = Get-Credential -Message 'Enter your credentials'
-```
-
-If you did not provide a credential, one will be created.
-
-My goal is to support all the [API-functionalities](http://edocs.igel.com/manuals/en/en_imi_ref/index.htm#14276.htm). If there is only a MSSQL-Query to provide a functionality, than there will be a MSSQL-only function. Suggestions are welcome.
+My goal is to support all [API-functionalities](https://kb.igel.com/igelimi-v3/en/imi-api-v3-reference-2723425.html) IGEL provides. Use at own risk! Suggestions are welcome.
 
 ## Installation
 
@@ -36,242 +26,108 @@ Install-Module -Name PSIGEL
 
 Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
 
-## API(/MSSQL) Functionality
+## PSIGEL Cmdlets
+### [Get-OSFirmware](/Docs/Get-OSFirmware.md)
+Gets firmware from a device.
 
-### API General
+### [Get-OSUpdateConfiguration](/Docs/Get-OSUpdateConfiguration.md)
+Gets firmware from a device.
 
-Item | Get | New
------|-----|----
-WebSession |-|[API](#new-umsapicookie)
-Status |[API](#get-umsstatus)|-
-Firmware |[API](#get-umsfirmware)|-
-
-### API Thin Client
-
-Item | Get | New | Update | Move | Remove | Start | Restart | Settings | Stop | Reset
------|-----|-----|--------|------|--------|-------|---------|----------|------|------
-Thin Client |[API](#get-umsdevice)|[API](#new-umsdevice)|[API](#update-umsdevice)|[API](#move-umsdevice)|[API](#remove-umsdevice)|[API](#start-umsdevice)|[API](#restart-umsdevice)|[API](#send-umsdevicesetting)|[API](#stop-umsdevice)|[API](#reset-umsdevice)
-
-### API/SQL Other Items
-
-Item | Get | New | Update | Move | Remove
------|-----|-----|--------|------|-------
-Profile |[API](#get-umsprofile)|-|[API](#remove-umsprofileassignment)|[API](#move-umsprofile)|[API](#remove-umsprofile)
-Profile Directory |[API](#get-umsprofileDirectory)|[API](#new-umsprofiledirectory)|[API](#update-umsprofiledirectoryname)|[API](#move-umsprofiledirectory)|[API](#remove-umsprofiledirectory)
-Master Profile |API|-|API|API|API
-Master Profile Directory |API|API|API|API|API
-Thin Client Directory |[API](#get-umsdevicedirectory)|[API](#new-umsdevicedirectory)|[API](#update-umsdevicedirectoryname)|[API](#move-umsdevicedirectory)|[API](#remove-umsdevicedirectory)
-|View |[SQL](#get-umsview)|-|SQL|-|-
-View Directory |[SQL](#get-umsviewdirectory)|-|SQL|-|-
-Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
-Job Directory |[SQL](#Get-umsjobdirectory)|-|SQL|-|-
-File |[SQL](#get-umsfile)|-|-|-|-
-File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
-
-### API Assignment
-
-|Item | Get | Update | Remove
-|-----|-----|--------|-------
-Thin Client |[API](#get-umsdeviceassignment) |-|-
-Thin Client Directory |[API](#get-umsdevicedirectoryassignment) |-|-
-Profile |[API](#get-umsprofileassignment) |[API](#update-umsprofileassignment) |[API](#remove-umsprofileassignment)
-Master Profile |API|-|-
-
-## Functions
-
-### [Get-DeviceFirmware](/Docs/Get-DeviceFirmware.md)
-
-Get Firmware
-
-### [Get-DeviceUpdateConfiguration](/Docs/Get-DeviceUpdateConfiguration.md)
-
-Get update configuration (IGEL OS 10+)
-
-### [Get-DeviceWifiConnection](/Docs/Get-DeviceWifiConnection.md)
-
-Get Wifi connection information
-
-### [Get-UMSFile](/Docs/Get-UMSFile.md)
-
-Get Files.
-
-### [Get-UMSFileDirectory](/Docs/Get-UMSFileDirectory.md)
-
-Get File Directories.
-
-### [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
-
-Get information on all firmwares known to the UMS.
-
-### [Get-UMSJob](/Docs/Get-UMSJob.md)
-
-Get Jobs.
-
-### [Get-UMSJobDirectory](/Docs/Get-UMSJobDirectory.md)
-
-Get Job Directories.
-
-### [Get-UMSProfile](/Docs/Get-UMSProfile.md)
-
-Get information on profiles on the UMS instance.
-
-### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
-
-Get the Devices and directories the profile is assigned to.
-
-### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
-
-Get information on Profile Directories.
-
-### [Get-UMSStatus](/Docs/Get-UMSStatus.md)
-
-Get diagnostic information about the UMS instance.
+### [Get-OSWifiConnection](/Docs/Get-OSWifiConnection.md)
+Gets wifi connection from a device.
 
 ### [Get-UMSDevice](/Docs/Get-UMSDevice.md)
-
-Get Devices.
+Gets information on a device.
 
 ### [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
-
-Get the profile and master profile assignments for the specified thin client, in order of their application.
+Gets information on a profile or master profile assignment of a device.
 
 ### [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
-
-Get information on Thin Client Directories.
+Gets information on a device directory.
 
 ### [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
+Gets information on a profile or master profile assignment of a device directory.
 
-Get the profile and master profile assignments for the specified thincient directory, in order of their application.
+### [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
+Gets information on a firmware.
 
-### [Get-UMSView](/Docs/Get-UMSView.md)
+### [Get-UMSProfile](/Docs/Get-UMSProfile.md)
+Gets information on a profile.
 
-Get Views.
+### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
+Gets information on a device or device directory assignment of a profile.
 
-### [Get-UMSViewDirectory](/Docs/Get-UMSViewDirectory.md)
+### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
+Gets information on a profile directory.
 
-Get View Directories.
-
-### [Move-UMSProfile](/Docs/Move-UMSProfile.md)
-
-Moves Profiles into the specified Profile Directory.
-
-### [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
-
-Moves Profile Directories into the specified Profile Directory.
+### [Get-UMSStatus](/Docs/Get-UMSStatus.md)
+Gets information on the UMS.
 
 ### [Move-UMSDevice](/Docs/Move-UMSDevice.md)
-
-Moves Devices into the specified Device Directory.
+Moves a device to a device directory.
 
 ### [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
+Moves a device directory to a device directory.
 
-Moves Device Directories into the specified Device Directory.
+### [Move-UMSProfile](/Docs/Move-UMSProfile.md)
+Moves a profile to a profile directory.
+
+### [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
+Moves a profile directory to profile directory.
 
 ### [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
-
-Creates Websession Cookie for IGEL UMS RestAPI.
-
-### [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
-
-Creates a Profile Directory.
+Creates a websession cookie.
 
 ### [New-UMSDevice](/Docs/New-UMSDevice.md)
-
-Creates a new Device.
+Creates a new device.
 
 ### [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
+Creates a device directory.
 
-Creates a Device Directory.
+### [New-UMSProfileAssignment](/Docs/New-UMSProfileAssignment.md)
+Creates a profile assignment on a device or device directory.
 
-### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
-
-Deletes profile.
-
-### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
-
-Deletes assignment of the specified profile to the specified Device or Device directory.
-
-### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
-
-Removes a profile directory.
+### [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
+Creates a profile directory.
 
 ### [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
-
-Removes a Device completely (without recycle bin).
+Removes a device.
 
 ### [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
+Removes a device directory.
 
-Removes a Device directory.
+### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
+Removes a profile.
+
+### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
+Removes a profile assignment from a device or device directory.
+
+### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
+Removes a profile directory.
 
 ### [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
-
-Resets all thin clients listed in the request body to factory defaults and removes them from the UMS completely (without recycle bin).
+Resets a device to factory defaults.
 
 ### [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
-
-Restarts Devices.
+Restarts a device.
 
 ### [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
-
-Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
+Sends settings to a device.
 
 ### [Start-UMSDevice](/Docs/Start-UMSDevice.md)
-
-Wakes Up Devices (WOL).
+Wakes up a device.
 
 ### [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
-
-Shuts Down Devices.
-
-### [Update-UMSJobStartDate](/Docs/Update-UMSJobStartDate.md)
-
-Update Job Startdate.
-
-### [Update-UMSProfileAssignment](/Docs/Update-UMSProfileAssignment.md)
-
-Assigns a profile to a Device or a Device directory.
-
-### [Update-UMSProfileDirectoryName](/Docs/Update-UMSProfileDirectoryName.md)
-
-Updates a Profile Directory name.
-
-### [Update-UMSProfileName](/Docs/Update-UMSProfileName.md)
-
-Updates a profile name.
+Shuts down a device.
 
 ### [Update-UMSDevice](/Docs/Update-UMSDevice.md)
+Updates properties of a device.
 
-Updates properties of a Device.
+### [Update-UMSDeviceDirectory](/Docs/Update-UMSDeviceDirectory.md)
+Updates the name of a device directory.
 
-### [Update-UMSDeviceDirectoryName](/Docs/Update-UMSDeviceDirectoryName.md)
+### [Update-UMSProfile](/Docs/Update-UMSProfile.md)
+Updates the name of a profile.
 
-Updates a Profile Directory name.
-
-## Scripts
-
-### [GetDeviceWifiInformationViaSSH](/Docs/GetDeviceWifiInformationViaSSH.md)
-
-Get Device WiFi Information via SSH.
-
-### GetUMSDirectoryStructure
-
-Get Device Directory Structure. Expects 4 Tier-Directory Structure . (e.g. Base / Organisation / Campus / Room)
-
-### RemoveParallelAppliedProfiles
-
-Removes Profiles from Devices if they are applied parallel.
-
-## Private functions
-
-### Invoke-Sqlcmd2
-
-used for SQL queries
-
-from [RamblingCookieMonster](https://github.com/RamblingCookieMonster/PowerShell/blob/master/Invoke-Sqlcmd2.ps1)
-
- > Runs a T-SQL script. Invoke-Sqlcmd2 runs the whole scipt and only captures the first selected result set, such as the output of PRINT statements when -verbose parameter is specified.
-Paramaterized queries are supported.
-
-### Invoke-UMSRestMethodWebSession
-
-Invoke-RestMethod Wrapper
+### [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
+Updates the name of a profile directory.

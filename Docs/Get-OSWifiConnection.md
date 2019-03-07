@@ -5,19 +5,19 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-DeviceUpdateConfiguration
+# Get-OSWifiConnection
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets wifi connection from a device.
 
 ## SYNTAX
 
 ```
-Get-DeviceUpdateConfiguration [-SSHSession] <Object> [<CommonParameters>]
+Get-OSWifiConnection [-SSHSession] <Object> [[-Interface] <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets wifi connection from a device via Posh-SSH.
 
 ## EXAMPLES
 
@@ -30,8 +30,23 @@ PS C:\> {{ Add example code here }}
 
 ## PARAMETERS
 
+### -Interface
+Wifi interface of the device
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: wlan0
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
 ### -SSHSession
-{{Fill SSHSession Description}}
+Posh-SSH SSHSession
 
 ```yaml
 Type: Object
@@ -52,6 +67,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### System.Object
+
+### System.String
 
 ## OUTPUTS
 

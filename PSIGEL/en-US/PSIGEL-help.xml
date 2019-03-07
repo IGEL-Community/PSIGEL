@@ -2,7 +2,7 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-DeviceFirmware</command:name>
+      <command:name>Get-OSFirmware</command:name>
       <command:verb>Get</command:verb>
       <command:noun>EPFirmware</command:noun>
       <maml:description>
@@ -14,7 +14,7 @@
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-DeviceFirmware</maml:name>
+        <maml:name>Get-OSFirmware</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>SSHSession</maml:name>
           <maml:Description>
@@ -56,7 +56,7 @@
         <dev:code>$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
-Get-DeviceFirmware @Params
+Get-OSFirmware @Params
 
 4.14.300.01</dev:code>
         <dev:remarks>
@@ -67,13 +67,13 @@ Get-DeviceFirmware @Params
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-DeviceFirmware.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-OSFirmware.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-DeviceUpdateConfiguration</command:name>
+      <command:name>Get-OSUpdateConfiguration</command:name>
       <command:verb>Get</command:verb>
       <command:noun>EPUpdateConfiguration</command:noun>
       <maml:description>
@@ -85,7 +85,7 @@ Get-DeviceFirmware @Params
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-DeviceUpdateConfiguration</maml:name>
+        <maml:name>Get-OSUpdateConfiguration</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>SSHSession</maml:name>
           <maml:Description>
@@ -127,11 +127,11 @@ Get-DeviceFirmware @Params
         <dev:code>$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
-Get-DeviceUpdateConfiguration @Params
+Get-OSUpdateConfiguration @Params
 
 Host     : TC012345
 Protocol : http
-Hostname : UMSSERVER.acme.org
+Hostname : igelrmserver.acme.org
 Port     : 9080
 Username : igelums
 Password : 00a3439e23423e182e5c2g
@@ -144,13 +144,13 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-DeviceUpdateConfiguration.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-OSUpdateConfiguration.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-DeviceWifiConnection</command:name>
+      <command:name>Get-OSWifiConnection</command:name>
       <command:verb>Get</command:verb>
       <command:noun>EPWifiConnection</command:noun>
       <maml:description>
@@ -162,7 +162,7 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-DeviceWifiConnection</maml:name>
+        <maml:name>Get-OSWifiConnection</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>SSHSession</maml:name>
           <maml:Description>
@@ -229,7 +229,7 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
   SHSSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
   Interface  = 'wlan0'
 }
-Get-DeviceWifiConnection @Params
+Get-OSWifiConnection @Params
 
 Host        : TC012345
 Interface   : wlan0
@@ -249,7 +249,7 @@ SignalLevel : -54</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-DeviceWifiConnection.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-OSWifiConnection.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -785,7 +785,7 @@ DIRID NAME MEMBEROF MOVEDTOBIN
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -815,7 +815,7 @@ links        : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'</dev:code>
+        <dev:code>9, 7 | Get-UMSFirmware -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Gets information on firmwares with FirmwareIDs 9 and 7.</maml:para>
         </dev:remarks>
@@ -997,7 +997,7 @@ links        : {}</dev:code>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
   Credential     = Get-Credential
-  ServerInstance = 'UMSSERVER\RMDB'
+  ServerInstance = 'igelrmserver\RMDB'
   Database       = 'RMDB'
   Schema         = 'igelums'
 }
@@ -1362,7 +1362,7 @@ DIRID NAME     MEMBEROF MOVEDTOBIN
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -1394,7 +1394,7 @@ links             : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>499, 501 | Get-UMSProfile -Computername 'UMSSERVER'</dev:code>
+        <dev:code>499, 501 | Get-UMSProfile -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Gets information on the profile with ProfileID 499 and 501.</maml:para>
         </dev:remarks>
@@ -1556,7 +1556,7 @@ links             : {}</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -1576,7 +1576,7 @@ id    type
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>471 | Get-UMSProfileAssignment -Computername 'UMSSERVER'</dev:code>
+        <dev:code>471 | Get-UMSProfileAssignment -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.</maml:para>
         </dev:remarks>
@@ -1761,7 +1761,7 @@ id    type
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -1787,7 +1787,7 @@ links      : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>(446 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
+        <dev:code>(446 | Get-UMSProfileDirectory -Computername 'igelrmserver' -Children).DirectoryChildren
 
 objectType id
 ---------- --
@@ -1931,7 +1931,7 @@ profile    450</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -1943,10 +1943,10 @@ buildNumber        : 33604
 activeMQVersion    : 5.6.0
 derbyVersion       : 10.12.1.1
 serverUUID         : 473de374-49d1-47dc-9842-c1429a561435
-server             : UMSSERVER.acme.org:8443
+server             : igelrmserver.acme.org:8443
 links              : {}</dev:code>
         <dev:remarks>
-          <maml:para>Gets UMSSERVER status</maml:para>
+          <maml:para>Gets igelrmserver status</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2130,7 +2130,7 @@ links              : {}</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -2193,7 +2193,7 @@ links                     : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Get-UMSDevice -Computername 'UMSSERVER' -TCID 2433
+        <dev:code>Get-UMSDevice -Computername 'igelrmserver' -TCID 2433
 
 unitID     : 00E0C513CB46
 mac        : 00E0C513CB46
@@ -2211,7 +2211,7 @@ links      : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>2433 | Get-UMSDevice -Computername 'UMSSERVER' -Details 'shadow'
+        <dev:code>2433 | Get-UMSDevice -Computername 'igelrmserver' -Details 'shadow'
 
 unitID       : 00E0C513BA36
 mac          : 00E0C513BA36
@@ -2394,7 +2394,7 @@ links        : {}</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -2404,18 +2404,18 @@ Get-UMSDeviceAssignment @Params
 
 assignee                  receiver                      assignmentPosition links
 --------                  --------                      ------------------ -----
-@{id=472; type=profile}   @{id=2433; type=tc}                            0 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/472}, @{rel=receiver; href=https://umsserver:8...
-@{id=76686; type=profile} @{id=76023; type=tcdirectory}                  1 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/76686}, @{rel=receiver; href=https://umsserver...
-@{id=480; type=profile}   @{id=50; type=tcdirectory}                     2 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/480}, @{rel=receiver; href=https://umsserver:8...
-@{id=478; type=profile}   @{id=50; type=tcdirectory}                     3 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/478}, @{rel=receiver; href=https://umsserver:8...
-@{id=451; type=profile}   @{id=49; type=tcdirectory}                     4 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/451}, @{rel=receiver; href=https://umsserver:8...</dev:code>
+@{id=472; type=profile}   @{id=2433; type=tc}                            0 {@{rel=assigned; href=https://igelrmserver:8443/umsapi/v3/profiles/472}, @{rel=receiver; href=https://igelrmserver:8...
+@{id=76686; type=profile} @{id=76023; type=tcdirectory}                  1 {@{rel=assigned; href=https://igelrmserver:8443/umsapi/v3/profiles/76686}, @{rel=receiver; href=https://igelrmserver...
+@{id=480; type=profile}   @{id=50; type=tcdirectory}                     2 {@{rel=assigned; href=https://igelrmserver:8443/umsapi/v3/profiles/480}, @{rel=receiver; href=https://igelrmserver:8...
+@{id=478; type=profile}   @{id=50; type=tcdirectory}                     3 {@{rel=assigned; href=https://igelrmserver:8443/umsapi/v3/profiles/478}, @{rel=receiver; href=https://igelrmserver:8...
+@{id=451; type=profile}   @{id=49; type=tcdirectory}                     4 {@{rel=assigned; href=https://igelrmserver:8443/umsapi/v3/profiles/451}, @{rel=receiver; href=https://igelrmserver:8...</dev:code>
         <dev:remarks>
           <maml:para>Gets the profile and master profile assignments for Device with TCID 2433.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>2433 | Get-UMSDeviceAssignment -Computername 'UMSSERVER'</dev:code>
+        <dev:code>2433 | Get-UMSDeviceAssignment -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Gets the profile and master profile assignments for Device with TCID 2433.</maml:para>
         </dev:remarks>
@@ -2600,7 +2600,7 @@ assignee                  receiver                      assignmentPosition links
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -2626,7 +2626,7 @@ links      : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>(Get-UMSDeviceDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
+        <dev:code>(Get-UMSDeviceDirectory -Computername 'igelrmserver' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
 
 objectType  id
 ----------  --
@@ -2847,7 +2847,7 @@ tcdirectory 230</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -2869,7 +2869,7 @@ assignee                 receiver                    assignmentPosition links
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>774 | Get-UMSDeviceDirectoryAssignment -Computername 'UMSSERVER'</dev:code>
+        <dev:code>774 | Get-UMSDeviceDirectoryAssignment -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Gets the profile and master profile assignments for the Device Directory with ID 774</maml:para>
         </dev:remarks>
@@ -3476,7 +3476,7 @@ DIRID NAME                    MEMBEROF MOVEDTOBIN
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -3495,7 +3495,7 @@ id    results
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48440, 48442 | Move-UMSProfile -Computername 'UMSSERVER' -DDIRID 28793</dev:code>
+        <dev:code>48440, 48442 | Move-UMSProfile -Computername 'igelrmserver' -DDIRID 28793</dev:code>
         <dev:remarks>
           <maml:para>Moves Profiles into the specified Profile Directory.</maml:para>
         </dev:remarks>
@@ -3727,7 +3727,7 @@ id    results
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -3746,7 +3746,7 @@ id    results
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49339, 49341 | Move-UMSProfileDirectory -Computername 'UMSSERVER' -DDIRID -2</dev:code>
+        <dev:code>49339, 49341 | Move-UMSProfileDirectory -Computername 'igelrmserver' -DDIRID -2</dev:code>
         <dev:remarks>
           <maml:para>Moves Profile Directories with ID 49339, 49341 into the specified Profile Directory.</maml:para>
         </dev:remarks>
@@ -3978,7 +3978,7 @@ id    results
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -3997,7 +3997,7 @@ id    results
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49282, 49284 | Move-UMSDevice -Computername 'UMSSERVER' -DDIRID 49289</dev:code>
+        <dev:code>49282, 49284 | Move-UMSDevice -Computername 'igelrmserver' -DDIRID 49289</dev:code>
         <dev:remarks>
           <maml:para>Moves Devices with ID 49282, 49284 into the specified Device Directory.</maml:para>
         </dev:remarks>
@@ -4229,7 +4229,7 @@ id    results
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -4248,7 +4248,7 @@ id    results
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49289, 49291 | Move-UMSDeviceDirectory -Computername 'UMSSERVER' -DDIRID 772</dev:code>
+        <dev:code>49289, 49291 | Move-UMSDeviceDirectory -Computername 'igelrmserver' -DDIRID 772</dev:code>
         <dev:remarks>
           <maml:para>Moves Device Directories with ID 49289, 49291 into the specified Device Directory.</maml:para>
         </dev:remarks>
@@ -4441,7 +4441,7 @@ id    results
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443</dev:code>
+        <dev:code>New-UMSAPICookie -Computername 'igelrmserver' -TCPPort 8443</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -4649,7 +4649,7 @@ id    results
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -4662,7 +4662,7 @@ New-UMSProfileDirectory @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'UMSSERVER'</dev:code>
+        <dev:code>'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Creates Profile Directories with names 'NewProfileDir1' and 'NewProfileDir2'</maml:para>
         </dev:remarks>
@@ -5134,7 +5134,7 @@ New-UMSProfileDirectory @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername  = $Computername
   WebSession    = New-UMSAPICookie -Computername $Computername
@@ -5159,7 +5159,7 @@ New-UMSDevice @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>New-UMSDevice -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9</dev:code>
+        <dev:code>New-UMSDevice -Computername 'igelrmserver' -Mac '012345678910' -FirmwareID 9</dev:code>
         <dev:remarks>
           <maml:para>Creates new device with mac, name and firmwareid (minimal requirements) in the root directory.</maml:para>
         </dev:remarks>
@@ -5367,7 +5367,7 @@ New-UMSDevice @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -5380,7 +5380,7 @@ New-UMSDeviceDirectory @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>'NewTcDir1', 'NewTcDir2' | New-UMSDeviceDirectory -Computername 'UMSSERVER'</dev:code>
+        <dev:code>'NewTcDir1', 'NewTcDir2' | New-UMSDeviceDirectory -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Creates Device Directories with names 'NewTcDir1' and 'NewTcDir2'</maml:para>
         </dev:remarks>
@@ -5588,7 +5588,7 @@ New-UMSDeviceDirectory @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -5601,7 +5601,7 @@ Remove-UMSProfile @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48170 | Remove-UMSProfile -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48170 | Remove-UMSProfile -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Removes Profile with ProfileID 48170</maml:para>
         </dev:remarks>
@@ -5942,7 +5942,7 @@ Remove-UMSProfile @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -5956,7 +5956,7 @@ Remove-UMSProfileAssignment @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185</dev:code>
+        <dev:code>48170 | Remove-UMSProfileAssignment -Computername 'igelrmserver' -DirID 185</dev:code>
         <dev:remarks>
           <maml:para>Deletes assignment of profile with ProfileID 48170 to the Device directory with the DirID 185.</maml:para>
         </dev:remarks>
@@ -6164,7 +6164,7 @@ Remove-UMSProfileAssignment @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -6177,7 +6177,7 @@ Remove-UMSProfileDirectory @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49601, 49603 | Remove-UMSProfileDirectory -Computername 'UMSSERVER'</dev:code>
+        <dev:code>49601, 49603 | Remove-UMSProfileDirectory -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Removes profile directory with ID 49601 and 49603</maml:para>
         </dev:remarks>
@@ -6385,7 +6385,7 @@ Remove-UMSProfileDirectory @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -6398,7 +6398,7 @@ Remove-UMSDevice @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48381 | Remove-UMSDevice -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48381 | Remove-UMSDevice -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Removes Device with TCID 48381</maml:para>
         </dev:remarks>
@@ -6606,7 +6606,7 @@ Remove-UMSDevice @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -6619,7 +6619,7 @@ Remove-UMSDeviceDirectory @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49289, 49260 | Remove-UMSDeviceDirectory -Computername 'UMSSERVER'</dev:code>
+        <dev:code>49289, 49260 | Remove-UMSDeviceDirectory -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Removes device directory with ID 49289 and 49260</maml:para>
         </dev:remarks>
@@ -6827,7 +6827,7 @@ Remove-UMSDeviceDirectory @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -7048,7 +7048,7 @@ Reset-UMSDevice @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -7061,7 +7061,7 @@ Restart-UMSDevice @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48426, 2435 | Restart-UMSDevice -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48426, 2435 | Restart-UMSDevice -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Restarts thin clients with TCID 48426 and 2435.</maml:para>
         </dev:remarks>
@@ -7269,7 +7269,7 @@ Restart-UMSDevice @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -7490,7 +7490,7 @@ Send-UMSDeviceSetting @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -7503,7 +7503,7 @@ Start-UMSDevice @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48426, 2435 | Start-UMSDevice -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48426, 2435 | Start-UMSDevice -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Wakes up thin clients with TCID 48426 and 2435.</maml:para>
         </dev:remarks>
@@ -7711,7 +7711,7 @@ Start-UMSDevice @Params</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -7724,7 +7724,7 @@ Stop-UMSDevice @Params</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48426, 2435 | Stop-UMSDevice -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48426, 2435 | Stop-UMSDevice -Computername 'igelrmserver'</dev:code>
         <dev:remarks>
           <maml:para>Shuts down thin clients with TCID 48426 and 2435.</maml:para>
         </dev:remarks>
@@ -8317,8 +8317,8 @@ message
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>$Params = @{
-$WebSession   = New-UMSAPICookie -Computername 'UMSSERVER'
-  $Computername = 'UMSSERVER'
+$WebSession   = New-UMSAPICookie -Computername 'igelrmserver'
+  $Computername = 'igelrmserver'
   $WebSession   = $WebSession
   $ProfileID    = 470
   $TCID         = 48426
@@ -8334,7 +8334,7 @@ message
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Update-UMSProfileAssignment -Computername 'UMSSERVER' -ProfileID 471 -DirID 300</dev:code>
+        <dev:code>Update-UMSProfileAssignment -Computername 'igelrmserver' -ProfileID 471 -DirID 300</dev:code>
         <dev:remarks>
           <maml:para>Assigns the profile with ProfileID 471 to thin client directory with DirID 300'</maml:para>
         </dev:remarks>
@@ -8566,7 +8566,7 @@ message
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -8584,7 +8584,7 @@ Updated directory successfully.</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49339 | Update-UMSProfileDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'</dev:code>
+        <dev:code>49339 | Update-UMSProfileDirectoryName -Computername 'igelrmserver' -Name 'NewDirName'</dev:code>
         <dev:remarks>
           <maml:para>Updates profile directory name to 'NewDirName'</maml:para>
         </dev:remarks>
@@ -8816,7 +8816,7 @@ Updated directory successfully.</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -8834,7 +8834,7 @@ Update successful</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48170 | Update-UMSProfileName -Computername 'UMSSERVER' -Name 'NewProfileName'</dev:code>
+        <dev:code>48170 | Update-UMSProfileName -Computername 'igelrmserver' -Name 'NewProfileName'</dev:code>
         <dev:remarks>
           <maml:para>Updates profile name to 'NewProfileName'</maml:para>
         </dev:remarks>
@@ -9258,9 +9258,9 @@ Update successful</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
-  Computername  = 'UMSSERVER'
+  Computername  = 'igelrmserver'
   TCID          = 100
   Name          = 'TC012345'
   ParentID      = '772'
@@ -9284,14 +9284,14 @@ Update successful</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Update-UMSDevice -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''</dev:code>
+        <dev:code>Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -TCID 48426 -Comment ''</dev:code>
         <dev:remarks>
           <maml:para>Removes comment of the device to TC030564.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>Update-UMSDevice -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'</dev:code>
+        <dev:code>Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -TCID 48426 -Name 'TC030564'</dev:code>
         <dev:remarks>
           <maml:para>Upates name of the device to TC030564.</maml:para>
         </dev:remarks>
@@ -9523,7 +9523,7 @@ Update successful</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>$Computername = 'UMSSERVER'
+        <dev:code>$Computername = 'igelrmserver'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
@@ -9541,7 +9541,7 @@ Updated directory successfully.</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49289 | Update-UMSDeviceDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'</dev:code>
+        <dev:code>49289 | Update-UMSDeviceDirectoryName -Computername 'igelrmserver' -Name 'NewDirName'</dev:code>
         <dev:remarks>
           <maml:para>Updates device directory name to 'NewDirName'</maml:para>
         </dev:remarks>

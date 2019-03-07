@@ -32,7 +32,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
     Mock 'Write-Output' {}
 
-    $Result = Get-DeviceFirmware
+    $Result = Get-OSFirmware
 
     It 'Assert Invoke-SSHCommandStream is called exactly 1 time' {
       $AMCParams = @{
@@ -70,7 +70,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Mock 'Invoke-SSHCommandStream' {throw 'Error'}
     Mock 'Write-Output' {}
 
-    $Result = Get-DeviceFirmware
+    $Result = Get-OSFirmware
 
     It 'Assert Write-Output is called exactly 1 time' {
       $AMCParams = @{

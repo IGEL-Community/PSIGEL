@@ -5,19 +5,19 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-DeviceFirmware
+# Get-OSFirmware
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets firmware from a device.
 
 ## SYNTAX
 
 ```
-Get-DeviceFirmware [-SSHSession] <Object> [<CommonParameters>]
+Get-OSFirmware [-SSHSession] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets firmware from a device via Posh-SSH.
 
 ## EXAMPLES
 
@@ -31,7 +31,7 @@ PS C:\> {{ Add example code here }}
 ## PARAMETERS
 
 ### -SSHSession
-{{Fill SSHSession Description}}
+Posh-SSH SSHSession
 
 ```yaml
 Type: Object

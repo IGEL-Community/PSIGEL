@@ -38,7 +38,7 @@ path="ums_filetransfer/IGEL_Universal_Desktop_LX-10.05.500"
     }
     Mock 'Write-Output' {}
 
-    $Result = Get-DeviceUpdateConfiguration
+    $Result = Get-OSUpdateConfiguration
 
     It 'Assert Invoke-SSHCommandStream is called exactly 1 time' {
       $AMCParams = @{
@@ -100,7 +100,7 @@ path="ums_filetransfer/IGEL_Universal_Desktop_LX-10.05.500"
     Mock 'Invoke-SSHCommandStream' {throw 'Error'}
     Mock 'Write-Output' {}
 
-    $Result = Get-DeviceUpdateConfiguration
+    $Result = Get-OSUpdateConfiguration
 
     It 'Assert Write-Output is called exactly 1 time' {
       $AMCParams = @{
