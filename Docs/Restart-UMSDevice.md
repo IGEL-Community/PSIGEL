@@ -8,7 +8,7 @@ schema: 2.0.0
 # Restart-UMSDevice
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Restarts a device.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Restart-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Restarts a device via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32

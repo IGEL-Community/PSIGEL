@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSDevice
 
 ## SYNOPSIS
-Gets information on an device.
+Gets information on a device.
 
 ## SYNTAX
 
@@ -26,7 +26,7 @@ Get-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int3
 ```
 
 ## DESCRIPTION
-Gets information on an device via API.
+Gets information on a device via API.
 
 ## EXAMPLES
 

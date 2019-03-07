@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-UMSProfileAssignment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a profile assignment on a device or device directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ New-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Creates a profile assignment on a device or device directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile
 
 ```yaml
 Type: Int32
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -ReceiverId
-{{Fill ReceiverId Description}}
+Id of the device or device directory
 
 ```yaml
 Type: Int32
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 ```
 
 ### -ReceiverType
-{{Fill ReceiverType Description}}
+Type of the device or device directory
 
 ```yaml
 Type: String

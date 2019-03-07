@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-UMSDeviceDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a device directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Remove-UMSDeviceDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVe
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Removes a device directory via API. The device directory is only removed if it is empty.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device directory
 
 ```yaml
 Type: Int32

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-UMSProfile
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a profile.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Remove-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Removes a profile via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile
 
 ```yaml
 Type: Int32

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-UMSDevice
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a device.
 
 ## SYNTAX
 
@@ -27,7 +27,7 @@ Remove-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <I
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Removes a device completely (without recycle bin) via API. Per default the device is removed even if it is offline. With the switch "Online" it removes it only if it is online.
 
 ## EXAMPLES
 
@@ -87,7 +87,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32
@@ -102,7 +102,7 @@ Accept wildcard characters: False
 ```
 
 ### -Online
-{{Fill Online Description}}
+Switch to remove the device only if it is online
 
 ```yaml
 Type: SwitchParameter

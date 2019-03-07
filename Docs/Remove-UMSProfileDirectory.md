@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-UMSProfileDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a profile directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Remove-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiV
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Removes a profile directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile directory
 
 ```yaml
 Type: Int32

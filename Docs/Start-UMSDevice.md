@@ -8,7 +8,7 @@ schema: 2.0.0
 # Start-UMSDevice
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Wakes up a device.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Start-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <In
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Wakes up a device per WOL from the UMS via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32

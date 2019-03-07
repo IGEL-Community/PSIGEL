@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSProfileAssignment
 
 ## SYNOPSIS
-Gets information on an device or device directory assignment of a profile.
+Gets information on a device or device directory assignment of a profile.
 
 ## SYNTAX
 
@@ -25,7 +25,7 @@ Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-Gets information on an device or device directory assignment of a profile via API.
+Gets information on a device or device directory assignment of a profile via API.
 
 ## EXAMPLES
 

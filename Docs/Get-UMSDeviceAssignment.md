@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSDeviceAssignment
 
 ## SYNOPSIS
-Gets information on a profile or master profile assignment of an device.
+Gets information on a profile or master profile assignment of a device.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Get-UMSDeviceAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVers
 ```
 
 ## DESCRIPTION
-Gets information on a profile or master profile assignment of an device via API.
+Gets information on a profile or master profile assignment of a device via API.
 
 ## EXAMPLES
 

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Move-UMSProfileDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Moves a profile directory to profile directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Move-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Moves a profile directory to profile directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -DestId
-{{Fill DestId Description}}
+ID of the destination profile directory
 
 ```yaml
 Type: Int32
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile directory
 
 ```yaml
 Type: Int32

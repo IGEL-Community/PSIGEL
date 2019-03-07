@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-UMSAPICookie
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a websession cookie.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ New-UMSAPICookie [-Computername] <String> [[-TCPPort] <Int32>] [[-Credential] <P
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Creates a websession cookie for the UMS API.
 
 ## EXAMPLES
 
@@ -78,7 +78,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-{{Fill Credential Description}}
+Credential for the API request
 
 ```yaml
 Type: PSCredential

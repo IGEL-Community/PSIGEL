@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSDeviceDirectoryAssignment
 
 ## SYNOPSIS
-Gets information on a profile or master profile assignment of an device directory.
+Gets information on a profile or master profile assignment of a device directory.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Get-UMSDeviceDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32>] [
 ```
 
 ## DESCRIPTION
-Gets information on a profile or master profile assignment of an device directory via API.
+Gets information on a profile or master profile assignment of a device directory via API.
 
 ## EXAMPLES
 

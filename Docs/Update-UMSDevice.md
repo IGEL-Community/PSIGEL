@@ -8,7 +8,7 @@ schema: 2.0.0
 # Update-UMSDevice
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Updates properties of a device.
 
 ## SYNTAX
 
@@ -21,7 +21,7 @@ Update-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <I
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Updates properties of a device via API.
 
 ## EXAMPLES
 
@@ -51,7 +51,7 @@ Accept wildcard characters: False
 ```
 
 ### -AssetId
-{{Fill AssetId Description}}
+Device property asset ID
 
 ```yaml
 Type: String
@@ -66,7 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -Comment
-{{Fill Comment Description}}
+Device property comment
 
 ```yaml
 Type: String
@@ -111,7 +111,7 @@ Accept wildcard characters: False
 ```
 
 ### -CostCenter
-{{Fill CostCenter Description}}
+Device property cost center
 
 ```yaml
 Type: String
@@ -126,7 +126,7 @@ Accept wildcard characters: False
 ```
 
 ### -Department
-{{Fill Department Description}}
+Device property department
 
 ```yaml
 Type: String
@@ -141,7 +141,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32
@@ -156,7 +156,7 @@ Accept wildcard characters: False
 ```
 
 ### -InserviceDate
-{{Fill InserviceDate Description}}
+Device property inservice date
 
 ```yaml
 Type: String
@@ -171,7 +171,7 @@ Accept wildcard characters: False
 ```
 
 ### -LastIP
-{{Fill LastIP Description}}
+Device property last known IP address
 
 ```yaml
 Type: String
@@ -186,7 +186,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+Device property name
 
 ```yaml
 Type: String
@@ -217,7 +217,7 @@ Accept wildcard characters: False
 ```
 
 ### -SerialNumber
-{{Fill SerialNumber Description}}
+Device property serial number
 
 ```yaml
 Type: String
@@ -232,7 +232,7 @@ Accept wildcard characters: False
 ```
 
 ### -Site
-{{Fill Site Description}}
+Device property site
 
 ```yaml
 Type: String

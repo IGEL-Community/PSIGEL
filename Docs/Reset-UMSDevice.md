@@ -8,7 +8,7 @@ schema: 2.0.0
 # Reset-UMSDevice
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Resets a device to factory defaults.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Reset-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <In
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Resets a device to factory defaults and removes it completely (without recycle bin) via API. The device has to be online to be reset, otherwise the device is only removed.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32

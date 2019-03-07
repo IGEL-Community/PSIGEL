@@ -8,7 +8,7 @@ schema: 2.0.0
 # Update-UMSProfile
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Updates the name of a profile.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Update-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Updates the name of a profile directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile
 
 ```yaml
 Type: Int32
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+Device property name
 
 ```yaml
 Type: String

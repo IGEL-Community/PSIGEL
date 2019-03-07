@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-UMSProfileAssignment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Removes a profile assignment from a device or device directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Remove-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-Api
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Removes a profile assignment from a device or device directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile
 
 ```yaml
 Type: Int32
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -ReceiverId
-{{Fill ReceiverId Description}}
+ID of the device or device directory
 
 ```yaml
 Type: Int32
@@ -109,7 +109,7 @@ Accept wildcard characters: False
 ```
 
 ### -ReceiverType
-{{Fill ReceiverType Description}}
+Type of the device or device directory
 
 ```yaml
 Type: String

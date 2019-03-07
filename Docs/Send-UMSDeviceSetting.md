@@ -8,7 +8,7 @@ schema: 2.0.0
 # Send-UMSDeviceSetting
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Sends settings to a device.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Send-UMSDeviceSetting [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersio
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Sends settings modified in the UMS database to a device via  API. The device has to be online for the settings to take effect.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32

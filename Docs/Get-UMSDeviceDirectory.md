@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSDeviceDirectory
 
 ## SYNOPSIS
-Gets information on an device directory.
+Gets information on a device directory.
 
 ## SYNTAX
 
@@ -26,7 +26,7 @@ Get-UMSDeviceDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersi
 ```
 
 ## DESCRIPTION
-Gets information on an device directory via API.
+Gets information on a device directory via API.
 
 ## EXAMPLES
 

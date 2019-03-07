@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-UMSProfileDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a profile directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ New-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVers
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Creates a profile directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+Name of the profile directory
 
 ```yaml
 Type: String

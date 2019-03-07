@@ -8,7 +8,7 @@ schema: 2.0.0
 # New-UMSDeviceDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Creates a device directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ New-UMSDeviceDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersi
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Creates a device directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Name
-{{Fill Name Description}}
+Device property name
 
 ```yaml
 Type: String

@@ -8,7 +8,7 @@ schema: 2.0.0
 # Move-UMSDeviceDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Moves a device directory to a device directory.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Move-UMSDeviceDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVers
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Moves a device directory to a device directory via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -DestId
-{{Fill DestId Description}}
+ID of the destination device directory
 
 ```yaml
 Type: Int32
@@ -94,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device directory
 
 ```yaml
 Type: Int32

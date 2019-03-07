@@ -8,7 +8,7 @@ schema: 2.0.0
 # Stop-UMSDevice
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Shuts down a device.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Stop-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Shuts down a device via API.
 
 ## EXAMPLES
 
@@ -79,7 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the device
 
 ```yaml
 Type: Int32
