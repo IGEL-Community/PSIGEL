@@ -23,10 +23,23 @@ Gets firmware from a device via Posh-SSH.
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> $SSHSessionParam = @{
+  ComputerName = 'Device01'
+  Credential   = Get-Credential
+  AcceptKey    = $true
+}
+$SSHSession = New-SSHSession @SSHSessionParam
+
+Get-OSFirmware -SSHSession $SSHSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Version
+-------
+10.05.500.01
+```
 
 ## PARAMETERS
 
