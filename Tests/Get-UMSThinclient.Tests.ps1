@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
-    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Option', 'Id'
+    $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Filter', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
@@ -163,7 +163,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Option online" {
+    Context "Filter online" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -217,7 +217,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Option shadow" {
+    Context "Filter shadow" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -270,7 +270,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Option details" {
+    Context "Filter details" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
@@ -355,7 +355,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-    Context "Option details no datetime" {
+    Context "Filter details no datetime" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         [pscustomobject]@{
