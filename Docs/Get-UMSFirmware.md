@@ -12,9 +12,16 @@ Get information on all firmwares.
 
 ## SYNTAX
 
+### All (Default)
 ```
-Get-UMSFirmware [[-Computername] <String>] [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [[-FirmwareID] <Int32>] [<CommonParameters>]
+Get-UMSFirmware [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> [<CommonParameters>]
+```
+
+### Id
+```
+Get-UMSFirmware [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> [-Id <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,16 +30,14 @@ Gets information on all firmwares from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSFirmware @Params
-```
 
-```
 id           : 35
 product      : IGEL Universal Desktop LX
 version      : 5.13.100.01
@@ -55,7 +60,7 @@ links        : {}
 Gets information on all firmwares known to the UMS.
 
 ### Example 2
-```powershell
+```
 9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'
 ```
 
@@ -71,7 +76,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -116,30 +121,46 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FirmwareID
-ID of the firmware
+### -Id
+{{Fill Id Description}}
 
 ```yaml
 Type: Int32
+Parameter Sets: Id
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

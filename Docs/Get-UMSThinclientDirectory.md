@@ -12,16 +12,16 @@ Get Thinclient Directories.
 
 ## SYNTAX
 
-### Overview (Default)
+### All (Default)
 ```
 Get-UMSThinclientDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-WebSession <Object>] [-Children] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] -WebSession <Object> [-Filter <String>] [<CommonParameters>]
 ```
 
-### DIR
+### Id
 ```
 Get-UMSThinclientDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-WebSession <Object>] [-Children] -DirID <Int32> [<CommonParameters>]
+ [-SecurityProtocol <String[]>] -WebSession <Object> [-Filter <String>] [-Id <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,15 +30,14 @@ Get Thinclient Directories from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSThinclientDirectory @Params
-```
-```
+
 id         : 274
 name       : Room1
 parentID   : 220
@@ -53,13 +52,13 @@ movedToBin : False
 objectType : tcdirectory
 links      : {}
 ```
+
 Gets all Thinclient Directories.
 
 ### Example 2
-```powershell
+```
 (Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
-```
-```
+
 objectType  id
 ----------  --
 tcdirectory 221
@@ -131,6 +130,21 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Filter
+{{Fill Filter Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
 Required: False
 Position: Named
 Default value: None
@@ -138,38 +152,39 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Children
-Switch for recursively listing children
+### -Id
+{{Fill Id Description}}
 
 ```yaml
-Type: SwitchParameter
+Type: Int32
+Parameter Sets: Id
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DirID
-ID of the Directory
-
-```yaml
-Type: Int32
-Parameter Sets: DIR
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

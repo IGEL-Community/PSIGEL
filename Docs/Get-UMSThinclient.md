@@ -12,9 +12,16 @@ Get Thinclients.
 
 ## SYNTAX
 
+### All (Default)
 ```
-Get-UMSThinclient [[-Computername] <String>] [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [[-Details] <String>] [[-TCID] <Int32>] [<CommonParameters>]
+Get-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> [-Filter <String>] [<CommonParameters>]
+```
+
+### Id
+```
+Get-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> [-Filter <String>] [-Id <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +30,7 @@ Gets Thinclient from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -31,8 +38,7 @@ $Params = @{
   Details      = 'full'
 }
 Get-UMSThinclient @Params
-```
-```
+
 unitID                    : 00E0C5163C78
 mac                       : 00E0C5163C78
 firmwareID                : 8
@@ -83,13 +89,13 @@ movedToBin                : False
 objectType                : tc
 links                     : {}
 ```
+
 Gets detailed information on all online thin clients.
 
 ### Example 2
-```powershell
+```
 Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
-```
-```
+
 unitID     : 00E0C513CB46
 mac        : 00E0C513CB46
 firmwareID : 8
@@ -105,10 +111,9 @@ links      : {}
 Gets short information on thin clients with TCID 2433.
 
 ### Example 3
-```powershell
+```
 2433 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
-```
-```
+
 unitID       : 00E0C513BA36
 mac          : 00E0C513BA36
 firmwareID   : 8
@@ -130,6 +135,7 @@ movedToBin   : False
 objectType   : tc
 links        : {}
 ```
+
 Gets shadow-information on Thinclient with TCID 2433
 
 ## PARAMETERS
@@ -142,7 +148,7 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -187,15 +193,15 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Details
-Detailed of information on all thin clients ('short','full','inventory','online'; Default:'short')
+### -Filter
+{{Fill Filter Description}}
 
 ```yaml
 Type: String
@@ -203,29 +209,45 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 5
-Default value: Short
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TCID
-ID of the Thinclient
+### -Id
+{{Fill Id Description}}
 
 ```yaml
 Type: Int32
+Parameter Sets: Id
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 6
-Default value: 0
-Accept pipeline input: True (ByValue)
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

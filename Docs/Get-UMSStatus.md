@@ -13,8 +13,8 @@ Gets diagnostic information.
 ## SYNTAX
 
 ```
-Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>] [[-WebSession] <Object>]
- [<CommonParameters>]
+Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,15 +23,14 @@ Gets diagnostic information from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSStatus @Params
-```
-```
+
 rmGuiServerVersion : 5.08.100
 buildNumber        : 33604
 activeMQVersion    : 5.6.0
@@ -40,6 +39,7 @@ serverUUID         : 473de374-49d1-47dc-9842-c1429a561435
 server             : UMSSERVER.acme.org:8443
 links              : {}
 ```
+
 Gets UMSSERVER status
 
 ## PARAMETERS
@@ -97,15 +97,31 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

@@ -14,7 +14,8 @@ Creates a Profile Directory via API
 
 ```
 New-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-Name] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> [-Name] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +24,7 @@ Creates a Profile Directory via API
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -32,10 +33,11 @@ $Params = @{
 }
 New-UMSProfileDirectory @Params
 ```
+
 Creates a Profile Directory with name 'NewProfileDir1'
 
 ### Example 2
-```powershell
+```
 'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'UMSSERVER'
 ```
 
@@ -96,7 +98,7 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
@@ -114,7 +116,7 @@ Aliases:
 Required: True
 Position: 5
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
@@ -129,7 +131,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -144,13 +146,29 @@ Aliases: cf
 
 Required: False
 Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

@@ -14,17 +14,16 @@ Get the profile and master profile assignments.
 
 ```
 Get-UMSThinclientDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-DIRID] <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Get the profile and master profile assignments for the specified Thinclient directory,
-in order of their application from UMS via API.
+Get the profile and master profile assignments for the specified Thinclient directory, in order of their application from UMS via API.
 
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -32,8 +31,7 @@ $Params = @{
   DIRID        = 772
 }
 Get-UMSThinclientDirectoryAssignment @Params
-```
-```
+
 assignee                 receiver                    assignmentPosition links
 --------                 --------                    ------------------ -----
 @{id=423; type=profile}  @{id=772; type=tcdirectory}                  0 {}
@@ -43,10 +41,11 @@ assignee                 receiver                    assignmentPosition links
 @{id=441; type=profile}  @{id=772; type=tcdirectory}                  4 {}
 @{id=444; type=profile}  @{id=772; type=tcdirectory}                  5 {}
 ```
+
 Gets the profile and master profile assignments for Thinclient Directory 772
 
 ### Example 2
-```powershell
+```
 774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'
 ```
 
@@ -107,15 +106,15 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DIRID
-ID of the Thinclient Directory assignments for
+### -Id
+{{Fill Id Description}}
 
 ```yaml
 Type: Int32
@@ -123,35 +122,19 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
 
 ```yaml
-Type: SwitchParameter
+Type: String[]
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
 Position: Named
@@ -161,7 +144,8 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

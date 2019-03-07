@@ -14,7 +14,8 @@ Move Thinclients.
 
 ```
 Move-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-TCID] <Int32> [-DDIRID] <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> -DestId <Int32> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +24,7 @@ Move Thinclients into the specified Thinclient Directory from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -33,18 +34,19 @@ $Params = @{
   Confirm      = $true
 }
 Move-UMSThinclient @Params
-```
-```
+
 id    results
 --    -------
 49282 successful
 ```
+
 Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation.
 
 ### Example 2
-```powershell
+```
 49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289
 ```
+
 Moves Thinclients with ID 49282, 49284 into the specified Thinclient Directory.
 
 ## PARAMETERS
@@ -102,39 +104,9 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCID
-ID of thinclients to move.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -DDIRID
-ID of Thinclient Directory to move to.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 6
-Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -150,7 +122,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -165,13 +137,59 @@ Aliases: cf
 
 Required: False
 Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DestId
+{{Fill DestId Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

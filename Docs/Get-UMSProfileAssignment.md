@@ -12,9 +12,16 @@ Get the thinclients and directories the profile is assigned to.
 
 ## SYNTAX
 
+### Thinclient (Default)
 ```
 Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [-WebSession] <Object> [-ProfileID] <Int32> [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [<CommonParameters>]
+```
+
+### Directory
+```
+Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [-Directory] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +30,7 @@ Get the thinclients and directories the profile is assigned to from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -31,9 +38,7 @@ $Params = @{
   ProfileID    = 471
 }
 Get-UMSProfileAssignment @Params
-```
 
-```
 id    type
 --    ----
 4108  tc
@@ -45,7 +50,7 @@ id    type
 Gets the thin clients and the directories the profile with ProfileID 471 is assigned to.
 
 ### Example 2
-```powershell
+```
 471 | Get-UMSProfileAssignment -Computername 'UMSSERVER'
 ```
 
@@ -113,8 +118,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProfileID
-ProfileID to search for
+### -Directory
+{{Fill Directory Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Directory
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Id
+{{Fill Id Description}}
 
 ```yaml
 Type: Int32
@@ -122,14 +142,30 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 5
+Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

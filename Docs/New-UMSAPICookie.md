@@ -14,7 +14,7 @@ Creates Websession Cookie for IGEL UMS RestAPI.
 
 ```
 New-UMSAPICookie [-Computername] <String> [[-TCPPort] <Int32>] [[-Credential] <PSCredential>]
- [[-ApiVersion] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-ApiVersion] <Int32>] [-SecurityProtocol <String[]>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Creates Websession Cookie for IGEL UMS RestAPI.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 New-UMSAPICookie -Computername 'UMSSERVER' -TCPPort 8443
 ```
 
@@ -60,7 +60,7 @@ Accept wildcard characters: False
 ```
 
 ### -Credential
-Credential for API Requests
+Credential for API Requests (Default: Get-Credential -Message 'Enter your credentials')
 
 ```yaml
 Type: PSCredential
@@ -100,7 +100,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -115,13 +115,29 @@ Aliases: cf
 
 Required: False
 Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

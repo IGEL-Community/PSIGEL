@@ -14,9 +14,10 @@ Updates properties of a Thinclient from Rest API.
 
 ```
 Update-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-TCID] <Int32> [[-Name] <String>] [[-Site] <String>] [[-Department] <String>]
- [[-CostCenter] <String>] [[-LastIP] <String>] [[-Comment] <String>] [[-AssetID] <String>]
- [[-InserviceDate] <String>] [[-SerialNumber] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [[-Name] <String>] [[-Site] <String>]
+ [[-Department] <String>] [[-CostCenter] <String>] [[-LastIP] <String>] [[-Comment] <String>]
+ [[-AssetId] <String>] [[-InserviceDate] <String>] [[-SerialNumber] <String>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -25,7 +26,7 @@ Updates properties of a Thinclient from Rest API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername  = 'UMSSERVER'
@@ -42,8 +43,7 @@ $Params = @{
   SerialNumber  = '12A3B4C56B12345A6BC'
 }
 Update-UMSThinclient @Params
-```
-```
+
 message
 -------
 Update successful
@@ -52,14 +52,14 @@ Update successful
 Updates thinclient with all possible attributes.
 
 ### Example 2
-```powershell
+```
 Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''
 ```
 
 Removes comment of the thinclient to TC030564.
 
 ### Example 3
-```powershell
+```
 Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'
 ```
 
@@ -120,25 +120,10 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCID
-ThinclientID of the thinclient to update
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -232,21 +217,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -AssetID
-Thinclient Attribute AssetID
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 12
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -InserviceDate
 Thinclient Attribute InserviceDate
 
@@ -288,7 +258,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -303,13 +273,59 @@ Aliases: cf
 
 Required: False
 Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AssetId
+Thinclient Attribute AssetID
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 12
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

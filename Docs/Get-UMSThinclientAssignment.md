@@ -14,7 +14,7 @@ Gets the profile and master profile assignments.
 
 ```
 Get-UMSThinclientAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-TCID] <Int32> [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Gets the profile and master profile assignments for the specified thin client, i
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -31,8 +31,7 @@ $Params = @{
   TCID         = 2433
 }
 Get-UMSThinclientAssignment @Params
-```
-```
+
 assignee                  receiver                      assignmentPosition links
 --------                  --------                      ------------------ -----
 @{id=472; type=profile}   @{id=2433; type=tc}                            0 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/472}, @{rel=receiver; href=https://umsserver:8...
@@ -41,10 +40,11 @@ assignee                  receiver                      assignmentPosition links
 @{id=478; type=profile}   @{id=50; type=tcdirectory}                     3 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/478}, @{rel=receiver; href=https://umsserver:8...
 @{id=451; type=profile}   @{id=49; type=tcdirectory}                     4 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/451}, @{rel=receiver; href=https://umsserver:8...
 ```
+
 Gets the profile and master profile assignments for Thinclient with TCID 2433.
 
 ### Example 2
-```powershell
+```
 2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER'
 ```
 
@@ -105,15 +105,15 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TCID
-ID of the Thinclient assignments for
+### -Id
+{{Fill Id Description}}
 
 ```yaml
 Type: Int32
@@ -121,14 +121,30 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

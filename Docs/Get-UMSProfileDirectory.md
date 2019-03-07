@@ -12,16 +12,16 @@ Get Profile Directories.
 
 ## SYNTAX
 
-### Overview (Default)
+### All (Default)
 ```
-Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>] [-WebSession <Object>]
- [-Children] [<CommonParameters>]
+Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
+ [-SecurityProtocol <String[]>] -WebSession <Object> [-Filter <String>] [<CommonParameters>]
 ```
 
-### DIR
+### Id
 ```
-Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>] [-WebSession <Object>]
- [-Children] -DIRID <Int32> [<CommonParameters>]
+Get-UMSProfileDirectory -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
+ [-SecurityProtocol <String[]>] -WebSession <Object> [-Filter <String>] [-Id <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,16 +30,14 @@ Get Profile Directories from UMS via API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
 Get-UMSProfileDirectory @Params
-```
 
-```
 id         : 477
 name       : 04_Network
 parentID   : 421
@@ -58,11 +56,9 @@ links      : {}
 Gets information on all Profile Directories
 
 ### Example 2
-```powershell
+```
 (446 | Get-UMSProfileDirectory -Computername 'UMSSERVER' -Children).DirectoryChildren
-```
 
-```
 objectType id
 ---------- --
 profile    449
@@ -127,6 +123,21 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Filter
+{{Fill Filter Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
 Required: False
 Position: Named
 Default value: None
@@ -134,38 +145,39 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Children
-Switch for recursively listing children (Default false)
+### -Id
+{{Fill Id Description}}
 
 ```yaml
-Type: SwitchParameter
+Type: Int32
+Parameter Sets: Id
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DIRID
-ID of the Profile Directory
-
-```yaml
-Type: Int32
-Parameter Sets: DIR
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

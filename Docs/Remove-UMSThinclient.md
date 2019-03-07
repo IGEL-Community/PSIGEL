@@ -12,9 +12,17 @@ Removes a thinclient completely (without recycle bin) from Rest API.
 
 ## SYNTAX
 
+### Offline (Default)
 ```
 Remove-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-TCID] <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### Online
+```
+Remove-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [-SecurityProtocol <String[]>] [-WebSession] <Object> -Id <Int32> [-Online] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +31,7 @@ Removes a thinclient completely (without recycle bin) from Rest API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -32,10 +40,11 @@ $Params = @{
 }
 Remove-UMSThinclient @Params
 ```
+
 Removes Thinclient with TCID 48420
 
 ### Example 2
-```powershell
+```
 48381 | Remove-UMSThinclient -Computername 'UMSSERVER'
 ```
 
@@ -96,25 +105,10 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCID
-ThinclientID of the thinclient to remove
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -129,7 +123,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -144,13 +138,59 @@ Aliases: cf
 
 Required: False
 Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -Online
+{{Fill Online Description}}
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: Online
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

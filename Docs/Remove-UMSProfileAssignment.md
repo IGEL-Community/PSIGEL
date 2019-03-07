@@ -12,16 +12,10 @@ Deletes assignment of the specified profile to the specified Thinclient or Thinc
 
 ## SYNTAX
 
-### TC
 ```
 Remove-UMSProfileAssignment -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-WebSession <Object>] -ProfileID <Int32> -TCID <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### Dir
-```
-Remove-UMSProfileAssignment -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-WebSession <Object>] -ProfileID <Int32> -DirID <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SecurityProtocol <String[]>] -WebSession <Object> -Id <Int32> -ReceiverId <Int32> -ReceiverType <String>
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +24,7 @@ Deletes assignment of the specified profile to the specified Thinclient or Thinc
 ## EXAMPLES
 
 ### Example 1
-```powershell
+```
 $Computername = 'UMSSERVER'
 $Params = @{
   Computername = $Computername
@@ -40,10 +34,11 @@ $Params = @{
 }
 Remove-UMSProfileAssignment @Params
 ```
+
 Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
 ### Example 2
-```powershell
+```
 48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
 ```
 
@@ -104,54 +99,9 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProfileID
-ProfileID to search for
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -TCID
-{{Fill TCID Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: TC
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DirID
-{{Fill DirID Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: Dir
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -167,7 +117,7 @@ Aliases: wi
 
 Required: False
 Position: Named
-Default value: None
+Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -182,13 +132,74 @@ Aliases: cf
 
 Required: False
 Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+{{Fill Id Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ReceiverId
+{{Fill ReceiverId Description}}
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ReceiverType
+{{Fill ReceiverType Description}}
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+{{Fill SecurityProtocol Description}}
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
