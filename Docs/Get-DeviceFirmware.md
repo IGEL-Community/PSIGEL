@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-EPFirmware
+# Get-DeviceFirmware
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Get-EPFirmware [-SSHSession] <Object> [<CommonParameters>]
+Get-DeviceFirmware [-SSHSession] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION

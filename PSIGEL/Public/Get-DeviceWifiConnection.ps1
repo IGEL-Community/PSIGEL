@@ -1,5 +1,5 @@
 #Requires -Modules Posh-SSH
-function Get-EPWifiConnection
+function Get-DeviceWifiConnection
 {
   [CmdletBinding()]
   param (

@@ -11,14 +11,14 @@ Locale: en-US
 {{Manually Enter Description Here}}
 
 ## PSIGEL Cmdlets
-### [Get-EPFirmware](Get-EPFirmware.md)
-{{Manually Enter Get-EPFirmware Description Here}}
+### [Get-DeviceFirmware](Get-DeviceFirmware.md)
+{{Manually Enter Get-DeviceFirmware Description Here}}
 
-### [Get-EPUpdateConfiguration](Get-EPUpdateConfiguration.md)
-{{Manually Enter Get-EPUpdateConfiguration Description Here}}
+### [Get-DeviceUpdateConfiguration](Get-DeviceUpdateConfiguration.md)
+{{Manually Enter Get-DeviceUpdateConfiguration Description Here}}
 
-### [Get-EPWifiConnection](Get-EPWifiConnection.md)
-{{Manually Enter Get-EPWifiConnection Description Here}}
+### [Get-DeviceWifiConnection](Get-DeviceWifiConnection.md)
+{{Manually Enter Get-DeviceWifiConnection Description Here}}
 
 ### [Get-UMSFirmware](Get-UMSFirmware.md)
 {{Manually Enter Get-UMSFirmware Description Here}}

@@ -1,5 +1,5 @@
 #Requires -Modules Posh-SSH
-function Get-EPFirmware
+function Get-DeviceFirmware
 {
   [CmdletBinding()]
   param (

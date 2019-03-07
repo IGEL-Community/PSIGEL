@@ -79,15 +79,15 @@ Master Profile |API|-|-
 
 ## Functions
 
-### [Get-EPFirmware](/Docs/Get-EPFirmware.md)
+### [Get-DeviceFirmware](/Docs/Get-DeviceFirmware.md)
 
 Get Firmware
 
-### [Get-EPUpdateConfiguration](/Docs/Get-EPUpdateConfiguration.md)
+### [Get-DeviceUpdateConfiguration](/Docs/Get-DeviceUpdateConfiguration.md)
 
 Get update configuration (IGEL OS 10+)
 
-### [Get-EPWifiConnection](/Docs/Get-EPWifiConnection.md)
+### [Get-DeviceWifiConnection](/Docs/Get-DeviceWifiConnection.md)
 
 Get Wifi connection information
 

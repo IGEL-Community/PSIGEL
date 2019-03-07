@@ -2,7 +2,7 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-EPFirmware</command:name>
+      <command:name>Get-DeviceFirmware</command:name>
       <command:verb>Get</command:verb>
       <command:noun>EPFirmware</command:noun>
       <maml:description>
@@ -14,7 +14,7 @@
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-EPFirmware</maml:name>
+        <maml:name>Get-DeviceFirmware</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>SSHSession</maml:name>
           <maml:Description>
@@ -56,7 +56,7 @@
         <dev:code>$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
-Get-EPFirmware @Params
+Get-DeviceFirmware @Params
 
 4.14.300.01</dev:code>
         <dev:remarks>
@@ -67,13 +67,13 @@ Get-EPFirmware @Params
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPFirmware.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-DeviceFirmware.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-EPUpdateConfiguration</command:name>
+      <command:name>Get-DeviceUpdateConfiguration</command:name>
       <command:verb>Get</command:verb>
       <command:noun>EPUpdateConfiguration</command:noun>
       <maml:description>
@@ -85,7 +85,7 @@ Get-EPFirmware @Params
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-EPUpdateConfiguration</maml:name>
+        <maml:name>Get-DeviceUpdateConfiguration</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>SSHSession</maml:name>
           <maml:Description>
@@ -127,7 +127,7 @@ Get-EPFirmware @Params
         <dev:code>$Params = @{
   SSHSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
 }
-Get-EPUpdateConfiguration @Params
+Get-DeviceUpdateConfiguration @Params
 
 Host     : TC012345
 Protocol : http
@@ -144,13 +144,13 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPUpdateConfiguration.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-DeviceUpdateConfiguration.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-EPWifiConnection</command:name>
+      <command:name>Get-DeviceWifiConnection</command:name>
       <command:verb>Get</command:verb>
       <command:noun>EPWifiConnection</command:noun>
       <maml:description>
@@ -162,7 +162,7 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-EPWifiConnection</maml:name>
+        <maml:name>Get-DeviceWifiConnection</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>SSHSession</maml:name>
           <maml:Description>
@@ -229,7 +229,7 @@ Path     : ums_filetransfer/IGEL_Universal_Desktop_LX-10.03.570</dev:code>
   SHSSession = New-SSHSession -ComputerName $ComputerName -Credential (Get-Credential) -AcceptKey
   Interface  = 'wlan0'
 }
-Get-EPWifiConnection @Params
+Get-DeviceWifiConnection @Params
 
 Host        : TC012345
 Interface   : wlan0
@@ -249,7 +249,7 @@ SignalLevel : -54</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-EPWifiConnection.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-DeviceWifiConnection.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

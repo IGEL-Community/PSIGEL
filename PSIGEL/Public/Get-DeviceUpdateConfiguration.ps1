@@ -1,5 +1,5 @@
 #Requires -Modules Posh-SSH
-function Get-EPUpdateConfiguration
+function Get-DeviceUpdateConfiguration
 {
   [CmdletBinding()]
   param (

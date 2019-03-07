@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-EPWifiConnection
+# Get-DeviceUpdateConfiguration
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Get-EPWifiConnection [-SSHSession] <Object> [[-Interface] <String>] [<CommonParameters>]
+Get-DeviceUpdateConfiguration [-SSHSession] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,21 +29,6 @@ PS C:\> {{ Add example code here }}
 {{ Add example description here }}
 
 ## PARAMETERS
-
-### -Interface
-{{Fill Interface Description}}
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
 
 ### -SSHSession
 {{Fill SSHSession Description}}
@@ -67,8 +52,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ## INPUTS
 
 ### System.Object
-
-### System.String
 
 ## OUTPUTS
 

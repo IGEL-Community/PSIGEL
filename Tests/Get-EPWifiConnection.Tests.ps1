@@ -40,7 +40,7 @@ wlan0     IEEE 802.11  ESSID:"WLAN-0123456"
     }
     Mock 'Write-Output' {}
 
-    $Result = Get-EPWifiConnection
+    $Result = Get-DeviceWifiConnection
 
     It 'Assert Invoke-SSHCommandStream is called exactly 1 time' {
       $AMCParams = @{
@@ -134,7 +134,7 @@ wlan0     IEEE 802.11  ESSID:"WLAN-0123456"
     Mock 'Invoke-SSHCommandStream' {throw 'Error'}
     Mock 'Write-Output' {}
 
-    $Result = Get-EPWifiConnection -Interface 'wlan0'
+    $Result = Get-DeviceWifiConnection -Interface 'wlan0'
 
     It 'Assert Write-Output is called exactly 1 time' {
       $AMCParams = @{
