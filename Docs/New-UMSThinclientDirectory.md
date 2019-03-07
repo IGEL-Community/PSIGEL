@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# New-UMSThinclientDirectory
+# New-UMSEndpointDirectory
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-New-UMSThinclientDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+New-UMSEndpointDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Name] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```

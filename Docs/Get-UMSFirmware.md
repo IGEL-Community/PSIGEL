@@ -70,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the firmware
 
 ```yaml
 Type: Int32

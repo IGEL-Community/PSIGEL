@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Restart-UMSThinclient
+# Restart-UMSEndpoint
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Restart-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Restart-UMSEndpoint [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```

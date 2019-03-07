@@ -16,32 +16,32 @@
         "Get-UMSProfileDirectory",
         "Get-UMSProfileAssignment",
         "Get-UMSStatus",
-        "Get-UMSThinclient",
-        "Get-UMSThinclientAssignment",
-        "Get-UMSThinclientDirectory",
-        "Get-UMSThinclientDirectoryAssignment",
-        "Start-UMSThinclient",
-        "Send-UMSThinclientSetting",
-        "Restart-UMSThinclient",
-        "Stop-UMSThinclient",
+        "Get-UMSEndpoint",
+        "Get-UMSEndpointAssignment",
+        "Get-UMSEndpointDirectory",
+        "Get-UMSEndpointDirectoryAssignment",
+        "Start-UMSEndpoint",
+        "Send-UMSEndpointSetting",
+        "Restart-UMSEndpoint",
+        "Stop-UMSEndpoint",
         "Update-UMSProfile",
         "Update-UMSProfileDirectory",
-        "Update-UMSThinclient",
-        "Update-UMSThinclientDirectory",
+        "Update-UMSEndpoint",
+        "Update-UMSEndpointDirectory",
         "Move-UMSProfile",
         "Move-UMSProfileDirectory",
-        "Move-UMSThinclient",
-        "Move-UMSThinclientDirectory",
+        "Move-UMSEndpoint",
+        "Move-UMSEndpointDirectory",
         "New-UMSProfileAssignment",
         "New-UMSProfileDirectory",
-        "New-UMSThinclient",
-        "New-UMSThinclientDirectory",
+        "New-UMSEndpoint",
+        "New-UMSEndpointDirectory",
         "Remove-UMSProfileAssignment",
         "Remove-UMSProfile",
         "Remove-UMSProfileDirectory",
-        "Remove-UMSThinclient",
-        "Remove-UMSThinclientDirectory",
-        "Reset-UMSThinclient"
+        "Remove-UMSEndpoint",
+        "Remove-UMSEndpointDirectory",
+        "Reset-UMSEndpoint"
       ],
       "Private": []
     },
@@ -118,7 +118,7 @@
         "BuildNumber": "40023"
       }
     ],
-    "UMSThinclient": [
+    "UMSEndpoint": [
       {
         "Id": "461",
         "ObjectType": "tc",
@@ -155,7 +155,7 @@
         "ParentId": "457"
       }
     ],
-    "UMSThinclientAssignment": [
+    "UMSEndpointAssignment": [
       {
         "Id": "461",
         "ReceiverId": "461",
@@ -173,7 +173,7 @@
         "AssignmentPosition": "1"
       }
     ],
-    "UMSThinclientDirectory": [
+    "UMSEndpointDirectory": [
       {
         "Id": "457",
         "Name": "P_TCDir01",
@@ -204,7 +204,7 @@
         "NameNew": "P_TCDir04"
       }
     ],
-    "UMSThinclientDirectoryAssignment": [
+    "UMSEndpointDirectoryAssignment": [
       {
         "Id": "457",
         "ReceiverID": "457",

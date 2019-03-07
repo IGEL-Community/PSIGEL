@@ -1,11 +1,11 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSThinclient.md
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSEndpoint.md
 schema: 2.0.0
 ---
 
-# Update-UMSThinclientDirectory
+# Update-UMSEndpointDirectory
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Update-UMSThinclientDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Update-UMSEndpointDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-Name] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```

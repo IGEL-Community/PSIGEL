@@ -5,28 +5,28 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-UMSThinclient
+# Get-UMSEndpoint
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on a endpoint.
 
 ## SYNTAX
 
 ### All (Default)
 ```
-Get-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Get-UMSEndpoint [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Filter] <String>] [<CommonParameters>]
 ```
 
 ### Id
 ```
-Get-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Get-UMSEndpoint [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Filter] <String>] [[-Id] <Int32>]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on a endpoint via API.
 
 ## EXAMPLES
 
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-{{Fill Filter Description}}
+Optional filter
 
 ```yaml
 Type: String
@@ -87,7 +87,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the endpoint
 
 ```yaml
 Type: Int32

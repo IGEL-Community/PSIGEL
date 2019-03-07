@@ -45,8 +45,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' Should not throw" {
-        { New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' } | Should -Not -Throw
+      It "New-UMSEndpoint -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' Should not throw" {
+        { New-UMSEndpoint -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' } | Should -Not -Throw
       }
     }
 
@@ -63,7 +63,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1'
+      $Result = New-UMSEndpoint -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1'
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -95,7 +95,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -WhatIf
+      $Result = New-UMSEndpoint -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -114,8 +114,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It "New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop Should throw" {
-        { New-UMSThinclient -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "New-UMSEndpoint -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop Should throw" {
+        { New-UMSEndpoint -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -138,10 +138,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = $UMS.UMSThinclient[2].NameNew
-  $Mac = $UMS.UMSThinclient[2].MacNew
-  $FirmwareId = $UMS.UMSThinclient[2].FirmwareIdNew
-  $ParentId = $UMS.UMSThinclient[2].ParentId
+  $Name = $UMS.UMSEndpoint[2].NameNew
+  $Mac = $UMS.UMSEndpoint[2].MacNew
+  $FirmwareId = $UMS.UMSEndpoint[2].FirmwareIdNew
+  $ParentId = $UMS.UMSEndpoint[2].ParentId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -161,7 +161,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSThinclient } | Should Not Throw
+      { $Script:Result = New-UMSEndpoint } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

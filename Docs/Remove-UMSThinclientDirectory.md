@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Remove-UMSThinclientDirectory
+# Remove-UMSEndpointDirectory
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Remove-UMSThinclientDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Remove-UMSEndpointDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```

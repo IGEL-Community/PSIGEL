@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSProfileDirectory
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on a profile directory.
 
 ## SYNTAX
 
@@ -26,7 +26,7 @@ Get-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVers
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on a profile directory via API.
 
 ## EXAMPLES
 
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-{{Fill Filter Description}}
+Optional filter
 
 ```yaml
 Type: String
@@ -87,7 +87,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile directory
 
 ```yaml
 Type: Int32

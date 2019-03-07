@@ -35,17 +35,17 @@ Locale: en-US
 ### [Get-UMSStatus](Get-UMSStatus.md)
 {{Manually Enter Get-UMSStatus Description Here}}
 
-### [Get-UMSThinclient](Get-UMSThinclient.md)
-{{Manually Enter Get-UMSThinclient Description Here}}
+### [Get-UMSEndpoint](Get-UMSEndpoint.md)
+{{Manually Enter Get-UMSEndpoint Description Here}}
 
-### [Get-UMSThinclientAssignment](Get-UMSThinclientAssignment.md)
-{{Manually Enter Get-UMSThinclientAssignment Description Here}}
+### [Get-UMSEndpointAssignment](Get-UMSEndpointAssignment.md)
+{{Manually Enter Get-UMSEndpointAssignment Description Here}}
 
-### [Get-UMSThinclientDirectory](Get-UMSThinclientDirectory.md)
-{{Manually Enter Get-UMSThinclientDirectory Description Here}}
+### [Get-UMSEndpointDirectory](Get-UMSEndpointDirectory.md)
+{{Manually Enter Get-UMSEndpointDirectory Description Here}}
 
-### [Get-UMSThinclientDirectoryAssignment](Get-UMSThinclientDirectoryAssignment.md)
-{{Manually Enter Get-UMSThinclientDirectoryAssignment Description Here}}
+### [Get-UMSEndpointDirectoryAssignment](Get-UMSEndpointDirectoryAssignment.md)
+{{Manually Enter Get-UMSEndpointDirectoryAssignment Description Here}}
 
 ### [Move-UMSProfile](Move-UMSProfile.md)
 {{Manually Enter Move-UMSProfile Description Here}}
@@ -53,11 +53,11 @@ Locale: en-US
 ### [Move-UMSProfileDirectory](Move-UMSProfileDirectory.md)
 {{Manually Enter Move-UMSProfileDirectory Description Here}}
 
-### [Move-UMSThinclient](Move-UMSThinclient.md)
-{{Manually Enter Move-UMSThinclient Description Here}}
+### [Move-UMSEndpoint](Move-UMSEndpoint.md)
+{{Manually Enter Move-UMSEndpoint Description Here}}
 
-### [Move-UMSThinclientDirectory](Move-UMSThinclientDirectory.md)
-{{Manually Enter Move-UMSThinclientDirectory Description Here}}
+### [Move-UMSEndpointDirectory](Move-UMSEndpointDirectory.md)
+{{Manually Enter Move-UMSEndpointDirectory Description Here}}
 
 ### [New-UMSAPICookie](New-UMSAPICookie.md)
 {{Manually Enter New-UMSAPICookie Description Here}}
@@ -68,11 +68,11 @@ Locale: en-US
 ### [New-UMSProfileDirectory](New-UMSProfileDirectory.md)
 {{Manually Enter New-UMSProfileDirectory Description Here}}
 
-### [New-UMSThinclient](New-UMSThinclient.md)
-{{Manually Enter New-UMSThinclient Description Here}}
+### [New-UMSEndpoint](New-UMSEndpoint.md)
+{{Manually Enter New-UMSEndpoint Description Here}}
 
-### [New-UMSThinclientDirectory](New-UMSThinclientDirectory.md)
-{{Manually Enter New-UMSThinclientDirectory Description Here}}
+### [New-UMSEndpointDirectory](New-UMSEndpointDirectory.md)
+{{Manually Enter New-UMSEndpointDirectory Description Here}}
 
 ### [Remove-UMSProfile](Remove-UMSProfile.md)
 {{Manually Enter Remove-UMSProfile Description Here}}
@@ -83,26 +83,26 @@ Locale: en-US
 ### [Remove-UMSProfileDirectory](Remove-UMSProfileDirectory.md)
 {{Manually Enter Remove-UMSProfileDirectory Description Here}}
 
-### [Remove-UMSThinclient](Remove-UMSThinclient.md)
-{{Manually Enter Remove-UMSThinclient Description Here}}
+### [Remove-UMSEndpoint](Remove-UMSEndpoint.md)
+{{Manually Enter Remove-UMSEndpoint Description Here}}
 
-### [Remove-UMSThinclientDirectory](Remove-UMSThinclientDirectory.md)
-{{Manually Enter Remove-UMSThinclientDirectory Description Here}}
+### [Remove-UMSEndpointDirectory](Remove-UMSEndpointDirectory.md)
+{{Manually Enter Remove-UMSEndpointDirectory Description Here}}
 
-### [Reset-UMSThinclient](Reset-UMSThinclient.md)
-{{Manually Enter Reset-UMSThinclient Description Here}}
+### [Reset-UMSEndpoint](Reset-UMSEndpoint.md)
+{{Manually Enter Reset-UMSEndpoint Description Here}}
 
-### [Restart-UMSThinclient](Restart-UMSThinclient.md)
-{{Manually Enter Restart-UMSThinclient Description Here}}
+### [Restart-UMSEndpoint](Restart-UMSEndpoint.md)
+{{Manually Enter Restart-UMSEndpoint Description Here}}
 
-### [Send-UMSThinclientSetting](Send-UMSThinclientSetting.md)
-{{Manually Enter Send-UMSThinclientSetting Description Here}}
+### [Send-UMSEndpointSetting](Send-UMSEndpointSetting.md)
+{{Manually Enter Send-UMSEndpointSetting Description Here}}
 
-### [Start-UMSThinclient](Start-UMSThinclient.md)
-{{Manually Enter Start-UMSThinclient Description Here}}
+### [Start-UMSEndpoint](Start-UMSEndpoint.md)
+{{Manually Enter Start-UMSEndpoint Description Here}}
 
-### [Stop-UMSThinclient](Stop-UMSThinclient.md)
-{{Manually Enter Stop-UMSThinclient Description Here}}
+### [Stop-UMSEndpoint](Stop-UMSEndpoint.md)
+{{Manually Enter Stop-UMSEndpoint Description Here}}
 
 ### [Update-UMSProfile](Update-UMSProfile.md)
 {{Manually Enter Update-UMSProfile Description Here}}
@@ -110,9 +110,9 @@ Locale: en-US
 ### [Update-UMSProfileDirectory](Update-UMSProfileDirectory.md)
 {{Manually Enter Update-UMSProfileDirectory Description Here}}
 
-### [Update-UMSThinclient](Update-UMSThinclient.md)
-{{Manually Enter Update-UMSThinclient Description Here}}
+### [Update-UMSEndpoint](Update-UMSEndpoint.md)
+{{Manually Enter Update-UMSEndpoint Description Here}}
 
-### [Update-UMSThinclientDirectory](Update-UMSThinclientDirectory.md)
-{{Manually Enter Update-UMSThinclientDirectory Description Here}}
+### [Update-UMSEndpointDirectory](Update-UMSEndpointDirectory.md)
+{{Manually Enter Update-UMSEndpointDirectory Description Here}}
 

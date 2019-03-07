@@ -54,7 +54,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     }
 
-    Context "ParameterSetName Thinclient" {
+    Context "ParameterSetName Endpoint" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {
         (

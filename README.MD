@@ -1,6 +1,6 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL-Database (until the API supports all functions) and the IGEL OS Endpoints (e.g. Thinclients) via SSH.
+This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL-Database (until the API supports all functions) and the IGEL OS Endpoints (e.g. Endpoints) via SSH.
 
 **API (/MSSQL)** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
 
@@ -50,7 +50,7 @@ Firmware |[API](#get-umsfirmware)|-
 
 Item | Get | New | Update | Move | Remove | Start | Restart | Settings | Stop | Reset
 -----|-----|-----|--------|------|--------|-------|---------|----------|------|------
-Thin Client |[API](#get-umsthinclient)|[API](#new-umsthinclient)|[API](#update-umsthinclient)|[API](#move-umsthinclient)|[API](#remove-umsthinclient)|[API](#start-umsthinclient)|[API](#restart-umsthinclient)|[API](#send-umsthinclientsetting)|[API](#stop-umsthinclient)|[API](#reset-umsthinclient)
+Thin Client |[API](#get-umsendpoint)|[API](#new-umsendpoint)|[API](#update-umsendpoint)|[API](#move-umsendpoint)|[API](#remove-umsendpoint)|[API](#start-umsendpoint)|[API](#restart-umsendpoint)|[API](#send-umsendpointsetting)|[API](#stop-umsendpoint)|[API](#reset-umsendpoint)
 
 ### API/SQL Other Items
 
@@ -60,7 +60,7 @@ Profile |[API](#get-umsprofile)|-|[API](#remove-umsprofileassignment)|[API](#mov
 Profile Directory |[API](#get-umsprofileDirectory)|[API](#new-umsprofiledirectory)|[API](#update-umsprofiledirectoryname)|[API](#move-umsprofiledirectory)|[API](#remove-umsprofiledirectory)
 Master Profile |API|-|API|API|API
 Master Profile Directory |API|API|API|API|API
-Thin Client Directory |[API](#get-umsthinclientdirectory)|[API](#new-umsthinclientdirectory)|[API](#update-umsthinclientdirectoryname)|[API](#move-umsthinclientdirectory)|[API](#remove-umsthinclientdirectory)
+Thin Client Directory |[API](#get-umsendpointdirectory)|[API](#new-umsendpointdirectory)|[API](#update-umsendpointdirectoryname)|[API](#move-umsendpointdirectory)|[API](#remove-umsendpointdirectory)
 |View |[SQL](#get-umsview)|-|SQL|-|-
 View Directory |[SQL](#get-umsviewdirectory)|-|SQL|-|-
 Job |[SQL](#get-umsjob)|-|[SQL](#update-umsjobstartdate)|-|-
@@ -72,8 +72,8 @@ File Directory |[SQL](#get-umsfiledirectory)|-|-|-|-
 
 |Item | Get | Update | Remove
 |-----|-----|--------|-------
-Thin Client |[API](#get-umsthinclientassignment) |-|-
-Thin Client Directory |[API](#get-umsthinclientdirectoryassignment) |-|-
+Thin Client |[API](#get-umsendpointassignment) |-|-
+Thin Client Directory |[API](#get-umsendpointdirectoryassignment) |-|-
 Profile |[API](#get-umsprofileassignment) |[API](#update-umsprofileassignment) |[API](#remove-umsprofileassignment)
 Master Profile |API|-|-
 
@@ -117,7 +117,7 @@ Get information on profiles on the UMS instance.
 
 ### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
 
-Get the Thinclients and directories the profile is assigned to.
+Get the Endpoints and directories the profile is assigned to.
 
 ### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
 
@@ -127,19 +127,19 @@ Get information on Profile Directories.
 
 Get diagnostic information about the UMS instance.
 
-### [Get-UMSThinclient](/Docs/Get-UMSThinclient.md)
+### [Get-UMSEndpoint](/Docs/Get-UMSEndpoint.md)
 
-Get Thinclients.
+Get Endpoints.
 
-### [Get-UMSThinclientAssignment](/Docs/Get-UMSThinclientAssignment.md)
+### [Get-UMSEndpointAssignment](/Docs/Get-UMSEndpointAssignment.md)
 
 Get the profile and master profile assignments for the specified thin client, in order of their application.
 
-### [Get-UMSThinclientDirectory](/Docs/Get-UMSThinclientDirectory.md)
+### [Get-UMSEndpointDirectory](/Docs/Get-UMSEndpointDirectory.md)
 
 Get information on Thin Client Directories.
 
-### [Get-UMSThinclientDirectoryAssignment](/Docs/Get-UMSThinclientDirectoryAssignment.md)
+### [Get-UMSEndpointDirectoryAssignment](/Docs/Get-UMSEndpointDirectoryAssignment.md)
 
 Get the profile and master profile assignments for the specified thincient directory, in order of their application.
 
@@ -159,13 +159,13 @@ Moves Profiles into the specified Profile Directory.
 
 Moves Profile Directories into the specified Profile Directory.
 
-### [Move-UMSThinclient](/Docs/Move-UMSThinclient.md)
+### [Move-UMSEndpoint](/Docs/Move-UMSEndpoint.md)
 
-Moves Thinclients into the specified Thinclient Directory.
+Moves Endpoints into the specified Endpoint Directory.
 
-### [Move-UMSThinclientDirectory](/Docs/Move-UMSThinclientDirectory.md)
+### [Move-UMSEndpointDirectory](/Docs/Move-UMSEndpointDirectory.md)
 
-Moves Thinclient Directories into the specified Thinclient Directory.
+Moves Endpoint Directories into the specified Endpoint Directory.
 
 ### [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
 
@@ -175,13 +175,13 @@ Creates Websession Cookie for IGEL UMS RestAPI.
 
 Creates a Profile Directory.
 
-### [New-UMSThinclient](/Docs/New-UMSThinclient.md)
+### [New-UMSEndpoint](/Docs/New-UMSEndpoint.md)
 
 Creates a new ThinClient.
 
-### [New-UMSThinclientDirectory](/Docs/New-UMSThinclientDirectory.md)
+### [New-UMSEndpointDirectory](/Docs/New-UMSEndpointDirectory.md)
 
-Creates a Thinclient Directory.
+Creates a Endpoint Directory.
 
 ### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
 
@@ -189,39 +189,39 @@ Deletes profile.
 
 ### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
 
-Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
+Deletes assignment of the specified profile to the specified Endpoint or Endpoint directory.
 
 ### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
 
 Removes a profile directory.
 
-### [Remove-UMSThinclient](/Docs/Remove-UMSThinclient.md)
+### [Remove-UMSEndpoint](/Docs/Remove-UMSEndpoint.md)
 
-Removes a Thinclient completely (without recycle bin).
+Removes a Endpoint completely (without recycle bin).
 
-### [Remove-UMSThinclientDirectory](/Docs/Remove-UMSThinclientDirectory.md)
+### [Remove-UMSEndpointDirectory](/Docs/Remove-UMSEndpointDirectory.md)
 
-Removes a Thinclient directory.
+Removes a Endpoint directory.
 
-### [Reset-UMSThinclient](/Docs/Reset-UMSThinclient.md)
+### [Reset-UMSEndpoint](/Docs/Reset-UMSEndpoint.md)
 
 Resets all thin clients listed in the request body to factory defaults and removes them from the UMS completely (without recycle bin).
 
-### [Restart-UMSThinclient](/Docs/Restart-UMSThinclient.md)
+### [Restart-UMSEndpoint](/Docs/Restart-UMSEndpoint.md)
 
-Restarts Thinclients.
+Restarts Endpoints.
 
-### [Send-UMSThinclientSetting](/Docs/Send-UMSThinclientSetting.md)
+### [Send-UMSEndpointSetting](/Docs/Send-UMSEndpointSetting.md)
 
 Sends settings modified in the UMS database to all thin clients listed in the request body immediately.
 
-### [Start-UMSThinclient](/Docs/Start-UMSThinclient.md)
+### [Start-UMSEndpoint](/Docs/Start-UMSEndpoint.md)
 
-Wakes Up Thinclients (WOL).
+Wakes Up Endpoints (WOL).
 
-### [Stop-UMSThinclient](/Docs/Stop-UMSThinclient.md)
+### [Stop-UMSEndpoint](/Docs/Stop-UMSEndpoint.md)
 
-Shuts Down Thinclients.
+Shuts Down Endpoints.
 
 ### [Update-UMSJobStartDate](/Docs/Update-UMSJobStartDate.md)
 
@@ -229,7 +229,7 @@ Update Job Startdate.
 
 ### [Update-UMSProfileAssignment](/Docs/Update-UMSProfileAssignment.md)
 
-Assigns a profile to a Thinclient or a Thinclient directory.
+Assigns a profile to a Endpoint or a Endpoint directory.
 
 ### [Update-UMSProfileDirectoryName](/Docs/Update-UMSProfileDirectoryName.md)
 
@@ -239,11 +239,11 @@ Updates a Profile Directory name.
 
 Updates a profile name.
 
-### [Update-UMSThinclient](/Docs/Update-UMSThinclient.md)
+### [Update-UMSEndpoint](/Docs/Update-UMSEndpoint.md)
 
-Updates properties of a Thinclient.
+Updates properties of a Endpoint.
 
-### [Update-UMSThinclientDirectoryName](/Docs/Update-UMSThinclientDirectoryName.md)
+### [Update-UMSEndpointDirectoryName](/Docs/Update-UMSEndpointDirectoryName.md)
 
 Updates a Profile Directory name.
 
@@ -255,7 +255,7 @@ Get Endpoint WiFi Information via SSH.
 
 ### GetUMSDirectoryStructure
 
-Get Thinclient Directory Structure. Expects 4 Tier-Directory Structure . (e.g. Base / Organisation / Campus / Room)
+Get Endpoint Directory Structure. Expects 4 Tier-Directory Structure . (e.g. Base / Organisation / Campus / Room)
 
 ### RemoveParallelAppliedProfiles
 

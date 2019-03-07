@@ -1,4 +1,4 @@
-function Remove-UMSThinclientDirectory
+function Remove-UMSEndpointDirectory
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param

@@ -5,20 +5,20 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-UMSThinclientAssignment
+# Get-UMSEndpointAssignment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on a profile or master profile assignment of a endpoint.
 
 ## SYNTAX
 
 ```
-Get-UMSThinclientAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Get-UMSEndpointAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on a profile or master profile assignment of a endpoint via API.
 
 ## EXAMPLES
 
@@ -63,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the endpoint
 
 ```yaml
 Type: Int32

@@ -1,4 +1,4 @@
-﻿function Get-UMSThinclient
+﻿function Get-UMSEndpoint
 {
   [CmdletBinding(DefaultParameterSetName = 'All')]
   param

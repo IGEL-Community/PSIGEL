@@ -8,11 +8,11 @@ schema: 2.0.0
 # Get-UMSProfileAssignment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on a endpoint or endpoint assignment of a profile.
 
 ## SYNTAX
 
-### Thinclient (Default)
+### Endpoint (Default)
 ```
 Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [<CommonParameters>]
@@ -25,7 +25,7 @@ Get-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVer
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on a endpoint or endpoint assignment of a profile via API.
 
 ## EXAMPLES
 
@@ -70,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -Directory
-{{Fill Directory Description}}
+Switch from endpoints to endpoint directories
 
 ```yaml
 Type: SwitchParameter
@@ -85,7 +85,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile
 
 ```yaml
 Type: Int32

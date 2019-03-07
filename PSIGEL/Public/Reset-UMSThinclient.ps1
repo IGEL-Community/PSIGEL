@@ -1,4 +1,4 @@
-﻿function Reset-UMSThinclient
+﻿function Reset-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High')]
   param

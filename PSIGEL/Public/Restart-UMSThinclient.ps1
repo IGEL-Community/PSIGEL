@@ -1,4 +1,4 @@
-﻿function Restart-UMSThinclient
+﻿function Restart-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param

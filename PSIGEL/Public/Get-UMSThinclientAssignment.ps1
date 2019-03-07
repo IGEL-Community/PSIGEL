@@ -1,4 +1,4 @@
-﻿function Get-UMSThinclientAssignment
+﻿function Get-UMSEndpointAssignment
 {
   [CmdletBinding()]
   param

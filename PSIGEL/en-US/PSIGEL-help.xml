@@ -1413,11 +1413,11 @@ links             : {}</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>UMSProfileAssignment</command:noun>
       <maml:description>
-        <maml:para>Get the thinclients and directories the profile is assigned to.</maml:para>
+        <maml:para>Get the endpoints and directories the profile is assigned to.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get the thinclients and directories the profile is assigned to from UMS via API.</maml:para>
+      <maml:para>Get the endpoints and directories the profile is assigned to from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1959,19 +1959,19 @@ links              : {}</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-UMSThinclient</command:name>
+      <command:name>Get-UMSEndpoint</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Get Thinclients.</maml:para>
+        <maml:para>Get Endpoints.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Gets Thinclient from UMS via API.</maml:para>
+      <maml:para>Gets Endpoint from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-UMSThinclient</maml:name>
+        <maml:name>Get-UMSEndpoint</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -2035,7 +2035,7 @@ links              : {}</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="6" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient</maml:para>
+            <maml:para>ID of the Endpoint</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2110,7 +2110,7 @@ links              : {}</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="6" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient</maml:para>
+          <maml:para>ID of the Endpoint</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2136,7 +2136,7 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   Details      = 'full'
 }
-Get-UMSThinclient @Params
+Get-UMSEndpoint @Params
 
 unitID                    : 00E0C5163C78
 mac                       : 00E0C5163C78
@@ -2193,7 +2193,7 @@ links                     : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Get-UMSThinclient -Computername 'UMSSERVER' -TCID 2433
+        <dev:code>Get-UMSEndpoint -Computername 'UMSSERVER' -TCID 2433
 
 unitID     : 00E0C513CB46
 mac        : 00E0C513CB46
@@ -2211,7 +2211,7 @@ links      : {}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>2433 | Get-UMSThinclient -Computername 'UMSSERVER' -Details 'shadow'
+        <dev:code>2433 | Get-UMSEndpoint -Computername 'UMSSERVER' -Details 'shadow'
 
 unitID       : 00E0C513BA36
 mac          : 00E0C513BA36
@@ -2234,22 +2234,22 @@ movedToBin   : False
 objectType   : tc
 links        : {}</dev:code>
         <dev:remarks>
-          <maml:para>Gets shadow-information on Thinclient with TCID 2433</maml:para>
+          <maml:para>Gets shadow-information on Endpoint with TCID 2433</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-UMSThinclientAssignment</command:name>
+      <command:name>Get-UMSEndpointAssignment</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>UMSThinclientAssignment</command:noun>
+      <command:noun>UMSEndpointAssignment</command:noun>
       <maml:description>
         <maml:para>Gets the profile and master profile assignments.</maml:para>
       </maml:description>
@@ -2259,7 +2259,7 @@ links        : {}</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-UMSThinclientAssignment</maml:name>
+        <maml:name>Get-UMSEndpointAssignment</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -2311,7 +2311,7 @@ links        : {}</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient assignments for</maml:para>
+            <maml:para>ID of the Endpoint assignments for</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2374,7 +2374,7 @@ links        : {}</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient assignments for</maml:para>
+          <maml:para>ID of the Endpoint assignments for</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2400,7 +2400,7 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 2433
 }
-Get-UMSThinclientAssignment @Params
+Get-UMSEndpointAssignment @Params
 
 assignee                  receiver                      assignmentPosition links
 --------                  --------                      ------------------ -----
@@ -2410,39 +2410,39 @@ assignee                  receiver                      assignmentPosition links
 @{id=478; type=profile}   @{id=50; type=tcdirectory}                     3 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/478}, @{rel=receiver; href=https://umsserver:8...
 @{id=451; type=profile}   @{id=49; type=tcdirectory}                     4 {@{rel=assigned; href=https://umsserver:8443/umsapi/v3/profiles/451}, @{rel=receiver; href=https://umsserver:8...</dev:code>
         <dev:remarks>
-          <maml:para>Gets the profile and master profile assignments for Thinclient with TCID 2433.</maml:para>
+          <maml:para>Gets the profile and master profile assignments for Endpoint with TCID 2433.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>2433 | Get-UMSThinclientAssignment -Computername 'UMSSERVER'</dev:code>
+        <dev:code>2433 | Get-UMSEndpointAssignment -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
-          <maml:para>Gets the profile and master profile assignments for Thinclient with TCID 2433.</maml:para>
+          <maml:para>Gets the profile and master profile assignments for Endpoint with TCID 2433.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientAssignment.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSEndpointAssignment.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-UMSThinclientDirectory</command:name>
+      <command:name>Get-UMSEndpointDirectory</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>UMSThinclientDirectory</command:noun>
+      <command:noun>UMSEndpointDirectory</command:noun>
       <maml:description>
-        <maml:para>Get Thinclient Directories.</maml:para>
+        <maml:para>Get Endpoint Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get Thinclient Directories from UMS via API.</maml:para>
+      <maml:para>Get Endpoint Directories from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-UMSThinclientDirectory</maml:name>
+        <maml:name>Get-UMSEndpointDirectory</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -2605,7 +2605,7 @@ $Params = @{
   Computername = $Computername
   WebSession   = New-UMSAPICookie -Computername $Computername
 }
-Get-UMSThinclientDirectory @Params
+Get-UMSEndpointDirectory @Params
 
 id         : 274
 name       : Room1
@@ -2621,12 +2621,12 @@ movedToBin : False
 objectType : tcdirectory
 links      : {}</dev:code>
         <dev:remarks>
-          <maml:para>Gets all Thinclient Directories.</maml:para>
+          <maml:para>Gets all Endpoint Directories.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>(Get-UMSThinclientDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
+        <dev:code>(Get-UMSEndpointDirectory -Computername 'UMSSERVER' -DirID 220 -Children).DirectoryChildren | Select-Object -First 10
 
 objectType  id
 ----------  --
@@ -2641,32 +2641,32 @@ tcdirectory 228
 tcdirectory 229
 tcdirectory 230</dev:code>
         <dev:remarks>
-          <maml:para>Gets all children of the Thinclient Directory with ID 220, selects first 10.</maml:para>
+          <maml:para>Gets all children of the Endpoint Directory with ID 220, selects first 10.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectory.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSEndpointDirectory.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-UMSThinclientDirectoryAssignment</command:name>
+      <command:name>Get-UMSEndpointDirectoryAssignment</command:name>
       <command:verb>Get</command:verb>
-      <command:noun>UMSThinclientDirectoryAssignment</command:noun>
+      <command:noun>UMSEndpointDirectoryAssignment</command:noun>
       <maml:description>
         <maml:para>Get the profile and master profile assignments.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Get the profile and master profile assignments for the specified Thinclient directory, in order of their application from UMS via API.</maml:para>
+      <maml:para>Get the profile and master profile assignments for the specified Endpoint directory, in order of their application from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Get-UMSThinclientDirectoryAssignment</maml:name>
+        <maml:name>Get-UMSEndpointDirectoryAssignment</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -2718,7 +2718,7 @@ tcdirectory 230</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient Directory assignments for</maml:para>
+            <maml:para>ID of the Endpoint Directory assignments for</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -2803,7 +2803,7 @@ tcdirectory 230</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient Directory assignments for</maml:para>
+          <maml:para>ID of the Endpoint Directory assignments for</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -2853,7 +2853,7 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   DIRID        = 772
 }
-Get-UMSThinclientDirectoryAssignment @Params
+Get-UMSEndpointDirectoryAssignment @Params
 
 assignee                 receiver                    assignmentPosition links
 --------                 --------                    ------------------ -----
@@ -2864,21 +2864,21 @@ assignee                 receiver                    assignmentPosition links
 @{id=441; type=profile}  @{id=772; type=tcdirectory}                  4 {}
 @{id=444; type=profile}  @{id=772; type=tcdirectory}                  5 {}</dev:code>
         <dev:remarks>
-          <maml:para>Gets the profile and master profile assignments for Thinclient Directory 772</maml:para>
+          <maml:para>Gets the profile and master profile assignments for Endpoint Directory 772</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>774 | Get-UMSThinclientDirectoryAssignment -Computername 'UMSSERVER'</dev:code>
+        <dev:code>774 | Get-UMSEndpointDirectoryAssignment -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
-          <maml:para>Gets the profile and master profile assignments for the Thinclient Directory with ID 774</maml:para>
+          <maml:para>Gets the profile and master profile assignments for the Endpoint Directory with ID 774</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSThinclientDirectoryAssignment.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSEndpointDirectoryAssignment.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3761,19 +3761,19 @@ id    results
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Move-UMSThinclient</command:name>
+      <command:name>Move-UMSEndpoint</command:name>
       <command:verb>Move</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Move Thinclients.</maml:para>
+        <maml:para>Move Endpoints.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Move Thinclients into the specified Thinclient Directory from UMS via API.</maml:para>
+      <maml:para>Move Endpoints into the specified Endpoint Directory from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Move-UMSThinclient</maml:name>
+        <maml:name>Move-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -3825,7 +3825,7 @@ id    results
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ID of thinclients to move.</maml:para>
+            <maml:para>ID of endpoints to move.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3837,7 +3837,7 @@ id    results
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>DDIRID</maml:name>
           <maml:Description>
-            <maml:para>ID of Thinclient Directory to move to.</maml:para>
+            <maml:para>ID of Endpoint Directory to move to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -3922,7 +3922,7 @@ id    results
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ID of thinclients to move.</maml:para>
+          <maml:para>ID of endpoints to move.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3934,7 +3934,7 @@ id    results
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>DDIRID</maml:name>
         <maml:Description>
-          <maml:para>ID of Thinclient Directory to move to.</maml:para>
+          <maml:para>ID of Endpoint Directory to move to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -3986,45 +3986,45 @@ $Params = @{
   DDIRID       = 28793
   Confirm      = $true
 }
-Move-UMSThinclient @Params
+Move-UMSEndpoint @Params
 
 id    results
 --    -------
 49282 successful</dev:code>
         <dev:remarks>
-          <maml:para>Moves Thinclient with ID 49282 into the Thinclient Directory with ID 28793 and prompts for confirmation.</maml:para>
+          <maml:para>Moves Endpoint with ID 49282 into the Endpoint Directory with ID 28793 and prompts for confirmation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49282, 49284 | Move-UMSThinclient -Computername 'UMSSERVER' -DDIRID 49289</dev:code>
+        <dev:code>49282, 49284 | Move-UMSEndpoint -Computername 'UMSSERVER' -DDIRID 49289</dev:code>
         <dev:remarks>
-          <maml:para>Moves Thinclients with ID 49282, 49284 into the specified Thinclient Directory.</maml:para>
+          <maml:para>Moves Endpoints with ID 49282, 49284 into the specified Endpoint Directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Move-UMSThinclientDirectory</command:name>
+      <command:name>Move-UMSEndpointDirectory</command:name>
       <command:verb>Move</command:verb>
-      <command:noun>UMSThinclientDirectory</command:noun>
+      <command:noun>UMSEndpointDirectory</command:noun>
       <maml:description>
-        <maml:para>Move Thinclient Directories.</maml:para>
+        <maml:para>Move Endpoint Directories.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Moves Thinclient Directories into the specified Thinclient Directory from UMS via API.</maml:para>
+      <maml:para>Moves Endpoint Directories into the specified Endpoint Directory from UMS via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Move-UMSThinclientDirectory</maml:name>
+        <maml:name>Move-UMSEndpointDirectory</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -4076,7 +4076,7 @@ id    results
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>ID of Thinclient Directories to move.</maml:para>
+            <maml:para>ID of Endpoint Directories to move.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -4088,7 +4088,7 @@ id    results
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>DDIRID</maml:name>
           <maml:Description>
-            <maml:para>ID of the Thinclient Directory to move to.</maml:para>
+            <maml:para>ID of the Endpoint Directory to move to.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -4173,7 +4173,7 @@ id    results
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>ID of Thinclient Directories to move.</maml:para>
+          <maml:para>ID of Endpoint Directories to move.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -4185,7 +4185,7 @@ id    results
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>DDIRID</maml:name>
         <maml:Description>
-          <maml:para>ID of the Thinclient Directory to move to.</maml:para>
+          <maml:para>ID of the Endpoint Directory to move to.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -4237,27 +4237,27 @@ $Params = @{
   DDIRID       = 49552
   Confirm      = $true
 }
-Move-UMSThinclientDirectory @Params
+Move-UMSEndpointDirectory @Params
 
 id    results
 --    -------
 49289 successful</dev:code>
         <dev:remarks>
-          <maml:para>Moves Thinclient Directorie with ID 49289 into the Thinclient Directory with ID 49552 and prompts for confirmation</maml:para>
+          <maml:para>Moves Endpoint Directorie with ID 49289 into the Endpoint Directory with ID 49552 and prompts for confirmation</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49289, 49291 | Move-UMSThinclientDirectory -Computername 'UMSSERVER' -DDIRID 772</dev:code>
+        <dev:code>49289, 49291 | Move-UMSEndpointDirectory -Computername 'UMSSERVER' -DDIRID 772</dev:code>
         <dev:remarks>
-          <maml:para>Moves Thinclient Directories with ID 49289, 49291 into the specified Thinclient Directory.</maml:para>
+          <maml:para>Moves Endpoint Directories with ID 49289, 49291 into the specified Endpoint Directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSThinclientDirectory.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Move-UMSEndpointDirectory.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -4677,19 +4677,19 @@ New-UMSProfileDirectory @Params</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>New-UMSThinclient</command:name>
+      <command:name>New-UMSEndpoint</command:name>
       <command:verb>New</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Creates a new thinclient from Rest API.</maml:para>
+        <maml:para>Creates a new endpoint from Rest API.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Creates a new thinclient from Rest API.</maml:para>
+      <maml:para>Creates a new endpoint from Rest API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>New-UMSThinclient</maml:name>
+        <maml:name>New-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -4705,7 +4705,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
           <maml:name>Department</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute Department</maml:para>
+            <maml:para>Endpoint Attribute Department</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4717,7 +4717,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
           <maml:name>CostCenter</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute CostCenter</maml:para>
+            <maml:para>Endpoint Attribute CostCenter</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4729,7 +4729,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
           <maml:name>LastIP</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute LastIP</maml:para>
+            <maml:para>Endpoint Attribute LastIP</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4741,7 +4741,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
           <maml:name>Comment</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute Comment</maml:para>
+            <maml:para>Endpoint Attribute Comment</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4753,7 +4753,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
           <maml:name>AssetID</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute AssetID</maml:para>
+            <maml:para>Endpoint Attribute AssetID</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4765,7 +4765,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
           <maml:name>InserviceDate</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute InserviceDate</maml:para>
+            <maml:para>Endpoint Attribute InserviceDate</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4777,7 +4777,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
           <maml:name>SerialNumber</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute SerialNumber</maml:para>
+            <maml:para>Endpoint Attribute SerialNumber</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4837,7 +4837,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>FirmwareID</maml:name>
           <maml:Description>
-            <maml:para>FirmwareID of the Thinclient</maml:para>
+            <maml:para>FirmwareID of the Endpoint</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -4849,7 +4849,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>Name</maml:name>
           <maml:Description>
-            <maml:para>Hostname of the Thinclient</maml:para>
+            <maml:para>Hostname of the Endpoint</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4861,7 +4861,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
           <maml:name>ParentID</maml:name>
           <maml:Description>
-            <maml:para>ID of the parent directory of the thinclient (Default: -1)</maml:para>
+            <maml:para>ID of the parent directory of the endpoint (Default: -1)</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -4873,7 +4873,7 @@ New-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
           <maml:name>Site</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute Site</maml:para>
+            <maml:para>Endpoint Attribute Site</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4970,7 +4970,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>FirmwareID</maml:name>
         <maml:Description>
-          <maml:para>FirmwareID of the Thinclient</maml:para>
+          <maml:para>FirmwareID of the Endpoint</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -4982,7 +4982,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>Name</maml:name>
         <maml:Description>
-          <maml:para>Hostname of the Thinclient</maml:para>
+          <maml:para>Hostname of the Endpoint</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4994,7 +4994,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
         <maml:name>ParentID</maml:name>
         <maml:Description>
-          <maml:para>ID of the parent directory of the thinclient (Default: -1)</maml:para>
+          <maml:para>ID of the parent directory of the endpoint (Default: -1)</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -5006,7 +5006,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>Site</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute Site</maml:para>
+          <maml:para>Endpoint Attribute Site</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5018,7 +5018,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
         <maml:name>Department</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute Department</maml:para>
+          <maml:para>Endpoint Attribute Department</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5030,7 +5030,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
         <maml:name>CostCenter</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute CostCenter</maml:para>
+          <maml:para>Endpoint Attribute CostCenter</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5042,7 +5042,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
         <maml:name>LastIP</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute LastIP</maml:para>
+          <maml:para>Endpoint Attribute LastIP</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5054,7 +5054,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
         <maml:name>Comment</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute Comment</maml:para>
+          <maml:para>Endpoint Attribute Comment</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5066,7 +5066,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
         <maml:name>AssetID</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute AssetID</maml:para>
+          <maml:para>Endpoint Attribute AssetID</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5078,7 +5078,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="15" aliases="none">
         <maml:name>InserviceDate</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute InserviceDate</maml:para>
+          <maml:para>Endpoint Attribute InserviceDate</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5090,7 +5090,7 @@ New-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="16" aliases="none">
         <maml:name>SerialNumber</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute SerialNumber</maml:para>
+          <maml:para>Endpoint Attribute SerialNumber</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5146,47 +5146,47 @@ $Params = @{
   Department    = 'Marketing'
   CostCenter    = '50100'
   LastIP        = '192.168.0.10'
-  Comment       = 'New Thinclient'
+  Comment       = 'New Endpoint'
   AssetID       = '012345'
   InserviceDate = '01.01.2018'
   SerialNumber  = '12A3B4C56B12345A6BC'
   Confirm       = $true
 }
-New-UMSThinclient @Params</dev:code>
+New-UMSEndpoint @Params</dev:code>
         <dev:remarks>
-          <maml:para>Creates a new thinclient with all possible attributes, after confirmation.</maml:para>
+          <maml:para>Creates a new endpoint with all possible attributes, after confirmation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>New-UMSThinclient -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9</dev:code>
+        <dev:code>New-UMSEndpoint -Computername 'UMSSERVER' -Mac '012345678910' -FirmwareID 9</dev:code>
         <dev:remarks>
-          <maml:para>Creates new thinclient with mac, name and firmwareid (minimal requirements) in the root directory.</maml:para>
+          <maml:para>Creates new endpoint with mac, name and firmwareid (minimal requirements) in the root directory.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>New-UMSThinclientDirectory</command:name>
+      <command:name>New-UMSEndpointDirectory</command:name>
       <command:verb>New</command:verb>
-      <command:noun>UMSThinclientDirectory</command:noun>
+      <command:noun>UMSEndpointDirectory</command:noun>
       <maml:description>
-        <maml:para>Creates a Thinclient Directory via API</maml:para>
+        <maml:para>Creates a Endpoint Directory via API</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Creates a Thinclient Directory via API</maml:para>
+      <maml:para>Creates a Endpoint Directory via API</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>New-UMSThinclientDirectory</maml:name>
+        <maml:name>New-UMSEndpointDirectory</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -5238,7 +5238,7 @@ New-UMSThinclient @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>Name</maml:name>
           <maml:Description>
-            <maml:para>Name of the Thinclient Directory to create</maml:para>
+            <maml:para>Name of the Endpoint Directory to create</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -5323,7 +5323,7 @@ New-UMSThinclient @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>Name</maml:name>
         <maml:Description>
-          <maml:para>Name of the Thinclient Directory to create</maml:para>
+          <maml:para>Name of the Endpoint Directory to create</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5373,23 +5373,23 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   Name         = 'NewTcDir1'
 }
-New-UMSThinclientDirectory @Params</dev:code>
+New-UMSEndpointDirectory @Params</dev:code>
         <dev:remarks>
-          <maml:para>Creates Thinclient Directory with name 'NewTcDir1'</maml:para>
+          <maml:para>Creates Endpoint Directory with name 'NewTcDir1'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>'NewTcDir1', 'NewTcDir2' | New-UMSThinclientDirectory -Computername 'UMSSERVER'</dev:code>
+        <dev:code>'NewTcDir1', 'NewTcDir2' | New-UMSEndpointDirectory -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
-          <maml:para>Creates Thinclient Directories with names 'NewTcDir1' and 'NewTcDir2'</maml:para>
+          <maml:para>Creates Endpoint Directories with names 'NewTcDir1' and 'NewTcDir2'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSThinclientDirectory.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSEndpointDirectory.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -5459,7 +5459,7 @@ New-UMSThinclientDirectory @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>ProfileID</maml:name>
           <maml:Description>
-            <maml:para>ProfileID of the thinclient to remove</maml:para>
+            <maml:para>ProfileID of the endpoint to remove</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -5544,7 +5544,7 @@ New-UMSThinclientDirectory @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>ProfileID</maml:name>
         <maml:Description>
-          <maml:para>ProfileID of the thinclient to remove</maml:para>
+          <maml:para>ProfileID of the endpoint to remove</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -5620,11 +5620,11 @@ Remove-UMSProfile @Params</dev:code>
       <command:verb>Remove</command:verb>
       <command:noun>UMSProfileAssignment</command:noun>
       <maml:description>
-        <maml:para>Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.</maml:para>
+        <maml:para>Deletes assignment of the specified profile to the specified Endpoint or Endpoint directory.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.</maml:para>
+      <maml:para>Deletes assignment of the specified profile to the specified Endpoint or Endpoint directory.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5951,14 +5951,14 @@ $Params = @{
 }
 Remove-UMSProfileAssignment @Params</dev:code>
         <dev:remarks>
-          <maml:para>Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.</maml:para>
+          <maml:para>Deletes assignment of profile with ProfileID 470 to the Endpoint with the TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185</dev:code>
         <dev:remarks>
-          <maml:para>Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.</maml:para>
+          <maml:para>Deletes assignment of profile with ProfileID 48170 to the Endpoint directory with the DirID 185.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -6192,19 +6192,19 @@ Remove-UMSProfileDirectory @Params</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-UMSThinclient</command:name>
+      <command:name>Remove-UMSEndpoint</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Removes a thinclient completely (without recycle bin) from Rest API.</maml:para>
+        <maml:para>Removes a endpoint completely (without recycle bin) from Rest API.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Removes a thinclient completely (without recycle bin) from Rest API.</maml:para>
+      <maml:para>Removes a endpoint completely (without recycle bin) from Rest API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-UMSThinclient</maml:name>
+        <maml:name>Remove-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -6256,7 +6256,7 @@ Remove-UMSProfileDirectory @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientID of the thinclient to remove</maml:para>
+            <maml:para>EndpointID of the endpoint to remove</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -6341,7 +6341,7 @@ Remove-UMSProfileDirectory @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientID of the thinclient to remove</maml:para>
+          <maml:para>EndpointID of the endpoint to remove</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -6391,41 +6391,41 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48420
 }
-Remove-UMSThinclient @Params</dev:code>
+Remove-UMSEndpoint @Params</dev:code>
         <dev:remarks>
-          <maml:para>Removes Thinclient with TCID 48420</maml:para>
+          <maml:para>Removes Endpoint with TCID 48420</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48381 | Remove-UMSThinclient -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48381 | Remove-UMSEndpoint -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
-          <maml:para>Removes Thinclient with TCID 48381</maml:para>
+          <maml:para>Removes Endpoint with TCID 48381</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Remove-UMSThinclientDirectory</command:name>
+      <command:name>Remove-UMSEndpointDirectory</command:name>
       <command:verb>Remove</command:verb>
-      <command:noun>UMSThinclientDirectory</command:noun>
+      <command:noun>UMSEndpointDirectory</command:noun>
       <maml:description>
-        <maml:para>Removes a thinclient directory via API</maml:para>
+        <maml:para>Removes a endpoint directory via API</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Removes a thinclient directory via API</maml:para>
+      <maml:para>Removes a endpoint directory via API</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Remove-UMSThinclientDirectory</maml:name>
+        <maml:name>Remove-UMSEndpointDirectory</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -6477,7 +6477,7 @@ Remove-UMSThinclient @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>DIRID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientDirectoryIDs to remove</maml:para>
+            <maml:para>EndpointDirectoryIDs to remove</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -6562,7 +6562,7 @@ Remove-UMSThinclient @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>DIRID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientDirectoryIDs to remove</maml:para>
+          <maml:para>EndpointDirectoryIDs to remove</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -6612,31 +6612,31 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   DIRID        = 49289
 }
-Remove-UMSThinclientDirectory @Params</dev:code>
+Remove-UMSEndpointDirectory @Params</dev:code>
         <dev:remarks>
-          <maml:para>Removes thinclient directory with ID 49289</maml:para>
+          <maml:para>Removes endpoint directory with ID 49289</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49289, 49260 | Remove-UMSThinclientDirectory -Computername 'UMSSERVER'</dev:code>
+        <dev:code>49289, 49260 | Remove-UMSEndpointDirectory -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
-          <maml:para>Removes thinclient directory with ID 49289 and 49260</maml:para>
+          <maml:para>Removes endpoint directory with ID 49289 and 49260</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSThinclientDirectory.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSEndpointDirectory.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Reset-UMSThinclient</command:name>
+      <command:name>Reset-UMSEndpoint</command:name>
       <command:verb>Reset</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
         <maml:para>Resets all thin clients listed in the request body to factory defaults and removes them from the UMS completely (without recycle bin).</maml:para>
       </maml:description>
@@ -6646,7 +6646,7 @@ Remove-UMSThinclientDirectory @Params</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Reset-UMSThinclient</maml:name>
+        <maml:name>Reset-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -6833,14 +6833,14 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 35828
 }
-Reset-UMSThinclient @Params</dev:code>
+Reset-UMSEndpoint @Params</dev:code>
         <dev:remarks>
           <maml:para>Resets thin client with TCID 35828 to factory defaults.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>100, 101 | Reset-UMSThinclient -Computername $Computername</dev:code>
+        <dev:code>100, 101 | Reset-UMSEndpoint -Computername $Computername</dev:code>
         <dev:remarks>
           <maml:para>Resets thin clients with TCID 100 and 101 to factory defaults.</maml:para>
         </dev:remarks>
@@ -6849,25 +6849,25 @@ Reset-UMSThinclient @Params</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Reset-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Reset-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Restart-UMSThinclient</command:name>
+      <command:name>Restart-UMSEndpoint</command:name>
       <command:verb>Restart</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Restarts Thinclients via API</maml:para>
+        <maml:para>Restarts Endpoints via API</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Restarts Thinclients via API</maml:para>
+      <maml:para>Restarts Endpoints via API</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Restart-UMSThinclient</maml:name>
+        <maml:name>Restart-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -6919,7 +6919,7 @@ Reset-UMSThinclient @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientIDs to wake up</maml:para>
+            <maml:para>EndpointIDs to wake up</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -7004,7 +7004,7 @@ Reset-UMSThinclient @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientIDs to wake up</maml:para>
+          <maml:para>EndpointIDs to wake up</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -7054,14 +7054,14 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48426
 }
-Restart-UMSThinclient @Params</dev:code>
+Restart-UMSEndpoint @Params</dev:code>
         <dev:remarks>
           <maml:para>Restarts thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48426, 2435 | Restart-UMSThinclient -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48426, 2435 | Restart-UMSEndpoint -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Restarts thin clients with TCID 48426 and 2435.</maml:para>
         </dev:remarks>
@@ -7070,15 +7070,15 @@ Restart-UMSThinclient @Params</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Restart-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Restart-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Send-UMSThinclientSetting</command:name>
+      <command:name>Send-UMSEndpointSetting</command:name>
       <command:verb>Send</command:verb>
-      <command:noun>UMSThinclientSetting</command:noun>
+      <command:noun>UMSEndpointSetting</command:noun>
       <maml:description>
         <maml:para>Sends settings modified in the UMS database to all thin clients listed in the request body immediately.</maml:para>
       </maml:description>
@@ -7088,7 +7088,7 @@ Restart-UMSThinclient @Params</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Send-UMSThinclientSetting</maml:name>
+        <maml:name>Send-UMSEndpointSetting</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -7275,14 +7275,14 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48426
 }
-Send-UMSThinclientSetting @Params</dev:code>
+Send-UMSEndpointSetting @Params</dev:code>
         <dev:remarks>
           <maml:para>Sends settings modified in the UMS database to thin client with TCID 48426 immediately.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>100, 101 | Send-UMSThinclientSetting -Computername $Computername</dev:code>
+        <dev:code>100, 101 | Send-UMSEndpointSetting -Computername $Computername</dev:code>
         <dev:remarks>
           <maml:para>Sends settings modified in the UMS database to thin clients with TCID 100 and 101 immediately.</maml:para>
         </dev:remarks>
@@ -7291,25 +7291,25 @@ Send-UMSThinclientSetting @Params</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Send-UMSThinclientSetting.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Send-UMSEndpointSetting.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Start-UMSThinclient</command:name>
+      <command:name>Start-UMSEndpoint</command:name>
       <command:verb>Start</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Wakes Up Thinclients (WOL) via API</maml:para>
+        <maml:para>Wakes Up Endpoints (WOL) via API</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Wakes Up Thinclients (WOL) via API</maml:para>
+      <maml:para>Wakes Up Endpoints (WOL) via API</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Start-UMSThinclient</maml:name>
+        <maml:name>Start-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -7361,7 +7361,7 @@ Send-UMSThinclientSetting @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientIDs to wake up</maml:para>
+            <maml:para>EndpointIDs to wake up</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -7446,7 +7446,7 @@ Send-UMSThinclientSetting @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientIDs to wake up</maml:para>
+          <maml:para>EndpointIDs to wake up</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -7496,14 +7496,14 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48426
 }
-Start-UMSThinclient @Params</dev:code>
+Start-UMSEndpoint @Params</dev:code>
         <dev:remarks>
           <maml:para>Wakes up thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48426, 2435 | Start-UMSThinclient -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48426, 2435 | Start-UMSEndpoint -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Wakes up thin clients with TCID 48426 and 2435.</maml:para>
         </dev:remarks>
@@ -7512,25 +7512,25 @@ Start-UMSThinclient @Params</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Start-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Start-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Stop-UMSThinclient</command:name>
+      <command:name>Stop-UMSEndpoint</command:name>
       <command:verb>Stop</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Shuts Down Thinclients via API</maml:para>
+        <maml:para>Shuts Down Endpoints via API</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Shuts Down Thinclients via API</maml:para>
+      <maml:para>Shuts Down Endpoints via API</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Stop-UMSThinclient</maml:name>
+        <maml:name>Stop-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -7582,7 +7582,7 @@ Start-UMSThinclient @Params</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientIDs to shut down</maml:para>
+            <maml:para>EndpointIDs to shut down</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -7667,7 +7667,7 @@ Start-UMSThinclient @Params</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientIDs to shut down</maml:para>
+          <maml:para>EndpointIDs to shut down</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -7717,14 +7717,14 @@ $Params = @{
   WebSession   = New-UMSAPICookie -Computername $Computername
   TCID         = 48426
 }
-Stop-UMSThinclient @Params</dev:code>
+Stop-UMSEndpoint @Params</dev:code>
         <dev:remarks>
           <maml:para>Shuts down thin client with TCID 48426.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>48426, 2435 | Stop-UMSThinclient -Computername 'UMSSERVER'</dev:code>
+        <dev:code>48426, 2435 | Stop-UMSEndpoint -Computername 'UMSSERVER'</dev:code>
         <dev:remarks>
           <maml:para>Shuts down thin clients with TCID 48426 and 2435.</maml:para>
         </dev:remarks>
@@ -7733,7 +7733,7 @@ Stop-UMSThinclient @Params</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -7994,11 +7994,11 @@ message
       <command:verb>Update</command:verb>
       <command:noun>UMSProfileAssignment</command:noun>
       <maml:description>
-        <maml:para>Assigns a profile to a Thinclient or a Thinclient directory.</maml:para>
+        <maml:para>Assigns a profile to a Endpoint or a Endpoint directory.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Assigns a profile to a Thinclient or a tThinclient directory.</maml:para>
+      <maml:para>Assigns a profile to a Endpoint or a tEndpoint directory.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -8066,7 +8066,7 @@ message
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>Thinclient ID to apply profile to</maml:para>
+            <maml:para>Endpoint ID to apply profile to</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -8260,7 +8260,7 @@ message
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>Thinclient ID to apply profile to</maml:para>
+          <maml:para>Endpoint ID to apply profile to</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -8849,19 +8849,19 @@ Update successful</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Update-UMSThinclient</command:name>
+      <command:name>Update-UMSEndpoint</command:name>
       <command:verb>Update</command:verb>
-      <command:noun>UMSThinclient</command:noun>
+      <command:noun>UMSEndpoint</command:noun>
       <maml:description>
-        <maml:para>Updates properties of a Thinclient from Rest API.</maml:para>
+        <maml:para>Updates properties of a Endpoint from Rest API.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Updates properties of a Thinclient from Rest API.</maml:para>
+      <maml:para>Updates properties of a Endpoint from Rest API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Update-UMSThinclient</maml:name>
+        <maml:name>Update-UMSEndpoint</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -8877,7 +8877,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
           <maml:name>LastIP</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute LastIP</maml:para>
+            <maml:para>Endpoint Attribute LastIP</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8889,7 +8889,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
           <maml:name>Comment</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute Comment</maml:para>
+            <maml:para>Endpoint Attribute Comment</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8901,7 +8901,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
           <maml:name>AssetID</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute AssetID</maml:para>
+            <maml:para>Endpoint Attribute AssetID</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8913,7 +8913,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
           <maml:name>InserviceDate</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute InserviceDate</maml:para>
+            <maml:para>Endpoint Attribute InserviceDate</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8925,7 +8925,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
           <maml:name>SerialNumber</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute SerialNumber</maml:para>
+            <maml:para>Endpoint Attribute SerialNumber</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8973,7 +8973,7 @@ Update successful</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
           <maml:name>TCID</maml:name>
           <maml:Description>
-            <maml:para>ThinclientID of the thinclient to update</maml:para>
+            <maml:para>EndpointID of the endpoint to update</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -8985,7 +8985,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
           <maml:name>Name</maml:name>
           <maml:Description>
-            <maml:para>Hostname of the Thinclient</maml:para>
+            <maml:para>Hostname of the Endpoint</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8997,7 +8997,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
           <maml:name>Site</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute Site</maml:para>
+            <maml:para>Endpoint Attribute Site</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -9009,7 +9009,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
           <maml:name>Department</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute Department</maml:para>
+            <maml:para>Endpoint Attribute Department</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -9021,7 +9021,7 @@ Update successful</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
           <maml:name>CostCenter</maml:name>
           <maml:Description>
-            <maml:para>Thinclient Attribute CostCenter</maml:para>
+            <maml:para>Endpoint Attribute CostCenter</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -9106,7 +9106,7 @@ Update successful</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="5" aliases="none">
         <maml:name>TCID</maml:name>
         <maml:Description>
-          <maml:para>ThinclientID of the thinclient to update</maml:para>
+          <maml:para>EndpointID of the endpoint to update</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -9118,7 +9118,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
         <maml:name>Name</maml:name>
         <maml:Description>
-          <maml:para>Hostname of the Thinclient</maml:para>
+          <maml:para>Hostname of the Endpoint</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9130,7 +9130,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
         <maml:name>Site</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute Site</maml:para>
+          <maml:para>Endpoint Attribute Site</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9142,7 +9142,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
         <maml:name>Department</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute Department</maml:para>
+          <maml:para>Endpoint Attribute Department</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9154,7 +9154,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
         <maml:name>CostCenter</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute CostCenter</maml:para>
+          <maml:para>Endpoint Attribute CostCenter</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9166,7 +9166,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
         <maml:name>LastIP</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute LastIP</maml:para>
+          <maml:para>Endpoint Attribute LastIP</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9178,7 +9178,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
         <maml:name>Comment</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute Comment</maml:para>
+          <maml:para>Endpoint Attribute Comment</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9190,7 +9190,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
         <maml:name>AssetID</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute AssetID</maml:para>
+          <maml:para>Endpoint Attribute AssetID</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9202,7 +9202,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
         <maml:name>InserviceDate</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute InserviceDate</maml:para>
+          <maml:para>Endpoint Attribute InserviceDate</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9214,7 +9214,7 @@ Update successful</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="14" aliases="none">
         <maml:name>SerialNumber</maml:name>
         <maml:Description>
-          <maml:para>Thinclient Attribute SerialNumber</maml:para>
+          <maml:para>Endpoint Attribute SerialNumber</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9268,47 +9268,47 @@ $Params = @{
   Department    = 'Marketing'
   CostCenter    = '50100'
   LastIP        = '192.168.0.10'
-  Comment       = 'New Thinclient'
+  Comment       = 'New Endpoint'
   AssetID       = '012345'
   InserviceDate = '01.01.2018'
   SerialNumber  = '12A3B4C56B12345A6BC'
 }
-Update-UMSThinclient @Params
+Update-UMSEndpoint @Params
 
 message
 -------
 Update successful</dev:code>
         <dev:remarks>
-          <maml:para>Updates thinclient with all possible attributes.</maml:para>
+          <maml:para>Updates endpoint with all possible attributes.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''</dev:code>
+        <dev:code>Update-UMSEndpoint -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Comment ''</dev:code>
         <dev:remarks>
-          <maml:para>Removes comment of the thinclient to TC030564.</maml:para>
+          <maml:para>Removes comment of the endpoint to TC030564.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>Update-UMSThinclient -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'</dev:code>
+        <dev:code>Update-UMSEndpoint -Computername 'UMSSERVER' -WebSession $WebSession -TCID 48426 -Name 'TC030564'</dev:code>
         <dev:remarks>
-          <maml:para>Upates name of the thinclient to TC030564.</maml:para>
+          <maml:para>Upates name of the endpoint to TC030564.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSThinclient.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSEndpoint.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Update-UMSThinclientDirectoryName</command:name>
+      <command:name>Update-UMSEndpointDirectoryName</command:name>
       <command:verb>Update</command:verb>
-      <command:noun>UMSThinclientDirectoryName</command:noun>
+      <command:noun>UMSEndpointDirectoryName</command:noun>
       <maml:description>
         <maml:para>Updates a Thin Client Directory name via API</maml:para>
       </maml:description>
@@ -9318,7 +9318,7 @@ Update successful</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Update-UMSThinclientDirectoryName</maml:name>
+        <maml:name>Update-UMSEndpointDirectoryName</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Computername</maml:name>
           <maml:Description>
@@ -9536,21 +9536,21 @@ message
 -------
 Updated directory successfully.</dev:code>
         <dev:remarks>
-          <maml:para>Updates thinclient directory name to 'NewDirName'</maml:para>
+          <maml:para>Updates endpoint directory name to 'NewDirName'</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>49289 | Update-UMSThinclientDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'</dev:code>
+        <dev:code>49289 | Update-UMSEndpointDirectoryName -Computername 'UMSSERVER' -Name 'NewDirName'</dev:code>
         <dev:remarks>
-          <maml:para>Updates thinclient directory name to 'NewDirName'</maml:para>
+          <maml:para>Updates endpoint directory name to 'NewDirName'</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSThinclientDirectoryName.md</maml:uri>
+        <maml:uri>https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Update-UMSEndpointDirectoryName.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

@@ -1,4 +1,4 @@
-﻿function New-UMSThinclient
+﻿function New-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param

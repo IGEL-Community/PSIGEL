@@ -43,12 +43,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSThinclient Should not throw' {
-        { Get-UMSThinclient } | Should -Not -Throw
+      It 'Get-UMSEndpoint Should not throw' {
+        { Get-UMSEndpoint } | Should -Not -Throw
       }
 
-      It 'Get-UMSThinclient -Details Error -ErrorAction Stop Should throw' {
-        { Get-UMSThinclient -Details Error -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSEndpoint -Details Error -ErrorAction Stop Should throw' {
+        { Get-UMSEndpoint -Details Error -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -72,7 +72,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclient
+      $Result = Get-UMSEndpoint
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -126,7 +126,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclient -Id 2
+      $Result = Get-UMSEndpoint -Id 2
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -180,7 +180,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Filter online
+      $Result = Get-UMSEndpoint -Id 2 -Filter online
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -237,7 +237,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Filter shadow
+      $Result = Get-UMSEndpoint -Id 2 -Filter shadow
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -318,7 +318,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Filter details
+      $Result = Get-UMSEndpoint -Id 2 -Filter details
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -403,7 +403,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclient -Id 2 -Filter details
+      $Result = Get-UMSEndpoint -Id 2 -Filter details
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -444,7 +444,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Get-UMSThinclient } | should throw 'Error'
+        { Get-UMSEndpoint } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -467,8 +467,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclient[0].Id
-  $Mac = $UMS.UMSThinclient[0].Mac
+  $Id = $UMS.UMSEndpoint[0].Id
+  $Mac = $UMS.UMSEndpoint[0].Mac
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -485,7 +485,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSThinclient } | Should Not Throw
+      { $Script:Result = Get-UMSEndpoint } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSThinclient.md
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSEndpoint.md
 schema: 2.0.0
 ---
 

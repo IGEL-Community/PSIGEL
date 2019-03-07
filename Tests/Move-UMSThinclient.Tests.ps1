@@ -43,8 +43,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Move-UMSThinclient -Id 2 -DestId 2 Should not throw' {
-        { Move-UMSThinclient -Id 2 -DestId 2 } | Should -Not -Throw
+      It 'Move-UMSEndpoint -Id 2 -DestId 2 Should not throw' {
+        { Move-UMSEndpoint -Id 2 -DestId 2 } | Should -Not -Throw
       }
 
 
@@ -61,7 +61,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Move-UMSThinclient -Id 2 -DestId 2
+      $Result = Move-UMSEndpoint -Id 2 -DestId 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,7 +93,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Move-UMSThinclient -Id 2 -DestId 2 -WhatIf
+      $Result = Move-UMSEndpoint -Id 2 -DestId 2 -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -112,8 +112,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It 'Move-UMSThinclient -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop Should throw' {
-        { Move-UMSThinclient -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Move-UMSEndpoint -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop Should throw' {
+        { Move-UMSEndpoint -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -136,8 +136,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclient[0].Id
-  $DestId = $UMS.UMSThinclient[0].DestId
+  $Id = $UMS.UMSEndpoint[0].Id
+  $DestId = $UMS.UMSEndpoint[0].DestId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -155,7 +155,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Move-UMSThinclient } | Should Not Throw
+      { $Script:Result = Move-UMSEndpoint } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

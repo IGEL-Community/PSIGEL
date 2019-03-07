@@ -44,8 +44,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "Restart-UMSThinclient -Id 2 Should not throw" {
-        { Restart-UMSThinclient -Id 2 } | Should -Not -Throw
+      It "Restart-UMSEndpoint -Id 2 Should not throw" {
+        { Restart-UMSEndpoint -Id 2 } | Should -Not -Throw
       }
     }
 
@@ -67,7 +67,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Restart-UMSThinclient -Id 2
+      $Result = Restart-UMSEndpoint -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -103,7 +103,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Restart-UMSThinclient -Id 2 -WhatIf
+      $Result = Restart-UMSEndpoint -Id 2 -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -122,8 +122,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It "Restart-UMSThinclient -Id 2 -ApiVersion 10 -ErrorAction Stop Should throw" {
-        { Restart-UMSThinclient -Id 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "Restart-UMSEndpoint -Id 2 -ApiVersion 10 -ErrorAction Stop Should throw" {
+        { Restart-UMSEndpoint -Id 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -146,8 +146,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclient[1].Id
-  $Mac = $UMS.UMSThinclient[1].Mac
+  $Id = $UMS.UMSEndpoint[1].Id
+  $Mac = $UMS.UMSEndpoint[1].Mac
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -165,7 +165,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Restart-UMSThinclient } | Should Not Throw
+      { $Script:Result = Restart-UMSEndpoint } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

@@ -1,4 +1,4 @@
-﻿function Get-UMSThinclientDirectory
+﻿function Get-UMSEndpointDirectory
 {
   [cmdletbinding(DefaultParameterSetName = 'All')]
   param

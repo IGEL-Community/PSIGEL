@@ -44,16 +44,16 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "Update-UMSThinclient -Id 2 -Name 'NameNew' Should not throw" {
-        { Update-UMSThinclient -Id 2 -Name 'NameNew' } | Should -Not -Throw
+      It "Update-UMSEndpoint -Id 2 -Name 'NameNew' Should not throw" {
+        { Update-UMSEndpoint -Id 2 -Name 'NameNew' } | Should -Not -Throw
       }
 
-      It "Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 Stop Should throw" {
-        { Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "Update-UMSEndpoint -Id 2 -Name 'NameNew' -ApiVersion 10 Stop Should throw" {
+        { Update-UMSEndpoint -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
-      It "Update-UMSThinclient -Id 2 Should throw" {
-        { Update-UMSThinclient -Id 2 } | Should -Throw
+      It "Update-UMSEndpoint -Id 2 Should throw" {
+        { Update-UMSEndpoint -Id 2 } | Should -Throw
       }
 
     }
@@ -80,7 +80,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         InserviceDate = 'NewInserviceDate'
         SerialNumber  = '0123456789012345678'
       }
-      $Result = Update-UMSThinclient @Params
+      $Result = Update-UMSEndpoint @Params
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -120,7 +120,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = Update-UMSThinclient -Id 2 -Name 'NameNew' -WhatIf
+      $Result = Update-UMSEndpoint -Id 2 -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -139,8 +139,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      it "Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop should throw Error" {
-        { Update-UMSThinclient -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | should -Throw
+      it "Update-UMSEndpoint -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop should throw Error" {
+        { Update-UMSEndpoint -Id 2 -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -164,8 +164,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclient[1].Id
-  $CommentUpdate = $UMS.UMSThinclient[1].CommentUpdate
+  $Id = $UMS.UMSEndpoint[1].Id
+  $CommentUpdate = $UMS.UMSEndpoint[1].CommentUpdate
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -183,7 +183,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Update-UMSThinclient } | Should Not Throw
+      { $Script:Result = Update-UMSEndpoint } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

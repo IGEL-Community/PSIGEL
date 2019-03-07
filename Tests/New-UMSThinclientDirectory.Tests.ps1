@@ -44,8 +44,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It "New-UMSThinclientDirectory -Name 'NameNew' Should not throw" {
-        { New-UMSThinclientDirectory -Name 'NameNew' } | Should -Not -Throw
+      It "New-UMSEndpointDirectory -Name 'NameNew' Should not throw" {
+        { New-UMSEndpointDirectory -Name 'NameNew' } | Should -Not -Throw
       }
     }
 
@@ -61,7 +61,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = New-UMSThinclientDirectory -Name 'NameNew'
+      $Result = New-UMSEndpointDirectory -Name 'NameNew'
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -93,7 +93,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      $Result = New-UMSThinclientDirectory -Name 'NameNew' -WhatIf
+      $Result = New-UMSEndpointDirectory -Name 'NameNew' -WhatIf
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
         $AMCParams = @{
@@ -112,8 +112,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     Context "Error Handling" {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
-      It "New-UMSThinclientDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop Should throw" {
-        { New-UMSThinclientDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It "New-UMSEndpointDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop Should throw" {
+        { New-UMSEndpointDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
       It 'Result should be null or empty' {
@@ -136,7 +136,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = $UMS.UMSThinclientDirectory[3].NameNew
+  $Name = $UMS.UMSEndpointDirectory[3].NameNew
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -153,7 +153,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSThinclientDirectory } | Should Not Throw
+      { $Script:Result = New-UMSEndpointDirectory } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

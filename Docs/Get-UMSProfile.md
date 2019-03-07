@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSProfile
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on a profile.
 
 ## SYNTAX
 
@@ -25,7 +25,7 @@ Get-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on a profile via API.
 
 ## EXAMPLES
 
@@ -70,7 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the profile
 
 ```yaml
 Type: Int32

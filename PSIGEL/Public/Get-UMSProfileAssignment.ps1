@@ -1,6 +1,6 @@
 ﻿function Get-UMSProfileAssignment
 {
-  [CmdletBinding(DefaultParameterSetName = 'Thinclient')]
+  [CmdletBinding(DefaultParameterSetName = 'Endpoint')]
   param
   (
     [Parameter(Mandatory)]
@@ -47,7 +47,7 @@
 
     Switch ($PsCmdlet.ParameterSetName)
     {
-      'Thinclient'
+      'Endpoint'
       {
         $Params.Add('Uri', ('{0}/{1}/assignments/thinclients' -f $BaseURL, $Id))
       }

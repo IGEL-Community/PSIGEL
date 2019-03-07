@@ -1,7 +1,7 @@
 $UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
 $UMSUser = 'rmdb'
 $UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
-#Id of the thinclientdirectory
+#Id of the endpointdirectory
 [Int]$TcDirId = 999
 
 $PSDefaultParameterValues = @{
@@ -16,8 +16,8 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Filter children).DirectoryChildren
-$TCColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Filter details
+$DirColl = (Get-UMSEndpointDirectory -Id $TcDirId -Filter children).DirectoryChildren
+$TCColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSEndpoint -Filter details
 
 $ExportExcelParams = @{
   Path              = 'C:\Temp\demo.xlsx'

@@ -1,9 +1,9 @@
 ﻿<#
       .Synopsis
-      Gets Thinclient Directory Structure from API
+      Gets Endpoint Directory Structure from API
 
       .DESCRIPTION
-      Gets Thinclient Directory Structure from API. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
+      Gets Endpoint Directory Structure from API. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -57,7 +57,7 @@ Switch ($WebSession)
   }
 }
 
-$DirColl = Get-UMSThinclientDirectory -Computername $Computername -WebSession $WebSession
+$DirColl = Get-UMSEndpointDirectory -Computername $Computername -WebSession $WebSession
 $Tier1Coll = $DirColl | Where-Object {
   $_.parentID -eq -1
 }

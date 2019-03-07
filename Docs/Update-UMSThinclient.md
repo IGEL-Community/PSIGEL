@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Update-UMSThinclient
+# Update-UMSEndpoint
 
 ## SYNOPSIS
 {{Fill in the Synopsis}}
@@ -13,7 +13,7 @@ schema: 2.0.0
 ## SYNTAX
 
 ```
-Update-UMSThinclient [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Update-UMSEndpoint [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [[-Name] <String>] [[-Site] <String>]
  [[-Department] <String>] [[-CostCenter] <String>] [[-LastIP] <String>] [[-Comment] <String>]
  [[-AssetId] <String>] [[-InserviceDate] <String>] [[-SerialNumber] <String>] [-WhatIf] [-Confirm]

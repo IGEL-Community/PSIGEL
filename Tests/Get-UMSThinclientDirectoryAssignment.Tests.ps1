@@ -37,19 +37,19 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     $PSDefaultParameterValues = @{
       '*:WebSession'                            = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
       '*:Computername'                          = 'igelrmserver.acme.org'
-      'Get-UMSThinclientDirectoryAssignment:Id' = 2
+      'Get-UMSEndpointDirectoryAssignment:Id' = 2
     }
 
     Context "General Execution" {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSThinclientDirectoryAssignment Should not throw' {
-        { Get-UMSThinclientDirectoryAssignment } | Should -Not -Throw
+      It 'Get-UMSEndpointDirectoryAssignment Should not throw' {
+        { Get-UMSEndpointDirectoryAssignment } | Should -Not -Throw
       }
 
-      It 'Get-UMSThinclientDirectoryAssignment -ApiVersion 10 Stop Should throw' {
-        { Get-UMSThinclientDirectoryAssignment -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSEndpointDirectoryAssignment -ApiVersion 10 Stop Should throw' {
+        { Get-UMSEndpointDirectoryAssignment -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -72,7 +72,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         )
       }
 
-      $Result = Get-UMSThinclientDirectoryAssignment -Id 2
+      $Result = Get-UMSEndpointDirectoryAssignment -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -109,7 +109,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Get-UMSThinclientDirectoryAssignment } | should throw 'Error'
+        { Get-UMSEndpointDirectoryAssignment } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -132,9 +132,9 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclientDirectoryAssignment[0].Id
-  $ReceiverType = $UMS.UMSThinclientDirectoryAssignment.ReceiverType
-  $AssigneeId = $UMS.UMSThinclientDirectoryAssignment.AssigneeId
+  $Id = $UMS.UMSEndpointDirectoryAssignment[0].Id
+  $ReceiverType = $UMS.UMSEndpointDirectoryAssignment.ReceiverType
+  $AssigneeId = $UMS.UMSEndpointDirectoryAssignment.AssigneeId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -151,7 +151,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSThinclientDirectoryAssignment } | Should Not Throw
+      { $Script:Result = Get-UMSEndpointDirectoryAssignment } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -162,8 +162,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -HaveType [Int]
     }
 
-    It "Result.Id should be exactly $UMS.UMSThinclientDirectoryAssignment.Id" {
-      $Result.Id | Should -BeExactly $UMS.UMSThinclientDirectoryAssignment.Id
+    It "Result.Id should be exactly $UMS.UMSEndpointDirectoryAssignment.Id" {
+      $Result.Id | Should -BeExactly $UMS.UMSEndpointDirectoryAssignment.Id
     }
 
     It 'Result.ReceiverType should have type [String]' {

@@ -43,12 +43,12 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       Mock 'Invoke-UMSRestMethodWebSession' {}
 
-      It 'Get-UMSThinclientDirectory Should not throw' {
-        { Get-UMSThinclientDirectory } | Should -Not -Throw
+      It 'Get-UMSEndpointDirectory Should not throw' {
+        { Get-UMSEndpointDirectory } | Should -Not -Throw
       }
 
-      It 'Get-UMSThinclientDirectory -ApiVersion 10 Stop Should throw' {
-        { Get-UMSThinclientDirectory -ApiVersion 10 -ErrorAction Stop } | Should -Throw
+      It 'Get-UMSEndpointDirectory -ApiVersion 10 Stop Should throw' {
+        { Get-UMSEndpointDirectory -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -67,7 +67,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSThinclientDirectory
+      $Result = Get-UMSEndpointDirectory
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -107,7 +107,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         }
       }
 
-      $Result = Get-UMSThinclientDirectory -Id 2
+      $Result = Get-UMSEndpointDirectory -Id 2
 
       It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
         $AMCParams = @{
@@ -158,7 +158,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       }
       Mock 'New-UMSFilterString' {}
 
-      $Result = Get-UMSThinclientDirectory -Id 2 -Filter children
+      $Result = Get-UMSEndpointDirectory -Id 2 -Filter children
 
       It 'Assert New-UMSFilterString is called exactly 1 time' {
         $AMCParams = @{
@@ -199,7 +199,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
 
       it 'should throw Error' {
-        { Get-UMSThinclientDirectory } | should throw 'Error'
+        { Get-UMSEndpointDirectory } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -222,8 +222,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Id = $UMS.UMSThinclientDirectory[0].Id
-  $Name = $UMS.UMSThinclientDirectory[0].Name
+  $Id = $UMS.UMSEndpointDirectory[0].Id
+  $Name = $UMS.UMSEndpointDirectory[0].Name
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -240,7 +240,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSThinclientDirectory } | Should Not Throw
+      { $Script:Result = Get-UMSEndpointDirectory } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {

@@ -5,20 +5,20 @@ online version:
 schema: 2.0.0
 ---
 
-# Get-UMSThinclientDirectoryAssignment
+# Get-UMSEndpointDirectoryAssignment
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on a profile or master profile assignment of a endpoint directory.
 
 ## SYNTAX
 
 ```
-Get-UMSThinclientDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+Get-UMSEndpointDirectoryAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on a profile or master profile assignment of a endpoint directory via API.
 
 ## EXAMPLES
 
@@ -63,7 +63,7 @@ Accept wildcard characters: False
 ```
 
 ### -Id
-ID of the {{}}
+ID of the endpoint directory.
 
 ```yaml
 Type: Int32

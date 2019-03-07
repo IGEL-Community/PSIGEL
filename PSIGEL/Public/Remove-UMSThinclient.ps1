@@ -1,4 +1,4 @@
-﻿function Remove-UMSThinclient
+﻿function Remove-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'High', DefaultParameterSetName = 'Offline')]
   param

@@ -3,7 +3,7 @@ $UMSUser = 'rmdb'
 $UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
 $RootCredPath = 'C:\Credentials\TCRoot.cred'
 $RootCredential = (Import-Clixml -Path $RootCredPath)
-#Id of the thinclientdirectory
+#Id of the endpointdirectory
 [Int]$TcDirId = 999
 
 $PSDefaultParameterValues = @{
@@ -18,8 +18,8 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-$DirColl = (Get-UMSThinclientDirectory -Id $TcDirId -Filter children).DirectoryChildren
-$EndPointColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSThinclient -Filter online
+$DirColl = (Get-UMSEndpointDirectory -Id $TcDirId -Filter children).DirectoryChildren
+$EndPointColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSEndpoint -Filter online
 $OnlineEndPointColl = $EndPointColl.Where{$_.Online -eq $true}
 
 $UpdateConfigurationColl = $OnlineEndPointColl |

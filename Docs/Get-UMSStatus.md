@@ -8,7 +8,7 @@ schema: 2.0.0
 # Get-UMSStatus
 
 ## SYNOPSIS
-{{Fill in the Synopsis}}
+Gets information on the UMS.
 
 ## SYNTAX
 
@@ -18,7 +18,7 @@ Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int3
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Gets information on the UMS via API.
 
 ## EXAMPLES
 

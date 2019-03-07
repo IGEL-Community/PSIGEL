@@ -1,4 +1,4 @@
-function Move-UMSThinclient
+function Move-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param

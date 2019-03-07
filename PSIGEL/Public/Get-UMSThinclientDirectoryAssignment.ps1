@@ -1,4 +1,4 @@
-function Get-UMSThinclientDirectoryAssignment
+function Get-UMSEndpointDirectoryAssignment
 {
   [CmdletBinding()]
   param

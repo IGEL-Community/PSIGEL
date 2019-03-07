@@ -1,4 +1,4 @@
-﻿function Stop-UMSThinclient
+﻿function Stop-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param

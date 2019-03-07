@@ -1,4 +1,4 @@
-﻿function Send-UMSThinclientSetting
+﻿function Send-UMSEndpointSetting
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param

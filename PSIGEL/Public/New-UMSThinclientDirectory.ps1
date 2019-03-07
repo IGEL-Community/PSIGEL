@@ -1,4 +1,4 @@
-function New-UMSThinclientDirectory
+function New-UMSEndpointDirectory
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param

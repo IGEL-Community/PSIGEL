@@ -1,4 +1,4 @@
-function Update-UMSThinclientDirectory
+function Update-UMSEndpointDirectory
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Medium')]
   param

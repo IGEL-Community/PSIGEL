@@ -1,4 +1,4 @@
-﻿function Start-UMSThinclient
+﻿function Start-UMSEndpoint
 {
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param
