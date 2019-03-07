@@ -4,7 +4,7 @@ This is a module to interact with the IGEL UMS API (via IGEL IMI), the UMS MSSQL
 
 **API (/MSSQL)** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
 
-**SSH** functions got the noun-prefix **EP** (for EndPoint), e.g. Get-**EP**Something
+**SSH** functions got the noun-prefix **EP** (for Device), e.g. Get-**EP**Something
 
 To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
 
@@ -177,7 +177,7 @@ Creates a Profile Directory.
 
 ### [New-UMSDevice](/Docs/New-UMSDevice.md)
 
-Creates a new ThinClient.
+Creates a new Device.
 
 ### [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
 

@@ -19,10 +19,10 @@ $PSDefaultParameterValues += @{
 }
 
 $DirColl = (Get-UMSDeviceDirectory -Id $TcDirId -Filter children).DirectoryChildren
-$EndPointColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSDevice -Filter online
-$OnlineEndPointColl = $EndPointColl.Where{$_.Online -eq $true}
+$DeviceColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSDevice -Filter online
+$OnlineDeviceColl = $DeviceColl.Where{$_.Online -eq $true}
 
-$UpdateConfigurationColl = $OnlineEndPointColl |
+$UpdateConfigurationColl = $OnlineDeviceColl |
   Invoke-Parallel -RunspaceTimeout 10 -ScriptBlock {
   $SshSession = New-SSHSession -Computername $_.Name -Credential $Using:RootCredential -AcceptKey
   Get-EPWifiConnection -SSHSession $SshSession
