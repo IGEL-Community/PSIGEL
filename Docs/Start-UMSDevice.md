@@ -24,11 +24,19 @@ Wakes up a device per WOL from the UMS via API.
 ## EXAMPLES
 
 ### Example 1
+
+{{ Add example description here }}
+
 ```powershell
 PS C:\> {{ Add example code here }}
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+
+```
+
 
 ## PARAMETERS
 

@@ -23,11 +23,26 @@ Creates a websession cookie for the UMS API.
 ## EXAMPLES
 
 ### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
 
-{{ Add example description here }}
+Create websession cookie and assign it to variable $WebSession:
+
+```powershell
+PS C:\> $WebSession = New-UMSAPICookie -Computername 'igelrmserver' -Credential (Get-Credential)
+```
+### Example 2
+
+Create / use process to store and read credential to and from file and use it to create a websession cookie for use in $WebSession variable:
+
+```powershell
+#Save credential securely to file (one time only):
+Get-Credential | Export-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile}) -Credential (Get-Credential)
+
+#Load credential from file
+$Credential = Import-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile})
+
+#Create websession cookie and assign it to variable $WebSession
+$WebSession = New-UMSAPICookie -Computername 'localhost' -Credential $Credential
+```
 
 ## PARAMETERS
 

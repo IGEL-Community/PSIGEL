@@ -24,11 +24,37 @@ Creates a device directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Create new device directory with name "SanFrancisco":
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Name 'SanFrancisco'
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Message                           Id Name
+-------                           -- ----
+Directory successfully inserted. 736 SanFrancisco
+```
+
+### Example 2
+
+Create new device directories with names "SanFrancisco" and "Leipzig":
+
+```powershell
+PS C:\> 'SanFrancisco', 'Leipzig' | New-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession
+```
+
+Output:
+
+```console
+Message                           Id Name
+-------                           -- ----
+Directory successfully inserted. 738 SanFrancisco
+Directory successfully inserted. 739 Leipzig
+```
 
 ## PARAMETERS
 

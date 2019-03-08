@@ -24,11 +24,19 @@ Updates the name of a device directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+{{ Add example description here }}
+
 ```powershell
 PS C:\> {{ Add example code here }}
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+
+```
+
 
 ## PARAMETERS
 

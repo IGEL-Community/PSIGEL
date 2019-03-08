@@ -24,11 +24,46 @@ Creates a profile assignment on a device or device directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Create profile assignment for profile with ID 390 on device with ID 58:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-UMSProfileAssignment -Computername 'igelrmserver' -WebSession $WebSession -Id 390 -ReceiverId 58 -ReceiverType tc
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Message                                Id ReceiverId ReceiverType
+-------                                -- ---------- ------------
+1 asssignments successfully assigned. 390         58 tc
+```
+
+### Example 2
+
+Create profile assignment for profiles with names starting with '01' or '07' on device directory with ID 664:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfile).where{$_.Name -match '^(01|07)'} |
+  New-UMSProfileAssignment -ReceiverId 664 -ReceiverType tcdirectory
+```
+
+Output:
+
+```console
+Message                                Id ReceiverId ReceiverType
+-------                                -- ---------- ------------
+1 asssignments successfully assigned. 390        664 tcdirectory
+1 asssignments successfully assigned. 669        664 tcdirectory
+```
 
 ## PARAMETERS
 

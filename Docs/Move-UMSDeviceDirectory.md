@@ -24,11 +24,45 @@ Moves a device directory to a device directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Move device directory with ID 664 to device directory with ID 665:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Move-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 664 -DestId 665
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+ Id Message
+ -- -------
+664 successful.
+```
+
+### Example 2
+
+Move device directory with name 'Bremen' to device directory with name 'Augsburg':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDeviceDirectory).where{$_.Name -eq 'Bremen'} |
+  Move-UMSDeviceDirectory -DestId ((Get-UMSDeviceDirectory).where{$_.name -eq 'Augsburg'})[0].Id
+```
+
+Output:
+
+```console
+ Id Message
+ -- -------
+665 successful.
+```
 
 ## PARAMETERS
 

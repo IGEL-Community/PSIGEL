@@ -32,11 +32,80 @@ Removes a device completely (without recycle bin) via API. Per default the devic
 ## EXAMPLES
 
 ### Example 1
+
+Remove device with ID 754 offline:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 754
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Remove-UMSDevice" für das Ziel "Id: 754".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
+
+Message                       Id
+-------                       --
+Offline deletion successful. 754
+```
+
+### Example 2
+
+Remove device with ID 195 online:
+
+```powershell
+PS C:\> Remove-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -Online
+```
+
+Output:
+
+```console
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Remove-UMSDevice" für das Ziel "Id: 195".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
+
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-IGELRMSERVER-50980-1552032799145-17-0
+Mac      :
+ExecTime : 0
+State    : SUCCESS
+```
+
+### Example 3
+
+Remove devices with names starting with "V" and ending with "02" or "03" offline, disabling confirmation:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDevice).where{$_.Name -match '^V.+(02|03)$'} |
+  Remove-UMSDevice
+```
+
+Output:
+
+```console
+Message                       Id
+-------                       --
+Offline deletion successful. 749
+Offline deletion successful. 750
+Offline deletion successful. 751
+Offline deletion successful. 752
+```
+
 
 ## PARAMETERS
 

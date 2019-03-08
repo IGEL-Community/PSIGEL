@@ -24,11 +24,19 @@ Resets a device to factory defaults and removes it completely (without recycle b
 ## EXAMPLES
 
 ### Example 1
+
+{{ Add example description here }}
+
 ```powershell
 PS C:\> {{ Add example code here }}
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+
+```
+
 
 ## PARAMETERS
 

@@ -24,11 +24,19 @@ Sends settings modified in the UMS database to a device via  API. The device has
 ## EXAMPLES
 
 ### Example 1
+
+{{ Add example description here }}
+
 ```powershell
 PS C:\> {{ Add example code here }}
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+
+```
+
 
 ## PARAMETERS
 

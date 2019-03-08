@@ -24,11 +24,37 @@ Creates a profile directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Create profile directory with name '06'
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-UMSProfileDirectory -Computername 'localhost' -WebSession $WebSession -Name '06'
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Message                           Id Name
+-------                           -- ----
+Directory successfully inserted. 743 06
+```
+
+### Example 2
+
+Create profile directories with name '05' and '06'
+
+```powershell
+PS C:\> '05', '06' | New-UMSProfileDirectory -Computername 'localhost' -WebSession $WebSession
+```
+
+Output:
+
+```console
+Message                           Id Name
+-------                           -- ----
+Directory successfully inserted. 744 05
+Directory successfully inserted. 745 06
+```
 
 ## PARAMETERS
 

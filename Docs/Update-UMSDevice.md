@@ -26,11 +26,19 @@ Updates properties of a device via API.
 ## EXAMPLES
 
 ### Example 1
+
+{{ Add example description here }}
+
 ```powershell
 PS C:\> {{ Add example code here }}
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+
+```
+
 
 ## PARAMETERS
 

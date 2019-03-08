@@ -24,11 +24,54 @@ Removes a device directory via API. The device directory is only removed if it i
 ## EXAMPLES
 
 ### Example 1
+
+Remove device directory with ID 688:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 688
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Remove-UMSDeviceDirectory" für das Ziel "Id: 688".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
+
+Message               Id
+-------               --
+Deletion successful. 688
+```
+
+### Example 2
+
+Remove device directories with name 1, 2, 3 and 4, disabling confirmation:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDeviceDirectory).where{$_.Name -match '^[1-4]$'} |
+  Remove-UMSDeviceDirectory
+```
+
+Output:
+
+```console
+Message               Id
+-------               --
+Deletion successful. 684
+Deletion successful. 685
+Deletion successful. 686
+Deletion successful. 687
+```
 
 ## PARAMETERS
 

@@ -26,11 +26,86 @@ Creates a new device via API.
 ## EXAMPLES
 
 ### Example 1
+
+Create new device for device with Mac address '1a2b3c4d5e6f' and firmware ID 2:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+New-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Mac '1a2b3c4d5e6f' -FirmwareId 2
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Mac      : 1a2b3c4d5e6f
+Message  : Thin client successfully inserted.
+Id       : 722
+Name     :
+ParentId : -1
+```
+
+### Example 2
+
+Create new device for device with Mac address '1a2b3c4d5e6f' and firmware ID 2, using all supported properties:
+
+```powershell
+$Params = @{
+  ComputerName  = 'igelrmserver'
+  WebSession    = $WebSession
+  Mac           = '1a2b3c4d5e6f'
+  FirmwareId    = 2
+  AssetId       = 'AssetId'
+  Comment       = 'New Device'
+  CostCenter    = '85500'
+  Department    = 'Marketing'
+  InserviceDate = 'InServiceDate'
+  LastIP        = '192.168.56.3'
+  Name          = 'V11-02'
+  ParentId      = 664
+  SerialNumber  = '1234567890121314151'
+  Site          = 'Augsburg'
+}
+New-UMSDevice @Params
+```
+
+Output:
+
+```console
+Mac      : 1a2b3c4d5e6f
+Message  : Thin client successfully inserted.
+Id       : 725
+Name     : V11-02
+ParentId : 664
+```
+
+### Example 3
+
+Create new devices from comma separated values:
+
+```powershell
+$CSV = @'
+Mac, FirmwareId, Name, ParentId, Site
+1a2b3c4d5e6f, 2, V11-02, 664, Augsburg
+2b3c4d5e6f1a, 3, V10-02, 665, Bremen
+'@
+
+ConvertFrom-Csv -InputObject $CSV | New-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession
+```
+
+Output:
+
+```console
+Mac      : 1a2b3c4d5e6f
+Message  : Thin client successfully inserted.
+Id       : 731
+Name     : V11-02
+ParentId : 664
+
+Mac      : 2b3c4d5e6f1a
+Message  : Thin client successfully inserted.
+Id       : 732
+Name     : V10-02
+ParentId : 665
+```
 
 ## PARAMETERS
 

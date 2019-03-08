@@ -45,8 +45,8 @@ Move devices with last known IP addresses starting with '192.168.56.' to device 
 
 ```powershell
 $PSDefaultParameterValues = @{
-  '*-UMS*:Credential'       = (Get-credential)
-  '*-UMS*:Computername'     = 'localhost'
+  '*-UMS*:Credential'       = (Get-Credential)
+  '*-UMS*:Computername'     = 'igelrmserver'
 }
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession'   = New-UMSAPICookie

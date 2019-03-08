@@ -24,11 +24,45 @@ Moves a profile directory to profile directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Move the profile directory with the ID 417 to the profile directory with the ID 230:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Move-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 417 -DestId 230
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+ Id Message
+ -- -------
+417 successful.
+```
+
+### Example 2
+
+Move to profile directory with the name '01' to the profile directory with the name '02':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'localhost'
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfileDirectory).where{$_.Name -eq '01'} |
+  Move-UMSProfileDirectory -DestId ((Get-UMSProfileDirectory).where{$_.name -eq '02'})[0].Id
+```
+
+Output:
+
+```console
+ Id Message
+ -- -------
+417 successful.
+```
 
 ## PARAMETERS
 
