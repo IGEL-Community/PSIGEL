@@ -25,16 +25,50 @@ Removes a profile via API.
 
 ### Example 1
 
-{{ Add example description here }}
+Remove profile with ID 669:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 669
 ```
 
 Output:
 
 ```console
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Remove-UMSProfile" für das Ziel "Id: 669".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
 
+Message           Id
+-------           --
+Deleted profile. 669
+```
+
+### Example 2
+
+Remove profiles with names that start either with 01 or 02:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfile).where{$_.Name -match '^0[1-2]'} |
+  Remove-UMSProfile
+```
+
+Output:
+
+```console
+Message           Id
+-------           --
+Deleted profile.  69
+Deleted profile. 390
 ```
 
 

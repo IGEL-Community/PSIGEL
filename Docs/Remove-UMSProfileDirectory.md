@@ -25,18 +25,51 @@ Removes a profile directory via API.
 
 ### Example 1
 
-{{ Add example description here }}
+Remove profile directory with ID 668:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 668
 ```
 
 Output:
 
 ```console
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Remove-UMSProfileDirectory" für das Ziel "Id: 668".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
 
+Message               Id
+-------               --
+Deletion successful. 668
 ```
 
+### Example 2
+
+Remove profile directories with names starting with '01' or '02':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfileDirectory).where{$_.Name -match '^0(1|2)'} |
+  Remove-UMSProfileDirectory
+```
+
+Output:
+
+```console
+Message               Id
+-------               --
+Deletion successful. 417
+Deletion successful. 230
+```
 
 ## PARAMETERS
 
