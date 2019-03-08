@@ -30,11 +30,38 @@ Gets information on a firmware via API.
 ## EXAMPLES
 
 ### Example 1
+
+Get all firmwares:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSFirmware -ComputerName 'localhost' -WebSession $WebSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Id Product                     Version      FirmwareType
+-- -------                     -------      ------------
+ 2 IGEL OS 11                  11.01.100.01 LX
+ 3 IGEL Universal Desktop OS 3 10.05.500.01 LX
+```
+
+### Example 2
+
+Get firmware with ID 2:
+
+```powershell
+PS C:\> Get-UMSFirmware -ComputerName 'localhost' -WebSession $WebSession -Id 2
+```
+
+Output:
+
+```console
+Id Product    Version      FirmwareType
+-- -------    -------      ------------
+ 2 IGEL OS 11 11.01.100.01 LX
+```
+
 
 ## PARAMETERS
 

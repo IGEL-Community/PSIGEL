@@ -23,11 +23,24 @@ Gets information on the UMS via API.
 ## EXAMPLES
 
 ### Example 1
+
+Get information on the UMS:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSStatus -ComputerName 'igelrmserver' -WebSession $WebSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+RmGuiServerVersion : 6.01.100
+BuildNumber        : 40023
+ActiveMqVersion    : 5.6.0
+DerbyVersion       : 10.12.1.1
+ServerUuid         : 8be5a3db-ee78-48a9-9caf-52054ec6bf14
+Server             : igelrmserver:8443
+```
+
 
 ## PARAMETERS
 

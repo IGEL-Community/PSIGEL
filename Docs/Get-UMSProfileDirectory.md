@@ -31,11 +31,59 @@ Gets information on a profile directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Get all profile directories:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Id         : 417
+Name       : 01
+ParentId   : 666
+MovedToBin : False
+ObjectType : profiledirectory
+
+Id         : 230
+Name       : 02
+ParentId   : 666
+MovedToBin : False
+ObjectType : profiledirectory
+
+Id         : 666
+Name       : IGELOS
+ParentId   : -2
+MovedToBin : False
+ObjectType : profiledirectory
+
+Id         : 668
+Name       : 07
+ParentId   : 666
+MovedToBin : False
+ObjectType : profiledirectory
+```
+
+### Example 2
+
+Get profile directory with ID 668 including its children:
+
+```powershell
+PS C:\> Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 668 -Filter children
+```
+
+Output:
+
+```console
+Id                : 668
+Name              : 07
+ParentId          : 666
+MovedToBin        : False
+ObjectType        : profiledirectory
+DirectoryChildren : @{ObjectType=profile; Id=669}
+```
 
 ## PARAMETERS
 

@@ -31,11 +31,53 @@ Gets information on a device directory via API.
 ## EXAMPLES
 
 ### Example 1
+
+Get all device directories:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Id         : 71
+Name       : IGELOS
+ParentId   : -1
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 664
+Name       : Augsburg
+ParentId   : 71
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 665
+Name       : Bremen
+ParentId   : 71
+MovedToBin : False
+ObjectType : tcdirectory
+```
+
+### Example 2
+
+Get device directory with ID 71, including its children directories:
+
+```powershell
+PS C:\> 71 | Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Filter children
+```
+
+Output:
+
+```console
+Id                : 71
+Name              : IGELOS
+ParentId          : -1
+MovedToBin        : False
+ObjectType        : tcdirectory
+DirectoryChildren : {@{ObjectType=tcdirectory; Id=664}, @{ObjectType=tcdirectory; Id=665}}
+```
 
 ## PARAMETERS
 

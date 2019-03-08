@@ -23,11 +23,31 @@ Gets information on a profile or master profile assignment of a device directory
 ## EXAMPLES
 
 ### Example 1
+
+Get profile assignment for device directory with ID 664:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSDeviceDirectoryAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 664
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Id                 : 664
+ReceiverId         : 664
+ReceiverType       : tcdirectory
+AssigneeId         : 69
+AssigneeType       : profile
+AssignmentPosition : 0
+
+Id                 : 664
+ReceiverId         : 71
+ReceiverType       : tcdirectory
+AssigneeId         : 390
+AssigneeType       : profile
+AssignmentPosition : 1
+```
+
 
 ## PARAMETERS
 

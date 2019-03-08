@@ -31,11 +31,13 @@ Gets information on a device via API.
 ## EXAMPLES
 
 ### Example 1
+Get 'short' information on all devices:
+
 ```powershell
-PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession
+PS C:\> Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession
 ```
 
-Get 'short' information on all devices.
+Output:
 
 ```console
 Id         : 58
@@ -60,11 +62,15 @@ MovedToBin : False
 ```
 
 ### Example 2
+
+Get 'online' information on device with ID 195.:
+
 ```powershell
 PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 58 -Filter online
 ```
 
-Get 'online' information on device with ID 195.
+Output:
+
 
 ```console
 Id         : 195
@@ -80,11 +86,13 @@ Online     : True
 ```
 
 ### Example 3
+Get 'details' information on device with ID 195:
+
 ```powershell
-PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 195 -Filter details
+PS C:\> 195 | Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Filter details
 ```
 
-Get 'details' information on device with ID 195.
+Output:
 
 ```console
 Id                        : 195

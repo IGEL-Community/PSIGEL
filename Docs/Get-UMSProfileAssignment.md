@@ -30,11 +30,41 @@ Gets information on a device or device directory assignment of a profile via API
 ## EXAMPLES
 
 ### Example 1
+
+Get device assignments for the profile with ID 669:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSProfileAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 669
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Id                 : 669
+Type               : profile
+ReceiverId         : 195
+ReceiverType       : tc
+AssignmentPosition : 0
+```
+
+### Example 2
+
+Get device directory assignments for the profile with ID 69:
+
+```powershell
+PS C:\> 69 | Get-UMSProfileAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Directory
+```
+
+Output:
+
+```console
+Id                 : 69
+Type               : profile
+ReceiverId         : 664
+ReceiverType       : tcdirectory
+AssignmentPosition : 0
+```
+
 
 ## PARAMETERS
 

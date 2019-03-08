@@ -34,7 +34,7 @@ function Get-UMSProfileDirectory
   Begin
   {
     $UriArray = @($Computername, $TCPPort, $ApiVersion)
-    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories' -f $UriArray)
     if ($Filter)
     {
       $FilterString = New-UMSFilterString -Filter $Filter

@@ -24,11 +24,45 @@ Moves a device to a device directory via UMS.
 ## EXAMPLES
 
 ### Example 1
+
+Move device with ID 58 to device directory with ID 665:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Move-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -DestId 665
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+Id Message
+-- -------
+58 successful.
+```
+
+### Example 2
+
+Move devices with last known IP addresses starting with '192.168.56.' to device directory with name 'Augsburg':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'       = (Get-credential)
+  '*-UMS*:Computername'     = 'localhost'
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession'   = New-UMSAPICookie
+}
+(Get-UMSDevice -Filter details).where{$_.LastIp -match '^192.168.56'} |
+  Move-UMSDevice -DestId ((Get-UMSDeviceDirectory).where{$_.name -eq 'Augsburg'})[0].Id
+```
+
+Output:
+
+```console
+ Id Message
+ -- -------
+ 58 successful.
+195 successful.
+```
 
 ## PARAMETERS
 

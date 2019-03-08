@@ -30,11 +30,64 @@ Gets information on a profile via API.
 ## EXAMPLES
 
 ### Example 1
+
+Get all profiles:
+
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession
 ```
 
-{{ Add example description here }}
+Output:
+
+```console
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 69
+Name              : 02|LocalTerminal|OS11
+ParentId          : 230
+MovedToBin        : False
+ObjectType        : profile
+
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 390
+Name              : 01|Browser|OS11
+ParentId          : 417
+MovedToBin        : False
+ObjectType        : profile
+
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 669
+Name              : 07|SSHAccess_root:allow|OS11
+ParentId          : 668
+MovedToBin        : False
+ObjectType        : profile
+```
+
+### Example 2
+
+Get profile with ID 69:
+
+```powershell
+PS C:\> Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 69
+```
+
+Output:
+
+```console
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 69
+Name              : 02|LocalTerminal|OS11
+ParentId          : 230
+MovedToBin        : False
+ObjectType        : profile
+```
 
 ## PARAMETERS
 

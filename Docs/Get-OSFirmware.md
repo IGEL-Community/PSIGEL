@@ -22,9 +22,12 @@ Gets firmware from a device via Posh-SSH.
 ## EXAMPLES
 
 ### Example 1
+
+Get firmware from device with name V10-01:
+
 ```powershell
 PS C:\> $Params = @{
-  ComputerName = 'Device01'
+  ComputerName = 'V10-01'
   Credential   = Get-Credential
   AcceptKey    = $true
 }

@@ -22,9 +22,12 @@ Gets update configuration from a device via Posh-SSH.
 ## EXAMPLES
 
 ### Example 1
+
+Get update configuration from device with name V10-01:
+
 ```powershell
 PS C:\> $Params = @{
-  ComputerName = 'Device01'
+  ComputerName = 'V10-01'
   Credential   = Get-Credential
   AcceptKey    = $true
 }
@@ -36,7 +39,7 @@ Get-OSUpdateConfiguration -SSHSession $SSHSession
 Output:
 
 ```console
-Host     : Device01
+Host     : V10-01
 Protocol : http
 Hostname : igelrmserver
 Port     : 9080
