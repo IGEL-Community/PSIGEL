@@ -28,7 +28,7 @@ Shuts down a device via API. Runs in timeout if device is not online.
 Shut down the device with ID 195:
 
 ```powershell
-PS C:\> Stop-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
+PS C:\> Stop-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195:
 ```
 
 Output:
@@ -44,7 +44,7 @@ State    : SUCCESS
 
 ### Example 2
 
-{{ Add example description here }}
+Shut down all device which were started today:
 
 ```powershell
 $PSDefaultParameterValues = @{

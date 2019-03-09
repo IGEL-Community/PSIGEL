@@ -27,16 +27,47 @@ Updates properties of a device via API.
 
 ### Example 1
 
-{{ Add example description here }}
+Update property name of the device with ID 195 to 'NewName':
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -Name 'NewName'
 ```
 
 Output:
 
 ```console
+Message             Id
+-------             --
+Update successful. 195
+```
 
+### Example 2
+
+Update property name to 'Dev[MacAddress]' for all devices which name starts with 'V':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDevice -Filter details).where{$_.Name -match '^V'} |
+  ForEach-Object {
+  $_ | Update-UMSDevice -Name ('Dev{0}' -f $_.Mac)
+}
+```
+
+Output:
+
+```console
+Message             Id
+-------             --
+Update successful.  58
+Update successful. 195
 ```
 
 

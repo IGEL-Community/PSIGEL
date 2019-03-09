@@ -25,18 +25,58 @@ Restarts a device via API.
 
 ### Example 1
 
-{{ Add example description here }}
+Restart device with the ID 195:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Restart-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 ```
 
 Output:
 
 ```console
-
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-4-0
+Mac      : 00515734C234
+ExecTime : 1552120353386
+State    : SUCCESS
 ```
 
+### Example 2
+
+Restart all devices which where last started after '09.03.2019 09:00:00':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDevice -Filter details).where{($_.LastBootTime) -and ($_.LastBootTime -lt '09.03.2019 09:00:00')} |
+Restart-UMSDevice
+```
+
+Output:
+
+```console
+Message  : OK.
+Id       : 58
+ExecId   : ID-igelrmserver-53613-1552120204100-5-0
+Mac      : 080027B0F6E2
+ExecTime : 1552120663042
+State    : SUCCESS
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-6-0
+Mac      : 00515734C234
+ExecTime : 1552120663787
+State    : SUCCESS
+```
 
 ## PARAMETERS
 

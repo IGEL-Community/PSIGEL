@@ -25,18 +25,58 @@ Sends settings modified in the UMS database to a device via  API. The device has
 
 ### Example 1
 
-{{ Add example description here }}
+Send settings to the device with ID 195:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Send-UMSDeviceSetting -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 ```
 
 Output:
 
 ```console
-
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-10-0
+Mac      : 00515734C234
+ExecTime : 1552121348914
+State    : SUCCESS
 ```
 
+### Example 2
+
+Send settings to all device which were last started after '09.03.2019 09:00:00':
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDevice -Filter details).where{($_.LastBootTime) -and ($_.LastBootTime -lt '09.03.2019 09:00:00')} |
+  Send-UMSDeviceSetting
+```
+
+Output:
+
+```console
+Message  : OK.
+Id       : 58
+ExecId   : ID-igelrmserver-53613-1552120204100-8-0
+Mac      : 080027B0F6E2
+ExecTime : 1552121284437
+State    : SUCCESS
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-9-0
+Mac      : 00515734C234
+ExecTime : 1552121286151
+State    : SUCCESS
+```
 
 ## PARAMETERS
 

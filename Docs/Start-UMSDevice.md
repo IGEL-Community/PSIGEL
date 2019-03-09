@@ -8,7 +8,7 @@ schema: 2.0.0
 # Start-UMSDevice
 
 ## SYNOPSIS
-Wakes up a device.
+Sends WOL packet to a device.
 
 ## SYNTAX
 
@@ -19,22 +19,63 @@ Start-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <In
 ```
 
 ## DESCRIPTION
-Wakes up a device per WOL from the UMS via API.
+Sends WOL packet to a device (WOL) from the UMS via API.
 
 ## EXAMPLES
 
 ### Example 1
 
-{{ Add example description here }}
+Sends WOL packet to device with the ID 195:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Start-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 ```
 
 Output:
 
 ```console
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-11-0
+Mac      : 00515734C234
+ExecTime : 1552121589519
+State    : SUCCESS
+```
 
+### Example 2
+
+Sends WOL packet to all devices that were last started today:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDevice -Filter details).where{$_.LastBootTime -gt ((Get-Date)).AddDays(-1)} |
+  Start-UMSDevice
+```
+
+Output:
+
+```console
+Message  : OK.
+Id       : 58
+ExecId   : ID-LT035899H-53613-1552120204100-18-0 ID-LT035899H-53613-1552120204100-18-0
+Mac      : 00515734C234 080027B0F6E2
+ExecTime : 1552122278302 1552122278176
+State    : SUCCESS SUCCESS
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-LT035899H-53613-1552120204100-19-0 ID-LT035899H-53613-1552120204100-19-0
+Mac      : 080027B0F6E2 00515734C234
+ExecTime : 1552122279824 1552122279713
+State    : SUCCESS SUCCESS
 ```
 
 

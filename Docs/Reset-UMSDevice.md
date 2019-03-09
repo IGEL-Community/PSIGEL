@@ -25,18 +25,65 @@ Resets a device to factory defaults and removes it completely (without recycle b
 
 ### Example 1
 
-{{ Add example description here }}
+Reset device with ID 195:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Reset-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 ```
 
 Output:
 
 ```console
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Reset-UMSDevice" für das Ziel "Id: 195".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
 
+
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-52569-1552118590065-3-0
+Mac      :
+ExecTime : 1552119234364
+State    : SUCCESS
 ```
 
+### Example 2
+
+Reset all devices which are in a device directory which is in the device directory with the ID 71:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(((Get-UMSDeviceDirectory -Filter children).where{$_.ParentId -eq 71}).DirectoryChildren).where{$_.ObjectType -eq 'tc'} |
+  Reset-UMSDevice
+```
+
+Output:
+
+```console
+Message  : OK.
+Id       : 58
+ExecId   : ID-igelrmserver-52884-1552119449589-3-0
+Mac      :
+ExecTime : 1552119887968
+State    : SUCCESS
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-52884-1552119449589-4-0
+Mac      :
+ExecTime : 1552119889327
+State    : SUCCESS
+```
 
 ## PARAMETERS
 
