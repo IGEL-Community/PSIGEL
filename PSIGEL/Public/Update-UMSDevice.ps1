@@ -27,6 +27,7 @@
     $Id,
 
     [Parameter(ParameterSetName = 'Set')]
+    [ValidateLength(1, 15)]
     [String]
     $Name,
 

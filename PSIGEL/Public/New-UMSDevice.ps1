@@ -32,6 +32,7 @@
     $FirmwareId,
 
     [Parameter(ValueFromPipelineByPropertyName)]
+    [ValidateLength(1, 15)]
     [String]
     $Name,
 
