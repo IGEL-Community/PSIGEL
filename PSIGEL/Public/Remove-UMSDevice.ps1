@@ -78,7 +78,7 @@
             'Id'       = [Int]$Id
             'ExecId'   = [String]$APIObject.CommandExecList.execID
             'Mac'      = [String]$APIObject.CommandExecList.mac
-            'ExecTime' = [int64]$APIObject.CommandExecList.exectime
+            'ExecTime' = [String]$APIObject.CommandExecList.exectime
             'State'    = [String]$APIObject.CommandExecList.state
           }
         }
