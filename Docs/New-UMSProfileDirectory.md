@@ -28,7 +28,7 @@ Creates a profile directory via API.
 Create profile directory with name '06'
 
 ```powershell
-PS C:\> New-UMSProfileDirectory -Computername 'localhost' -WebSession $WebSession -Name '06'
+PS C:\> New-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Name '06'
 ```
 
 Output:
@@ -44,7 +44,7 @@ Directory successfully inserted. 743 06
 Create profile directories with name '05' and '06'
 
 ```powershell
-PS C:\> '05', '06' | New-UMSProfileDirectory -Computername 'localhost' -WebSession $WebSession
+PS C:\> '05', '06' | New-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession
 ```
 
 Output:

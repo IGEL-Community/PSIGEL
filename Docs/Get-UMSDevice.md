@@ -66,7 +66,7 @@ MovedToBin : False
 Get 'online' information on device with ID 195.:
 
 ```powershell
-PS C:\> Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Id 58 -Filter online
+PS C:\> Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -Filter online
 ```
 
 Output:
@@ -89,7 +89,7 @@ Online     : True
 Get 'details' information on device with ID 195:
 
 ```powershell
-PS C:\> 195 | Get-UMSDevice -ComputerName 'localhost' -WebSession $WebSession -Filter details
+PS C:\> 195 | Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Filter details
 ```
 
 Output:

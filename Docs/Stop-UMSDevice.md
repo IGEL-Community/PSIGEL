@@ -19,22 +19,63 @@ Stop-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int
 ```
 
 ## DESCRIPTION
-Shuts down a device via API.
+Shuts down a device via API. Runs in timeout if device is not online.
 
 ## EXAMPLES
 
 ### Example 1
 
-{{ Add example description here }}
+Shut down the device with ID 195:
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Stop-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 ```
 
 Output:
 
 ```console
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-39-0
+Mac      : 00515734C234
+ExecTime : 1552123564989
+State    : SUCCESS
+```
 
+### Example 2
+
+{{ Add example description here }}
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDevice -Filter details).where{$_.LastBootTime -gt ((Get-Date)).AddDays(-1)} |
+  Stop-UMSDevice
+```
+
+Output:
+
+```console
+Message  : OK.
+Id       : 58
+ExecId   : ID-igelrmserver-53613-1552120204100-40-0
+Mac      : 080027B0F6E2
+ExecTime : 1552123656488
+State    : SUCCESS
+
+Message  : OK.
+Id       : 195
+ExecId   : ID-igelrmserver-53613-1552120204100-41-0
+Mac      : 00515734C234
+ExecTime : 1552123656947
+State    : SUCCESS
 ```
 
 

@@ -46,7 +46,7 @@ Move to profile directory with the name '01' to the profile directory with the n
 ```powershell
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'   = (Get-Credential)
-  '*-UMS*:Computername' = 'localhost'
+  '*-UMS*:Computername' = 'igelrmserver'
 }
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = New-UMSAPICookie

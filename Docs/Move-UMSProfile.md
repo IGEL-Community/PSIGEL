@@ -28,7 +28,7 @@ Moves a profile to a profile directory via API.
 Move profile with the ID 390 to profile directory with the ID 230:
 
 ```powershell
-PS C:\> Move-UMSProfile -ComputerName 'localhost' -WebSession $WebSession -Id 390 -DestId 230
+PS C:\> Move-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 390 -DestId 230
 ```
 
 Output:

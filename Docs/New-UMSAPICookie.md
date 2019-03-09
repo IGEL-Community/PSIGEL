@@ -41,7 +41,7 @@ Get-Credential | Export-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\
 $Credential = Import-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile})
 
 #Create websession cookie and assign it to variable $WebSession
-$WebSession = New-UMSAPICookie -Computername 'localhost' -Credential $Credential
+$WebSession = New-UMSAPICookie -Computername 'igelrmserver' -Credential $Credential
 ```
 
 ## PARAMETERS
