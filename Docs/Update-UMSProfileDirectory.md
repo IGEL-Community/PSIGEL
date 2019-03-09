@@ -25,16 +25,49 @@ Updates the name of a profile directory via API.
 
 ### Example 1
 
-{{ Add example description here }}
+Update property name of the profile directory with ID 417 to 'NewName':
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Update-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 417 -Name 'NewName'
+
 ```
 
 Output:
 
 ```console
+Message                          Id
+-------                          --
+Updated directory successfully. 417
+```
 
+### Example 2
+
+Update property name for all profile directories which names start with '01' to '08' and extends their names with '|IGELOS' ('01' -> '01|IGELOS'):
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfileDirectory).where{$_.Name -match '^0[1-8]'} |
+  ForEach-Object {
+  $_ | Update-UMSProfileDirectory -Name ('{0}|IGELOS' -f $_.Name)
+}
+```
+
+Output:
+
+```console
+Message                          Id
+-------                          --
+Updated directory successfully. 417
+Updated directory successfully. 230
+Updated directory successfully. 668
 ```
 
 

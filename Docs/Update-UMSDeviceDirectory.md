@@ -25,18 +25,49 @@ Updates the name of a device directory via API.
 
 ### Example 1
 
-{{ Add example description here }}
+Update property name of device directory with ID 664 to 'NewName':
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Update-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 664 -Name 'NewName'
 ```
 
 Output:
 
 ```console
+Message                          Id
+-------                          --
+Updated directory successfully. 664
+```
+
+### Example 2
+
+Update property name of all device directories with parent ID 71 to add '01' to their existing names:
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSDeviceDirectory).where{$_.ParentId -eq 71} |
+  ForEach-Object {
+  $_ | Update-UMSDeviceDirectory -Name ('{0}01' -f $_.Name)
+}
 
 ```
 
+Output:
+
+```console
+Message                          Id
+-------                          --
+Updated directory successfully. 664
+Updated directory successfully. 665
+```
 
 ## PARAMETERS
 

@@ -19,22 +19,54 @@ Update-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <
 ```
 
 ## DESCRIPTION
-Updates the name of a profile directory via API.
+Updates the name of a profile via API.
 
 ## EXAMPLES
 
 ### Example 1
 
-{{ Add example description here }}
+Update property name of the profile with ID 390 to 'NewName':
 
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Update-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 390 -Name 'NewName'
 ```
 
 Output:
 
 ```console
+Message             Id
+-------             --
+Update successful. 390
+```
 
+### Example 2
+
+Update property name of profiles which names ending in 'OS11' to replace 'OS11' with 'IGELOS' ("01|Browser|OS11" -> "01|Browser|IGELOS"):
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfile).where{$_.Name -match 'OS11$'} |
+  ForEach-Object {
+  $_ | Update-UMSProfile -Name ($_.Name.replace('OS11','IGELOS'))
+}
+```
+
+Output:
+
+```console
+Message             Id
+-------             --
+Update successful.  69
+Update successful. 390
+Update successful. 669
 ```
 
 
