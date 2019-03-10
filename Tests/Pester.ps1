@@ -3,12 +3,13 @@ param
   [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
   [String]
   #$Tags = 'All'
-  $Tags = 'UnitTests'
-  #$Tags = 'IntegrationTests'
+  #$Tags = 'UnitTests'
+  $Tags = 'IntegrationTests'
 )
 $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
 $ModuleName = Split-Path $ModuleRoot -Leaf
+$OutputPath = '{0}\Tests\Data' -f $ProjectRoot
 
 
 $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $ProjectRoot) |
@@ -21,6 +22,7 @@ $PSDefaultParameterValues = @{
   '*-UMS*:TCPPort'          = [Int]$UMS.TCPPort
   '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
   '*-UMS*:Confirm'          = $false
+  'Invoke-Pester:Show'      = 'Failed'
 }
 
 <#
@@ -55,12 +57,12 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
+Invoke-Pester -Script ('{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $ModuleName) -OutputFile ('{0}\{1}.Tests.xml' -f $OutputPath, $ModuleName)
 
 foreach ($Function in $UMS.TestOrder.Public)
 {
   $IVPParams = @{
     Script     = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Function
-    Show       = 'Failed'
     OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Function
   }
   switch ($Tags)
