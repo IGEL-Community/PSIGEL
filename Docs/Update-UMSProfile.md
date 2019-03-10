@@ -28,12 +28,8 @@ Updates the name of a profile via API.
 Update property name of the profile with ID 390 to 'NewName':
 
 ```powershell
-PS C:\> Update-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 390 -Name 'NewName'
-```
+Update-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 390 -Name 'NewName'
 
-Output:
-
-```console
 Message             Id
 -------             --
 Update successful. 390
@@ -57,11 +53,7 @@ $PSDefaultParameterValues += @{
   ForEach-Object {
   $_ | Update-UMSProfile -Name ($_.Name.replace('OS11','IGELOS'))
 }
-```
 
-Output:
-
-```console
 Message             Id
 -------             --
 Update successful.  69

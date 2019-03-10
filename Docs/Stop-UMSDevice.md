@@ -28,12 +28,8 @@ Shuts down a device via API. Runs in timeout if device is not online.
 Shut down the device with ID 195:
 
 ```powershell
-PS C:\> Stop-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195:
-```
+Stop-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195:
 
-Output:
-
-```console
 Message  : OK.
 Id       : 195
 ExecId   : ID-igelrmserver-53613-1552120204100-39-0
@@ -58,11 +54,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDevice -Filter details).where{$_.LastBootTime -gt ((Get-Date)).AddDays(-1)} |
   Stop-UMSDevice
-```
 
-Output:
-
-```console
 Message  : OK.
 Id       : 58
 ExecId   : ID-igelrmserver-53613-1552120204100-40-0

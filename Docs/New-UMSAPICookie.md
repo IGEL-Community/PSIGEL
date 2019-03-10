@@ -27,7 +27,7 @@ Creates a websession cookie for the UMS API.
 Create websession cookie and assign it to variable $WebSession:
 
 ```powershell
-PS C:\> $WebSession = New-UMSAPICookie -Computername 'igelrmserver' -Credential (Get-Credential)
+$WebSession = New-UMSAPICookie -Computername 'igelrmserver' -Credential (Get-Credential)
 ```
 ### Example 2
 

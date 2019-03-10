@@ -28,12 +28,8 @@ Sends WOL packet to a device (WOL) from the UMS via API.
 Sends WOL packet to device with the ID 195:
 
 ```powershell
-PS C:\> Start-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
-```
+Start-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 
-Output:
-
-```console
 Message  : OK.
 Id       : 195
 ExecId   : ID-igelrmserver-53613-1552120204100-11-0
@@ -58,11 +54,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDevice -Filter details).where{$_.LastBootTime -gt ((Get-Date)).AddDays(-1)} |
   Start-UMSDevice
-```
 
-Output:
-
-```console
 Message  : OK.
 Id       : 58
 ExecId   : ID-LT035899H-53613-1552120204100-18-0 ID-LT035899H-53613-1552120204100-18-0

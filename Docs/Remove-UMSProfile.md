@@ -28,12 +28,8 @@ Removes a profile via API.
 Remove profile with ID 669:
 
 ```powershell
-PS C:\> Remove-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 669
-```
+Remove-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 669
 
-Output:
-
-```console
 Bestätigung
 Möchten Sie diese Aktion wirklich ausführen?
 Ausführen des Vorgangs "Remove-UMSProfile" für das Ziel "Id: 669".
@@ -60,11 +56,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSProfile).where{$_.Name -match '^0[1-2]'} |
   Remove-UMSProfile
-```
 
-Output:
-
-```console
 Message           Id
 -------           --
 Deleted profile.  69

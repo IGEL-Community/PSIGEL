@@ -34,12 +34,9 @@ Gets information on a device via API.
 Get 'short' information on all devices:
 
 ```powershell
-PS C:\> Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession
-```
+Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession
 
-Output:
 
-```console
 Id         : 58
 ObjectType : tc
 UnitId     : 080027B0F6E2
@@ -66,13 +63,8 @@ MovedToBin : False
 Get 'online' information on device with ID 195.:
 
 ```powershell
-PS C:\> Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -Filter online
-```
+Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -Filter online
 
-Output:
-
-
-```console
 Id         : 195
 ObjectType : tc
 UnitId     : 00515734C234
@@ -89,12 +81,9 @@ Online     : True
 Get 'details' information on device with ID 195:
 
 ```powershell
-PS C:\> 195 | Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Filter details
-```
+195 | Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Filter details
 
-Output:
 
-```console
 Id                        : 195
 ObjectType                : tc
 UnitId                    : 00515734C234

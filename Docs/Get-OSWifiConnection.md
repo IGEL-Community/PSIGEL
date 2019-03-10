@@ -26,7 +26,7 @@ Gets wifi connection from a device via Posh-SSH.
 Get WiFi connection from device with name V10-01:
 
 ```powershell
-PS C:\> $Params = @{
+$Params = @{
   ComputerName = 'V10-01'
   Credential   = Get-Credential
   AcceptKey    = $true
@@ -34,11 +34,7 @@ PS C:\> $Params = @{
 $SSHSession = New-SSHSession @Params
 
 Get-OSUpdateConfiguration -SSHSession $SSHSession
-```
 
-Output:
-
-```console
 Host              : V10-01
 Interface         : wlan0
 ESSID             : WLAN-0123456

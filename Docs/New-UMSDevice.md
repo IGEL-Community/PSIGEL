@@ -31,11 +31,7 @@ Create new device for device with Mac address '1a2b3c4d5e6f' and firmware ID 2:
 
 ```powershell
 New-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Mac '1a2b3c4d5e6f' -FirmwareId 2
-```
 
-Output:
-
-```console
 Mac      : 1a2b3c4d5e6f
 Message  : Thin client successfully inserted.
 Id       : 722
@@ -65,11 +61,7 @@ $Params = @{
   Site          = 'Augsburg'
 }
 New-UMSDevice @Params
-```
 
-Output:
-
-```console
 Mac      : 1a2b3c4d5e6f
 Message  : Thin client successfully inserted.
 Id       : 725
@@ -89,11 +81,7 @@ Mac, FirmwareId, Name, ParentId, Site
 '@
 
 ConvertFrom-Csv -InputObject $CSV | New-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession
-```
 
-Output:
-
-```console
 Mac      : 1a2b3c4d5e6f
 Message  : Thin client successfully inserted.
 Id       : 731

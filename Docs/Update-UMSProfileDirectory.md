@@ -28,13 +28,8 @@ Updates the name of a profile directory via API.
 Update property name of the profile directory with ID 417 to 'NewName':
 
 ```powershell
-PS C:\> Update-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 417 -Name 'NewName'
+Update-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 417 -Name 'NewName'
 
-```
-
-Output:
-
-```console
 Message                          Id
 -------                          --
 Updated directory successfully. 417
@@ -58,11 +53,7 @@ $PSDefaultParameterValues += @{
   ForEach-Object {
   $_ | Update-UMSProfileDirectory -Name ('{0}|IGELOS' -f $_.Name)
 }
-```
 
-Output:
-
-```console
 Message                          Id
 -------                          --
 Updated directory successfully. 417

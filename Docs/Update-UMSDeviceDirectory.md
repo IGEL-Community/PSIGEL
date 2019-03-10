@@ -28,12 +28,8 @@ Updates the name of a device directory via API.
 Update property name of device directory with ID 664 to 'NewName':
 
 ```powershell
-PS C:\> Update-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 664 -Name 'NewName'
-```
+Update-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 664 -Name 'NewName'
 
-Output:
-
-```console
 Message                          Id
 -------                          --
 Updated directory successfully. 664
@@ -58,11 +54,6 @@ $PSDefaultParameterValues += @{
   $_ | Update-UMSDeviceDirectory -Name ('{0}01' -f $_.Name)
 }
 
-```
-
-Output:
-
-```console
 Message                          Id
 -------                          --
 Updated directory successfully. 664

@@ -28,12 +28,8 @@ Creates a device directory via API.
 Create new device directory with name "SanFrancisco":
 
 ```powershell
-PS C:\> New-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Name 'SanFrancisco'
-```
+New-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Name 'SanFrancisco'
 
-Output:
-
-```console
 Message                           Id Name
 -------                           -- ----
 Directory successfully inserted. 736 SanFrancisco
@@ -44,12 +40,8 @@ Directory successfully inserted. 736 SanFrancisco
 Create new device directories with names "SanFrancisco" and "Leipzig":
 
 ```powershell
-PS C:\> 'SanFrancisco', 'Leipzig' | New-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession
-```
+'SanFrancisco', 'Leipzig' | New-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession
 
-Output:
-
-```console
 Message                           Id Name
 -------                           -- ----
 Directory successfully inserted. 738 SanFrancisco

@@ -26,7 +26,7 @@ Gets firmware from a device via Posh-SSH.
 Get firmware from device with name V10-01:
 
 ```powershell
-PS C:\> $Params = @{
+$Params = @{
   ComputerName = 'V10-01'
   Credential   = Get-Credential
   AcceptKey    = $true
@@ -34,11 +34,7 @@ PS C:\> $Params = @{
 $SSHSession = New-SSHSession @Params
 
 Get-OSFirmware -SSHSession $SSHSession
-```
 
-Output:
-
-```console
 Version
 -------
 10.05.500.01

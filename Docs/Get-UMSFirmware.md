@@ -34,12 +34,8 @@ Gets information on a firmware via API.
 Get all firmwares:
 
 ```powershell
-PS C:\> Get-UMSFirmware -ComputerName 'igelrmserver' -WebSession $WebSession
-```
+Get-UMSFirmware -ComputerName 'igelrmserver' -WebSession $WebSession
 
-Output:
-
-```console
 Id Product                     Version      FirmwareType
 -- -------                     -------      ------------
  2 IGEL OS 11                  11.01.100.01 LX
@@ -51,12 +47,8 @@ Id Product                     Version      FirmwareType
 Get firmware with ID 2:
 
 ```powershell
-PS C:\> Get-UMSFirmware -ComputerName 'igelrmserver' -WebSession $WebSession -Id 2
-```
+Get-UMSFirmware -ComputerName 'igelrmserver' -WebSession $WebSession -Id 2
 
-Output:
-
-```console
 Id Product    Version      FirmwareType
 -- -------    -------      ------------
  2 IGEL OS 11 11.01.100.01 LX

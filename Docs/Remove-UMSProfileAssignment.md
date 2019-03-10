@@ -28,12 +28,8 @@ Removes a profile assignment from a device or device directory via API.
 Remove assignment of profile with ID 669 from device with ID 195:
 
 ```powershell
-PS C:\> Remove-UMSProfileAssignment -Computername 'igelrmserver' -WebSession $WebSession -Id 669 -ReceiverId 195 -ReceiverType tc
-```
+Remove-UMSProfileAssignment -Computername 'igelrmserver' -WebSession $WebSession -Id 669 -ReceiverId 195 -ReceiverType tc
 
-Output:
-
-```console
 Message                      Id ReceiverId ReceiverType
 -------                      -- ---------- ------------
 deleted profile assignment. 669        195 tc
@@ -60,11 +56,6 @@ foreach ($Assignment in $AssignmentColl)
   Remove-UMSProfileAssignment -Id $Assignment.AssigneeId -ReceiverId $Assignment.ReceiverId -ReceiverType $Assignment.ReceiverType
 }
 
-```
-
-Output:
-
-```console
 Message                      Id ReceiverId ReceiverType
 -------                      -- ---------- ------------
 deleted profile assignment. 390         71 tcdirectory

@@ -35,12 +35,8 @@ Gets information on a device directory via API.
 Get all device directories:
 
 ```powershell
-PS C:\> Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
-```
+Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
 
-Output:
-
-```console
 Id         : 71
 Name       : IGELOS
 ParentId   : -1
@@ -65,12 +61,8 @@ ObjectType : tcdirectory
 Get device directory with ID 71, including its children directories:
 
 ```powershell
-PS C:\> 71 | Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Filter children
-```
+71 | Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Filter children
 
-Output:
-
-```console
 Id                : 71
 Name              : IGELOS
 ParentId          : -1

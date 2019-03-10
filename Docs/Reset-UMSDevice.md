@@ -28,12 +28,8 @@ Resets a device to factory defaults and removes it completely (without recycle b
 Reset device with ID 195:
 
 ```powershell
-PS C:\> Reset-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
-```
+Reset-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 
-Output:
-
-```console
 Bestätigung
 Möchten Sie diese Aktion wirklich ausführen?
 Ausführen des Vorgangs "Reset-UMSDevice" für das Ziel "Id: 195".
@@ -65,11 +61,7 @@ $PSDefaultParameterValues += @{
 
 (((Get-UMSDeviceDirectory -Filter children).where{$_.ParentId -eq 71}).DirectoryChildren).where{$_.ObjectType -eq 'tc'} |
   Reset-UMSDevice
-```
 
-Output:
-
-```console
 Message  : OK.
 Id       : 58
 ExecId   : ID-igelrmserver-52884-1552119449589-3-0

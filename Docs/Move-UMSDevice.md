@@ -28,12 +28,8 @@ Moves a device to a device directory via UMS.
 Move device with ID 58 to device directory with ID 665:
 
 ```powershell
-PS C:\> Move-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -DestId 665
-```
+Move-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -DestId 665
 
-Output:
-
-```console
 Id Message
 -- -------
 58 successful.
@@ -53,11 +49,7 @@ $PSDefaultParameterValues += @{
 }
 (Get-UMSDevice -Filter details).where{$_.LastIp -match '^192.168.56'} |
   Move-UMSDevice -DestId ((Get-UMSDeviceDirectory).where{$_.name -eq 'Augsburg'})[0].Id
-```
 
-Output:
-
-```console
  Id Message
  -- -------
  58 successful.

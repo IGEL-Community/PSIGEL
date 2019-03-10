@@ -28,12 +28,8 @@ Removes a device directory via API. The device directory is only removed if it i
 Remove device directory with ID 688:
 
 ```powershell
-PS C:\> Remove-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 688
-```
+Remove-UMSDeviceDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 688
 
-Output:
-
-```console
 Bestätigung
 Möchten Sie diese Aktion wirklich ausführen?
 Ausführen des Vorgangs "Remove-UMSDeviceDirectory" für das Ziel "Id: 688".
@@ -60,11 +56,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDeviceDirectory).where{$_.Name -match '^[1-4]$'} |
   Remove-UMSDeviceDirectory
-```
 
-Output:
-
-```console
 Message               Id
 -------               --
 Deletion successful. 684

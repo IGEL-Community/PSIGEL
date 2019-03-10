@@ -27,12 +27,8 @@ Gets information on the UMS via API.
 Get information on the UMS:
 
 ```powershell
-PS C:\> Get-UMSStatus -ComputerName 'igelrmserver' -WebSession $WebSession
-```
+Get-UMSStatus -ComputerName 'igelrmserver' -WebSession $WebSession
 
-Output:
-
-```console
 RmGuiServerVersion : 6.01.100
 BuildNumber        : 40023
 ActiveMqVersion    : 5.6.0

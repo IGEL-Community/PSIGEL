@@ -27,13 +27,10 @@ Gets information on a profile or master profile assignment of a device via API.
 Get profile assignment for device with ID 195:
 
 ```powershell
-PS C:\> Get-UMSDeviceAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 195
+Get-UMSDeviceAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 195
 
-```
 
-Output:
 
-```console
 Id                 : 195
 ReceiverId         : 195
 ReceiverType       : tc

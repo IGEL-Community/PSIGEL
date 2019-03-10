@@ -28,12 +28,8 @@ Sends settings modified in the UMS database to a device via  API. The device has
 Send settings to the device with ID 195:
 
 ```powershell
-PS C:\> Send-UMSDeviceSetting -Computername 'igelrmserver' -WebSession $WebSession -Id 195
-```
+Send-UMSDeviceSetting -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 
-Output:
-
-```console
 Message  : OK.
 Id       : 195
 ExecId   : ID-igelrmserver-53613-1552120204100-10-0
@@ -58,11 +54,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDevice -Filter details).where{($_.LastBootTime) -and ($_.LastBootTime -lt '09.03.2019 09:00:00')} |
   Send-UMSDeviceSetting
-```
 
-Output:
-
-```console
 Message  : OK.
 Id       : 58
 ExecId   : ID-igelrmserver-53613-1552120204100-8-0

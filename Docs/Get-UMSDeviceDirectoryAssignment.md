@@ -27,12 +27,9 @@ Gets information on a profile or master profile assignment of a device directory
 Get profile assignment for device directory with ID 664:
 
 ```powershell
-PS C:\> Get-UMSDeviceDirectoryAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 664
-```
+Get-UMSDeviceDirectoryAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 664
 
-Output:
 
-```console
 Id                 : 664
 ReceiverId         : 664
 ReceiverType       : tcdirectory

@@ -28,12 +28,8 @@ Moves a device directory to a device directory via API.
 Move device directory with ID 664 to device directory with ID 665:
 
 ```powershell
-PS C:\> Move-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 664 -DestId 665
-```
+Move-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 664 -DestId 665
 
-Output:
-
-```console
  Id Message
  -- -------
 664 successful.
@@ -54,11 +50,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDeviceDirectory).where{$_.Name -eq 'Bremen'} |
   Move-UMSDeviceDirectory -DestId ((Get-UMSDeviceDirectory).where{$_.name -eq 'Augsburg'})[0].Id
-```
 
-Output:
-
-```console
  Id Message
  -- -------
 665 successful.

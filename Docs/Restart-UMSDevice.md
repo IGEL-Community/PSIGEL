@@ -28,12 +28,8 @@ Restarts a device via API.
 Restart device with the ID 195:
 
 ```powershell
-PS C:\> Restart-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
-```
+Restart-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195
 
-Output:
-
-```console
 Message  : OK.
 Id       : 195
 ExecId   : ID-igelrmserver-53613-1552120204100-4-0
@@ -58,11 +54,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDevice -Filter details).where{($_.LastBootTime) -and ($_.LastBootTime -lt '09.03.2019 09:00:00')} |
 Restart-UMSDevice
-```
 
-Output:
-
-```console
 Message  : OK.
 Id       : 58
 ExecId   : ID-igelrmserver-53613-1552120204100-5-0

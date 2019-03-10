@@ -28,12 +28,8 @@ Moves a profile to a profile directory via API.
 Move profile with the ID 390 to profile directory with the ID 230:
 
 ```powershell
-PS C:\> Move-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 390 -DestId 230
-```
+Move-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 390 -DestId 230
 
-Output:
-
-```console
  Id Message
  -- -------
 390 successful
@@ -54,11 +50,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSProfile).where{$_.Name -match '^01'} |
   Move-UMSProfile -DestId ((Get-UMSProfileDirectory).where{$_.name -eq '01'})[0].Id}
-```
 
-Output:
-
-```console
  Id Message
  -- -------
 390 successful

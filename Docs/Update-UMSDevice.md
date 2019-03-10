@@ -30,12 +30,8 @@ Updates properties of a device via API.
 Update property name of the device with ID 195 to 'NewName':
 
 ```powershell
-PS C:\> Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -Name 'NewName'
-```
+Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -Name 'NewName'
 
-Output:
-
-```console
 Message             Id
 -------             --
 Update successful. 195
@@ -59,11 +55,7 @@ $PSDefaultParameterValues += @{
   ForEach-Object {
   $_ | Update-UMSDevice -Name ('Dev{0}' -f $_.Mac)
 }
-```
 
-Output:
-
-```console
 Message             Id
 -------             --
 Update successful.  58

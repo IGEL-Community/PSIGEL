@@ -36,12 +36,8 @@ Removes a device completely (without recycle bin) via API. Per default the devic
 Remove device with ID 754 offline:
 
 ```powershell
-PS C:\> Remove-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 754
-```
+Remove-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 754
 
-Output:
-
-```console
 Bestätigung
 Möchten Sie diese Aktion wirklich ausführen?
 Ausführen des Vorgangs "Remove-UMSDevice" für das Ziel "Id: 754".
@@ -57,12 +53,8 @@ Offline deletion successful. 754
 Remove device with ID 195 online:
 
 ```powershell
-PS C:\> Remove-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -Online
-```
+Remove-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -Online
 
-Output:
-
-```console
 Bestätigung
 Möchten Sie diese Aktion wirklich ausführen?
 Ausführen des Vorgangs "Remove-UMSDevice" für das Ziel "Id: 195".
@@ -93,11 +85,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSDevice).where{$_.Name -match '^V.+(02|03)$'} |
   Remove-UMSDevice
-```
 
-Output:
-
-```console
 Message                       Id
 -------                       --
 Offline deletion successful. 749

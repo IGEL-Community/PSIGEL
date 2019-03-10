@@ -28,12 +28,8 @@ Creates a profile assignment on a device or device directory via API.
 Create profile assignment for profile with ID 390 on device with ID 58:
 
 ```powershell
-PS C:\> New-UMSProfileAssignment -Computername 'igelrmserver' -WebSession $WebSession -Id 390 -ReceiverId 58 -ReceiverType tc
-```
+New-UMSProfileAssignment -Computername 'igelrmserver' -WebSession $WebSession -Id 390 -ReceiverId 58 -ReceiverType tc
 
-Output:
-
-```console
 Message                                Id ReceiverId ReceiverType
 -------                                -- ---------- ------------
 1 asssignments successfully assigned. 390         58 tc
@@ -54,11 +50,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSProfile).where{$_.Name -match '^(01|07)'} |
   New-UMSProfileAssignment -ReceiverId 664 -ReceiverType tcdirectory
-```
 
-Output:
-
-```console
 Message                                Id ReceiverId ReceiverType
 -------                                -- ---------- ------------
 1 asssignments successfully assigned. 390        664 tcdirectory

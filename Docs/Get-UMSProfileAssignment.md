@@ -34,12 +34,8 @@ Gets information on a device or device directory assignment of a profile via API
 Get device assignments for the profile with ID 669:
 
 ```powershell
-PS C:\> Get-UMSProfileAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 669
-```
+Get-UMSProfileAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Id 669
 
-Output:
-
-```console
 Id                 : 669
 Type               : profile
 ReceiverId         : 195
@@ -52,12 +48,8 @@ AssignmentPosition : 0
 Get device directory assignments for the profile with ID 69:
 
 ```powershell
-PS C:\> 69 | Get-UMSProfileAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Directory
-```
+69 | Get-UMSProfileAssignment -ComputerName 'igelrmserver' -WebSession $WebSession -Directory
 
-Output:
-
-```console
 Id                 : 69
 Type               : profile
 ReceiverId         : 664

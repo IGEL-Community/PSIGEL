@@ -28,12 +28,8 @@ Removes a profile directory via API.
 Remove profile directory with ID 668:
 
 ```powershell
-PS C:\> Remove-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 668
-```
+Remove-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 668
 
-Output:
-
-```console
 Bestätigung
 Möchten Sie diese Aktion wirklich ausführen?
 Ausführen des Vorgangs "Remove-UMSProfileDirectory" für das Ziel "Id: 668".
@@ -60,11 +56,7 @@ $PSDefaultParameterValues += @{
 
 (Get-UMSProfileDirectory).where{$_.Name -match '^0(1|2)'} |
   Remove-UMSProfileDirectory
-```
 
-Output:
-
-```console
 Message               Id
 -------               --
 Deletion successful. 417

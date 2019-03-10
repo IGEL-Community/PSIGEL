@@ -35,12 +35,8 @@ Gets information on a profile directory via API.
 Get all profile directories:
 
 ```powershell
-PS C:\> Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
-```
+Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
 
-Output:
-
-```console
 Id         : 417
 Name       : 01
 ParentId   : 666
@@ -71,12 +67,8 @@ ObjectType : profiledirectory
 Get profile directory with ID 668 including its children:
 
 ```powershell
-PS C:\> Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 668 -Filter children
-```
+Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession -Id 668 -Filter children
 
-Output:
-
-```console
 Id                : 668
 Name              : 07
 ParentId          : 666

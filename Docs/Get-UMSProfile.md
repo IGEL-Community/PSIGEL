@@ -34,12 +34,8 @@ Gets information on a profile via API.
 Get all profiles:
 
 ```powershell
-PS C:\> Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession
-```
+Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession
 
-Output:
-
-```console
 FirmwareId        : 2
 IsMasterProfile   : False
 OverridesSessions : False
@@ -73,12 +69,8 @@ ObjectType        : profile
 Get profile with ID 69:
 
 ```powershell
-PS C:\> Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 69
-```
+Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 69
 
-Output:
-
-```console
 FirmwareId        : 2
 IsMasterProfile   : False
 OverridesSessions : False
