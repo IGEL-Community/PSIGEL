@@ -18,7 +18,11 @@
 
     [ValidateSet(3)]
     [Int]
-    $ApiVersion = 3
+    $ApiVersion = 3,
+
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12'
   )
 
   Begin
@@ -31,23 +35,23 @@
         public bool CheckValidationResult(
             ServicePoint srvPoint, X509Certificate certificate,
             WebRequest request, int certificateProblem) {
-            return true;
-        }
-    }
+              return true;
+            }
+          }
 '@
+    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
   }
   Process
   {
-    $UserName = $Credential.UserName
+    $Username = $Credential.Username
     $Password = $Credential.GetNetworkCredential().password
 
-    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
     $BUArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
     $Header = @{
-      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($UserName + ':' + $Password))
+      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Username + ':' + $Password))
     }
 
     $Params = @{
@@ -76,7 +80,8 @@
     {
       $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
       $WebSession.Cookies.Add($Cookie)
-      $WebSession
+      $Result = $WebSession
+      $Result
     }
   }
   End

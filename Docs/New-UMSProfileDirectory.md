@@ -1,47 +1,70 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/New-UMSProfileDirectory.md
+online version:
 schema: 2.0.0
 ---
 
 # New-UMSProfileDirectory
 
 ## SYNOPSIS
-Creates a Profile Directory via API
+Creates a profile directory.
 
 ## SYNTAX
 
 ```
 New-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-Name] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Name] <String> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Creates a Profile Directory via API
+Creates a profile directory via API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Create profile directory with name '06'
+
 ```powershell
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-  Name         = 'NewProfileDir1'
-}
-New-UMSProfileDirectory @Params
+New-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Name '06'
+
+Message                           Id Name
+-------                           -- ----
+Directory successfully inserted. 743 06
 ```
-Creates a Profile Directory with name 'NewProfileDir1'
 
 ### Example 2
+
+Create profile directories with name '05' and '06'
+
 ```powershell
-'NewProfileDir1', 'NewProfileDir2' | New-UMSProfileDirectory -Computername 'UMSSERVER'
+'05', '06' | New-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession
+
+Message                           Id Name
+-------                           -- ----
+Directory successfully inserted. 744 05
+Directory successfully inserted. 745 06
 ```
 
-Creates Profile Directories with names 'NewProfileDir1' and 'NewProfileDir2'
-
 ## PARAMETERS
+
+### -ApiVersion
+API Version to use (Default: 3)
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Computername
 Computername of the UMS Server
@@ -52,83 +75,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCPPort
-TCP Port API (Default: 8443)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WebSession
-Websession Cookie
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Name
-Name of the Profile Directory to create
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 5
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -143,19 +90,100 @@ Parameter Sets: (All)
 Aliases: cf
 
 Required: False
-Position: Named
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Name
+Name of the profile directory
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+Set SSL/TLS protocol
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+TCP Port API
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+Websession Cookie
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### System.String
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

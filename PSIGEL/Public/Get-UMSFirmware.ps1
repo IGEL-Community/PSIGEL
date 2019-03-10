@@ -1,12 +1,13 @@
 ﻿function Get-UMSFirmware
 {
-  [cmdletbinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
+    [Parameter(Mandatory)]
     [String]
     $Computername,
 
-    [ValidateRange(0, 49151)]
+    [ValidateRange(0, 65535)]
     [Int]
     $TCPPort = 8443,
 
@@ -14,45 +15,56 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(ValueFromPipeline)]
-    [int]
-    $FirmwareID = 0
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Id')]
+    [Int]
+    $Id
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/firmwares' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    Switch ($FirmwareID)
+    Switch ($PsCmdlet.ParameterSetName)
     {
-      0
+      'All'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/firmwares' -f $UriArray
-        (Invoke-UMSRestMethodWebSession @Params).FwResource
+        $Params.Add('Uri', ('{0}' -f $BaseURL))
+        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).FwResource
       }
-      default
+      'Id'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $FirmwareID)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/firmwares/{3}' -f $UriArray
-        Invoke-UMSRestMethodWebSession @Params
+        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
+        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      $Properties = [ordered]@{
+        'Id'           = [Int]$APIObject.id
+        'Product'      = [String]$APIObject.product
+        'Version'      = [String]$APIObject.version
+        'FirmwareType' = [String]$APIObject.firmwareType
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {

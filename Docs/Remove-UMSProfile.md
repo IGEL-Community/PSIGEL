@@ -1,47 +1,86 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfile.md
+online version:
 schema: 2.0.0
 ---
 
 # Remove-UMSProfile
 
 ## SYNOPSIS
-Deletes profile.
+Removes a profile.
 
 ## SYNTAX
 
 ```
 Remove-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [-ProfileID] <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Deletes profile.
+Removes a profile via API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Remove profile with ID 669:
+
 ```powershell
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-  ProfileID    = 48170
-}
-Remove-UMSProfile @Params
+Remove-UMSProfile -Computername 'igelrmserver' -WebSession $WebSession -Id 669
+
+Bestätigung
+Möchten Sie diese Aktion wirklich ausführen?
+Ausführen des Vorgangs "Remove-UMSProfile" für das Ziel "Id: 669".
+[J] Ja [A] Ja, alle [N] Nein [K] Nein, keine [H] Anhalten [?] Help (default is "Ja"):
+
+Message           Id
+-------           --
+Deleted profile. 669
 ```
-Removes Profile with ProfileID 48170
 
 ### Example 2
+
+Remove profiles with names that start either with 01 or 02:
+
 ```powershell
-48170 | Remove-UMSProfile -Computername 'UMSSERVER'
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+(Get-UMSProfile).where{$_.Name -match '^0[1-2]'} |
+  Remove-UMSProfile
+
+Message           Id
+-------           --
+Deleted profile.  69
+Deleted profile. 390
 ```
 
-Removes Profile with ProfileID 48170
 
 ## PARAMETERS
+
+### -ApiVersion
+API Version to use (Default: 3)
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Computername
 Computername of the UMS Server
@@ -52,83 +91,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCPPort
-TCP Port (Default: 8443)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WebSession
-Websession Cookie
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProfileID
-ProfileID of the thinclient to remove
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -143,19 +106,100 @@ Parameter Sets: (All)
 Aliases: cf
 
 Required: False
-Position: Named
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+ID of the profile
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+Set SSL/TLS protocol
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+TCP Port API
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+Websession Cookie
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

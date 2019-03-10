@@ -1,9 +1,9 @@
 ﻿<#
       .Synopsis
-      Gets Thinclient Directory Structure from API
+      Gets Device Directory Structure from API
 
       .DESCRIPTION
-      Gets Thinclient Directory Structure from API. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
+      Gets Device Directory Structure from API. Expects 4 Tier-Directory Structure (e.g. Base / Organisation / Campus / Room)
 
       .PARAMETER Computername
       Computername of the UMS Server
@@ -27,7 +27,7 @@
 Param
 (
   [String]
-  $Computername = 'UMSSERVER',
+  $Computername = 'igelrmserver.acme.org',
 
   [ValidateRange(0, 65535)]
   [Int]
@@ -44,7 +44,9 @@ Param
   [String]
   $Filename = 'UMSDirectories.csv',
 
-  $WebSession = $false
+  $WebSession = $false,
+
+  $SecurityProtocol = 'Tls'
 )
 
 Switch ($WebSession)
@@ -55,7 +57,7 @@ Switch ($WebSession)
   }
 }
 
-$DirColl = Get-UMSThinclientDirectory -Computername $Computername -WebSession $WebSession
+$DirColl = Get-UMSDeviceDirectory -Computername $Computername -WebSession $WebSession
 $Tier1Coll = $DirColl | Where-Object {
   $_.parentID -eq -1
 }
@@ -77,21 +79,21 @@ $UMSDirectoryStructure = foreach ($Tier1 in $Tier1Coll)
       foreach ($Tier4 in $Tier4Coll)
       {
         $UMSDirectoriesProps = @{
-          Tier1Name = $Tier1.name
-          Tier1Id   = $Tier1.id
-          Tier2Name = $Tier2.name
-          Tier2Id   = $Tier2.id
-          Tier3Name = $Tier3.name
-          Tier3Id   = $Tier3.id
-          Tier4Name = $Tier4.name
-          Tier4Id   = $Tier4.id
+          'Tier1Name' = $Tier1.name
+          'Tier1Id'   = $Tier1.id
+          'Tier2Name' = $Tier2.name
+          'Tier2Id'   = $Tier2.id
+          'Tier3Name' = $Tier3.name
+          'Tier3Id'   = $Tier3.id
+          'Tier4Name' = $Tier4.name
+          'Tier4Id'   = $Tier4.id
         }
         New-Object -TypeName PSObject -Property $UMSDirectoriesProps
       }
     }
   }
 }
-$Null = $UMSDirectoryStructure |
+$Null = $UMSDirectoryStructure = $UMSDirectoryStructure |
   Select-Object -Property Tier1Name, Tier2Name, Tier3Name, Tier4Name |
   Sort-Object -Property Tier1Name, Tier2Name, Tier3Name, Tier4Name |
   ConvertTo-Csv -Delimiter ';' -NoTypeInformation |

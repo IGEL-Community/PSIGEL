@@ -1,55 +1,85 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Remove-UMSProfileAssignment.md
+online version:
 schema: 2.0.0
 ---
 
 # Remove-UMSProfileAssignment
 
 ## SYNOPSIS
-Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
+Removes a profile assignment from a device or device directory.
 
 ## SYNTAX
 
-### TC
 ```
-Remove-UMSProfileAssignment -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-WebSession <Object>] -ProfileID <Int32> -TCID <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### Dir
-```
-Remove-UMSProfileAssignment -Computername <String> [-TCPPort <Int32>] [-ApiVersion <Int32>]
- [-WebSession <Object>] -ProfileID <Int32> -DirID <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-UMSProfileAssignment [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-ReceiverId] <Int32>
+ [-ReceiverType] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Deletes assignment of the specified profile to the specified Thinclient or Thinclient directory.
+Removes a profile assignment from a device or device directory via API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Remove assignment of profile with ID 669 from device with ID 195:
+
 ```powershell
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-  ProfileID    = 470
-  TCID         = 48426
-}
-Remove-UMSProfileAssignment @Params
+Remove-UMSProfileAssignment -Computername 'igelrmserver' -WebSession $WebSession -Id 669 -ReceiverId 195 -ReceiverType tc
+
+Message                      Id ReceiverId ReceiverType
+-------                      -- ---------- ------------
+deleted profile assignment. 669        195 tc
 ```
-Deletes assignment of profile with ProfileID 470 to the Thinclient with the TCID 48426.
 
 ### Example 2
+
+Remove all profile assignments from device directory with name 'IGELOS':
+
 ```powershell
-48170 | Remove-UMSProfileAssignment -Computername 'UMSSERVER' -DirID 185
+$PSDefaultParameterValues = @{
+  '*-UMS*:Credential'   = (Get-Credential)
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:Confirm'      = $false
+}
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = New-UMSAPICookie
+}
+
+$AssignmentColl = ((Get-UMSDeviceDirectory).where{$_.Name -eq 'IGELOS'}) | Get-UMSDeviceDirectoryAssignment 
+
+foreach ($Assignment in $AssignmentColl)
+{
+  Remove-UMSProfileAssignment -Id $Assignment.AssigneeId -ReceiverId $Assignment.ReceiverId -ReceiverType $Assignment.ReceiverType
+}
+
+Message                      Id ReceiverId ReceiverType
+-------                      -- ---------- ------------
+deleted profile assignment. 390         71 tcdirectory
+deleted profile assignment.  69         71 tcdirectory
 ```
 
-Deletes assignment of profile with ProfileID 48170 to the Thinclient directory with the DirID 185.
 
 ## PARAMETERS
+
+### -ApiVersion
+API Version to use (Default: 3)
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Computername
 Computername of the UMS Server
@@ -60,113 +90,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -TCPPort
-TCP Port (Default: 8443)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: 3
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WebSession
-Websession Cookie
-
-```yaml
-Type: Object
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ProfileID
-ProfileID to search for
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -TCID
-{{Fill TCID Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: TC
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -DirID
-{{Fill DirID Description}}
-
-```yaml
-Type: Int32
-Parameter Sets: Dir
-Aliases:
-
-Required: True
-Position: Named
-Default value: 0
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
+Position: 0
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -181,19 +105,133 @@ Parameter Sets: (All)
 Aliases: cf
 
 Required: False
-Position: Named
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+ID of the profile
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 5
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ReceiverId
+ID of the device or device directory
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 6
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -ReceiverType
+Type of the device or device directory
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: tc, tcdirectory
+
+Required: True
+Position: 7
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+Set SSL/TLS protocol
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 3
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TCPPort
+TCP Port API
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WebSession
+Websession Cookie
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases:
+
+Required: True
+Position: 4
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### System.Int32
+
+### System.String
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

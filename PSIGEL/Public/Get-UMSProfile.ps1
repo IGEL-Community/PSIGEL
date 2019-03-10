@@ -1,6 +1,6 @@
 ﻿function Get-UMSProfile
 {
-  [cmdletbinding()]
+  [CmdletBinding(DefaultParameterSetName = 'All')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,44 +15,60 @@
     [Int]
     $ApiVersion = 3,
 
-    $WebSession = $false,
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
 
-    [Parameter(ValueFromPipeline)]
-    [int]
-    $ProfileID = 0
+    [Parameter(Mandatory)]
+    $WebSession,
+
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, ParameterSetName = 'Id')]
+    [Int]
+    $Id
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-    
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    Switch ($ProfileID)
+    Switch ($PsCmdlet.ParameterSetName)
     {
-      0
+      'All'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray
+        $Params.Add('Uri', ('{0}' -f $BaseURL))
+        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
       }
-      default
+      'Id'
       {
-        $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID)
-        $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray
+        $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
+        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
       }
     }
-    Invoke-UMSRestMethodWebSession @Params
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      $Properties = [ordered]@{
+        'FirmwareId'        = [Int]$APIObject.firmwareID
+        'IsMasterProfile'   = [System.Convert]::ToBoolean($APIObject.isMasterProfile)
+        'OverridesSessions' = [System.Convert]::ToBoolean($APIObject.overridesSessions)
+        'Id'                = [Int]$APIObject.id
+        'Name'              = [String]$APIObject.name
+        'ParentId'          = [Int]$APIObject.parentID
+        'MovedToBin'        = [System.Convert]::ToBoolean($APIObject.movedToBin)
+        'ObjectType'        = [String]$APIObject.objectType
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {

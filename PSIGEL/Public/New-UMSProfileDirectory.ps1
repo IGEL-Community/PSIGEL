@@ -15,42 +15,51 @@ function New-UMSProfileDirectory
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [String]
     $Name
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/' -f $UriArray
     $Body = ConvertTo-Json @{
       name = $Name
     }
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $BaseURL
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
     if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      $Properties = [ordered]@{
+        'Message' = [String]$APIObject.message
+        'Id'      = [Int]$APIObject.id
+        'Name'    = [String]$APIObject.name
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {

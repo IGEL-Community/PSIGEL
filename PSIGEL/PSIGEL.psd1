@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '1.3.2'
+  ModuleVersion     = '0.9.0'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
@@ -29,7 +29,7 @@
   Copyright         = '(c) 2018 Falk Heiland. Alle Rechte vorbehalten.'
 
   # Beschreibung der von diesem Modul bereitgestellten Funktionen
-  Description       = 'Tools for use with thinclient products of IGEL Technology GmbH'
+  Description       = 'Tools for use with device products of IGEL Technology GmbH'
 
   # Die fuer dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
   # PowerShellVersion = ''
@@ -69,48 +69,41 @@
 
   # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
   FunctionsToExport = @(
-    'Get-EPFirmware'
-    'Get-EPUpdateConfiguration'
-    'Get-EPWifiConnection'
-    'Get-UMSFile'
-    'Get-UMSFileDirectory'
+    'Get-OSFirmware'
+    'Get-OSUpdateConfiguration'
+    'Get-OSWifiConnection'
+    'Get-UMSDevice'
+    'Get-UMSDeviceAssignment'
+    'Get-UMSDeviceDirectory'
+    'Get-UMSDeviceDirectoryAssignment'
     'Get-UMSFirmware'
-    'Get-UMSJob'
-    'Get-UMSJobDirectory'
     'Get-UMSProfile'
     'Get-UMSProfileDirectory'
     'Get-UMSProfileAssignment'
     'Get-UMSStatus'
-    'Get-UMSThinclient'
-    'Get-UMSThinclientAssignment'
-    'Get-UMSThinclientDirectory'
-    'Get-UMSThinclientDirectoryAssignment'
-    'Get-UMSView'
-    'Get-UMSViewDirectory'
+    'Move-UMSDevice'
+    'Move-UMSDeviceDirectory'
     'Move-UMSProfile'
     'Move-UMSProfileDirectory'
-    'Move-UMSThinclient'
-    'Move-UMSThinclientDirectory'
     'New-UMSAPICookie'
+    'New-UMSDevice'
+    'New-UMSDeviceDirectory'
+    'New-UMSProfileAssignment'
     'New-UMSProfileDirectory'
-    'New-UMSThinclient'
-    'New-UMSThinclientDirectory'
+    'Remove-UMSDevice'
+    'Remove-UMSDeviceDirectory'
     'Remove-UMSProfile'
     'Remove-UMSProfileAssignment'
     'Remove-UMSProfileDirectory'
-    'Remove-UMSThinclient'
-    'Remove-UMSThinclientDirectory'
-    'Reset-UMSThinclient'
-    'Restart-UMSThinclient'
-    'Send-UMSThinclientSetting'
-    'Start-UMSThinclient'
-    'Stop-UMSThinclient'
-    'Update-UMSJobStartDate'
-    'Update-UMSProfileAssignment'
-    'Update-UMSProfileDirectoryName'
-    'Update-UMSProfileName'
-    'Update-UMSThinclient'
-    'Update-UMSThinclientDirectoryName'
+    'Reset-UMSDevice'
+    'Restart-UMSDevice'
+    'Send-UMSDeviceSetting'
+    'Start-UMSDevice'
+    'Stop-UMSDevice'
+    'Update-UMSDevice'
+    'Update-UMSDeviceDirectory'
+    'Update-UMSProfile'
+    'Update-UMSProfileDirectory'
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.

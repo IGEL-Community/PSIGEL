@@ -1,6 +1,6 @@
 ﻿function Get-UMSProfileAssignment
 {
-  [cmdletbinding()]
+  [CmdletBinding(DefaultParameterSetName = 'Device')]
   param
   (
     [Parameter(Mandatory)]
@@ -15,64 +15,66 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [int]
-    $ProfileID
+    [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Mandatory)]
+    [Int]
+    $Id,
+
+    [Parameter(ValueFromPipeline, ParameterSetName = 'Directory')]
+    [switch]
+    $Directory
   )
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriEndColl = ('thinclients', 'tcdirectories')
     $Params = @{
-      WebSession  = $WebSession
-      Method      = 'Get'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Method           = 'Get'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
 
-    $TCIDColl = foreach ($UriEnd in $UriEndColl)
+    Switch ($PsCmdlet.ParameterSetName)
     {
-      $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID, $UriEnd)
-      $Params.Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}/assignments/{4}/' -f $UriArray
-      $HrefColl = (Invoke-RestMethod @Params).links |
-        Where-Object -Property rel -EQ 'receiver' |
-        Select-Object -Property href
-
-      Switch ($UriEnd)
+      'Device'
       {
-        'thinclients'
-        {
-          $Type = 'tc'
-        }
-        'tcdirectories'
-        {
-          $Type = 'tcdirectory'
-        }
+        $Params.Add('Uri', ('{0}/{1}/assignments/thinclients' -f $BaseURL, $Id))
       }
-
-      foreach ($Href in $HrefColl)
+      'Directory'
       {
-        $Properties = @{
-          id   = ([regex]::match(($Href.href), "\d{1,}\s*$")).Value
-          type = $Type
-        }
-        New-Object -TypeName PsObject -Property $Properties
+        $Params.Add('Uri', ('{0}/{1}/assignments/tcdirectories' -f $BaseURL, $Id))
       }
     }
-    $TCIDColl
+    $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      $ProfileColl = foreach ($child in $APIObject)
+      {
+        $ProfileProperties = [ordered]@{
+          'Id'                 = [Int]$child.assignee.id
+          'Type'               = [String]$child.assignee.type
+          'ReceiverId'         = [Int]$child.receiver.id
+          'ReceiverType'       = [String]$child.receiver.type
+          'AssignmentPosition' = [Int]$child.assignmentPosition
+        }
+        New-Object psobject -Property $ProfileProperties
+      }
+      $ProfileColl
+    }
+    $Result
   }
   End
   {
   }
 }
-

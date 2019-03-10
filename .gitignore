@@ -1,1 +1,4 @@
 /Drafts/*
+.vscode/launch.json
+Tests/Data/*
+.favorites.json

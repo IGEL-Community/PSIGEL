@@ -15,38 +15,49 @@
     [Int]
     $ApiVersion = 3,
 
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
+
+    [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [int]
-    $ProfileID
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
+    [Int]
+    $Id
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/profiles' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $ProfileID)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/profiles/{3}' -f $UriArray
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Method      = 'Delete'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = ('{0}/{1}' -f $BaseURL, $Id)
+      Method           = 'Delete'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    if ($PSCmdlet.ShouldProcess('ProfileID: {0}' -f $ProfileID))
+    if ($PSCmdlet.ShouldProcess('Id: {0}' -f $Id))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      if ($APIObject.Message -match '^(?<Message>Deleted profile) with id (?<Id>\d+)$')
+      {
+        $Properties = [ordered]@{
+          'Message' = [String]('{0}.' -f $Matches.Message)
+          'Id'      = [Int]$Matches.Id
+        }
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {

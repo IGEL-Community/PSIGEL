@@ -1,48 +1,60 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-Status.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSStatus
 
 ## SYNOPSIS
-Gets diagnostic information.
+Gets information on the UMS.
 
 ## SYNTAX
 
 ```
-Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>] [[-WebSession] <Object>]
- [<CommonParameters>]
+Get-UMSStatus [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets diagnostic information from UMS via API.
+Gets information on the UMS via API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Get information on the UMS:
+
 ```powershell
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-}
-Get-UMSStatus @Params
+Get-UMSStatus -ComputerName 'igelrmserver' -WebSession $WebSession
+
+RmGuiServerVersion : 6.01.100
+BuildNumber        : 40023
+ActiveMqVersion    : 5.6.0
+DerbyVersion       : 10.12.1.1
+ServerUuid         : 8be5a3db-ee78-48a9-9caf-52054ec6bf14
+Server             : igelrmserver:8443
 ```
-```
-rmGuiServerVersion : 5.08.100
-buildNumber        : 33604
-activeMQVersion    : 5.6.0
-derbyVersion       : 10.12.1.1
-serverUUID         : 473de374-49d1-47dc-9842-c1429a561435
-server             : UMSSERVER.acme.org:8443
-links              : {}
-```
-Gets UMSSERVER status
+
 
 ## PARAMETERS
+
+### -ApiVersion
+API Version to use (Default: 3)
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: 2
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Computername
 Computername of the UMS Server
@@ -53,14 +65,30 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+Set SSL/TLS protocol
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: 3
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TCPPort
-TCP Port (Default: 8443)
+TCP Port API
 
 ```yaml
 Type: Int32
@@ -68,23 +96,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
+Position: 1
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -97,7 +110,7 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: 4
 Default value: None
 Accept pipeline input: False
@@ -105,12 +118,16 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### Keine
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

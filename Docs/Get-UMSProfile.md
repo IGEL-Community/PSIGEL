@@ -1,69 +1,103 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSProfile.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSProfile
 
 ## SYNOPSIS
-Get profiles.
+Gets information on a profile.
 
 ## SYNTAX
 
+### All (Default)
 ```
-Get-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>] [[-WebSession] <Object>]
- [[-ProfileID] <Int32>] [<CommonParameters>]
+Get-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [<CommonParameters>]
+```
+
+### Id
+```
+Get-UMSProfile [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Id] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets profiles from UMS via API.
+Gets information on a profile via API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Get all profiles:
+
 ```powershell
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-}
-Get-UMSProfile @Params
-```
+Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession
 
-```
-firmwareID        : 8
-isMasterProfile   : False
-overridesSessions : False
-id                : 84629
-name              : Test2
-parentID          : 28793
-movedToBin        : False
-objectType        : profile
-links             : {}
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 69
+Name              : 02|LocalTerminal|OS11
+ParentId          : 230
+MovedToBin        : False
+ObjectType        : profile
 
-firmwareID        : 30
-isMasterProfile   : False
-overridesSessions : False
-id                : 86995
-name              : 07|Update_PartialUpdate_LanguagePackGerman|UDW
-parentID          : 11726
-movedToBin        : False
-objectType        : profile
-links             : {}
-```
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 390
+Name              : 01|Browser|OS11
+ParentId          : 417
+MovedToBin        : False
+ObjectType        : profile
 
-Gets information on all profiles on the UMS instance.
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 669
+Name              : 07|SSHAccess_root:allow|OS11
+ParentId          : 668
+MovedToBin        : False
+ObjectType        : profile
+```
 
 ### Example 2
+
+Get profile with ID 69:
+
 ```powershell
-499, 501 | Get-UMSProfile -Computername 'UMSSERVER'
+Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession -Id 69
+
+FirmwareId        : 2
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 69
+Name              : 02|LocalTerminal|OS11
+ParentId          : 230
+MovedToBin        : False
+ObjectType        : profile
 ```
 
-Gets information on the profile with ProfileID 499 and 501.
-
 ## PARAMETERS
+
+### -ApiVersion
+API Version to use (Default: 3)
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Computername
 Computername of the UMS Server
@@ -74,14 +108,45 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+ID of the profile
+
+```yaml
+Type: Int32
+Parameter Sets: Id
+Aliases:
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+Set SSL/TLS protocol
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TCPPort
-TCP Port (Default: 8443)
+TCP Port API
 
 ```yaml
 Type: Int32
@@ -89,23 +154,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
+Position: Benannt
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -118,35 +168,24 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 4
-Default value: False
+Required: True
+Position: Benannt
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ProfileID
-ID of the profile to get
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

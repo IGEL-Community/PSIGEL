@@ -1,67 +1,77 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Get-UMSFirmware.md
+online version:
 schema: 2.0.0
 ---
 
 # Get-UMSFirmware
 
 ## SYNOPSIS
-Get information on all firmwares.
+Gets information on a firmware.
 
 ## SYNTAX
 
+### All (Default)
 ```
-Get-UMSFirmware [[-Computername] <String>] [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-WebSession] <Object>] [[-FirmwareID] <Int32>] [<CommonParameters>]
+Get-UMSFirmware [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [<CommonParameters>]
+```
+
+### Id
+```
+Get-UMSFirmware [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [[-Id] <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Gets information on all firmwares from UMS via API.
+Gets information on a firmware via API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Get all firmwares:
+
 ```powershell
-$Computername = 'UMSSERVER'
-$Params = @{
-  Computername = $Computername
-  WebSession   = New-UMSAPICookie -Computername $Computername
-}
-Get-UMSFirmware @Params
+Get-UMSFirmware -ComputerName 'igelrmserver' -WebSession $WebSession
+
+Id Product                     Version      FirmwareType
+-- -------                     -------      ------------
+ 2 IGEL OS 11                  11.01.100.01 LX
+ 3 IGEL Universal Desktop OS 3 10.05.500.01 LX
 ```
-
-```
-id           : 35
-product      : IGEL Universal Desktop LX
-version      : 5.13.100.01
-firmwareType : LX
-links        : {}
-
-id           : 36
-product      : IGEL Universal Desktop W10
-version      : 4.02.110
-firmwareType : XP
-links        : {}
-
-id           : 38
-product      : IGEL Universal Desktop OS 3
-version      : 10.05.100.01
-firmwareType : LX
-links        : {}
-```
-
-Gets information on all firmwares known to the UMS.
 
 ### Example 2
+
+Get firmware with ID 2:
+
 ```powershell
-9, 7 | Get-UMSFirmware -Computername 'UMSSERVER'
+Get-UMSFirmware -ComputerName 'igelrmserver' -WebSession $WebSession -Id 2
+
+Id Product    Version      FirmwareType
+-- -------    -------      ------------
+ 2 IGEL OS 11 11.01.100.01 LX
 ```
 
-Gets information on firmwares with FirmwareIDs 9 and 7.
 
 ## PARAMETERS
+
+### -ApiVersion
+API Version to use (Default: 3)
+
+```yaml
+Type: Int32
+Parameter Sets: (All)
+Aliases:
+Accepted values: 3
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Computername
 Computername of the UMS Server
@@ -71,15 +81,46 @@ Type: String
 Parameter Sets: (All)
 Aliases:
 
+Required: True
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+ID of the firmware
+
+```yaml
+Type: Int32
+Parameter Sets: Id
+Aliases:
+
 Required: False
-Position: 1
+Position: Benannt
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -SecurityProtocol
+Set SSL/TLS protocol
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+Accepted values: Tls12, Tls11, Tls, Ssl3
+
+Required: False
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -TCPPort
-TCP Port (Default: 8443)
+TCP Port API
 
 ```yaml
 Type: Int32
@@ -87,23 +128,8 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
-Default value: 8443
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ApiVersion
-API Version to use (Default: 3)
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: 3
+Position: Benannt
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -116,35 +142,24 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: False
-Position: 4
+Required: True
+Position: Benannt
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FirmwareID
-ID of the firmware to get
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: 0
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
+### System.Int32
+
 ## OUTPUTS
 
+### System.Object
 ## NOTES
 
 ## RELATED LINKS

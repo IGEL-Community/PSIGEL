@@ -15,49 +15,57 @@ function Move-UMSProfileDirectory
     [Int]
     $ApiVersion = 3,
 
-    $WebSession,
-
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [int]
-    $DIRID,
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol = 'Tls12',
 
     [Parameter(Mandatory)]
-    [int]
-    $DDIRID
+    $WebSession,
+
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
+    [Int]
+    $Id,
+
+    [Parameter(Mandatory)]
+    [Int]
+    $DestId
   )
 
   Begin
   {
+    $UriArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = ('https://{0}:{1}/umsapi/v{2}/directories/profiledirectories' -f $UriArray)
   }
   Process
   {
-    if ($null -eq $WebSession)
-    {
-      $WebSession = New-UMSAPICookie -Computername $Computername
-    }
-
-    $UriArray = @($Computername, $TCPPort, $ApiVersion, $DDIRID)
-    $Uri = 'https://{0}:{1}/umsapi/v{2}/directories/profiledirectories/{3}?operation=move' -f $UriArray
     $Body = ConvertTo-Json @(
       @{
-        id   = $DIRID
+        id   = $Id
         type = "profiledirectory"
       }
     )
-
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = ('{0}/{1}?operation=move' -f $BaseURL, $DestId)
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
-
-    if ($PSCmdlet.ShouldProcess(('ProfileID: {0} to DDIRID: {1}' -f $DIRID, $DDIRID)))
+    if ($PSCmdlet.ShouldProcess(('Id: {0} to DestId: {1}' -f $Id, $DestId)))
     {
-      Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
     }
+    $Result = foreach ($APIObject in $APIObjectColl)
+    {
+      $Properties = [ordered]@{
+        'Id'      = [Int]$APIObject.id
+        'Message' = [String]('{0}.' -f $APIObject.results)
+      }
+      New-Object psobject -Property $Properties
+    }
+    $Result
   }
   End
   {

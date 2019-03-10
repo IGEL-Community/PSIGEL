@@ -9,22 +9,24 @@ function Invoke-UMSRestMethodWebSession
 
     .EXAMPLE
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $Uri
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Invoke-UMSRestMethodWebSession @Params
 
     .EXAMPLE
     $Params = @{
-      WebSession  = $WebSession
-      Uri         = $Uri
-      Body        = $Body
-      Method      = 'Put'
-      ContentType = 'application/json'
-      Headers     = @{}
+      WebSession       = $WebSession
+      Uri              = $Uri
+      Body             = $Body
+      Method           = 'Put'
+      ContentType      = 'application/json'
+      Headers          = @{}
+      SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Invoke-UMSRestMethodWebSession @Params
 
@@ -36,31 +38,50 @@ function Invoke-UMSRestMethodWebSession
     $WebSession,
 
     [Parameter(Mandatory)]
-    [string]
+    [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
+    [String[]]
+    $SecurityProtocol,
+
+    [Parameter(Mandatory)]
+    [String]
     $Uri,
 
-    [string]
+    [String]
     $Body,
 
-    [string]
+    [String]
     $ContentType,
 
     $Headers,
 
     [Parameter(Mandatory)]
     [ValidateSet('Get', 'Post', 'Put', 'Delete')]
-    [string]
+    [String]
     $Method
   )
 
   begin
   {
+    Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
+    Add-Type -TypeDefinition @'
+    using System.Net;
+    using System.Security.Cryptography.X509Certificates;
+    public class TrustAllCertsPolicy : ICertificatePolicy {
+        public bool CheckValidationResult(
+            ServicePoint srvPoint, X509Certificate certificate,
+            WebRequest request, int certificateProblem) {
+              return true;
+            }
+          }
+'@
+    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
+    $null = $PSBoundParameters.Remove('SecurityProtocol')
   }
   process
   {
     try
     {
-      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
       Invoke-RestMethod @PSBoundParameters -ErrorAction Stop
     }
     catch [System.Net.WebException]
