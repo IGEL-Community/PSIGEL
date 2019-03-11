@@ -60,7 +60,7 @@ MovedToBin : False
 
 ### Example 2
 
-Get 'online' information on device with ID 195.:
+Get 'online' information on device with ID 195:
 
 ```powershell
 Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession -Id 58 -Filter online
