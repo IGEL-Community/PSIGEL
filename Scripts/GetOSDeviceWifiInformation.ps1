@@ -5,12 +5,12 @@
 
 [Int]$DeviceDirId = 75
 [String]$Computername = 'igelrmserver'
-#[String[]]$SecurityProtocol = 'Tls12'
-[String[]]$SecurityProtocol = 'Tls'
+[String[]]$SecurityProtocol = 'Tls12'
 [String]$UMSCPath = 'C:\Credentials\UmsRmdb.cred'
 [String]$DeviceCPath = 'C:\Credentials\DeviceRoot.cred'
 [Switch]$Online = $false
 [String]$PathToInvokeParallel = '{0}\Invoke-Parallel.ps1' -f $PSScriptRoot
+$SSHCredential = (Import-Clixml -Path $DeviceCPath)
 
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'       = (Import-Clixml -Path $UMSCPath)
@@ -26,8 +26,6 @@ if (!(Get-Command Invoke-Parallel -ErrorAction SilentlyContinue))
 {
   . $PathToInvokeParallel
 }
-
-$SSHCredential = (Import-Clixml -Path $DeviceCPath)
 
 $DirColl = (Get-UMSDeviceDirectory -Id $DeviceDirId -Filter children).DirectoryChildren
 
