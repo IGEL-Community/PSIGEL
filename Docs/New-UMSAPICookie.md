@@ -35,7 +35,7 @@ Create / use process to store and read credential to and from file and use it to
 
 ```powershell
 #Save credential securely to file (one time only):
-Get-Credential | Export-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile}) -Credential (Get-Credential)
+Get-Credential | Export-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile})
 
 #Load credential from file
 $Credential = Import-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile})
