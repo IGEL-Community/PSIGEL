@@ -8,7 +8,7 @@ This is a module to interact with the IGEL UMS via API and IGEL OS Devices via S
 
 To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
 
-The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/#new-umsapicookie):
+The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/README.MD#new-umsapicookie):
 
 ```powershell
 $Websession = New-UMSAPICookie -Computername igelrmserver
