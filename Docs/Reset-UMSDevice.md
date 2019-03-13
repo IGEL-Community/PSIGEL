@@ -19,7 +19,7 @@ Reset-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <In
 ```
 
 ## DESCRIPTION
-Resets a device to factory defaults and removes it completely (without recycle bin) via API. The device has to be online to be reset, otherwise the device is only removed.
+Resets a device to factory defaults and removes it completely (without recycle bin) via API.
 
 ## EXAMPLES
 
