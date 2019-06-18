@@ -94,7 +94,13 @@ FirmwareId                : 2
 LastIp                    : 192.168.56.101
 MovedToBin                : False
 NetworkName               : V11-01
+Site                      : testsite
 Comment                   : [SingleLicensed]
+Department                :
+CostCenter                :
+AssetID                   :
+InServiceDate             :
+SerialNumber              :
 ProductId                 : UC1-LX
 CpuSpeed                  : 1608
 CpuType                   : Intel(R) Core(TM) i7-7Y75 CPU @ 1.30GHz
@@ -173,7 +179,7 @@ Accepted values: short, details, online, shadow
 
 Required: False
 Position: Benannt
-Default value: None
+Default value: short
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
