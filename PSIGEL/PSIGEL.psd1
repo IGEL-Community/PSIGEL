@@ -107,13 +107,13 @@
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.
-  CmdletsToExport   = '*'
+  CmdletsToExport   = @()
 
   # Die aus diesem Modul zu exportierenden Variablen
-  VariablesToExport = '*'
+  VariablesToExport = @()
 
   # Aus diesem Modul zu exportierende Aliase. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Aliase vorhanden sind.
-  AliasesToExport   = '*'
+  AliasesToExport   = @()
 
   # Aus diesem Modul zu exportierende DSC-Ressourcen
   # DscResourcesToExport = @()
