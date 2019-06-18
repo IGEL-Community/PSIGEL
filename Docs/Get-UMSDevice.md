@@ -94,7 +94,7 @@ FirmwareId                : 2
 LastIp                    : 192.168.56.101
 MovedToBin                : False
 NetworkName               : V11-01
-Site                      : testsite
+Site                      :
 Comment                   : [SingleLicensed]
 Department                :
 CostCenter                :
