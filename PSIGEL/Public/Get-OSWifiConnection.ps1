@@ -20,7 +20,6 @@ function Get-OSWifiConnection
     $PatternAccessPoint = 'Access Point:\s(?<AccessPoint>[^\s]*)'
     $PatternBitRate = 'Bit Rate(:|=)(?<BitRate>[^\s]*)\s(?<Unit>[^\s]*)'
     $PatternTxPower = 'Tx-Power(:|=)(?<TxPower>[^\s]*)\s(?<Unit>[^\s]*)'
-    #$PatternLinkQuality = 'Link Quality(:|=)(?<LinkQuality>[^\s]*)'
     $PatternLinkQualityActual = 'Link Quality(:|=)(?<LinkQualityActual>\d+)'
     $PatternLinkQualityMax = 'Link Quality(:|=)\d*\/(?<LinkQualityMax>\d+)'
     $PatternSignalLevel = 'Signal level(:|=)(?<SignalLevel>[^\s]*)\s(?<Unit>[^\s]*)'
