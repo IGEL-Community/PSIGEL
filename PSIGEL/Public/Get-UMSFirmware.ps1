@@ -38,7 +38,7 @@
       WebSession       = $WebSession
       Method           = 'Get'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Switch ($PsCmdlet.ParameterSetName)
@@ -59,7 +59,7 @@
       $Properties = [ordered]@{
         'Id'           = [Int]$APIObject.id
         'Product'      = [String]$APIObject.product
-        'Version'      = [String]$APIObject.version
+        'Version'      = [Version]::new($APIObject.version)
         'FirmwareType' = [String]$APIObject.firmwareType
       }
       New-Object psobject -Property $Properties
