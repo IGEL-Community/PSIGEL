@@ -32,7 +32,7 @@
   Description       = 'Tools for use with device products of IGEL Technology GmbH'
 
   # Die fuer dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
-  # PowerShellVersion = ''
+  PowerShellVersion = '5.1'
 
   # Der Name des fuer dieses Modul erforderlichen Windows PowerShell-Hosts
   # PowerShellHostName = ''
