@@ -32,7 +32,7 @@
   Description       = 'Tools for use with device products of IGEL Technology GmbH'
 
   # Die fuer dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
-  # PowerShellVersion = ''
+  PowerShellVersion = '5.1'
 
   # Der Name des fuer dieses Modul erforderlichen Windows PowerShell-Hosts
   # PowerShellHostName = ''
@@ -107,13 +107,13 @@
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.
-  CmdletsToExport   = '*'
+  CmdletsToExport   = @()
 
   # Die aus diesem Modul zu exportierenden Variablen
-  VariablesToExport = '*'
+  VariablesToExport = @()
 
   # Aus diesem Modul zu exportierende Aliase. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Aliase vorhanden sind.
-  AliasesToExport   = '*'
+  AliasesToExport   = @()
 
   # Aus diesem Modul zu exportierende DSC-Ressourcen
   # DscResourcesToExport = @()
@@ -130,19 +130,24 @@
     PSData = @{
 
       # 'Tags' wurde auf das Modul angewendet und unterstuetzt die Modulermittlung in Onlinekatalogen.
-      Tags       = @('IGEL')
+      Tags         = @('IGEL')
 
       # Eine URL zur Lizenz fuer dieses Modul.
-      LicenseUri = 'https://github.com/IGEL-Community/PSIGEL/blob/master/LICENSE'
+      LicenseUri   = 'https://github.com/IGEL-Community/PSIGEL/blob/master/LICENSE'
 
       # Eine URL zur Hauptwebsite fuer dieses Projekt.
-      ProjectUri = 'https://github.com/IGEL-Community/PSIGEL'
+      ProjectUri   = 'https://github.com/IGEL-Community/PSIGEL'
 
       # Eine URL zu einem Symbol, das das Modul darstellt.
       # IconUri = ''
 
       # 'ReleaseNotes' des Moduls
-      # ReleaseNotes = ''
+      ReleaseNotes = @'
+0.9.1 2019xxxx
+* set minimum Powershell Requirement for the module to 5.1 (Core not supported)
+* added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter detail
+* support for Datatype Version in Get-OSFirmware, Get-UMSFirmware, Get-UMSStatus
+'@
 
     } # Ende der PSData-Hashtabelle
 

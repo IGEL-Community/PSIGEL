@@ -2,6 +2,8 @@
 
 This is a module to interact with the IGEL UMS via API and IGEL OS Devices via SSH.
 
+Currently the module  only supports PowerShell version **5.1** .
+
 **API** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
 
 **SSH** functions got the noun-prefix **OS** (for Device), e.g. Get-**OS**Something

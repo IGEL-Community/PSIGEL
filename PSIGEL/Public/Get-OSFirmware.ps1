@@ -17,7 +17,7 @@ function Get-OSFirmware
     {
       $CommandResultColl = (Invoke-SSHCommandStream -SSHSession $SSHSession -Command $Command) -replace ('\s', '')
       $Properties = [ordered]@{
-        'Version' = [string]$CommandResultColl
+        'Version' = [Version]::new($CommandResultColl)
       }
       $Result = New-Object psobject -Property $Properties
       $Result

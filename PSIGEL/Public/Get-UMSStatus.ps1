@@ -34,7 +34,7 @@
       WebSession       = $WebSession
       Method           = 'Get'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       Uri              = $BaseURL
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
@@ -43,10 +43,10 @@
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $Properties = [ordered]@{
-        'RmGuiServerVersion' = [String]$APIObject.rmGuiServerVersion
+        'RmGuiServerVersion' = [Version]::new($APIObject.rmGuiServerVersion)
         'BuildNumber'        = [Int]$APIObject.buildNumber
-        'ActiveMqVersion'    = [String]$APIObject.activeMQVersion
-        'DerbyVersion'       = [String]$APIObject.derbyVersion
+        'ActiveMqVersion'    = [Version]::new($APIObject.activeMQVersion)
+        'DerbyVersion'       = [Version]::new($APIObject.derbyVersion)
         'ServerUuid'         = [String]$APIObject.serverUUID
         'Server'             = [String]$APIObject.server
       }

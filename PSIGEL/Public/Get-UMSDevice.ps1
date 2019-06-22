@@ -42,7 +42,7 @@
       WebSession       = $WebSession
       Method           = 'Get'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Switch ($PsCmdlet.ParameterSetName)
@@ -90,7 +90,13 @@
         {
           $Properties += [ordered]@{
             'NetworkName'               = [String]$APIObject.networkName
+            'Site       '               = [String]$APIObject.site
             'Comment'                   = [String]$APIObject.comment
+            'Department'                = [String]$APIObject.department
+            'CostCenter'                = [String]$APIObject.costCenter
+            'AssetID'                   = [String]$APIObject.assetID
+            'InServiceDate'             = [String]$APIObject.inServiceDate
+            'SerialNumber'              = [String]$APIObject.serialNumber
             'ProductId'                 = [String]$APIObject.productId
             'CpuSpeed'                  = [Int]$APIObject.cpuSpeed
             'CpuType'                   = [String]$APIObject.cpuType
