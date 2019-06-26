@@ -90,7 +90,7 @@
         {
           $Properties += [ordered]@{
             'NetworkName'               = [String]$APIObject.networkName
-            'Site       '               = [String]$APIObject.site
+            'Site'                      = [String]$APIObject.site
             'Comment'                   = [String]$APIObject.comment
             'Department'                = [String]$APIObject.department
             'CostCenter'                = [String]$APIObject.costCenter
