@@ -372,7 +372,7 @@ SignalLevel       : -42</dev:code>
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>short</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
           <maml:name>Id</maml:name>
@@ -465,7 +465,7 @@ SignalLevel       : -42</dev:code>
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>short</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
         <maml:name>Id</maml:name>
@@ -603,7 +603,13 @@ FirmwareId                : 2
 LastIp                    : 192.168.56.101
 MovedToBin                : False
 NetworkName               : V11-01
+Site                      :
 Comment                   : [SingleLicensed]
+Department                :
+CostCenter                :
+AssetID                   :
+InServiceDate             :
+SerialNumber              :
 ProductId                 : UC1-LX
 CpuSpeed                  : 1608
 CpuType                   : Intel(R) Core(TM) i7-7Y75 CPU @ 1.30GHz
@@ -1350,6 +1356,277 @@ ReceiverType       : tcdirectory
 AssigneeId         : 390
 AssigneeType       : profile
 AssignmentPosition : 1</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-UMSDirectoryRecursive</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>UMSDirectoryRecursive</command:noun>
+      <maml:description>
+        <maml:para>Gets either all directory or element ids from below given directory id.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Gets either all directory or element ids from below given directory id.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-UMSDirectoryRecursive</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>DirectoryColl</maml:name>
+          <maml:Description>
+            <maml:para>Collection of all Directories. Can be determined from Get-UMSDeviceDirectory or Get-UMSProfileDirectory.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+          <maml:name>ElementColl</maml:name>
+          <maml:Description>
+            <maml:para>Collection of all Elements. Can be determined from Get-UMSDevice or Get-UMSProfile.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
+          <maml:name>Id</maml:name>
+          <maml:Description>
+            <maml:para>ID of the starting device directory</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>DirectoryColl</maml:name>
+        <maml:Description>
+          <maml:para>Collection of all Directories. Can be determined from Get-UMSDeviceDirectory or Get-UMSProfileDirectory.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="benannt" aliases="none">
+        <maml:name>ElementColl</maml:name>
+        <maml:Description>
+          <maml:para>Collection of all Elements. Can be determined from Get-UMSDevice or Get-UMSProfile.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="benannt" aliases="none">
+        <maml:name>Id</maml:name>
+        <maml:Description>
+          <maml:para>ID of the starting device directory</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>$DeviceDirectoryColl = Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
+Get-UMSDirectoryRecursive -Id 197 -DirectoryColl $DeviceDirectoryColl
+
+Id         : 197
+Name       : Computers
+ParentId   : 48
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 198
+Name       : Computers01
+ParentId   : 197
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 199
+Name       : Room1013
+ParentId   : 198
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 200
+Name       : Room1014
+ParentId   : 198
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 201
+Name       : Room1015
+ParentId   : 198
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 202
+Name       : Room1108
+ParentId   : 198
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 203
+Name       : Room1U07
+ParentId   : 198
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 208
+Name       : Computers2
+ParentId   : 197
+MovedToBin : False
+ObjectType : tcdirectory
+
+Id         : 209
+Name       : Room2204
+ParentId   : 208
+MovedToBin : False
+ObjectType : tcdirectory</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>$DeviceColl = Get-UMSDevice -ComputerName 'igelrmserver' -WebSession $WebSession
+$DeviceDirectoryColl = Get-UMSDeviceDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
+Get-UMSDirectoryRecursive -Id 197 -DirectoryColl $DeviceDirectoryColl -ElementColl $DeviceColl
+
+Id         : 112567
+ObjectType : tc
+UnitId     : 00E0C5347154
+Mac        : 00E0C5347154
+Name       : DEV1417
+ParentId   : 201
+FirmwareId : 6
+LastIp     : 192.168.11.123
+MovedToBin : False
+
+Id         : 3404
+ObjectType : tc
+UnitId     : 00E0C537A54E
+Mac        : 00E0C537A54E
+Name       : DEV0577
+ParentId   : 203
+FirmwareId : 6
+LastIp     : 192.168.73.1
+MovedToBin : False
+
+Id         : 3430
+ObjectType : tc
+UnitId     : 00E0C5417B66
+Mac        : 00E0C5417B66
+Name       : DEV0006
+ParentId   : 203
+FirmwareId : 6
+LastIp     : 192.168.85.11
+MovedToBin : False
+
+...
+
+Id         : 4308
+ObjectType : tc
+UnitId     : 00E0C53FF551
+Mac        : 00E0C53FF551
+Name       : DEV7479
+ParentId   : 216
+FirmwareId : 20
+LastIp     :
+MovedToBin : False</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>$ProfileDirectoryColl = Get-UMSProfileDirectory -ComputerName 'igelrmserver' -WebSession $WebSession
+$ProfileColl = Get-UMSProfile -ComputerName 'igelrmserver' -WebSession $WebSession
+908 | Get-UMSDirectoryRecursive -DirectoryColl $ProfileDirectoryColl -ElementColl $ProfileColl
+
+FirmwareId        : 39
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 18902
+Name              : 05|USBStorageHotplug:Disable
+ParentId          : 11722
+MovedToBin        : False
+ObjectType        : profile
+
+FirmwareId        : 39
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 12047
+Name              : 06|Passwort_DomaineAutomaticLogin:Off|UDW
+ParentId          : 11724
+MovedToBin        : False
+ObjectType        : profile
+
+...
+
+FirmwareId        : 39
+IsMasterProfile   : False
+OverridesSessions : False
+Id                : 94461
+Name              : 07|Update_Snapshots_Download_W10|UDW
+ParentId          : 11726
+MovedToBin        : False
+ObjectType        : profile</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -3992,7 +4269,7 @@ $PSDefaultParameterValues += @{
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>#Save credential securely to file (one time only):
-Get-Credential | Export-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile}) -Credential (Get-Credential)
+Get-Credential | Export-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile})
 
 #Load credential from file
 $Credential = Import-Clixml -Path ('{0}\igelums@igelrmserver.cred' -f ${env:\userprofile})
@@ -7017,7 +7294,7 @@ Deletion successful. 230</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Resets a device to factory defaults and removes it completely (without recycle bin) via API. The device has to be online to be reset, otherwise the device is only removed.</maml:para>
+      <maml:para>Resets a device to factory defaults and removes it completely (without recycle bin) via API.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
