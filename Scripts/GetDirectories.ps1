@@ -3,6 +3,7 @@ $UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
 $PSDefaultParameterValues = @{
   'New-UMSAPICookie:Credential' = Import-Clixml -Path $UMSCredPath
   '*-UMS*:Computername'         = 'igelrmserver'
+  '*-UMS*:SecurityProtocol'     = 'Tls'
 }
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = (New-UMSAPICookie)
@@ -10,7 +11,7 @@ $PSDefaultParameterValues += @{
 
 #$DeviceColl = Get-UMSDevice
 $DeviceDirectoryColl = Get-UMSDeviceDirectory
-$StartDirectoryColl = ($DeviceDirectoryColl).where{@(1917) -contains $_.Id}
+$StartDirectoryColl = ($DeviceDirectoryColl).where{ @(197) -contains $_.Id }
 
 function Get-Coll
 {
@@ -20,9 +21,9 @@ function Get-Coll
 
   $Coll = @()
 
-  $Coll += ($DeviceDirectoryColl).where{$_.Id -eq $id}
+  $Coll += ($DeviceDirectoryColl).where{ $_.Id -eq $id }
 
-  $ChildDirColl = ($DeviceDirectoryColl).where{$_.ParentId -eq $id}
+  $ChildDirColl = ($DeviceDirectoryColl).where{ $_.ParentId -eq $id }
 
   foreach ($ChildDir in $ChildDirColl)
   {
