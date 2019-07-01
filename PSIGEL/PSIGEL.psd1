@@ -76,6 +76,7 @@
     'Get-UMSDeviceAssignment'
     'Get-UMSDeviceDirectory'
     'Get-UMSDeviceDirectoryAssignment'
+    'Get-UMSDirectoryRecursive'
     'Get-UMSFirmware'
     'Get-UMSProfile'
     'Get-UMSProfileDirectory'
@@ -147,6 +148,7 @@
 * set minimum Powershell Requirement for the module to 5.1 (Core not supported)
 * added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter detail
 * support for Datatype Version in Get-OSFirmware, Get-UMSFirmware, Get-UMSStatus
+* added Get-UMSDirectoryRecursive
 '@
 
     } # Ende der PSData-Hashtabelle
