@@ -162,7 +162,7 @@ FirmwareId        : 39
 IsMasterProfile   : False
 OverridesSessions : False
 Id                : 12047
-Name              : 06|Passwort_DomaineAutomaticLogin:Off|UDW
+Name              : 06|Password_DomaineAutomaticLogin:Off|UDW
 ParentId          : 11724
 MovedToBin        : False
 ObjectType        : profile
