@@ -50,6 +50,9 @@ Gets information on a device directory.
 ### [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
 Gets information on a profile or master profile assignment of a device directory.
 
+### [Get-UMSDirectoryRecursive](/Docs/Get-UMSDirectoryRecursive)
+Gets either all directory or element ids from below given directory id.
+
 ### [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
 Gets information on a firmware.
 
