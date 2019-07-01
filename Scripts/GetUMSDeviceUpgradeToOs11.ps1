@@ -1,5 +1,10 @@
 <#
 
+- Gets all devices and all firmwares from UMS
+- throws out all 'legacy' devices (non-IGEL devices)
+- looks for devices with product ids from $SupportedDeviceCollJson
+- categorizes devices with OS11 and higher as non upgradeble
+
 IGEL Devices That Can Be Upgraded to IGEL OS 11
 CPU with 64-bit support
 ≥ 2 GB RAM
@@ -31,9 +36,9 @@ $SupportedDeviceCollJson = @'
 $SupportedDeviceColl = $SupportedDeviceCollJson | ConvertFrom-Json
 
 $PSDefaultParameterValues = @{
-  '*-UMS*:Credential'   = (Import-Clixml -Path 'C:\Credentials\UmsRmdb.cred')
-  '*-UMS*:Computername' = 'igelrmserver'
-  #'*-UMS*:SecurityProtocol' = 'Tls'
+  '*-UMS*:Credential'       = (Get-Credential)
+  '*-UMS*:Computername'     = 'igelrmserver'
+  '*-UMS*:SecurityProtocol' = 'Tls12'
 }
 
 $PSDefaultParameterValues += @{
@@ -43,7 +48,7 @@ $PSDefaultParameterValues += @{
 $FirmwareColl = Get-UMSFirmware
 
 $DeviceColl = Get-UMSDevice -Filter details |
-Where-Object { ($_.ProductId) -and ($_.DeviceType -notmatch '^Legacy') } | #excludes devices which never reported to the UMS and non IGEL devices
+Where-Object { ($_.ProductId) -and ($_.DeviceType -notmatch '^Legacy') }
 Select-Object -Property Name, Id, FirmwareId, MemorySize, FlashSize, OsType, DeviceType, ProductId, @{
   name       = 'ProductIdParsed'
   expression =
