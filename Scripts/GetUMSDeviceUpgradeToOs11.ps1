@@ -1,5 +1,8 @@
 <#
 
+Join-Object function is required
+https://github.com/RamblingCookieMonster/PowerShell/blob/master/Join-Object.ps1
+
 - Gets all devices and all firmwares from UMS
 - throws out all 'legacy' devices (non-IGEL devices)
 - looks for devices with product ids from $SupportedDeviceCollJson
