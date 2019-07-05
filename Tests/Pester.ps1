@@ -14,15 +14,15 @@ $OutputPath = '{0}\Tests\Data' -f $ProjectRoot
 
 $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $ProjectRoot) |
   ConvertFrom-Json
-$Password = Get-Content $UMS.CredPath | ConvertTo-SecureString
-$Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+
 
 $PSDefaultParameterValues = @{
-  '*:Computername'          = $UMS.Computername
-  '*-UMS*:TCPPort'          = [Int]$UMS.TCPPort
-  '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-  '*-UMS*:Confirm'          = $false
-  'Invoke-Pester:Show'      = 'Failed'
+  '*:Computername'              = $UMS.Computername
+  'New-UMSAPICookie:Credential' = Import-Clixml -Path $UMS.Credpath
+  '*-UMS*:TCPPort'              = [Int]$UMS.TCPPort
+  '*-UMS*:SecurityProtocol'     = $UMS.SecurityProtocol
+  '*-UMS*:Confirm'              = $false
+  'Invoke-Pester:Show'          = 'Failed'
 }
 
 <#
@@ -52,9 +52,10 @@ switch ($IgelRmGuiServerService)
 }
 #>
 
-$WebSession = New-UMSAPICookie -Credential $Credential
+#$WebSession = New-UMSAPICookie -Credential $Credential
 $PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = $WebSession
+  #'*-UMS*:WebSession' = $WebSession
+  '*-UMS*:WebSession' = (New-UMSAPICookie)
 }
 
 Invoke-Pester -Script ('{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $ModuleName) -OutputFile ('{0}\{1}.Tests.xml' -f $OutputPath, $ModuleName)

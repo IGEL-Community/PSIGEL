@@ -35,8 +35,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
 
     $PSDefaultParameterValues = @{
-      '*:WebSession'                            = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername'                          = 'igelrmserver.acme.org'
+      '*:WebSession'                        = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:Computername'                      = 'igelrmserver.acme.org'
       'Get-UMSDeviceDirectoryAssignment:Id' = 2
     }
 
@@ -129,9 +129,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Credential = Import-Clixml -Path $UMS.CredPath
   $Id = $UMS.UMSDeviceDirectoryAssignment[0].Id
   $ReceiverType = $UMS.UMSDeviceDirectoryAssignment.ReceiverType
   $AssigneeId = $UMS.UMSDeviceDirectoryAssignment.AssigneeId

@@ -159,9 +159,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Credential = Import-Clixml -Path $UMS.CredPath
   $Id = $UMS.UMSFirmware[0].id
 
   $PSDefaultParameterValues = @{
@@ -194,8 +192,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -BeExactly $UMS.UMSFirmware[0].id
     }
 
-    It 'Result.Version should have type [String]' {
-      $Result.Version | Should -HaveType [String]
+    It 'Result.Version should have type [Version]' {
+      $Result.Version | Should -HaveType [Version]
     }
 
     It "Result.Version should be exactly $($UMS.UMSFirmware[0].Version)" {

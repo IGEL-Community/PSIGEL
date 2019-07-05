@@ -19,6 +19,7 @@
         "Get-UMSDevice",
         "Get-UMSDeviceAssignment",
         "Get-UMSDeviceDirectory",
+        "Get-UMSDirectoryRecursive",
         "Get-UMSDeviceDirectoryAssignment",
         "Start-UMSDevice",
         "Send-UMSDeviceSetting",
@@ -48,11 +49,11 @@
     "UMSFirmware": [
       {
         "Id": "2",
-        "Version": "11.01.100.01"
+        "Version": "11.1.100.1"
       },
       {
         "Id": "3",
-        "Version": "10.05.500.01"
+        "Version": "10.5.500.1"
       }
     ],
     "UMSProfile": [
@@ -108,14 +109,14 @@
         "NameNew": "P_ProfileDir03"
       },
       {
-        "Id": "632",
+        "Id": "1759",
         "Name": "P_ProfileDir04"
       }
     ],
     "UMSStatus": [
       {
-        "RmGuiServerVersion": "6.01.130",
-        "BuildNumber": "41020"
+        "RmGuiServerVersion": "6.2.100",
+        "BuildNumber": "42027"
       }
     ],
     "UMSDevice": [
@@ -147,6 +148,13 @@
           "certificate": "",
           "password": "a9484d4b-6fb9-4f60-82fb-114a5eafdd24"
         }
+      },
+      {
+        "Id": "1831",
+        "ObjectType": "tc",
+        "Mac": "334455667788",
+        "Name": "P_TC01_01_01",
+        "ParentId": "1829"
       },
       {
         "NameNew": "P_TC03",
@@ -199,6 +207,21 @@
         "Id": "629",
         "Name": "P_TCDir03",
         "ParentId": "-1"
+      },
+      {
+        "Id": "1827",
+        "Name": "P_TCDir01_01",
+        "ParentId": "457"
+      },
+      {
+        "Id": "1828",
+        "Name": "P_TCDir01_02",
+        "ParentId": "457"
+      },
+      {
+        "Id": "1829",
+        "Name": "P_TCDir01_01_01",
+        "ParentId": "1827"
       },
       {
         "NameNew": "P_TCDir04"

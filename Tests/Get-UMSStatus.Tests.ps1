@@ -117,9 +117,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Credential = Import-Clixml -Path $UMS.CredPath
   $RmGuiServerVersion = $UMS.UMSStatus.RmGuiServerVersion
   $BuildNumber = $UMS.UMSStatus.BuildNumber
 
@@ -144,8 +142,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.RmGuiServerVersion should have type [String]' {
-      $Result.RmGuiServerVersion | Should -HaveType [String]
+    It 'Result.RmGuiServerVersion should have type [Version]' {
+      $Result.RmGuiServerVersion | Should -HaveType [Version]
     }
 
     It "Result.RmGuiServerVersion should be exactly $RmGuiServerVersion" {

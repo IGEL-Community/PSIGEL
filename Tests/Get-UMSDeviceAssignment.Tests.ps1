@@ -35,8 +35,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   InModuleScope $Script:ModuleName {
 
     $PSDefaultParameterValues = @{
-      '*:WebSession'                   = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
-      '*:Computername'                 = 'igelrmserver.acme.org'
+      '*:WebSession'               = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:Computername'             = 'igelrmserver.acme.org'
       'Get-UMSDeviceAssignment:Id' = 2
     }
 
@@ -129,9 +129,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Credential = Import-Clixml -Path $UMS.CredPath
   $Id = $UMS.UMSDeviceAssignment[0].Id
   $ReceiverType = $UMS.UMSDeviceAssignment.ReceiverType
   $AssigneeId = $UMS.UMSDeviceAssignment.AssigneeId
@@ -162,7 +160,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result.Id | Should -HaveType [Int]
     }
 
-    It "Result.Id should be exactly $UMS.UMSDeviceAssignment.Id" {
+    It "Result.Id should be exactly $($UMS.UMSDeviceAssignment.Id)" {
       $Result.Id | Should -BeExactly $UMS.UMSDeviceAssignment.Id
     }
 

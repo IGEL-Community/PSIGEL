@@ -189,9 +189,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Credential = Import-Clixml -Path $UMS.CredPath
   $Id = $UMS.UMSProfileAssignment[0].Id
   $ReceiverId = $UMS.UMSProfileAssignment[0].ReceiverIdNew
   $ReceiverType = $UMS.UMSProfileAssignment[0].ReceiverTypeNew

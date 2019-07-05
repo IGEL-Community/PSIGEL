@@ -219,17 +219,15 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
+  $Credential = Import-Clixml -Path $UMS.CredPath
   $Id = $UMS.UMSProfileDirectory[0].id
   $ObjectType = $UMS.UMSProfileDirectory[0].DirectoryChildren.ObjectType
 
   $PSDefaultParameterValues = @{
-    '*-UMS*:Credential'             = $Credential
-    '*-UMS*:Computername'           = $UMS.Computername
-    '*-UMS*:SecurityProtocol'       = $UMS.SecurityProtocol
-    '*-UMS*:Id'                     = $Id
+    '*-UMS*:Credential'              = $Credential
+    '*-UMS*:Computername'            = $UMS.Computername
+    '*-UMS*:SecurityProtocol'        = $UMS.SecurityProtocol
+    '*-UMS*:Id'                      = $Id
     'Get-UMSProfileDirectory:Filter' = 'children'
   }
 
