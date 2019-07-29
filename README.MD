@@ -10,7 +10,7 @@ Currently the module  only supports PowerShell version **5.1** .
 
 To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
 
-The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/README.MD#new-umsapicookie):
+The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/Docs/New-UMSAPICookie.md):
 
 ```powershell
 $Websession = New-UMSAPICookie -Computername igelrmserver
