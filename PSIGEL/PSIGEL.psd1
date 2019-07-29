@@ -149,6 +149,7 @@
 * added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter detail
 * support for Datatype Version in Get-OSFirmware, Get-UMSFirmware, Get-UMSStatus
 * added Get-UMSDirectoryRecursive
+* edited SerialNumber Length to 18
 '@
 
     } # Ende der PSData-Hashtabelle
