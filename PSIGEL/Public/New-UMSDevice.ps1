@@ -70,7 +70,7 @@
     $InserviceDate,
 
     [Parameter(ValueFromPipelineByPropertyName)]
-    [ValidateLength(19, 19)]
+    [ValidateLength(18, 18)]
     [String]
     $SerialNumber
   )

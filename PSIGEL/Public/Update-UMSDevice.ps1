@@ -61,7 +61,7 @@
     $InserviceDate,
 
     [Parameter(ParameterSetName = 'Set')]
-    [ValidateLength(19, 19)]
+    [ValidateLength(18, 18)]
     [String]
     $SerialNumber
   )
