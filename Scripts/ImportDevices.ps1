@@ -1,12 +1,9 @@
-$UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
-
 $PSDefaultParameterValues = @{
-  'New-UMSAPICookie:Credential' = Import-Clixml -Path $UMSCredPath
   '*-UMS*:Computername'         = 'igelrmserver'
-  #'*-UMS*:SecurityProtocol'     = 'Tls'
+  'New-UMSAPICookie:Credential' = (Get-Credential)
 }
 $PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = (New-UMSAPICookie)
+  '*-UMS*:WebSession' = New-UMSAPICookie
 }
 
 $Path = 'C:\Temp\'
