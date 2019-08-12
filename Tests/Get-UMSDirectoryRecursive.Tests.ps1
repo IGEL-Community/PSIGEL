@@ -291,32 +291,32 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-<#
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {  
+#<#
+Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
-    $Credential = Import-Clixml -Path $UMS.CredPath
-    $Id = $UMS.UMSDirectoryRecursive[0].Id
+  $Credential = Import-Clixml -Path $UMS.CredPath
+  $Id = $UMS.UMSDirectoryRecursive[0].Id
   $Name = $UMS.UMSDirectoryRecursive[0].Name
-  
+
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
     '*-UMS*:Computername'     = $UMS.Computername
     '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
     '*-UMS*:Id'               = $Id
   }
-  
+
   $WebSession = New-UMSAPICookie -Credential $Credential
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
-  
+
   Context "ParameterSetName All" {
-    
+
     It "doesn't throw" {
-      { $Script:Result = Get-UMSDirectoryRecursive } | Should Not Throw
+      { $Script:Result = Get-UMSDirectoryRecursive - } | Should Not Throw
     }
-    
+
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
@@ -324,11 +324,11 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     It 'Result.Id should have type [Int]' {
       $Result.Id | Should -HaveType [Int]
     }
-    
+
     It "Result.Id should be exactly $Id" {
       $Result.Id | Should -BeExactly $Id
     }
-    
+
     It 'Result.Name should have type [String]' {
       $Result.Name | Should -HaveType [String]
     }
