@@ -59,7 +59,6 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     }
 
-    #<#
     Context "Mock Get-UMSDirectoryRecursive" {
 
       $Script:Result = ''
@@ -157,7 +156,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       It 'Result.Id should mot contain 8888' {
         $Result.Id | Should Not Contain 8888
       }
-      
+
       It 'Result[0].Id should be exactly 99' {
         $Result[0].Id | Should Be 99
       }
@@ -166,9 +165,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0].Id | Should -HaveType [Int]
       }
     }
-    #>
 
-    #<#
     Context "ParameterSetName Element" {
 
       $Script:Result = ''
@@ -275,9 +272,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Result[0].Id | Should -HaveType [Int]
       }
     }
-    #>
 
-    #<#
     Context "Error Handling" {
 
       $Script:Result = ''
@@ -293,19 +288,11 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         $Script:Result | Should BeNullOrEmpty
       }
     }
-    #>
   }
 }
 
 <#
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  BeforeAll {
-    if ($null -ne $Result)
-    {
-      Clear-Variable -Name $Result
-    }
-  }
-  
+Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {  
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
     $Credential = Import-Clixml -Path $UMS.CredPath
