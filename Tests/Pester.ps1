@@ -22,7 +22,7 @@ $PSDefaultParameterValues = @{
   '*-UMS*:TCPPort'              = [Int]$UMS.TCPPort
   '*-UMS*:SecurityProtocol'     = $UMS.SecurityProtocol
   '*-UMS*:Confirm'              = $false
-  'Invoke-Pester:Show'          = 'Failed'
+  #'Invoke-Pester:Show'          = 'Failed'
 }
 
 <#

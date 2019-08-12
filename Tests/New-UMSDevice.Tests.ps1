@@ -7,13 +7,6 @@ Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
-  BeforeAll {
-    if ($null -ne $Result)
-    {
-      Clear-Variable -Name $Result
-    }
-  }
-
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
@@ -126,20 +119,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  BeforeAll {
-    if ($null -ne $Result)
-    {
-      Clear-Variable -Name $Result
-    }
-  }
-
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
     ConvertFrom-Json
   $Credential = Import-Clixml -Path $UMS.CredPath
-  $Name = $UMS.UMSDevice[2].NameNew
-  $Mac = $UMS.UMSDevice[2].MacNew
-  $FirmwareId = $UMS.UMSDevice[2].FirmwareIdNew
-  $ParentId = $UMS.UMSDevice[2].ParentId
+  $Name = $UMS.UMSDevice[3].NameNew
+  $Mac = $UMS.UMSDevice[3].MacNew
+  $FirmwareId = $UMS.UMSDevice[3].FirmwareIdNew
+  $ParentId = $UMS.UMSDevice[3].ParentId
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential

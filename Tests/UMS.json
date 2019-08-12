@@ -19,8 +19,8 @@
         "Get-UMSDevice",
         "Get-UMSDeviceAssignment",
         "Get-UMSDeviceDirectory",
-        "Get-UMSDirectoryRecursive",
         "Get-UMSDeviceDirectoryAssignment",
+        "Get-UMSDirectoryRecursive",
         "Start-UMSDevice",
         "Send-UMSDeviceSetting",
         "Restart-UMSDevice",
@@ -210,7 +210,7 @@
       },
       {
         "Id": "1827",
-        "Name": "P_TCDir01_01",
+        "NameNew": "P_TCDir01_01",
         "ParentId": "457"
       },
       {

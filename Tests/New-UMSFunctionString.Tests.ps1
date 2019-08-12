@@ -7,13 +7,6 @@ Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
-  BeforeAll {
-    if ($null -ne $Result)
-    {
-      Clear-Variable -Name $Result
-    }
-  }
-
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
