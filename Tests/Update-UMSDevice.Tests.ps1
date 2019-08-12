@@ -78,7 +78,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
         Comment       = 'NewComment'
         AssetId       = 'NewAssetId'
         InserviceDate = 'NewInserviceDate'
-        SerialNumber  = '0123456789012345678'
+        SerialNumber  = '012345678901234567'
       }
       $Result = Update-UMSDevice @Params
 
