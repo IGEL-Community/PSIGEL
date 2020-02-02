@@ -1,0 +1,249 @@
+@startuml before
+allow_mixing
+
+frame Profiles as PRO {
+
+  package PRO_PI as "PSIGEL" {
+
+    package PRO_PI_Session as "Sessions" {
+
+      folder PRO_PI_Session_RDP as "RDP" {
+        node [PRO_RDP_Session01]
+      }
+    }
+
+    package PRO_PI_Accessories as "Accessories" {
+    }
+
+    package PRO_PI_UserInterface as "User Interface" {
+
+      folder PRO_PI_UserInterface_Language as "Language" {
+        node [PRO_LNG_DE]
+        node [PRO_LNG_US]
+        node [PRO_LNG_JP]
+
+      }
+
+    }
+
+    package PRO_PI_Network as "Network" {
+
+      package PRO_PI_Network_LANInterfaces as "LAN Interfaces" {
+        node [PRO_NW_LAN]
+        node [PRO_NW_WLAN]
+      }
+
+    }
+
+    package PRO_PI_Devices as "Devices" {
+    }
+
+    package PRO_PI_Security as "Security" {
+    }
+
+    package PRO_PI_System as "System" {
+
+      package PRO_PI_System_TimeAndDate as "Time and Date" {
+        node [PRO_TZ_CET]
+        node [PRO_TZ_EST]
+        node [PRO_TZ_PST]
+        node [PRO_TZ_JST]
+      }
+
+    }
+
+  }
+
+}
+
+frame Devices as DEV {
+
+  package DEV_PI as "PSIGEL" {
+
+    package DEV_PI_BR as "Bremen" {
+
+      package DEV_PI_BR_HR as "HR" {
+
+        object 0A0000000001 {
+          id = 
+          name = DEV_PI_B_HR_001
+          mac = 0A0000000001
+        }
+
+        object 0A0000000002 {
+          id = 
+          name = DEV_PI_B_HR_002
+          mac = 0A0000000002
+        }
+
+      }
+
+      package DEV_PI_BR_MKT as "Marketing" {
+
+        object 0A0000000003 {
+          id = 
+          name = DEV_PI_BR_MKT_001
+          mac = 0A0000000003
+        }
+
+        object 0A0000000004 {
+          id = 
+          name = DEV_PI_BR_MKT_002
+          mac = 0A0000000004
+        }
+
+      }
+
+    }
+
+    package DEV_PI_A as "Augsburg" {
+
+      package DEV_PI_A_DEV as "DEV" {
+
+        object 0A0000000005 {
+          id = 
+          name = DEV_PI_A_DEV_001
+          mac = 0A0000000005
+        }
+
+        object 0A0000000006 {
+          id = 
+          name = DEV_PI_A_DEV_002
+          mac = 0A0000000006
+        }
+
+      }
+
+      package DEV_PI_A_QA as "QandA" {
+
+        object 0A0000000007 {
+          id = 
+          name = DEV_PI_A_QA_001
+          mac = 0A0000000007
+        }
+
+        object 0A0000000008 {
+          id = 
+          name = DEV_PI_A_QA_002
+          mac = 0A0000000008
+        }
+
+      }
+
+    }
+
+    package DEV_PI_L as "Leipzig" {
+
+      package DEV_PI_L_DEV as "DEV" {
+
+        object 0A0000000009 {
+          id = 
+          name = DEV_PI_L_DEV_001
+          mac = 0A0000000009
+        }
+
+        object 0A0000000010 {
+          id = 
+          name = DEV_PI_L_DEV_002
+          mac = 0A0000000010
+        }
+
+      }
+
+      package DEV_PI_L_DIS as "Distribution" {
+
+        object 0A0000000011 {
+          id = 
+          name = DEV_PI_L_DIS_001
+          mac = 0A0000000011
+        }
+
+        object 0A0000000012 {
+          id = 
+          name = DEV_PI_L_DIS_002
+          mac = 0A0000000012
+        }
+
+      }
+
+    }
+  }
+
+}
+
+frame Function as FUN {
+
+  package FUN_Get as "Get" {
+    node [Get-UMSDevice] as FUN_Get_UD
+    node [Get-UMSDeviceDirectory] as FUN_Get_UDD
+    node [Get-UMSProfile] as FUN_Get_UP
+    node [Get-UMSProfileDirectory] as FUN_Get_UPD
+  }
+
+  package FUN_New as "New" {
+    node [New-UMSDevice] as FUN_New_UD
+    node [New-UMSDeviceDirectory] as FUN_New_UDD
+    node [New-UMSProfileDirectory] as FUN_New_UPD
+  }
+
+  package FUN_Move as "Move" {
+    node [Move-UMSDevice] as FUN_Move_UD
+    node [Move-UMSDeviceDirectory] as FUN_Move_UDD
+    node [Move-UMSProfile] as FUN_Move_UP
+    node [Move-UMSProfileDirectory] as FUN_Move_UPD
+  }
+
+  package FUN_Update as "Update" {
+    node [Update-UMSDevice] as FUN_Update_UD
+    node [Update-UMSDeviceDirectory] as FUN_Update_UDD
+    node [Update-UMSProfile] as FUN_Update_UP
+    node [Update-UMSProfileDirectory] as FUN_Update_UPD
+  }
+
+  package FUN_Remove as "Remove" {
+    node [Remove-UMSDevice] as FUN_Remove_UD
+    node [Remove-UMSDeviceDirectory] as FUN_Remove_UDD
+    node [Remove-UMSProfile] as FUN_Remove_UP
+    node [Remove-UMSProfileDirectory] as FUN_Remove_UPD
+  }
+
+}
+
+FUN_Get_UD -down. FUN_Get_UDD
+FUN_Get_UDD -down. FUN_Get_UP
+FUN_Get_UP -down. FUN_Get_UPD
+FUN_Get_UPD -down. FUN_New_UD
+FUN_New_UD -down. FUN_New_UDD
+FUN_New_UDD -down. FUN_New_UPD
+FUN_New_UPD -down. FUN_Move_UD
+FUN_Move_UD -down. FUN_Move_UDD
+FUN_Move_UDD -down. FUN_Move_UP
+FUN_Move_UP -down. FUN_Move_UPD
+FUN_Move_UPD -down. FUN_Update_UD
+FUN_Update_UD -down. FUN_Update_UDD
+FUN_Update_UDD -down. FUN_Update_UP
+FUN_Update_UP -down. FUN_Update_UPD
+FUN_Update_UPD -down. FUN_Remove_UD
+FUN_Remove_UD -down. FUN_Remove_UDD
+FUN_Remove_UDD -down. FUN_Remove_UP
+FUN_Remove_UP -down. FUN_Remove_UPD
+
+FUN_Remove_UD -down-|> 0A0000000011 : 1.
+FUN_Remove_UD -down-|> 0A0000000012
+FUN_Remove_UDD -down-|> DEV_PI_L_DIS
+
+FUN_Move_UD -down-|> 0A0000000009
+0A0000000009 -right-> DEV_PI_A_DEV
+
+FUN_Move_UDD -down-|> DEV_PI_L_DEV
+DEV_PI_L_DEV -right-> DEV_PI_BR
+/'
+
+FUN_Move_UDD -down-|> 
+FUN_Remove_UP -down-|> 
+FUN_Move_UPD -down-|> 
+FUN_Remove_UP -down-|> PRO_RDP_Session01
+FUN_Remove_UPD -down-|> PRO_PI_Session_RDP
+'/
+
+@enduml

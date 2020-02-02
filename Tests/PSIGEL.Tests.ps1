@@ -27,7 +27,7 @@ Describe "General project validation: $ModuleName" {
     }
 
     It "Module '$ModuleName' can import cleanly" {
-      {Import-Module ( '{0}/{1}.psm1' -f $ModuleRoot, $ModuleName) } | Should Not Throw
+      { Import-Module ( '{0}/{1}.psm1' -f $ModuleRoot, $ModuleName) } | Should Not Throw
     }
   }
 
@@ -66,7 +66,7 @@ Describe "General project validation: $ModuleName" {
 
   Context 'Public Functions' {
     $PublicFunctionColl = (Get-ChildItem -Path ('{0}\Public' -f $ModuleRoot) -Filter *.ps1 |
-        Select-Object -ExpandProperty Name ) -replace '\.ps1$'
+      Select-Object -ExpandProperty Name ) -replace '\.ps1$'
 
     $TestCase = $PublicFunctionColl | Foreach-Object {
       @{
@@ -85,23 +85,23 @@ Describe "General project validation: $ModuleName" {
 
     It 'Proper Number of Functions Exported compared to Manifest' {
       $ExportedCount = Get-Command -Module $ModuleName -CommandType Function |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $ManifestCount = $Manifest.ExportedFunctions.Count
       $ExportedCount | Should be $ManifestCount
     }
 
     It 'Proper Number of Functions Exported compared to Files' {
       $ExportedCount = Get-Command -Module $ModuleName -CommandType Function |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $FileCount = Get-ChildItem -Path ('{0}\Public' -f $ModuleRoot) -Filter *.ps1 |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $ExportedCount | Should be $FileCount
     }
   }
 
   Context 'Private Functions' {
     $PrivateFunctionColl = (Get-ChildItem -Path ('{0}\Private' -f $ModuleRoot) -Filter *.ps1 |
-        Select-Object -ExpandProperty Name ) -replace '\.ps1$'
+      Select-Object -ExpandProperty Name ) -replace '\.ps1$'
     $TestCase = $PrivateFunctionColl | Foreach-Object {
       @{
         FunctionName = $_
@@ -119,7 +119,7 @@ Describe "General project validation: $ModuleName" {
   Context 'Exported Aliases' {
     It 'Proper Number of Aliases Exported compared to Manifest' {
       $ExportedCount = Get-Command -Module $ModuleName -CommandType Alias |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $ManifestCount = $Manifest.ExportedAliases.Count
 
       $ExportedCount | Should be $ManifestCount
@@ -127,10 +127,10 @@ Describe "General project validation: $ModuleName" {
 
     It 'Proper Number of Aliases Exported compared to Files' {
       $AliasCount = Get-ChildItem -Path "$ModuleRoot\Public" -Filter *.ps1 |
-        Select-String "New-Alias" | Measure-Object | Select-Object -ExpandProperty Count
+      Select-String "New-Alias" | Measure-Object | Select-Object -ExpandProperty Count
       $ManifestCount = $Manifest.ExportedAliases.Count
 
-      $AliasCount  | Should be $ManifestCount
+      $AliasCount | Should be $ManifestCount
     }
   }
 }
@@ -144,9 +144,9 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   $ScriptAnalyzerErrorColl += Invoke-ScriptAnalyzer -Path "$ModuleRoot\Public" @PSScriptAnalyzerSettingColl
   $ScriptAnalyzerErrorColl += Invoke-ScriptAnalyzer -Path "$ModuleRoot\Private" @PSScriptAnalyzerSettingColl
   $PrivateFunctionColl = Get-ChildItem -Path "$ModuleRoot\Private" -Filter *.ps1 |
-    Select-Object -ExpandProperty Name
+  Select-Object -ExpandProperty Name
   $PublicFunctionColl = Get-ChildItem -Path "$ModuleRoot\Public" -Filter *.ps1 |
-    Select-Object -ExpandProperty Name
+  Select-Object -ExpandProperty Name
   $AllFunctionColl = ($PrivateFunctionColl + $PublicFunctionColl) | Sort-Object
   $FunctionWithErrorColl = $ScriptAnalyzerErrorColl.ScriptName | Sort-Object -Unique
   if ($ScriptAnalyzerErrorColl)
@@ -161,7 +161,7 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
       }
     }
     $FunctionWithoutErrorColl = Compare-Object -ReferenceObject $AllFunctionColl -DifferenceObject $FunctionWithErrorColl |
-      Select-Object -ExpandProperty InputObject
+    Select-Object -ExpandProperty InputObject
     Context 'ScriptAnalyzer Testing' {
       It "Function <ScriptName> should not use <Message> on line <Line>" -TestCases $TestCase {
         param(

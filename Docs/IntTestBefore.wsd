@@ -1,0 +1,205 @@
+@startuml before
+allow_mixing
+
+skinparam sequence {
+	ArrowColor DarkRed
+}
+
+frame Profiles as PRO #LightGrey {
+  
+  package PRO_PI as "PSIGEL" #SlateGrey {
+
+    package PRO_PI_Session as "Sessions" #LightGrey {
+
+      folder PRO_PI_Session_RDP as "RDP" #SlateGrey {
+        node [PRO_RDP_Session01]
+      }
+    }
+
+    package PRO_PI_Accessories as "Accessories" #LightGrey {
+
+      folder PRO_PI_Accessories_Terminal as "Terminal" #SlateGrey {
+        node [PRO_Terminal_LocalTerminal]
+      }
+    }
+
+    package PRO_PI_UserInterface as "User Interface" #LightGrey {
+
+      folder PRO_PI_UserInterface_Language as "Language" #SlateGrey {
+        node [PRO_LNG_DE]
+
+      }
+
+    }
+
+    package PRO_PI_Network as "Network" #LightGrey {
+
+      folder PRO_PI_Network_LANInterfaces as "LAN Interfaces" #SlateGrey {
+        node [PRO_NW_LAN]
+        node [PRO_NW_WLAN]
+      }
+
+    }
+
+    package PRO_PI_Devices as "Devices" #LightGrey {
+
+      folder PRO_PI_Devices_StorageDevices as "Storage Devices" #SlateGrey {
+        node [PRO_USB_G]
+      }
+
+    }
+
+    package PRO_PI_Security as "Security" #LightGrey {
+
+      folder PRO_PI_Security_Password as "Password" #SlateGrey {
+        node [PRO_PW_Root]
+      }
+    }
+
+    package PRO_PI_System as "System" #LightGrey {
+
+      folder PRO_PI_System_TimeAndDate as "Time and Date" #SlateGrey {
+        node [PRO_TZ_CET]
+      }
+
+    }
+
+  }
+
+  PRO_RDP_Session01 -down. PRO_Terminal_LocalTerminal
+  PRO_Terminal_LocalTerminal -down. PRO_LNG_DE
+  PRO_LNG_DE -down. PRO_NW_LAN
+  PRO_NW_LAN -down. PRO_NW_WLAN
+  PRO_NW_WLAN -down. PRO_USB_G
+  PRO_USB_G -down. PRO_PW_Root
+  PRO_PW_Root -down. PRO_TZ_CET
+
+}
+
+frame Devices as DEV #LightGrey {
+
+  package DEV_PI as "PSIGEL" #SlateGrey {
+
+    package DEV_PI_BR as "Bremen" #LightGrey {
+
+      package DEV_PI_BR_HR as "HR" #SlateGrey {
+
+        object 0A0000000001 {
+          id = 
+          name = DEV_PI_B_HR_001
+          mac = 0A0000000001
+        }
+
+        object 0A0000000002 {
+          id = 
+          name = DEV_PI_B_HR_002
+          mac = 0A0000000002
+        }
+
+      }
+
+      package DEV_PI_BR_MKT as "Marketing" #SlateGrey {
+
+        object 0A0000000003 {
+          id = 
+          name = DEV_PI_BR_MKT_001
+          mac = 0A0000000003
+        }
+
+        object 0A0000000004 {
+          id = 
+          name = DEV_PI_BR_MKT_002
+          mac = 0A0000000004
+        }
+
+      }
+
+    }
+
+    package DEV_PI_A as "Augsburg" #LightGrey {
+
+      package DEV_PI_A_DEV as "DEV" #SlateGrey {
+
+        object 0A0000000005 {
+          id = 
+          name = DEV_PI_A_DEV_001
+          mac = 0A0000000005
+        }
+
+        object 0A0000000006 {
+          id = 
+          name = DEV_PI_A_DEV_002
+          mac = 0A0000000006
+        }
+
+      }
+
+    }
+
+    package DEV_PI_L as "Leipzig" #LightGrey {
+
+      package DEV_PI_L_DEV as "DEV" #SlateGrey {
+
+        object 0A0000000009 {
+          id = 
+          name = DEV_PI_L_DEV_001
+          mac = 0A0000000009
+        }
+
+        object 0A0000000010 {
+          id = 
+          name = DEV_PI_L_DEV_002
+          mac = 0A0000000010
+        }
+
+      }
+
+      package DEV_PI_L_DIS as "Distribution" #SlateGrey {
+
+        object 0A0000000011 {
+          id = 
+          name = DEV_PI_L_DIS_001
+          mac = 0A0000000011
+        }
+
+        object 0A0000000012 {
+          id = 
+          name = DEV_PI_L_DIS_002
+          mac = 0A0000000012
+        }
+
+      }
+
+    }
+  }
+
+  0A0000000001 -down. 0A0000000002
+  0A0000000002 -down. 0A0000000003
+  0A0000000003 -down. 0A0000000004
+  0A0000000004 -down. 0A0000000005
+  0A0000000005 -down. 0A0000000006
+  0A0000000006 -down. 0A0000000009
+  0A0000000009 -down. 0A0000000010
+  0A0000000010 -down. 0A0000000011
+  0A0000000011 -down. 0A0000000012
+
+}
+
+
+PRO -right. DEV
+
+PRO_RDP_Session01 -right-+ DEV_PI
+PRO_Terminal_LocalTerminal -right-+ DEV_PI_A_DEV
+PRO_Terminal_LocalTerminal -right-+ DEV_PI_L_DEV
+PRO_LNG_DE -right-+ DEV_PI
+PRO_NW_LAN -right-+ DEV_PI_BR
+PRO_NW_WLAN -right-+ DEV_PI_A
+PRO_NW_WLAN -right-+ DEV_PI_L_DEV
+PRO_USB_G -right-+ DEV_PI_A_DEV
+PRO_USB_G -right-+ 0A0000000011
+PRO_PI_Security_Password -right-+ DEV_PI
+PRO_TZ_CET -right-+ DEV_PI
+
+
+
+@enduml
