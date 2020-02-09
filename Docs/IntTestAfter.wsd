@@ -10,31 +10,45 @@ frame Profiles as PRO #LightGrey {
   package PRO_PI as "PSIGEL" #SlateGrey {
 
     package PRO_PI_Session as "Sessions" #LightGrey {
-      node [PRO_RDP_Session01]
+      object PRO_RDP_Session01 {
+        id = 529
+      }
     }
 
     package PRO_PI_Accessories as "Accessories" #LightGrey {
-      node [PRO_Terminal_LocalTerminal]
+      object PRO_Terminal_LocalTerminal {
+        id = 532
+      }
     }
 
     package PRO_PI_UserInterface as "User Interface" #Yellow {
-      node [PRO_LNG_DE] #Yellow
+      object PRO_LNG_DE #Yellow {
+        id = 535
+      }
     }
 
     package PRO_PI_Network as "Network" #LightGrey {
-      node [PRO_NW_LAN]
-      node [PRO_NW_WLAN]
+      object PRO_NW_LAN {
+        id = 537
+      }
+      object PRO_NW_WLAN {
+        id = 538
+      }
     }
 
     package PRO_PI_Devices as "Devices" #Green {
     }
 
     package PRO_PI_Security as "Security" #LightGrey {
-      node [PRO_PW_Root]
+      object PRO_PW_Root {
+        id = 540
+      }
     }
 
     package PRO_PI_System as "System" #Red {
-      node [PRO_TZ_CET] #Red
+      object PRO_TZ_CET #Red {
+        id = 542
+      }
     }
 
   }
@@ -58,14 +72,14 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_BR_HR as "HR" #SlateGrey {
 
         object 0A0000000001 {
-          id = 
-          name = DEV_PI_B_HR_001
+          id = 505
+          name = BR-HR-001
           mac = 0A0000000001
         }
 
         object 0A0000000002 {
-          id = 
-          name = DEV_PI_B_HR_002
+          id = 507
+          name = BR-HR-002
           mac = 0A0000000002
         }
 
@@ -74,20 +88,20 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_BR_MKT as "Marketing" #SlateGrey {
 
         object 0A0000000003 {
-          id = 
-          name = DEV_PI_BR_MKT_001
+          id = 509
+          name = BR-MKT-003
           mac = 0A0000000003
         }
 
         object 0A0000000004 {
-          id = 
-          name = DEV_PI_BR_MKT_002
+          id = 510
+          name = BR-MKT-004
           mac = 0A0000000004
         }
 
       }
 
-      package DEV_PI_BR_DEV as "DEV" #Yellow {
+      package DEV_PI_BR_DEV as "Development" #Yellow {
 
         object 0A0000000010 #Yellow {
           id = 
@@ -101,23 +115,23 @@ frame Devices as DEV #LightGrey {
 
     package DEV_PI_A as "Augsburg" #LightGrey {
 
-      package DEV_PI_A_DEV as "DEV" #SlateGrey {
+      package DEV_PI_A_DEV as "Development" #SlateGrey {
 
         object 0A0000000005 {
-          id = 
-          name = DEV_PI_A_DEV_001
+          id = 512
+          name = A-DEV-005
           mac = 0A0000000005
         }
 
         object 0A0000000006 {
-          id = 
-          name = DEV_PI_A_DEV_002
+          id = 513
+          name = A-DEV-006
           mac = 0A0000000006
         }
 
         object 0A0000000009 #Yellow {
-          id = 
-          name = DEV_PI_L_DEV_001
+          id = 518
+          name = A-DEV-009
           mac = 0A0000000009
         }
 
@@ -146,14 +160,14 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_L_DIS as "Distribution" #Red {
 
         object 0A0000000011 #Red {
-          id = 
-          name = DEV_PI_L_DIS_001
+          id = 521
+          name = L-DIS-011
           mac = 0A0000000011
         }
 
         object 0A0000000012 #Red {
-          id = 
-          name = DEV_PI_L_DIS_002
+          id = 522
+          name = L-DIS-012
           mac = 0A0000000012
         }
 

@@ -10,35 +10,49 @@ frame Profiles as PRO #LightGrey {
   package PRO_PI as "PSIGEL" #SlateGrey {
 
     package PRO_PI_Session as "Sessions" #LightGrey {
-      node [PRO_RDP_Session01]
+      object PRO_RDP_Session01 {
+        id = 529
+      }
     }
 
     package PRO_PI_Accessories as "Accessories" #LightGrey {
-      node [PRO_Terminal_LocalTerminal]
+      object PRO_Terminal_LocalTerminal {
+        id = 532
+      }
     }
 
     package PRO_PI_Network as "Network" #LightGrey {
       package PRO_PI_Network_UserInterface as "Network User Interface" #SlateGrey {
       }
-      node [PRO_NW_LNG_DE]
-      node [PRO_NW_LAN]
-      node [PRO_NW_WLAN]
+      object PRO_LNG_DE {
+        id = 535
+      }
+      object PRO_NW_LAN {
+        id = 537
+      }
+      object PRO_NW_WLAN {
+        id = 538
+      }
     }
 
     package PRO_PI_Security as "Security" #LightGrey {
-      node [PRO_PW_Root]
+      object PRO_PW_Root {
+        id = 540
+      }
     }
 
     package PRO_PI_System as "System" #LightGrey {
-      node [PRO_TZ_CET]
+      object PRO_TZ_CET {
+        id = 542
+      }
     }
 
   }
 
   PRO_RDP_Session01 -down. PRO_Terminal_LocalTerminal
   PRO_Terminal_LocalTerminal -down. PRO_PI_Network_UserInterface
-  PRO_PI_Network_UserInterface -down. PRO_NW_LNG_DE
-  PRO_NW_LNG_DE -down. PRO_NW_LAN
+  PRO_PI_Network_UserInterface -down. PRO_LNG_DE
+  PRO_LNG_DE -down. PRO_NW_LAN
   PRO_NW_LAN -down. PRO_NW_WLAN
   PRO_NW_WLAN -down. PRO_PW_Root
   PRO_PW_Root -down. PRO_TZ_CET
@@ -54,14 +68,14 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_BR_HR as "HR" #SlateGrey {
 
         object 0A0000000001 {
-          id = 
-          name = DEV_PI_B_HR_001
+          id = 505
+          name = BR-HR-001
           mac = 0A0000000001
         }
 
         object 0A0000000002 {
-          id = 
-          name = DEV_PI_B_HR_002
+          id = 507
+          name = BR-HR-002
           mac = 0A0000000002
         }
 
@@ -70,14 +84,14 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_BR_MKT as "Marketing" #SlateGrey {
 
         object 0A0000000003 {
-          id = 
-          name = DEV_PI_BR_MKT_001
+          id = 509
+          name = BR-MKT-003
           mac = 0A0000000003
         }
 
         object 0A0000000004 {
-          id = 
-          name = DEV_PI_BR_MKT_002
+          id = 510
+          name = BR-MKT-004
           mac = 0A0000000004
         }
 
@@ -87,17 +101,17 @@ frame Devices as DEV #LightGrey {
 
     package DEV_PI_A as "Augsburg" #LightGrey {
 
-      package DEV_PI_A_DEV as "DEV" #SlateGrey {
+      package DEV_PI_A_DEV as "Development" #SlateGrey {
 
         object 0A0000000005 {
-          id = 
-          name = DEV_PI_A_DEV_001
+          id = 512
+          name = A-DEV-005
           mac = 0A0000000005
         }
 
         object 0A0000000006 {
-          id = 
-          name = DEV_PI_A_DEV_002
+          id = 513
+          name = A-DEV-006
           mac = 0A0000000006
         }
 
@@ -107,17 +121,17 @@ frame Devices as DEV #LightGrey {
 
     package DEV_PI_L as "Leipzig" #LightGrey {
 
-      package DEV_PI_L_DEV as "DEV" #SlateGrey {
+      package DEV_PI_L_DEV as "Development" #SlateGrey {
 
         object 0A0000000009 {
-          id = 
-          name = DEV_PI_L_DEV_001
+          id = 518
+          name = L-DEV-009
           mac = 0A0000000009
         }
 
         object 0A0000000010 {
-          id = 
-          name = DEV_PI_L_DEV_002
+          id = 519
+          name = L-DEV-010
           mac = 0A0000000010
         }
 
@@ -126,14 +140,14 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_L_DIS as "Distribution" #SlateGrey {
 
         object 0A0000000011 {
-          id = 
-          name = DEV_PI_L_DIS_001
+          id = 521
+          name = L-DIS-011
           mac = 0A0000000011
         }
 
         object 0A0000000012 {
-          id = 
-          name = DEV_PI_L_DIS_002
+          id = 522
+          name = L-DIS-012
           mac = 0A0000000012
         }
 
@@ -160,7 +174,7 @@ PRO -right. DEV
 PRO_RDP_Session01 -right-+ DEV_PI
 PRO_Terminal_LocalTerminal -right-+ DEV_PI_A_DEV
 PRO_Terminal_LocalTerminal -right-+ DEV_PI_L_DEV
-PRO_NW_LNG_DE -right-+ DEV_PI
+PRO_LNG_DE -right-+ DEV_PI
 PRO_NW_LAN -right-+ DEV_PI_BR
 PRO_NW_WLAN -right-+ 0A0000000001
 PRO_NW_WLAN -right-+ DEV_PI_L_DEV
