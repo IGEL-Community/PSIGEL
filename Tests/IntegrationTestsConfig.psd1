@@ -11,83 +11,92 @@ Integration Tests Config
   ProfileRootDirId = 527 # Profiles->PSIGEL
   DeviceRootDirId  = 502 # Devices -> PSIGEL
   Tests            = [ordered]@{
-    'GetUMSFirmware' = @{
-      1 = @{
+    'GetUMSFirmware' = @(
+      @{
+        Id           = 1
         Product      = 'IGEL OS 11'
         Version      = '11.3.100.1'
         FirmwareType = 'LX'
       }
-      2 = @{
+      @{
+        Id           = 2
         Product      = 'IGEL OS 11'
         Version      = '11.3.110.1'
         FirmwareType = 'LX'
       }
-    }
-    'GetUMSProfile'  = @{
-      529 = @{
+    )
+    'GetUMSProfile'  = @(
+      @{
         FirmwareId        = 1
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 529
         Name              = 'PRO_RDP_Session01'
         ParentId          = 528
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-      532 = @{
+      @{
         FirmwareId        = 1
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 532
         Name              = 'PRO_Terminal_LocalTerminal'
         ParentId          = 531
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-      535 = @{
+      @{
         FirmwareId        = 2
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 535
         Name              = 'PRO_LNG_DE'
         ParentId          = 533
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-      537 = @{
+      @{
         FirmwareId        = 2
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 537
         Name              = 'PRO_NW_LAN'
         ParentId          = 533
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-      538 = @{
+      @{
         FirmwareId        = 2
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 538
         Name              = 'PRO_NW_WLAN'
         ParentId          = 533
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-      540 = @{
+      @{
         FirmwareId        = 1
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 540
         Name              = 'PRO_PW_Root'
         ParentId          = 539
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-      542 = @{
+      @{
         FirmwareId        = 1
         IsMasterProfile   = 'False'
         OverridesSessions = 'False'
+        Id                = 542
         Name              = 'PRO_TZ_CET'
         ParentId          = 541
         MovedToBin        = 'False'
         ObjectType        = 'profile'
       }
-    }
+    )
     <#
     3  = 'Get-UMSProfileDirectory'
     4  = 'Get-UMSProfileAssignment'
