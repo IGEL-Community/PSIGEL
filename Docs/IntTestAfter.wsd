@@ -88,13 +88,13 @@ frame Devices as DEV #LightGrey {
       package DEV_PI_BR_MKT as "Marketing" #SlateGrey {
 
         object 0A0000000003 {
-          id = 509
+          id = 577
           name = BR-MKT-003
           mac = 0A0000000003
         }
 
         object 0A0000000004 {
-          id = 510
+          id = 576
           name = BR-MKT-004
           mac = 0A0000000004
         }
@@ -141,13 +141,13 @@ frame Devices as DEV #LightGrey {
 
         object 0A0000000007 #Green {
           id = 
-          name = DEV_PI_A_QA_001
+          name = A-QA-007
           mac = 0A0000000007
         }
 
         object 0A0000000008 #Green {
           id = 
-          name = DEV_PI_A_QA_002
+          name = A-QA-008
           mac = 0A0000000008
         }
 
@@ -298,6 +298,7 @@ RemoveUMSProfileAssignment -right-> PRO_PW_Root : 13 - Remove-UMSProfileAssignme
 
 'Move
 MoveUMSDevice -right-> 0A0000000009 : 14 - Move-UMSDevice
+MoveUMSDeviceDirectory -right-> DEV_PI_A_QA: 15 - Move-UMSDeviceDirectory DEV_PI_A_QA
 MoveUMSDeviceDirectory -right-> DEV_PI_BR_DEV: 15 - Move-UMSDeviceDirectory DEV_PI_L_DEV
 MoveUMSProfile -right-> PRO_LNG_DE : 16 - Move-UMSProfile
 MoveUMSProfileDirectory -right-> PRO_PI_UserInterface : 17 - Move-UMSProfileDirectory

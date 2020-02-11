@@ -11,7 +11,7 @@ Integration Tests Config
   ProfileRootDirId = 527 # Profiles->PSIGEL
   DeviceRootDirId  = 502 # Devices -> PSIGEL
   Tests            = [ordered]@{
-    'GetUMSFirmware' = @(
+    'GetUMSFirmware'                                                                                = @(
       @{
         Id           = 1
         Product      = 'IGEL OS 11'
@@ -25,7 +25,7 @@ Integration Tests Config
         FirmwareType = 'LX'
       }
     )
-    'GetUMSProfile'  = @(
+    'GetUMSProfile'                                                                                 = @(
       @{
         FirmwareId        = 1
         IsMasterProfile   = 'False'
@@ -97,38 +97,705 @@ Integration Tests Config
         ObjectType        = 'profile'
       }
     )
-    <#
-    3  = 'Get-UMSProfileDirectory'
-    4  = 'Get-UMSProfileAssignment'
-    5  = 'Get-UMSStatus'
-    6  = 'Get-UMSDevice'
-    7  = 'Get-UMSDeviceAssignment'
-    8  = 'Get-UMSDeviceDirectory'
-    9  = 'Get-UMSDeviceDirectoryAssignment'
-    10 = 'Get-UMSDirectoryRecursive'
-    11 = 'Start-UMSDevice'
-    12 = 'Send-UMSDeviceSetting'
-    13 = 'Restart-UMSDevice'
-    14 = 'Stop-UMSDevice'
-    15 = 'Update-UMSProfile'
-    16 = 'Update-UMSProfileDirectory'
-    17 = 'Update-UMSDevice'
-    18 = 'Update-UMSDeviceDirectory'
-    19 = 'Move-UMSProfile'
-    20 = 'Move-UMSProfileDirectory'
-    21 = 'Move-UMSDevice'
-    22 = 'Move-UMSDeviceDirectory'
-    23 = 'New-UMSProfileAssignment'
-    24 = 'New-UMSProfileDirectory'
-    25 = 'New-UMSDevice'
-    26 = 'New-UMSDeviceDirectory'
-    27 = 'Remove-UMSProfileAssignment'
-    28 = 'Remove-UMSProfile'
-    29 = 'Remove-UMSProfileDirectory'
-    30 = 'Remove-UMSDevice'
-    31 = 'Remove-UMSDeviceDirectory'
-    32 = 'Reset-UMSDevice'
-    #>
+    'GetUMSProfileDirectory'                                                                        = @(
+      @{
+        Id         = 528
+        Name       = 'Sessions'
+        ParentId   = 527
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+      @{
+        Id         = 531
+        Name       = 'Accessories'
+        ParentId   = 527
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+      @{
+        Id         = 533
+        Name       = 'Network'
+        ParentId   = 527
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+      @{
+        Id         = 534
+        Name       = 'Network User Interface'
+        ParentId   = 533
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+      @{
+        Id         = 539
+        Name       = 'Security'
+        ParentId   = 527
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+      @{
+        Id         = 541
+        Name       = 'System'
+        ParentId   = 527
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+      @{
+        Id         = 52
+        Name       = 'PSIGEL'
+        ParentId   = -2
+        MovedToBin = 'False'
+        ObjectType = 'profiledirectory'
+      }
+    )
+    'GetUMSProfileGetUMSProfileAssignment'                                                          = @(
+      @{
+        Id                 = 538
+        Type               = 'profile'
+        ReceiverId         = 505
+        ReceiverType       = 'tc'
+        AssignmentPosition = 0
+      }
+    )
+    'GetUMSProfileGetUMSProfileAssignmentDirectory'                                                 = @(
+      @{
+        Id                 = 529
+        Type               = 'profile'
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 532
+        Type               = 'profile'
+        ReceiverId         = 514
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 532
+        Type               = 'profile'
+        ReceiverId         = 517
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 1
+      }
+      @{
+        Id                 = 535
+        Type               = 'profile'
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 537
+        Type               = 'profile'
+        ReceiverId         = 503
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 538
+        Type               = 'profile'
+        ReceiverId         = 517
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 540
+        Type               = 'profile'
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 542
+        Type               = 'profile'
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssignmentPosition = 0
+      }
+    )
+    'GetUMSStatus'                                                                                  = @(
+      @{
+        RmGuiServerVersion = 6.3.130
+        BuildNumber        = 44584
+        ActiveMqVersion    = 5.7.0
+        DerbyVersion       = 10.12.1.1
+        ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
+        Server             = 'igelrmserver:8443'
+      }
+    )
+    'GetUMSDeviceId505Filterdetails'                                                                = @(
+      @{
+        Id                        = 505
+        ObjectType                = 'tc'
+        UnitId                    = '0A0000000001'
+        Mac                       = '0A0000000001'
+        Name                      = 'BR-HR-001'
+        ParentId                  = 504
+        FirmwareId                = 1
+        LastIp                    = ''
+        MovedToBin                = 'False'
+        NetworkName               = ''
+        Site                      = ''
+        Comment                   = ''
+        Department                = ''
+        CostCenter                = ''
+        AssetID                   = ''
+        InServiceDate             = ''
+        SerialNumber              = ''
+        ProductId                 = ''
+        CpuSpeed                  = 0
+        CpuType                   = ''
+        DeviceType                = ''
+        DeviceSerialNumber        = ''
+        OsType                    = ''
+        FlashSize                 = 0
+        MemorySize                = 0
+        NetworkSpeed              = 0
+        GraphicsChipset0          = ''
+        GraphicsChipset1          = ''
+        MonitorVendor1            = ''
+        MonitorModel1             = ''
+        MonitorSerialnumber1      = ''
+        MonitorSize1              = 0
+        MonitorNativeResolution1  = ''
+        Monitor1YearOfManufacture = 0
+        Monitor1WeekOfManufacture = 0
+        MonitorVendor2            = ''
+        MonitorModel2             = ''
+        MonitorSerialnumber2      = ''
+        MonitorSize2              = 0
+        MonitorNativeResolution2  = ''
+        Monitor2YearOfManufacture = 0
+        Monitor2WeekOfManufacture = 0
+        BiosVendor                = ''
+        BiosVersion               = ''
+        TotalUsagetime            = -1
+        TotalUptime               = -1
+        BatteryLevel              = -1
+        LastBootTime              = ''
+        BiosDate                  = ''
+      }
+    )
+    'GetUMSDeviceId505Filteronline'                                                                 = @(
+      @{
+        Id         = 505
+        ObjectType = 'tc'
+        UnitId     = '0A0000000001'
+        Mac        = '0A0000000001'
+        Name       = 'BR-HR-001'
+        ParentId   = 504
+        FirmwareId = 1
+        LastIp     = ''
+        MovedToBin = 'False'
+        Online     = 'False'
+      }
+    )
+    'GetUMSDeviceAssignmentId505'                                                                   = @(
+      @{
+        Id                 = 505
+        ReceiverId         = 505
+        ReceiverType       = 'tc'
+        AssigneeId         = 538
+        AssigneeType       = 'profile'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 505
+        ReceiverId         = 503
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 537
+        AssigneeType       = 'profile'
+        AssignmentPosition = 1
+      }
+      @{
+        Id                 = 505
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 542
+        AssigneeType       = 'profile'
+        AssignmentPosition = 2
+      }
+      @{
+        Id                 = 505
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 540
+        AssigneeType       = 'profile'
+        AssignmentPosition = 3
+      }
+      @{
+        Id                 = 505
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 529
+        AssigneeType       = 'profile'
+        AssignmentPosition = 4
+      }
+      @{
+        Id                 = 505
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 535
+        AssigneeType       = 'profile'
+        AssignmentPosition = 5
+      }
+    )
+    'GetUMSDeviceDirectory'                                                                         = @(
+      @{
+        Id         = 514
+        Name       = 'Development'
+        ParentId   = 511
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 516
+        Name       = 'Leipzig'
+        ParentId   = 502
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 517
+        Name       = 'Development'
+        ParentId   = 516
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 502
+        Name       = 'PSIGEL'
+        ParentId   = -1
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 503
+        Name       = 'Bremen'
+        ParentId   = 502
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 504
+        Name       = 'HR'
+        ParentId   = 503
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 520
+        Name       = 'Distribution'
+        ParentId   = 516
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 508
+        Name       = 'Marketing'
+        ParentId   = 503
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 511
+        Name       = 'Augsburg'
+        ParentId   = 502
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+    )
+    'Get-UMSDeviceDirectoryId514'                                                                   = @(
+      @{
+        Id         = 514
+        Name       = 'Development'
+        ParentId   = 511
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+    )
+    'GetUMSDeviceDirectoryAssignmentId514'                                                          = @(
+      @{
+        Id                 = 514
+        ReceiverId         = 514
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 532
+        AssigneeType       = 'profile'
+        AssignmentPosition = 0
+      }
+      @{
+        Id                 = 514
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 535
+        AssigneeType       = 'profile'
+        AssignmentPosition = 1
+      }
+      @{
+        Id                 = 514
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 529
+        AssigneeType       = 'profile'
+        AssignmentPosition = 2
+      }
+      @{
+        Id                 = 514
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 540
+        AssigneeType       = 'profile'
+        AssignmentPosition = 3
+      }
+      @{
+        Id                 = 514
+        ReceiverId         = 502
+        ReceiverType       = 'tcdirectory'
+        AssigneeId         = 542
+        AssigneeType       = 'profile'
+        AssignmentPosition = 4
+      }
+    )
+    'GetUMSDirectoryRecursiveId511DirectoryCollGetUMSDeviceDirectory'                               = @(
+      @{
+        Id         = 511
+        Name       = 'Augsburg'
+        ParentId   = 502
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 514
+        Name       = 'Development'
+        ParentId   = 511
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+    )
+    'GetUMSDirectoryRecursiveId511DirectoryCollGetUMSDeviceDirectoryElementCollGetUMSDevice'        = @(
+      @{
+        Id         = 512
+        ObjectType = 'tc'
+        UnitId     = '0A0000000005'
+        Mac        = '0A0000000005'
+        Name       = 'A-DEV-005'
+        ParentId   = 514
+        FirmwareId = 1
+        LastIp     = ''
+        MovedToBin = 'False'
+      }
+      @{
+        Id         = 513
+        ObjectType = 'tc'
+        UnitId     = '0A0000000006'
+        Mac        = '0A0000000006'
+        Name       = 'A-DEV-006'
+        ParentId   = 514
+        FirmwareId = 1
+        LastIp     = ''
+        MovedToBin = 'False'
+      }
+    )
+    'NewUMSDeviceDirectoryNameQandA'                                                                = @(
+      @{
+        Message = 'Directory successfully inserted.'
+        Id      = 613
+        Name    = 'QandA'
+      }
+    )
+    'NewUMSDeviceMac0A0000000007NameA-QA-007FirmwareId1ParentId-1'                                  = @(
+      @{
+        Mac      = '0A0000000007'
+        Message  = 'Device successfully inserted.'
+        Id       = 617 #dynamisch
+        Name     = 'A-QA-007'
+        ParentId = -1
+      }
+    )
+    'NewUMSDeviceMac0A0000000007NameA-QA-008FirmwareId1ParentId-1'                                  = @(
+      @{
+        Mac      = '0A0000000008'
+        Message  = 'Device successfully inserted.'
+        Id       = 621 #dynamisch
+        Name     = 'A-QA-008'
+        ParentId = -1
+      }
+    )
+    'NewUMSProfileDirectoryNameDevices'                                                             = @(
+      @{
+        Message = 'Directory successfully inserted.'
+        Id      = 623
+        Name    = 'Devices'
+      }
+    )
+    'NewUMSProfileAssignmentId538ReceiverId577ReceiverTypetc'                                       = @(
+      @{
+        Message      = '1 asssignments successfully assigned to device <{1}>.'
+        Id           = 538
+        ReceiverId   = 577
+        ReceiverType = 'tc'
+      }
+    )
+    'New-UMSProfileAssignment -Id 538 -ReceiverId 504 -ReceiverType tcdirectory'                    = @(
+      @{
+        Message      = '1 asssignments successfully assigned to device directory <{1}>.'
+        Id           = 538
+        ReceiverId   = 504
+        ReceiverType = 'tcdirectory'
+      }
+    )
+    'Remove-UMSDevice -Id 572 -Confirm:$false'                                                      = @(
+      @{
+        Message = 'Offline deletion successful.'
+        Id      = 572
+      }
+    )
+    '522 | Remove-UMSDevice -Confirm:$false'                                                        = @(
+      @{
+        Message = 'Offline deletion successful'
+        Id      = 572
+      }
+    )
+    'Remove-UMSDeviceDirectory -Id 520 -Confirm:$false'                                             = @(
+      @{
+        Message = 'Deletion successful.'
+        Id      = 520
+      }
+    )
+    'Remove-UMSProfile -Id 542 -Confirm:$false'                                                     = @(
+      @{
+        Message = 'Deleted profile.'
+        Id      = 542
+      }
+    )
+    'Remove-UMSProfileDirectory -Id 541 -Confirm:$false'                                            = @(
+      @{
+        Message = 'Deletion successful.'
+        Id      = 541
+      }
+    )
+    'Remove-UMSProfileAssignment -Id 538 -ReceiverId 505 -ReceiverType tc -Confirm:$false'          = @(
+      @{
+        Message      = 'deleted profile assignment.'
+        Id           = 538
+        ReceiverId   = 505
+        ReceiverType = 'tc'
+      }
+    )
+    'Remove-UMSProfileAssignment -Id 540 -ReceiverId 502 -ReceiverType tcdirectory -Confirm:$false' = @(
+      @{
+        Message      = 'deleted profile assignment.'
+        Id           = 540
+        ReceiverId   = 502
+        ReceiverType = 'tcdirectory'
+      }
+    )
+    'Move-UMSDeviceDirectory -Id 613 -DestId 511'                                                   = @(
+      @{
+        Id      = 613
+        Message = 'successful.'
+      }
+    )
+    'Move-UMSDevice -Id 518 -DestId 514'                                                            = @(
+      @{
+        Id      = 518
+        Message = 'successful.'
+      }
+    )
+    '617, 621 | Move-UMSDevice -DestId 613'                                                         = @(
+      @{
+        Id      = 617 #dynamisch
+        Message = 'successful.'
+      }
+      @{
+        Id      = 621 # dynamisch
+        Message = 'successful.'
+      }
+    )
+    '517 | Move-UMSDeviceDirectory -DestId 503'                                                     = @(
+      @{
+        Id      = 517
+        Message = 'successful.'
+      }
+    )
+    'Move-UMSProfile -Id 535 -DestId 534'                                                           = @(
+      @{
+        Id      = 535
+        Message = 'successful'
+      }
+    )
+    'Move-UMSProfileDirectory -Id 534 -DestId 527'                                                  = @(
+      @{
+        Id      = 535
+        Message = 'successful'
+      }
+    )
+    'Update-UMSDeviceDirectory -Id 517 -Name "Distribution"'                                        = @(
+      @{
+        Message = 'Updated directory successfully.'
+        Id      = 517
+      }
+    )
+    ' Update-UMSDevice -Id 578 -Name "BR-DIS-010"'                                                  = @(
+      @{
+        Message = 'Update successful.'
+        Id      = 578
+      }
+    )
+    'Update-UMSDevice -Id 518 -Name "A-DEV-009"'                                                    = @(
+      @{
+        Message = 'Update successful.'
+        Id      = 518
+      }
+    )
+    #Origin rename to "PRO_NW_LNG_DE"
+    'Update-UMSProfile -Id 535 -Name "PRO_LNG_DE"'                                                  = @(
+      @{
+        Message = 'Update successful.'
+        Id      = 535
+      }
+    )
+    'Update-UMSProfileDirectory -Id 534 -Name "User Interface"'                                     = @(
+      @{
+        Message = 'Updated directory successfully.'
+        Id      = 534
+      }
+    )
+    'Get-UMSDevice | Sort-Object -Property Id | Select-Object -First 2'                             = @(
+      @{
+        Id         = 505
+        ObjectType = 'tc'
+        UnitId     = '0A0000000001'
+        Mac        = '0A0000000001'
+        Name       = 'BR-HR-001'
+        ParentId   = 504
+        FirmwareId = 1
+        LastIp     = ''
+        MovedToBin = 'False'
+      }
+      @{
+        Id         = 507
+        ObjectType = 'tc'
+        UnitId     = '0A0000000002'
+        Mac        = '0A0000000002'
+        Name       = 'BR-HR-002'
+        ParentId   = 504
+        FirmwareId = 1
+        LastIp     = ''
+        MovedToBin = 'False'
+      }
+    )
+    '518 | Get-UMSDevice -Filter details'                                                           = @(
+      @{
+        Id                        = 518
+        ObjectType                = 'tc'
+        UnitId                    = '0A0000000009'
+        Mac                       = '0A0000000009'
+        Name                      = 'A-DEV-009'
+        ParentId                  = 514
+        FirmwareId                = 1
+        LastIp                    = ''
+        MovedToBin                = 'False'
+        NetworkName               = ''
+        Site                      = ''
+        Comment                   = ''
+        Department                = ''
+        CostCenter                = ''
+        AssetID                   = ''
+        InServiceDate             = ''
+        SerialNumber              = ''
+        ProductId                 = ''
+        CpuSpeed                  = 0
+        CpuType                   = ''
+        DeviceType                = ''
+        DeviceSerialNumber        = ''
+        OsType                    = ''
+        FlashSize                 = 0
+        MemorySize                = 0
+        NetworkSpeed              = 0
+        GraphicsChipset0          = ''
+        GraphicsChipset1          = ''
+        MonitorVendor1            = ''
+        MonitorModel1             = ''
+        MonitorSerialnumber1      = ''
+        MonitorSize1              = 0
+        MonitorNativeResolution1  = ''
+        Monitor1YearOfManufacture = 0
+        Monitor1WeekOfManufacture = 0
+        MonitorVendor2            = ''
+        MonitorModel2             = ''
+        MonitorSerialnumber2      = ''
+        MonitorSize2              = 0
+        MonitorNativeResolution2  = ''
+        Monitor2YearOfManufacture = 0
+        Monitor2WeekOfManufacture = 0
+        BiosVendor                = ''
+        BiosVersion               = ''
+        TotalUsagetime            = -1
+        TotalUptime               = -1
+        BatteryLevel              = -1
+        LastBootTime              = ''
+        BiosDate                  = ''
+      }
+    )
+    'Get-UMSDevice -Id 578 -Filter online'                                                          = @(
+      @{
+        Id         = 578
+        ObjectType = tc
+        UnitId     = '0A0000000010'
+        Mac        = '0A0000000010'
+        Name       = 'BR-DIS-010'
+        ParentId   = 517
+        FirmwareId = 2
+        LastIp     = ''
+        MovedToBin = 'False'
+        Online     = 'False'
+      }
+    )
+    '(Get-UMSDevice).Count'                                                                         = @(
+      10
+    )
+    'Get-UMSDeviceDirectory | Sort-Object -Property Id -Descending | Select-Object -First 2'        = @(
+      @{
+        Id         = 613
+        Name       = 'QandA'
+        ParentId   = 511
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+      @{
+        Id         = 517
+        Name       = 'Distribution'
+        ParentId   = 503
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+    )
+    '517 | Get-UMSDeviceDirectory'                                                                  = @(
+      @{
+        Id         = 517
+        Name       = 'Distribution'
+        ParentId   = 503
+        MovedToBin = 'False'
+        ObjectType = 'tcdirectory'
+      }
+    )
+    '(Get-UMSDeviceDirectory -Id 503 -Filter children).DirectoryChildren'                           = @(
+      @{
+        ObjectType = 'tcdirectory'
+        Id         = 504
+      }
+      @{
+        ObjectType = 'tcdirectory'
+        Id         = 508
+      }
+      @{
+        ObjectType = 'tcdirectory'
+        Id         = 517
+      }
+    )
   }
 
 
