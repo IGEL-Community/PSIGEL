@@ -235,9 +235,9 @@ frame Functions as FUN #LightGrey {
 
     node [NewUMSProfileAssignment]
     node [RemoveUMSProfileAssignment]
-    node [GetUMSUMSProfileAssignment]
-    node [GetUMSUMSDeviceAssignment]
-    node [GetUMSUMSDeviceDirectoryAssignment]
+    node [GetUMSProfileAssignment]
+    node [GetUMSDeviceAssignment]
+    node [GetUMSDeviceDirectoryAssignment]
 
   }
 
@@ -261,9 +261,9 @@ frame Functions as FUN #LightGrey {
   UpdateUMSProfileDirectory -down. GetUMSProfileDirectory
   GetUMSProfileDirectory -down. NewUMSProfileAssignment
   NewUMSProfileAssignment -down. RemoveUMSProfileAssignment
-  RemoveUMSProfileAssignment -down. GetUMSUMSProfileAssignment
-  GetUMSUMSProfileAssignment -down. GetUMSUMSDeviceAssignment
-  GetUMSUMSDeviceAssignment -down. GetUMSUMSDeviceDirectoryAssignment
+  RemoveUMSProfileAssignment -down. GetUMSProfileAssignment
+  GetUMSProfileAssignment -down. GetUMSDeviceAssignment
+  GetUMSDeviceAssignment -down. GetUMSDeviceDirectoryAssignment
 
 }
 
@@ -316,9 +316,9 @@ GetUMSDevice -right-> 0A0000000001 : 24 - Get-UMSDevice
 GetUMSDeviceDirectory -right-> DEV : 25 - Get-UMSDeviceDirectory
 GetUMSProfile -right-> PRO : 26 - GetUMSProfile
 GetUMSProfileDirectory -right-> PRO : 27 - Get-UMSProfileDirectory
-GetUMSUMSProfileAssignment -right-> PRO_RDP_Session01 : 28 - Get-UMSUMSProfileAssignment Device
-GetUMSUMSProfileAssignment -right-> PRO_RDP_Session01 : 29 - Get-UMSUMSProfileAssignment Directory
-GetUMSUMSDeviceAssignment -right-> 0A0000000001 : 30 - Get-UMSUMSDeviceAssignment
-GetUMSUMSDeviceDirectoryAssignment -right-> DEV_PI_BR : 31 - Get-UMSUMSDeviceDirectoryAssignment
+GetUMSProfileAssignment -right-> PRO_RDP_Session01 : 28 - Get-UMSProfileAssignment Device
+GetUMSProfileAssignment -right-> PRO_RDP_Session01 : 29 - Get-UMSProfileAssignment Directory
+GetUMSDeviceAssignment -right-> 0A0000000001 : 30 - Get-UMSDeviceAssignment
+GetUMSDeviceDirectoryAssignment -right-> DEV_PI_BR : 31 - Get-UMSDeviceDirectoryAssignment
 
 @enduml

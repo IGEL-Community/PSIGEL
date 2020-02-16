@@ -11,8 +11,15 @@ $PSDefaultParameterValues += @{
 }
 
 $Result = ''
-$Result = (Get-UMSDeviceDirectory -Id 503 -Filter children).DirectoryChildren
+#$Result = (Get-UMSProfile).Count
+#$Result = Get-UMSProfileDirectory | Sort-Object -Property Id -Descending | Select-Object -First 2
+#$Result = (Get-UMSProfileDirectory -Id 533 -Filter children).DirectoryChildren
+#$Result = (Get-UMSDeviceAssignment -Id 577).Count
+$Result = Get-UMSDevice
+$Result1 = Get-UMSDevice | Select-Object -First 9
 $Result
+
+Assert-Equivalent -Actual $Result -Expected $Result1
 
 <#
 $Result = New-UMSDeviceDirectory -Name 'QandA' # 01
