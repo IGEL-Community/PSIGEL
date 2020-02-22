@@ -12,6 +12,16 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices -> PSIGEL
 
   Tests            = @{
+    'Get-UMSStatus'   = @(
+      @{
+        RmGuiServerVersion = '6.3.130'
+        BuildNumber        = 44584
+        ActiveMqVersion    = '5.7.0'
+        DerbyVersion       = '10.12.1.1'
+        ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
+        Server             = 'igelrmserver:8443'
+      }
+    )
     'Get-UMSFirmware' = @(
       @{
         Id           = 1
@@ -27,7 +37,7 @@ Integration Tests Config
       }
     )
   }
- 
+
   <#
   Tests            = [ordered]@{
     'Get-UMSFirmware'                                                                                        = @(
@@ -42,16 +52,6 @@ Integration Tests Config
         Product      = 'IGEL OS 11'
         Version      = '11.3.110.1'
         FirmwareType = 'LX'
-      }
-    )
-    'Get-UMSStatus'                                                                                          = @(
-      @{
-        RmGuiServerVersion = 6.3.130
-        BuildNumber        = 44584
-        ActiveMqVersion    = 5.7.0
-        DerbyVersion       = 10.12.1.1
-        ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
-        Server             = 'igelrmserver:8443'
       }
     )
     'NewUMSDeviceDirectoryNameQandA'                                                                         = @(

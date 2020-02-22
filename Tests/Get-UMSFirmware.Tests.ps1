@@ -168,23 +168,23 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result[1].Id should have type [Int]' {
-      $Result[1].Id | Should -HaveType [Int]
+    It 'Result[0].Id should have type [Int]' {
+      $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result[1].Id should be exactly $($Cfg.Tests.'Get-UMSFirmware'[1].Id)" {
-      $Result[1].Id | Should -BeExactly $($Cfg.Tests.'Get-UMSFirmware'[1].Id)
+    It 'Result[0].Product should have type [String]' {
+      $Result[0].Product | Should -HaveType [String]
     }
 
-    It 'Result.Version should have type [Version]' {
-      $Result.Version | Should -HaveType [Version]
+    It 'Result[0].Version should have type [Version]' {
+      $Result[0].Version | Should -HaveType [Version]
     }
 
-    It "Result[0].Version should be exactly $($Cfg.Tests.'Get-UMSFirmware'[0].Version)" {
-      $Result[0].Version | Should -BeExactly $($Cfg.Tests.'Get-UMSFirmware'[0].Version)
+    It 'Result[0].FirmwareType should have type [String]' {
+      $Result[0].FirmwareType | Should -HaveType [String]
     }
 
-    It "Result should be Equivalent of Expected" {
+    It "Result should be Equivalent to Expected" {
       $Expected = foreach ($item In $($Cfg.Tests.'Get-UMSFirmware'))
       {
         New-Object psobject -Property $item

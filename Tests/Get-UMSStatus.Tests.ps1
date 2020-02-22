@@ -21,7 +21,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -34,7 +34,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       It 'Get-UMSStatus Should not throw' {
         { Get-UMSStatus } | Should -Not -Throw
@@ -87,10 +87,10 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
 
-      it 'should throw Error' {
-        { Get-UMSStatus } | should throw 'Error'
+      It 'should throw Error' {
+        { Get-UMSStatus } | Should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -101,16 +101,14 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $RmGuiServerVersion = $UMS.UMSStatus.RmGuiServerVersion
-  $BuildNumber = $UMS.UMSStatus.BuildNumber
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   }
 
   $WebSession = New-UMSAPICookie -Credential $Credential
@@ -128,20 +126,36 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.RmGuiServerVersion should have type [Version]' {
-      $Result.RmGuiServerVersion | Should -HaveType [Version]
+    It 'Result.RmGuiServerVersion[0] should have type [Version]' {
+      $Result.RmGuiServerVersion[0] | Should -HaveType [Version]
     }
 
-    It "Result.RmGuiServerVersion should be exactly $RmGuiServerVersion" {
-      $Result.RmGuiServerVersion | Should -BeExactly $RmGuiServerVersion
+    It 'Result.BuildNumber[0] should have type [Int]' {
+      $Result.BuildNumber[0] | Should -HaveType [Int]
     }
 
-    It 'Result.BuildNumber should have type [Int]' {
-      $Result.BuildNumber | Should -HaveType [Int]
+    It 'Result.activeMQVersion[0] should have type [Version]' {
+      $Result.activeMQVersion[0] | Should -HaveType [Version]
     }
 
-    It "Result.BuildNumber should be exactly $BuildNumber" {
-      $Result.BuildNumber | Should -BeExactly $BuildNumber
+    It 'Result.derbyVersion[0] should have type [Version]' {
+      $Result.derbyVersion[0] | Should -HaveType [Version]
+    }
+
+    It 'Result.serverUUID[0] should have type [Char]' {
+      $Result.serverUUID[0] | Should -HaveType [Char]
+    }
+
+    It 'Result.server[0] should have type [Char]' {
+      $Result.server[0] | Should -HaveType [Char]
+    }
+
+    It "Result should be Equivalent to Expected" {
+      $Expected = foreach ($item In $($Cfg.Tests.'Get-UMSStatus'))
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected
     }
   }
 }
