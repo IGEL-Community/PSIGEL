@@ -12,7 +12,7 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices -> PSIGEL
 
   Tests            = @{
-    'Get-UMSStatus'          = @(
+    'Get-UMSStatus'           = @(
       @{
         RmGuiServerVersion = '6.3.130'
         BuildNumber        = 44584
@@ -22,14 +22,14 @@ Integration Tests Config
         Server             = 'igelrmserver:8443'
       }
     )
-    'New-UMSDeviceDirectory' = @(
+    'New-UMSDeviceDirectory'  = @(
       @{
         Message = 'Directory successfully inserted.'
         Id      = 592
         Name    = 'QandA'
       }
     )
-    'New-UMSDevice'          = @(
+    'New-UMSDevice'           = @(
       @{
         Mac      = '0A0000000007'
         Message  = 'Device successfully inserted.'
@@ -45,7 +45,14 @@ Integration Tests Config
         ParentId = -1
       }
     )
-    'Get-UMSFirmware'        = @(
+    'New-UMSProfileDirectory' = @(
+      @{
+        Message = 'Directory successfully inserted.'
+        Id      = 595
+        Name    = 'Devices'
+      }
+    )
+    'Get-UMSFirmware'         = @(
       @{
         Id           = 1
         Product      = 'IGEL OS 11'
@@ -63,13 +70,6 @@ Integration Tests Config
 
   <#
   Tests            = [ordered]@{
-    'NewUMSProfileDirectoryNameDevices'                                                                      = @(
-      @{
-        Message = 'Directory successfully inserted.'
-        Id      = 623
-        Name    = 'Devices'
-      }
-    )
     'NewUMSProfileAssignmentId538ReceiverId577ReceiverTypetc'                                                = @(
       @{
         Message      = '1 asssignments successfully assigned to device <{1}>.'
