@@ -12,7 +12,7 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices -> PSIGEL
 
   Tests            = @{
-    'Get-UMSStatus'   = @(
+    'Get-UMSStatus'          = @(
       @{
         RmGuiServerVersion = '6.3.130'
         BuildNumber        = 44584
@@ -22,7 +22,30 @@ Integration Tests Config
         Server             = 'igelrmserver:8443'
       }
     )
-    'Get-UMSFirmware' = @(
+    'New-UMSDeviceDirectory' = @(
+      @{
+        Message = 'Directory successfully inserted.'
+        Id      = 592
+        Name    = 'QandA'
+      }
+    )
+    'New-UMSDevice'          = @(
+      @{
+        Mac      = '0A0000000007'
+        Message  = 'Device successfully inserted.'
+        Id       = 593
+        Name     = 'A-QA-007'
+        ParentId = -1
+      }
+      @{
+        Mac      = '0A0000000008'
+        Message  = 'Device successfully inserted.'
+        Id       = 594
+        Name     = 'A-QA-008'
+        ParentId = -1
+      }
+    )
+    'Get-UMSFirmware'        = @(
       @{
         Id           = 1
         Product      = 'IGEL OS 11'
@@ -40,45 +63,6 @@ Integration Tests Config
 
   <#
   Tests            = [ordered]@{
-    'Get-UMSFirmware'                                                                                        = @(
-      @{
-        Id           = 1
-        Product      = 'IGEL OS 11'
-        Version      = '11.3.100.1'
-        FirmwareType = 'LX'
-      }
-      @{
-        Id           = 2
-        Product      = 'IGEL OS 11'
-        Version      = '11.3.110.1'
-        FirmwareType = 'LX'
-      }
-    )
-    'NewUMSDeviceDirectoryNameQandA'                                                                         = @(
-      @{
-        Message = 'Directory successfully inserted.'
-        Id      = 613
-        Name    = 'QandA'
-      }
-    )
-    'NewUMSDeviceMac0A0000000007NameA-QA-007FirmwareId1ParentId-1'                                           = @(
-      @{
-        Mac      = '0A0000000007'
-        Message  = 'Device successfully inserted.'
-        Id       = 617 #dynamisch
-        Name     = 'A-QA-007'
-        ParentId = -1
-      }
-    )
-    'NewUMSDeviceMac0A0000000007NameA-QA-008FirmwareId1ParentId-1'                                           = @(
-      @{
-        Mac      = '0A0000000008'
-        Message  = 'Device successfully inserted.'
-        Id       = 621 #dynamisch
-        Name     = 'A-QA-008'
-        ParentId = -1
-      }
-    )
     'NewUMSProfileDirectoryNameDevices'                                                                      = @(
       @{
         Message = 'Directory successfully inserted.'

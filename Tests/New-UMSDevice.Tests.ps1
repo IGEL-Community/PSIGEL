@@ -22,7 +22,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -36,7 +36,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       It "New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' Should not throw" {
         { New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' } | Should -Not -Throw
@@ -86,7 +86,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       $Result = New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -WhatIf
 
@@ -105,7 +105,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
 
       It "New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop Should throw" {
         { New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -119,22 +119,14 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $Name = $UMS.UMSDevice[3].NameNew
-  $Mac = $UMS.UMSDevice[3].MacNew
-  $FirmwareId = $UMS.UMSDevice[3].FirmwareIdNew
-  $ParentId = $UMS.UMSDevice[3].ParentId
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Name'             = $Name
-    '*-UMS*:Mac'              = $Mac
-    '*-UMS*:FirmwareId'       = $FirmwareId
-    '*-UMS*:ParentId'         = $ParentId
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   }
 
   $WebSession = New-UMSAPICookie
@@ -145,7 +137,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSDevice } | Should Not Throw
+      { $Script:Result = @(
+          New-UMSDevice -Mac 0A0000000007 -Name "A-QA-007" -FirmwareId 1 -ParentId -1
+          New-UMSDevice -Mac 0A0000000008 -Name "A-QA-008" -FirmwareId 1 -ParentId -1
+        ) } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -156,16 +151,28 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result[0].Name should be exactly $Name" {
-      $Result[0].Name | Should -BeExactly $Name
+    It 'Result[0].Mac should have type [String]' {
+      $Result[0].Mac | Should -HaveType [String]
     }
 
-    It "Result[0].Mac should be exactly $Mac" {
-      $Result[0].Mac | Should -BeExactly $Mac
+    It 'Result[0].Message should have type [String]' {
+      $Result[0].Message | Should -HaveType [String]
     }
 
-    It "Result[0].ParentId should be exactly $ParentId" {
-      $Result[0].ParentId | Should -BeExactly $ParentId
+    It 'Result[0].Name should have type [String]' {
+      $Result[0].Name | Should -HaveType [String]
+    }
+
+    It 'Result[0].ParentId should have type [Int]' {
+      $Result[0].ParentId | Should -HaveType [Int]
+    }
+
+    It "Result should be Equivalent to Expected" {
+      $Expected = foreach ($item In $($Cfg.Tests.'New-UMSDevice'))
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected
     }
   }
 }

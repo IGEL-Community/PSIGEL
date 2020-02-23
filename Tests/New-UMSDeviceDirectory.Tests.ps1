@@ -21,7 +21,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -35,7 +35,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       It "New-UMSDeviceDirectory -Name 'NameNew' Should not throw" {
         { New-UMSDeviceDirectory -Name 'NameNew' } | Should -Not -Throw
@@ -84,7 +84,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       $Result = New-UMSDeviceDirectory -Name 'NameNew' -WhatIf
 
@@ -103,7 +103,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
 
       It "New-UMSDeviceDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop Should throw" {
         { New-UMSDeviceDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -117,16 +117,14 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $Name = $UMS.UMSDeviceDirectory[3].NameNew
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Name'             = $Name
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   }
 
   $WebSession = New-UMSAPICookie
@@ -137,7 +135,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSDeviceDirectory } | Should Not Throw
+      { $Script:Result = New-UMSDeviceDirectory -Name "QandA" } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -148,12 +146,20 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result[0].Name should be exactly $Name" {
-      $Result[0].Name | Should -BeExactly $Name
+    It "Result[0].Name should have type [String]" {
+      $Result[0].Name | Should -HaveType [String]
     }
 
-    It "Result[0].Message should be exactly 'Directory successfully inserted.'" {
-      $Result[0].Message | Should -BeExactly 'Directory successfully inserted.'
+    It "Result[0].Message should have type [String]" {
+      $Result[0].Message | Should -HaveType [String]
+    }
+
+    It "Result should be Equivalent to Expected" {
+      $Expected = foreach ($item In $($Cfg.Tests.'New-UMSDeviceDirectory'))
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected
     }
   }
 }
