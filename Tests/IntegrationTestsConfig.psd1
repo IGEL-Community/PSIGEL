@@ -12,7 +12,7 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices -> PSIGEL
 
   Tests            = @{
-    'Get-UMSStatus'           = @(
+    'Get-UMSStatus'            = @(
       @{
         RmGuiServerVersion = '6.3.130'
         BuildNumber        = 44584
@@ -22,14 +22,14 @@ Integration Tests Config
         Server             = 'igelrmserver:8443'
       }
     )
-    'New-UMSDeviceDirectory'  = @(
+    'New-UMSDeviceDirectory'   = @(
       @{
         Message = 'Directory successfully inserted.'
         Id      = 592
         Name    = 'QandA'
       }
     )
-    'New-UMSDevice'           = @(
+    'New-UMSDevice'            = @(
       @{
         Mac      = '0A0000000007'
         Message  = 'Device successfully inserted.'
@@ -45,14 +45,14 @@ Integration Tests Config
         ParentId = -1
       }
     )
-    'New-UMSProfileDirectory' = @(
+    'New-UMSProfileDirectory'  = @(
       @{
         Message = 'Directory successfully inserted.'
         Id      = 595
         Name    = 'Devices'
       }
     )
-    'Get-UMSFirmware'         = @(
+    'Get-UMSFirmware'          = @(
       @{
         Id           = 1
         Product      = 'IGEL OS 11'
@@ -66,38 +66,34 @@ Integration Tests Config
         FirmwareType = 'LX'
       }
     )
-  }
-
-  <#
-  Tests            = [ordered]@{
-    'NewUMSProfileAssignmentId538ReceiverId577ReceiverTypetc'                                                = @(
+    'New-UMSProfileAssignment' = @(
       @{
-        Message      = '1 asssignments successfully assigned to device <{1}>.'
         Id           = 538
+        Message      = '1 asssignments successfully assigned to device <{1}>.'
         ReceiverId   = 577
         ReceiverType = 'tc'
       }
-    )
-    'New-UMSProfileAssignment -Id 538 -ReceiverId 504 -ReceiverType tcdirectory'                             = @(
       @{
-        Message      = '1 asssignments successfully assigned to device directory <{1}>.'
         Id           = 538
+        Message      = '1 asssignments successfully assigned to device directory <{1}>.'
         ReceiverId   = 504
         ReceiverType = 'tcdirectory'
       }
     )
-    'Remove-UMSDevice -Id 572 -Confirm:$false'                                                               = @(
+    'Remove-UMSDevice'         = @(
       @{
+        Id      = 572
         Message = 'Offline deletion successful.'
-        Id      = 572
       }
-    )
-    '522 | Remove-UMSDevice -Confirm:$false'                                                                 = @(
       @{
-        Message = 'Offline deletion successful'
-        Id      = 572
+        Id      = 522
+        Message = 'Offline deletion successful.'
       }
     )
+  }
+
+  <#
+  Tests            = [ordered]@{
     'Remove-UMSDeviceDirectory -Id 520 -Confirm:$false'                                                      = @(
       @{
         Message = 'Deletion successful.'

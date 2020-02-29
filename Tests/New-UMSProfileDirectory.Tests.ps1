@@ -153,7 +153,6 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Name | Should -HaveType [String]
     }
 
-
     It "Result should be Equivalent to Expected" {
       $Expected = foreach ($item In $($Cfg.Tests.'New-UMSProfileDirectory'))
       {
@@ -161,5 +160,6 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       }
       Assert-Equivalent -Actual $Result -Expected $Expected
     }
+
   }
 }
