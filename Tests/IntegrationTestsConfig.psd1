@@ -12,7 +12,7 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices -> PSIGEL
 
   Tests            = @{
-    'Get-UMSStatus'            = @(
+    'Get-UMSStatus'               = @(
       @{
         RmGuiServerVersion = '6.3.130'
         BuildNumber        = 44584
@@ -22,14 +22,14 @@ Integration Tests Config
         Server             = 'igelrmserver:8443'
       }
     )
-    'New-UMSDeviceDirectory'   = @(
+    'New-UMSDeviceDirectory'      = @(
       @{
         Message = 'Directory successfully inserted.'
         Id      = 592
         Name    = 'QandA'
       }
     )
-    'New-UMSDevice'            = @(
+    'New-UMSDevice'               = @(
       @{
         Mac      = '0A0000000007'
         Message  = 'Device successfully inserted.'
@@ -45,14 +45,14 @@ Integration Tests Config
         ParentId = -1
       }
     )
-    'New-UMSProfileDirectory'  = @(
+    'New-UMSProfileDirectory'     = @(
       @{
         Message = 'Directory successfully inserted.'
         Id      = 595
         Name    = 'Devices'
       }
     )
-    'Get-UMSFirmware'          = @(
+    'Get-UMSFirmware'             = @(
       @{
         Id           = 1
         Product      = 'IGEL OS 11'
@@ -66,7 +66,7 @@ Integration Tests Config
         FirmwareType = 'LX'
       }
     )
-    'New-UMSProfileAssignment' = @(
+    'New-UMSProfileAssignment'    = @(
       @{
         Id           = 538
         Message      = '1 asssignments successfully assigned to device <{1}>.'
@@ -80,7 +80,7 @@ Integration Tests Config
         ReceiverType = 'tcdirectory'
       }
     )
-    'Remove-UMSDevice'         = @(
+    'Remove-UMSDevice'            = @(
       @{
         Id      = 572
         Message = 'Offline deletion successful.'
@@ -90,37 +90,31 @@ Integration Tests Config
         Message = 'Offline deletion successful.'
       }
     )
-  }
-
-  <#
-  Tests            = [ordered]@{
-    'Remove-UMSDeviceDirectory -Id 520 -Confirm:$false'                                                      = @(
+    'Remove-UMSDeviceDirectory'   = @(
       @{
-        Message = 'Deletion successful.'
         Id      = 520
+        Message = 'Deletion successful.'
       }
     )
-    'Remove-UMSProfile -Id 542 -Confirm:$false'                                                              = @(
+    'Remove-UMSProfile'           = @(
       @{
         Message = 'Deleted profile.'
         Id      = 542
       }
     )
-    'Remove-UMSProfileDirectory -Id 541 -Confirm:$false'                                                     = @(
+    'Remove-UMSProfileDirectory'  = @(
       @{
         Message = 'Deletion successful.'
         Id      = 541
       }
     )
-    'Remove-UMSProfileAssignment -Id 538 -ReceiverId 505 -ReceiverType tc -Confirm:$false'                   = @(
+    'Remove-UMSProfileAssignment' = @(
       @{
         Message      = 'deleted profile assignment.'
         Id           = 538
-        ReceiverId   = 505
+        ReceiverId   = 577
         ReceiverType = 'tc'
       }
-    )
-    'Remove-UMSProfileAssignment -Id 540 -ReceiverId 502 -ReceiverType tcdirectory -Confirm:$false'          = @(
       @{
         Message      = 'deleted profile assignment.'
         Id           = 540
@@ -128,6 +122,10 @@ Integration Tests Config
         ReceiverType = 'tcdirectory'
       }
     )
+  }
+
+  <#
+  Tests            = [ordered]@{
     'Move-UMSDeviceDirectory -Id 613 -DestId 511'                                                            = @(
       @{
         Id      = 613
