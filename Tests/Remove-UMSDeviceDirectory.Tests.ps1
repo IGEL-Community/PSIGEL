@@ -157,11 +157,11 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Expected))
+      [array]$Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Expected))
       {
         New-Object psobject -Property $item
       }
-      Assert-Equivalent -Actual $Result -Expected @($Expected) -Options @{
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
         ExcludedPaths             = $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Options.ExcludedPaths)
         ExcludePathsNotOnExpected = $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Options.ExcludePathsNotOnExpected)
       }
