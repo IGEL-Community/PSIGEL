@@ -12,8 +12,8 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices -> PSIGEL
 
   Tests            = @{
-    'Get-UMSStatus'               = @(
-      @{
+    'Get-UMSStatus'               = @{
+      Expected = @{
         RmGuiServerVersion = '6.3.130'
         BuildNumber        = 44584
         ActiveMqVersion    = '5.7.0'
@@ -21,30 +21,47 @@ Integration Tests Config
         ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
         Server             = 'igelrmserver:8443'
       }
-    )
-    'New-UMSDeviceDirectory'      = @(
-      @{
+    }
+    'New-UMSDeviceDirectory'      = @{
+      Params1  = @{
+        Name = 'QandA'
+      }
+      Expected = @{
         Message = 'Directory successfully inserted.'
-        Id      = 592
+        #Id      = 592
         Name    = 'QandA'
       }
-    )
-    'New-UMSDevice'               = @(
-      @{
-        Mac      = '0A0000000007'
-        Message  = 'Device successfully inserted.'
-        Id       = 593
-        Name     = 'A-QA-007'
-        ParentId = -1
+    }
+    'New-UMSDevice'               = @{
+      Params1  = @{
+        Mac        = '0A0000000007'
+        Name       = 'A-QA-007'
+        FirmwareId = 1
+        ParentId   = -1
       }
-      @{
-        Mac      = '0A0000000008'
-        Message  = 'Device successfully inserted.'
-        Id       = 594
-        Name     = 'A-QA-008'
-        ParentId = -1
+      Params2  = @{
+        Mac        = '0A0000000008'
+        Name       = 'A-QA-008'
+        FirmwareId = 1
+        ParentId   = -1
       }
-    )
+      Expected = @(
+        @{
+          Mac      = '0A0000000007'
+          Message  = 'Device successfully inserted.'
+          #Id       = 593
+          Name     = 'A-QA-007'
+          ParentId = -1
+        }
+        @{
+          Mac      = '0A0000000008'
+          Message  = 'Device successfully inserted.'
+          #Id       = 594
+          Name     = 'A-QA-008'
+          ParentId = - 1
+        }
+      )
+    }
     'New-UMSProfileDirectory'     = @(
       @{
         Message = 'Directory successfully inserted.'
@@ -122,16 +139,18 @@ Integration Tests Config
         ReceiverType = 'tcdirectory'
       }
     )
+    'Move-UMSDeviceDirectory'     = @{
+      Id       = 613
+      DestId   = 511
+      Expected = @{
+        Id      = 613
+        Message = 'successful.'
+      }
+    }
   }
 
   <#
   Tests            = [ordered]@{
-    'Move-UMSDeviceDirectory -Id 613 -DestId 511'                                                            = @(
-      @{
-        Id      = 613
-        Message = 'successful.'
-      }
-    )
     'Move-UMSDevice -Id 518 -DestId 514'                                                                     = @(
       @{
         Id      = 518
