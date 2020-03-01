@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
@@ -191,9 +191,11 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
+      $Params1 = $Cfg.Tests.'New-UMSProfileAssignment'.Params1
+      $Params2 = $Cfg.Tests.'New-UMSProfileAssignment'.Params2
       { $Script:Result = @(
-          New-UMSProfileAssignment -Id 538 -ReceiverId 504 -ReceiverType tcdirectory
-          538 | New-UMSProfileAssignment -ReceiverId 577 -ReceiverType tc
+          New-UMSProfileAssignment @Params1
+          New-UMSProfileAssignment @Params2
         ) } | Should Not Throw
     }
 
@@ -218,7 +220,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'New-UMSProfileAssignment'))
+      $Expected = foreach ($item In $($Cfg.Tests.'New-UMSProfileAssignment'.Expected))
       {
         New-Object psobject -Property $item
       }

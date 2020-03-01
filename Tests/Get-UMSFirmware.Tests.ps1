@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
@@ -185,11 +185,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Get-UMSFirmware'))
+      $Expected = foreach ($item In $($Cfg.Tests.'Get-UMSFirmware'.Expected))
       {
         New-Object psobject -Property $item
       }
-      Assert-Equivalent -Actual $Result -Expected $Expected
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths             = $($Cfg.Tests.'Get-UMSFirmware'.Options.ExcludedPaths)
+        ExcludePathsNotOnExpected = $($Cfg.Tests.'Get-UMSFirmware'.Options.ExcludePathsNotOnExpected)
+      }
     }
   }
 }

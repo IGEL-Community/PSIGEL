@@ -175,8 +175,8 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
         New-Object psobject -Property $item
       }
       Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
-        ExcludedPaths             = 'Id'
-        ExcludePathsNotOnExpected = $true
+        ExcludedPaths             = $($Cfg.Tests.'New-UMSDevice'.Options.ExcludedPaths)
+        ExcludePathsNotOnExpected = $($Cfg.Tests.'New-UMSDevice'.Options.ExcludePathsNotOnExpected)
       }
     }
   }

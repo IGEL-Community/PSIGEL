@@ -8,8 +8,8 @@ Integration Tests Config
   TCPPort          = 9443
   CredPath         = 'C:\Credentials\UMSRmdb.cred'
   SecurityProtocol = 'Tls12'
-  ProfileRootDirId = 527 # Profiles->PSIGEL
-  DeviceRootDirId  = 502 # Devices -> PSIGEL
+  ProfileRootDirId = 527 # Profiles/PSIGEL
+  DeviceRootDirId  = 502 # Devices/PSIGEL
 
   Tests            = @{
     'Get-UMSStatus'               = @{
@@ -24,12 +24,16 @@ Integration Tests Config
     }
     'New-UMSDeviceDirectory'      = @{
       Params1  = @{
-        Name = 'QandA'
+        Name = 'A_QA'
       }
       Expected = @{
         Message = 'Directory successfully inserted.'
-        #Id      = 592
-        Name    = 'QandA'
+        Id      = 592
+        Name    = 'A_QA'
+      }
+      Options  = @{
+        ExcludedPaths             = 'Id'
+        ExcludePathsNotOnExpected = $true
       }
     }
     'New-UMSDevice'               = @{
@@ -49,70 +53,116 @@ Integration Tests Config
         @{
           Mac      = '0A0000000007'
           Message  = 'Device successfully inserted.'
-          #Id       = 593
+          Id       = 593
           Name     = 'A-QA-007'
           ParentId = -1
         }
         @{
           Mac      = '0A0000000008'
           Message  = 'Device successfully inserted.'
-          #Id       = 594
+          Id       = 594
           Name     = 'A-QA-008'
           ParentId = - 1
         }
       )
+      Options  = @{
+        ExcludedPaths             = 'Id'
+        ExcludePathsNotOnExpected = $true
+      }
     }
-    'New-UMSProfileDirectory'     = @(
-      @{
+    'New-UMSProfileDirectory'     = @{
+      Params1  = @{
+        Name = 'Devices'
+      }
+      Expected = @{
         Message = 'Directory successfully inserted.'
         Id      = 595
         Name    = 'Devices'
       }
-    )
-    'Get-UMSFirmware'             = @(
-      @{
-        Id           = 1
-        Product      = 'IGEL OS 11'
-        Version      = '11.3.100.1'
-        FirmwareType = 'LX'
+      Options  = @{
+        ExcludedPaths             = 'Id'
+        ExcludePathsNotOnExpected = $true
       }
-      @{
-        Id           = 2
-        Product      = 'IGEL OS 11'
-        Version      = '11.3.110.1'
-        FirmwareType = 'LX'
+    }
+    'Get-UMSFirmware'             = @{
+      Expected = @(
+        @{
+          Id           = 1
+          Product      = 'IGEL OS 11'
+          Version      = '11.3.100.1'
+          FirmwareType = 'LX'
+        }
+        @{
+          Id           = 2
+          Product      = 'IGEL OS 11'
+          Version      = '11.3.110.1'
+          FirmwareType = 'LX'
+        }
+      )
+      Options  = @{
+        ExcludedPaths             = 'Id'
+        ExcludePathsNotOnExpected = $true
       }
-    )
-    'New-UMSProfileAssignment'    = @(
-      @{
-        Id           = 538
-        Message      = '1 asssignments successfully assigned to device <{1}>.'
-        ReceiverId   = 577
-        ReceiverType = 'tc'
-      }
-      @{
-        Id           = 538
-        Message      = '1 asssignments successfully assigned to device directory <{1}>.'
-        ReceiverId   = 504
+    }
+    'New-UMSProfileAssignment'    = @{
+      Params1  = @{
+        Id           = 538 # NW_WLAN
+        ReceiverId   = 504 # BR_HR
         ReceiverType = 'tcdirectory'
       }
-    )
-    'Remove-UMSDevice'            = @(
-      @{
-        Id      = 572
-        Message = 'Offline deletion successful.'
+      Params2  = @{
+        Id           = 538 # NW_WLAN
+        ReceiverId   = 577 # BR-MKT-003
+        ReceiverType = 'tc'
       }
-      @{
-        Id      = 522
-        Message = 'Offline deletion successful.'
+      Expected = @(
+        @{
+          Id           = 538
+          Message      = '1 asssignments successfully assigned to device directory <{1}>.'
+          ReceiverId   = 504
+          ReceiverType = 'tcdirectory'
+        }
+        @{
+          Id           = 538
+          Message      = '1 asssignments successfully assigned to device <{1}>.'
+          ReceiverId   = 577
+          ReceiverType = 'tc'
+        }
+      )
+    }
+    'Remove-UMSDevice'            = @{
+      Params1  = @{
+        Id = 572 # L-DIS-011
       }
-    )
-    'Remove-UMSDeviceDirectory'   = @(
-      @{
-        Id      = 520
-        Message = 'Deletion successful.'
+      Params2  = @{
+        Id = 522 # L-DIS-012
       }
-    )
+      Expected = @(
+        @{
+          Id      = 572
+          Message = 'Offline deletion successful.'
+        }
+        @{
+          Id      = 522
+          Message = 'Offline deletion successful.'
+        }
+      )
+    }
+    'Remove-UMSDeviceDirectory'   = @{
+      Params1  = @{
+        Id = 520 # L_Distribution
+      }
+      Expected = @(
+        @{
+          Id      = 520
+          Message = 'Deletion successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths             = 'Id', 'Message'
+        ExcludePathsNotOnExpected = $true
+      }
+    }
     'Remove-UMSProfile'           = @(
       @{
         Message = 'Deleted profile.'

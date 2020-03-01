@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
@@ -188,9 +188,11 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
+      $Params1 = $Cfg.Tests.'Remove-UMSDevice'.Params1
+      $Params2 = $Cfg.Tests.'Remove-UMSDevice'.Params2
       { $Script:Result = @(
-          Remove-UMSDevice -Id 572
-          522 | Remove-UMSDevice
+          Remove-UMSDevice @Params1
+          Remove-UMSDevice @Params2
         ) } | Should Not Throw
     }
 
@@ -207,7 +209,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDevice'))
+      $Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDevice'.Expected))
       {
         New-Object psobject -Property $item
       }

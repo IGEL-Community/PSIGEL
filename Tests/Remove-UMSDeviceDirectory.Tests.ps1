@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
@@ -138,8 +138,9 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName All" {
 
     It "doesn't throw" {
+      $Params1 = $Cfg.Tests.'Remove-UMSDeviceDirectory'.Params1
       { $Script:Result = @(
-          520 | Remove-UMSDeviceDirectory
+          Remove-UMSDeviceDirectory @Params1
         ) } | Should Not Throw
     }
 
@@ -156,11 +157,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDeviceDirectory'))
+      $Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Expected))
       {
         New-Object psobject -Property $item
       }
-      Assert-Equivalent -Actual $Result -Expected $Expected
+      Assert-Equivalent -Actual $Result -Expected @($Expected) -Options @{
+        ExcludedPaths             = $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Options.ExcludedPaths)
+        ExcludePathsNotOnExpected = $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Options.ExcludePathsNotOnExpected)
+      }
     }
 
   }
