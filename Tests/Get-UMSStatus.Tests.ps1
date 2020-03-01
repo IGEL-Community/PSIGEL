@@ -111,12 +111,13 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
   $PSDefaultParameterValues += @{
-    '*-UMS*:WebSession' = $WebSession
+    '*-UMS*:WebSession' = New-UMSAPICookie
   }
 
   Context "ParameterSetName All" {
+
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
 
     It "doesn't throw" {
       { $Script:Result = Get-UMSStatus } | Should Not Throw
@@ -151,11 +152,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Get-UMSStatus'.Expected))
+      $Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
-      Assert-Equivalent -Actual $Result -Expected $Expected
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
+
   }
 }

@@ -11,8 +11,9 @@ Integration Tests Config
   ProfileRootDirId = 527 # Profiles/PSIGEL
   DeviceRootDirId  = 502 # Devices/PSIGEL
 
-  Tests            = @{
-    'Get-UMSStatus'               = @{
+  Tests            = @(
+    @{
+      Function = 'Get-UMSStatus'
       Expected = @{
         RmGuiServerVersion = '6.3.130'
         BuildNumber        = 44584
@@ -21,22 +22,26 @@ Integration Tests Config
         ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
         Server             = 'igelrmserver:8443'
       }
+      Options  = @{
+        ExcludedPaths = ''
+      }
     }
-    'New-UMSDeviceDirectory'      = @{
+    @{
+      Function = 'New-UMSDeviceDirectory'
       Params1  = @{
-        Name = 'A_QA'
+        Name = 'QA'
       }
       Expected = @{
         Message = 'Directory successfully inserted.'
-        Id      = 592
-        Name    = 'A_QA'
+        Id      = 593
+        Name    = 'QA'
       }
       Options  = @{
-        ExcludedPaths             = 'Id'
-        ExcludePathsNotOnExpected = $true
+        #ExcludedPaths = 'Id'
       }
     }
-    'New-UMSDevice'               = @{
+    @{
+      Function = 'New-UMSDevice'
       Params1  = @{
         Mac        = '0A0000000007'
         Name       = 'A-QA-007'
@@ -53,38 +58,38 @@ Integration Tests Config
         @{
           Mac      = '0A0000000007'
           Message  = 'Device successfully inserted.'
-          Id       = 593
+          Id       = 594
           Name     = 'A-QA-007'
           ParentId = -1
         }
         @{
           Mac      = '0A0000000008'
           Message  = 'Device successfully inserted.'
-          Id       = 594
+          Id       = 595
           Name     = 'A-QA-008'
           ParentId = - 1
         }
       )
       Options  = @{
-        ExcludedPaths             = 'Id'
-        ExcludePathsNotOnExpected = $true
+        #ExcludedPaths = 'Id'
       }
     }
-    'New-UMSProfileDirectory'     = @{
+    @{
+      Function = 'New-UMSProfileDirectory'
       Params1  = @{
         Name = 'Devices'
       }
       Expected = @{
         Message = 'Directory successfully inserted.'
-        Id      = 595
+        Id      = 596
         Name    = 'Devices'
       }
       Options  = @{
-        ExcludedPaths             = 'Id'
-        ExcludePathsNotOnExpected = $true
+        #ExcludedPaths = 'Id'
       }
     }
-    'Get-UMSFirmware'             = @{
+    @{
+      Function = 'Get-UMSFirmware'
       Expected = @(
         @{
           Id           = 1
@@ -100,11 +105,11 @@ Integration Tests Config
         }
       )
       Options  = @{
-        ExcludedPaths             = 'Id'
-        ExcludePathsNotOnExpected = $true
+        #ExcludedPaths             = 'Id'
       }
     }
-    'New-UMSProfileAssignment'    = @{
+    @{
+      Function = 'New-UMSProfileAssignment'
       Params1  = @{
         Id           = 538 # NW_WLAN
         ReceiverId   = 504 # BR_HR
@@ -129,8 +134,12 @@ Integration Tests Config
           ReceiverType = 'tc'
         }
       )
+      Options  = @{
+        ExcludedPaths = ''
+      }
     }
-    'Remove-UMSDevice'            = @{
+    @{
+      Function = 'Remove-UMSDevice'
       Params1  = @{
         Id = 572 # L-DIS-011
       }
@@ -147,8 +156,12 @@ Integration Tests Config
           Message = 'Offline deletion successful.'
         }
       )
+      Options  = @{
+        ExcludedPaths = ''
+      }
     }
-    'Remove-UMSDeviceDirectory'   = @{
+    @{
+      Function = 'Remove-UMSDeviceDirectory'
       Params1  = @{
         Id = 520 # L_Distribution
       }
@@ -159,45 +172,82 @@ Integration Tests Config
         }
       )
       Options  = @{
-        ExcludedPaths             = 'Id', 'Message'
-        ExcludePathsNotOnExpected = $true
+        ExcludedPaths = ''
       }
     }
-    'Remove-UMSProfile'           = @(
-      @{
+    @{
+      Function = 'Remove-UMSProfile'
+      Params1  = @{
+        Id = 542 # SYS_TZ_CET
+      }
+      Expected = @{
         Message = 'Deleted profile.'
         Id      = 542
       }
-    )
-    'Remove-UMSProfileDirectory'  = @(
-      @{
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Remove-UMSProfileDirectory'
+      Params1  = @{
+        Id = 541 # System
+      }
+      Expected = @{
         Message = 'Deletion successful.'
         Id      = 541
       }
-    )
-    'Remove-UMSProfileAssignment' = @(
-      @{
-        Message      = 'deleted profile assignment.'
-        Id           = 538
-        ReceiverId   = 577
-        ReceiverType = 'tc'
-      }
-      @{
-        Message      = 'deleted profile assignment.'
-        Id           = 540
-        ReceiverId   = 502
-        ReceiverType = 'tcdirectory'
-      }
-    )
-    'Move-UMSDeviceDirectory'     = @{
-      Id       = 613
-      DestId   = 511
-      Expected = @{
-        Id      = 613
-        Message = 'successful.'
+      Options  = @{
+        ExcludedPaths = ''
       }
     }
-  }
+    @{
+      Function = 'Remove-UMSProfileAssignment'
+      Params1  = @{
+        Id           = 538 # NW_WLAN
+        ReceiverId   = 505 # BR-HR-01
+        ReceiverType = 'tc'
+      }
+      Params2  = @{
+        Id           = 540 # SEC_PW_Root
+        ReceiverId   = 502 # PSIGEL
+        ReceiverType = 'tcdirectory'
+      }
+      Expected = @(
+        @{
+          Message      = 'deleted profile assignment.'
+          Id           = 538
+          ReceiverId   = 505
+          ReceiverType = 'tc'
+        }
+        @{
+          Message      = 'deleted profile assignment.'
+          Id           = 540
+          ReceiverId   = 502
+          ReceiverType = 'tcdirectory'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Move-UMSDeviceDirectory'
+      Params1  = @{
+        Id     = 593 # QA
+        DestId = 511 # Augsburg
+      }
+      Expected = @(
+        @{
+          Id      = 593
+          Message = 'successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+  )
 
   <#
   Tests            = [ordered]@{

@@ -187,10 +187,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName All" {
 
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+
     It "doesn't throw" {
+      $Params1 = $TestCfg.Params1
+      $Params2 = $TestCfg.Params2
       { $Script:Result = @(
-          Remove-UMSProfileAssignment -Id 538 -ReceiverId 577 -ReceiverType tc
-          540 | Remove-UMSProfileAssignment -ReceiverId 502 -ReceiverType tcdirectory
+          Remove-UMSProfileAssignment @Params1
+          Remove-UMSProfileAssignment @Params2
         ) } | Should Not Throw
     }
 
@@ -215,11 +219,13 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSProfileAssignment'))
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
-      Assert-Equivalent -Actual $Result -Expected $Expected
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
 
   }

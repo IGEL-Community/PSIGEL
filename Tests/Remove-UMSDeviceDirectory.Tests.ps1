@@ -137,8 +137,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName All" {
 
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+
     It "doesn't throw" {
-      $Params1 = $Cfg.Tests.'Remove-UMSDeviceDirectory'.Params1
+      $Params1 = $TestCfg.Params1
       { $Script:Result = @(
           Remove-UMSDeviceDirectory @Params1
         ) } | Should Not Throw
@@ -157,13 +159,12 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      [array]$Expected = foreach ($item In $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Expected))
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
       Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
-        ExcludedPaths             = $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Options.ExcludedPaths)
-        ExcludePathsNotOnExpected = $($Cfg.Tests.'Remove-UMSDeviceDirectory'.Options.ExcludePathsNotOnExpected)
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
       }
     }
 

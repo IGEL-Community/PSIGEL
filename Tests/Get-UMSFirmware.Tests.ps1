@@ -160,8 +160,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName All" {
 
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+
     It "doesn't throw" {
-      { $Script:Result = Get-UMSFirmware | Sort-Object -Property Id } | Should Not Throw
+      { $Script:Result = Get-UMSFirmware } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -185,14 +187,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Get-UMSFirmware'.Expected))
+      $Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
       Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
-        ExcludedPaths             = $($Cfg.Tests.'Get-UMSFirmware'.Options.ExcludedPaths)
-        ExcludePathsNotOnExpected = $($Cfg.Tests.'Get-UMSFirmware'.Options.ExcludePathsNotOnExpected)
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
       }
     }
+
   }
 }

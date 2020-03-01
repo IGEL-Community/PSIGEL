@@ -127,15 +127,16 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   }
 
-  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
-    '*-UMS*:WebSession' = $WebSession
+    '*-UMS*:WebSession' = New-UMSAPICookie
   }
 
   Context "ParameterSetName All" {
 
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+
     It "doesn't throw" {
-      $Params1 = $Cfg.Tests.'New-UMSDeviceDirectory'.Params1
+      $Params1 = $TestCfg.Params1
       { $Script:Result = New-UMSDeviceDirectory @Params1 } | Should Not Throw
     }
 
@@ -156,14 +157,14 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'New-UMSDeviceDirectory'.Expected))
+      $Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
       Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
-        ExcludedPaths             = $($Cfg.Tests.'New-UMSDeviceDirectory'.Options.ExcludedPaths)
-        ExcludePathsNotOnExpected = $($Cfg.Tests.'New-UMSDeviceDirectory'.Options.ExcludePathsNotOnExpected)
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
       }
     }
+
   }
 }

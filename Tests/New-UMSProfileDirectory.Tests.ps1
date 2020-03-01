@@ -133,8 +133,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName All" {
 
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+
     It "doesn't throw" {
-      $Params1 = $Cfg.Tests.'New-UMSProfileDirectory'.Params1
+      $Params1 = $TestCfg.Params1
       { $Script:Result = New-UMSProfileDirectory @Params1 } | Should Not Throw
     }
 
@@ -155,13 +157,12 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'New-UMSProfileDirectory'.Expected))
+      $Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
       Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
-        ExcludedPaths             = $($Cfg.Tests.'New-UMSProfileDirectory'.Options.ExcludedPaths)
-        ExcludePathsNotOnExpected = $($Cfg.Tests.'New-UMSProfileDirectory'.Options.ExcludePathsNotOnExpected)
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
       }
     }
 

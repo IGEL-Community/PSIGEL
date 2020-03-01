@@ -125,8 +125,6 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:Computername'     = $Cfg.Computername
     '*-UMS*:TCPPort'          = $Cfg.TCPPort
     '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
-    '*-UMS*:Id'               = $Cfg.Tests.'Move-UMSDeviceDirectory'.Id
-    '*-UMS*:DestId'           = $Cfg.Tests.'Move-UMSDeviceDirectory'.DestId
     '*-UMS*:Confirm'          = $False
   }
 
@@ -137,8 +135,11 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName All" {
 
+    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+
     It "doesn't throw" {
-      { $Script:Result = Move-UMSDeviceDirectory } | Should Not Throw
+      $Params1 = $TestCfg.Params1
+      { $Script:Result = Move-UMSDeviceDirectory @Params1 } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -154,11 +155,13 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $($Cfg.Tests.'Move-UMSDeviceDirectory'.Expected))
+      $Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }
-      Assert-Equivalent -Actual $Result -Expected $Expected
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
 
   }
