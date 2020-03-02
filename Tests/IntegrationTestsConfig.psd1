@@ -428,13 +428,12 @@ Integration Tests Config
     # with Parametersets
     @{
       Function      = 'Get-UMSDevice'
-      ParameterSets = @(
-        @{
+      ParameterSets = @{
+        Default = @{
           #'Get-UMSDevice | Sort-Object -Property Id | Select-Object -First 2'
-          ParameterSet = 'Default'
-          Params1      = @{
+          Params1  = @{
           }
-          Expected     = @(
+          Expected = @(
             @{
               Id         = 505
               ObjectType = 'tc'
@@ -458,17 +457,16 @@ Integration Tests Config
               MovedToBin = 'False'
             }
           )
-          Options      = @{
+          Options  = @{
             ExcludedPaths = ''
           }
         }
-        @{
-          ParameterSet = 'Details'
-          Params1      = @{
+        Details = @{
+          Params1  = @{
             Id     = 518 # ???
             Filter = 'details'
           }
-          Expected     = @(
+          Expected = @(
             @{
               Id                        = 518
               ObjectType                = 'tc'
@@ -521,17 +519,16 @@ Integration Tests Config
               BiosDate                  = ''
             }
           )
-          Options      = @{
+          Options  = @{
             ExcludedPaths = ''
           }
         }
-        @{
-          ParameterSet = 'Online'
-          Params1      = @{
+        Online  = @{
+          Params1  = @{
             Id     = 578 # ???
             Filter = 'online'
           }
-          Expected     = @(
+          Expected = @(
             @{
               Id         = 578
               ObjectType = tc
@@ -545,11 +542,11 @@ Integration Tests Config
               Online     = 'False'
             }
           )
-          Options      = @{
+          Options  = @{
             ExcludedPaths = ''
           }
         }
-      )
+      }
     }
     #>
   )
