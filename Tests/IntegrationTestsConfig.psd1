@@ -247,75 +247,314 @@ Integration Tests Config
         ExcludedPaths = ''
       }
     }
+    ##hier
+    @{
+      Function = 'Move-UMSDevice'
+      Params1  = @{
+        Id     = 518 # ???
+        DestId = 514 # ???
+      }
+      Expected = @(
+        @{
+          Id      = 518
+          Message = 'successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Move-UMSDevice'
+      Params1  = @{
+        Id     = 617 # ???
+        DestId = 613 # ???
+      }
+      Params2  = @{
+        Id     = 621 # ???
+        DestId = 613 # ???
+      }
+      Expected = @(
+        @{
+          Id      = 617
+          Message = 'successful.'
+        }
+        @{
+          Id      = 621
+          Message = 'successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Move-UMSDeviceDirectory'
+      Params1  = @{
+        Id     = 517 # ???
+        DestId = 503 # ???
+      }
+      Expected = @(
+        @{
+          Id      = 517
+          Message = 'successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Move-UMSProfile'
+      Params1  = @{
+        Id     = 535 # ???
+        DestId = 534 # ???
+      }
+      Expected = @(
+        @{
+          Id      = 535
+          Message = 'successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Move-UMSProfileDirectory'
+      Params1  = @{
+        Id     = 534 # ???
+        DestId = 527 # ???
+      }
+      Expected = @(
+        @{
+          Id      = 534
+          Message = 'successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Update-UMSDeviceDirectory'
+      Params1  = @{
+        Id   = 517 # ???
+        Name = 'Distribution' # ???
+      }
+      Expected = @(
+        @{
+          Id      = 517
+          Message = 'Updated directory successfully.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Update-UMSDevice'
+      Params1  = @{
+        Id   = 578 # ???
+        Name = 'BR-DIS-010' # ???
+      }
+      Expected = @(
+        @{
+          Id      = 578
+          Message = 'Update successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Update-UMSDevice'
+      Params1  = @{
+        Id   = 578 # ???
+        Name = 'BR-DIS-010' # ???
+      }
+      Params2  = @{
+        Id   = 518 # ???
+        Name = 'A-DEV-009' # ???
+      }
+      Expected = @(
+        @{
+          Id      = 578
+          Message = 'Update successful.'
+        }
+        @{
+          Id      = 518
+          Message = 'Update successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Update-UMSProfile'
+      Params1  = @{
+        Id   = 535 # ??? #Origin rename to "NW_LNG_DE"
+        Name = 'LNG_DE' # ???
+      }
+      Expected = @(
+        @{
+          Id      = 535
+          Message = 'Update successful.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function = 'Update-UMSProfileDirectory'
+      Params1  = @{
+        Id   = 534 # ???
+        Name = 'User Interface' # ???
+      }
+      Expected = @(
+        @{
+          Id      = 534
+          Message = 'Updated directory successfully.'
+        }
+      )
+      Options  = @{
+        ExcludedPaths = ''
+      }
+    }
+    <#
+    # with Parametersets
+    @{
+      Function      = 'Get-UMSDevice'
+      ParameterSets = @(
+        @{
+          #'Get-UMSDevice | Sort-Object -Property Id | Select-Object -First 2'
+          ParameterSet = 'Default'
+          Params1      = @{
+          }
+          Expected     = @(
+            @{
+              Id         = 505
+              ObjectType = 'tc'
+              UnitId     = '0A0000000001'
+              Mac        = '0A0000000001'
+              Name       = 'BR-HR-001'
+              ParentId   = 504
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+            @{
+              Id         = 507
+              ObjectType = 'tc'
+              UnitId     = '0A0000000002'
+              Mac        = '0A0000000002'
+              Name       = 'BR-HR-002'
+              ParentId   = 504
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+        @{
+          ParameterSet = 'Details'
+          Params1      = @{
+            Id     = 518 # ???
+            Filter = 'details'
+          }
+          Expected     = @(
+            @{
+              Id                        = 518
+              ObjectType                = 'tc'
+              UnitId                    = '0A0000000009'
+              Mac                       = '0A0000000009'
+              Name                      = 'A-DEV-009'
+              ParentId                  = 514
+              FirmwareId                = 1
+              LastIp                    = ''
+              MovedToBin                = 'False'
+              NetworkName               = ''
+              Site                      = ''
+              Comment                   = ''
+              Department                = ''
+              CostCenter                = ''
+              AssetID                   = ''
+              InServiceDate             = ''
+              SerialNumber              = ''
+              ProductId                 = ''
+              CpuSpeed                  = 0
+              CpuType                   = ''
+              DeviceType                = ''
+              DeviceSerialNumber        = ''
+              OsType                    = ''
+              FlashSize                 = 0
+              MemorySize                = 0
+              NetworkSpeed              = 0
+              GraphicsChipset0          = ''
+              GraphicsChipset1          = ''
+              MonitorVendor1            = ''
+              MonitorModel1             = ''
+              MonitorSerialnumber1      = ''
+              MonitorSize1              = 0
+              MonitorNativeResolution1  = ''
+              Monitor1YearOfManufacture = 0
+              Monitor1WeekOfManufacture = 0
+              MonitorVendor2            = ''
+              MonitorModel2             = ''
+              MonitorSerialnumber2      = ''
+              MonitorSize2              = 0
+              MonitorNativeResolution2  = ''
+              Monitor2YearOfManufacture = 0
+              Monitor2WeekOfManufacture = 0
+              BiosVendor                = ''
+              BiosVersion               = ''
+              TotalUsagetime            = -1
+              TotalUptime               = -1
+              BatteryLevel              = -1
+              LastBootTime              = ''
+              BiosDate                  = ''
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+        @{
+          ParameterSet = 'Online'
+          Params1      = @{
+            Id     = 578 # ???
+            Filter = 'online'
+          }
+          Expected     = @(
+            @{
+              Id         = 578
+              ObjectType = tc
+              UnitId     = '0A0000000010'
+              Mac        = '0A0000000010'
+              Name       = 'BR-DIS-010'
+              ParentId   = 517
+              FirmwareId = 2
+              LastIp     = ''
+              MovedToBin = 'False'
+              Online     = 'False'
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+      )
+    }
+    #>
   )
-
   <#
   Tests            = [ordered]@{
-    'Move-UMSDevice -Id 518 -DestId 514'                                                                     = @(
-      @{
-        Id      = 518
-        Message = 'successful.'
-      }
-    )
-    '617, 621 | Move-UMSDevice -DestId 613'                                                                  = @(
-      @{
-        Id      = 617 #dynamisch
-        Message = 'successful.'
-      }
-      @{
-        Id      = 621 # dynamisch
-        Message = 'successful.'
-      }
-    )
-    '517 | Move-UMSDeviceDirectory -DestId 503'                                                              = @(
-      @{
-        Id      = 517
-        Message = 'successful.'
-      }
-    )
-    'Move-UMSProfile -Id 535 -DestId 534'                                                                    = @(
-      @{
-        Id      = 535
-        Message = 'successful'
-      }
-    )
-    'Move-UMSProfileDirectory -Id 534 -DestId 527'                                                           = @(
-      @{
-        Id      = 535
-        Message = 'successful'
-      }
-    )
-    'Update-UMSDeviceDirectory -Id 517 -Name "Distribution"'                                                 = @(
-      @{
-        Message = 'Updated directory successfully.'
-        Id      = 517
-      }
-    )
-    ' Update-UMSDevice -Id 578 -Name "BR-DIS-010"'                                                           = @(
-      @{
-        Message = 'Update successful.'
-        Id      = 578
-      }
-    )
-    'Update-UMSDevice -Id 518 -Name "A-DEV-009"'                                                             = @(
-      @{
-        Message = 'Update successful.'
-        Id      = 518
-      }
-    )
-    #Origin rename to "PRO_NW_LNG_DE"
-    'Update-UMSProfile -Id 535 -Name "PRO_LNG_DE"'                                                           = @(
-      @{
-        Message = 'Update successful.'
-        Id      = 535
-      }
-    )
-    'Update-UMSProfileDirectory -Id 534 -Name "User Interface"'                                              = @(
-      @{
-        Message = 'Updated directory successfully.'
-        Id      = 534
-      }
-    )
     'Get-UMSDevice | Sort-Object -Property Id | Select-Object -First 2'                                      = @(
       @{
         Id         = 505
