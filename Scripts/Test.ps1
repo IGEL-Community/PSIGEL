@@ -13,15 +13,18 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
-$DirectoryColl = Get-UMSDeviceDirectory
-$ElementColl = Get-UMSDevice
+$Params1 = @{
+  Mac        = '0A00000000FF'
+  Name       = 'PipelineDevice'
+  FirmwareId = 1
+  ParentId   = -1
+}
+
+#$Params1.Mac -match '^([0-9a-f]{12})$'
 
 $Result = ''
-#$Result = (Get-UMSProfile).Count
-#$Result = Get-UMSProfileDirectory | Sort-Object -Property Id -Descending | Select-Object -First 2
-#$Result = (Get-UMSProfileDirectory -Id 533 -Filter children).DirectoryChildren
-#$Result = (Get-UMSDeviceAssignment -Id 577).Count
-$Result = Get-UMSDirectoryRecursive -DirectoryColl $DirectoryColl -Id 511 -ElementColl $ElementColl
+$Result = $Params1 | New-UMSDevice
+#$Result = $Params1.Mac | New-UMSDevice -FirmwareId 1
 $Result
 #($Result[0].MovedToBin).Gettype()
 

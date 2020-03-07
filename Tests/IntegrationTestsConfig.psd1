@@ -1242,5 +1242,90 @@ Integration Tests Config
         }
       }
     }
+    @{
+      Function      = 'Pipeline'
+      ParameterSets = @{
+        UMSDevice           = @{
+          Params1  = @{
+            Mac        = '0A00000000FF'
+            Name       = 'PipelineDevice'
+            FirmwareId = 1
+            ParentId   = -1
+          }
+          Params2  = @{
+            DeviceDirectoryId = 502
+            DeviceUpdateName  = 'PipelineDeviceUpdated'
+          }
+          Expected = @(
+            @{
+
+            }
+            @{
+
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+        UMSDeviceDirectory  = @{
+          Params1  = @{
+            Id = 111
+          }
+          Params2  = @{
+            Id = 222
+          }
+          Expected = @(
+            @{
+
+            }
+            @{
+
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+        UMSProfile          = @{
+          Params1  = @{
+            Id = 111
+          }
+          Params2  = @{
+            Id = 222
+          }
+          Expected = @(
+            @{
+
+            }
+            @{
+
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+        UMSProfileDirectory = @{
+          Params1  = @{
+            Id = 111
+          }
+          Params2  = @{
+            Id = 222
+          }
+          Expected = @(
+            @{
+
+            }
+            @{
+
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
   )
 }
