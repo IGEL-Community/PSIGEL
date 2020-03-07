@@ -1,13 +1,16 @@
+Import-Module C:\GitHub\PSIGEL\PSIGEL\PSIGEL.psd1 -Force
 $UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
 
 $PSDefaultParameterValues = @{
   'New-UMSAPICookie:Credential' = Import-Clixml -Path $UMSCredPath
-  '*-UMS*:Computername'         = '192.168.56.1'
+  '*-UMS*:Computername'         = 'igelrmserver'
   '*-UMS*:TCPPort'              = 9443
   #'*-UMS*:SecurityProtocol'     = 'Tls'
 }
+
+$WebSession = New-UMSAPICookie
 $PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = (New-UMSAPICookie)
+  '*-UMS*:WebSession' = $WebSession
 }
 
 $Result = ''
@@ -15,12 +18,12 @@ $Result = ''
 #$Result = Get-UMSProfileDirectory | Sort-Object -Property Id -Descending | Select-Object -First 2
 #$Result = (Get-UMSProfileDirectory -Id 533 -Filter children).DirectoryChildren
 #$Result = (Get-UMSDeviceAssignment -Id 577).Count
-$Result = Get-UMSDevice
-$Result1 = Get-UMSDevice | Select-Object -First 9
+$Result = Get-UMSProfileAssignment -Id 538 #-Directory
 $Result
+#($Result[0].MovedToBin).Gettype()
 
-Assert-Equivalent -Actual $Result -Expected $Result1
 
 <#
+Assert-Equivalent -Actual $Result -Expected $Result1
 $Result = New-UMSDeviceDirectory -Name 'QandA' # 01
 #>
