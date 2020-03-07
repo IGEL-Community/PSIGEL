@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
@@ -29,7 +29,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -47,10 +47,10 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       $Script:Result = ''
 
-      Mock 'Get-UMSDirectoryRecursive' {}
+      Mock 'Get-UMSDirectoryRecursive' { }
 
       It 'Get-UMSDirectoryRecursive Should not throw' {
-        { Get-UMSDirectoryRecursive -Id 99 -DirectoryColl @{} } | Should -Not -Throw
+        { Get-UMSDirectoryRecursive -Id 99 -DirectoryColl @{ } } | Should -Not -Throw
       }
 
       It 'Get-UMSDirectoryRecursive -ApiVersion 10 Stop Should throw' {
@@ -86,7 +86,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
           ObjectType = 'tcdirectory'
         }
       )
-      Mock 'Get-UMSDirectoryRecursive' {$DirectoryColl}
+      Mock 'Get-UMSDirectoryRecursive' { $DirectoryColl }
 
       Get-UMSDirectoryRecursive -Id 99 -DirectoryColl $DirectoryColl
 
@@ -278,10 +278,10 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
       $Script:Result = ''
       Write-Host $Result
 
-      Mock 'Get-UMSDirectoryRecursive' {throw 'Error'}
+      Mock 'Get-UMSDirectoryRecursive' { throw 'Error' }
 
       it 'should throw Error' {
-        { $Script:Result = Get-UMSDirectoryRecursive -Id 99 -DirectoryColl @{} -ElementColl @{} } | should throw 'Error'
+        { $Script:Result = Get-UMSDirectoryRecursive -Id 99 -DirectoryColl @{ } -ElementColl @{ } } | should throw 'Error'
       }
 
       It 'Result should be null or empty' {
@@ -291,51 +291,93 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-#<#
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $Id = $UMS.UMSDirectoryRecursive[0].Id
-  $Name = $UMS.UMSDirectoryRecursive[0].Name
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Id'               = $Id
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
+    '*-UMS*:Confirm'          = $False
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
+
+    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Default
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSDirectoryRecursive - } | Should Not Throw
+      $Params1 = $TestCfg.Params1
+      $Params1.Add('DirectoryColl', (Get-UMSDeviceDirectory))
+      { $Script:Result = @(
+          Get-UMSDirectoryRecursive @Params1
+        ) } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should have type [Int]' {
-      $Result.Id | Should -HaveType [Int]
+    It 'Result[0].Id should have type [Int]' {
+      $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result.Id should be exactly $Id" {
-      $Result.Id | Should -BeExactly $Id
+    It 'Result[0].Name should have type [String]' {
+      $Result[0].Name | Should -HaveType [String]
     }
 
-    It 'Result.Name should have type [String]' {
-      $Result.Name | Should -HaveType [String]
-    }
-
-    It "Result.Name should be exactly $Name" {
-      $Result.Name | Should -BeExactly $Name
+    It "Result should be Equivalent to Expected" {
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
   }
+
+  Context "ParameterSetName Element" {
+
+    $Script:Result = ''
+    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Element
+
+    It "doesn't throw" {
+      $Params1 = $TestCfg.Params1
+      $Params1.Add('DirectoryColl', (Get-UMSDeviceDirectory))
+      $Params1.Add('ElementColl', (Get-UMSDevice))
+      { $Script:Result = @(
+          Get-UMSDirectoryRecursive @Params1
+        ) } | Should Not Throw
+    }
+
+    It 'Result should not be null or empty' {
+      $Result | Should not BeNullOrEmpty
+    }
+
+    It 'Result[0].Id should have type [Int]' {
+      $Result[0].Id | Should -HaveType [Int]
+    }
+
+    It 'Result[0].Name should have type [String]' {
+      $Result[0].Name | Should -HaveType [String]
+    }
+
+    It "Result should be Equivalent to Expected" {
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
+    }
+  }
+
 }
-#>

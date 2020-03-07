@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
@@ -21,7 +21,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -35,7 +35,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       It 'Get-UMSDeviceAssignment Should not throw' {
         { Get-UMSDeviceAssignment } | Should -Not -Throw
@@ -99,7 +99,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
 
       it 'should throw Error' {
         { Get-UMSDeviceAssignment } | should throw 'Error'
@@ -113,57 +113,54 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $Id = $UMS.UMSDeviceAssignment[0].Id
-  $ReceiverType = $UMS.UMSDeviceAssignment.ReceiverType
-  $AssigneeId = $UMS.UMSDeviceAssignment.AssigneeId
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Id'               = $Id
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
+    '*-UMS*:Confirm'          = $False
   }
 
-  $WebSession = New-UMSAPICookie -Credential $Credential
+  $WebSession = New-UMSAPICookie
   $PSDefaultParameterValues += @{
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
+
+    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Default
 
     It "doesn't throw" {
-      { $Script:Result = Get-UMSDeviceAssignment } | Should Not Throw
+      $Params1 = $TestCfg.Params1
+      { $Script:Result = @(
+          Get-UMSDeviceAssignment @Params1
+        ) } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
       $Result | Should not BeNullOrEmpty
     }
 
-    It 'Result.Id should have type [Int]' {
-      $Result.Id | Should -HaveType [Int]
+    It 'Result[0].Id should have type [Int]' {
+      $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result.Id should be exactly $($UMS.UMSDeviceAssignment.Id)" {
-      $Result.Id | Should -BeExactly $UMS.UMSDeviceAssignment.Id
+    It 'Result[0].ReceiverType should have type [String]' {
+      $Result[0].ReceiverType | Should -HaveType [String]
     }
 
-    It 'Result.ReceiverType should have type [String]' {
-      $Result.ReceiverType | Should -HaveType [String]
-    }
-
-    It "Result.ReceiverType should be exactly $ReceiverType)" {
-      $Result.ReceiverType | Should -BeExactly $ReceiverType
-    }
-
-    It 'Result.AssigneeID should have type [Int]' {
-      $Result.AssigneeID | Should -HaveType [Int]
-    }
-
-    It "Result.AssigneeID should be exactly $AssigneeId)" {
-      $Result.AssigneeID | Should -BeExactly $AssigneeId
+    It "Result should be Equivalent to Expected" {
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
   }
+
 }

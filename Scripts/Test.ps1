@@ -13,12 +13,15 @@ $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 
+$DirectoryColl = Get-UMSDeviceDirectory
+$ElementColl = Get-UMSDevice
+
 $Result = ''
 #$Result = (Get-UMSProfile).Count
 #$Result = Get-UMSProfileDirectory | Sort-Object -Property Id -Descending | Select-Object -First 2
 #$Result = (Get-UMSProfileDirectory -Id 533 -Filter children).DirectoryChildren
 #$Result = (Get-UMSDeviceAssignment -Id 577).Count
-$Result = Get-UMSProfileAssignment -Id 538 #-Directory
+$Result = Get-UMSDirectoryRecursive -DirectoryColl $DirectoryColl -Id 511 -ElementColl $ElementColl
 $Result
 #($Result[0].MovedToBin).Gettype()
 

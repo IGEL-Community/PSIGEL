@@ -1009,5 +1009,214 @@ Integration Tests Config
         }
       }
     }
+    @{
+      Function      = 'Get-UMSDeviceAssignment'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 577 # BR-MKT-003
+          }
+          Expected = @(
+            @{
+              Id                 = 577
+              ReceiverId         = 577
+              ReceiverType       = 'tc'
+              AssigneeId         = 538
+              AssigneeType       = 'profile'
+              AssignmentPosition = 0
+            }
+            @{
+              Id                 = 577
+              ReceiverId         = 503
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 537
+              AssigneeType       = 'profile'
+              AssignmentPosition = 1
+            }
+            @{
+              Id                 = 577
+              ReceiverId         = 502
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 529
+              AssigneeType       = 'profile'
+              AssignmentPosition = 2
+            }
+            @{
+              Id                 = 577
+              ReceiverId         = 502
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 535
+              AssigneeType       = 'profile'
+              AssignmentPosition = 3
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
+    @{
+      Function      = 'Get-UMSDeviceDirectoryAssignment'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 504 # BR_HR
+          }
+          Expected = @(
+            @{
+              Id                 = 504
+              ReceiverId         = 504
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 538
+              AssigneeType       = 'profile'
+              AssignmentPosition = 0
+            }
+            @{
+              Id                 = 504
+              ReceiverId         = 502
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 535
+              AssigneeType       = 'profile'
+              AssignmentPosition = 1
+            }
+            @{
+              Id                 = 504
+              ReceiverId         = 502
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 529
+              AssigneeType       = 'profile'
+              AssignmentPosition = 2
+            }
+            @{
+              Id                 = 504
+              ReceiverId         = 503
+              ReceiverType       = 'tcdirectory'
+              AssigneeId         = 537
+              AssigneeType       = 'profile'
+              AssignmentPosition = 3
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
+    @{
+      Function      = 'Get-UMSDirectoryRecursive'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            #DirectoryColl = 'Get-UMSDeviceDirectory'
+            Id = 511 # Augsburg
+          }
+          Expected = @(
+            @{
+              Id         = 511
+              Name       = 'Augsburg'
+              ParentId   = 502
+              MovedToBin = 'False'
+              ObjectType = 'tcdirectory'
+            }
+            @{
+              Id         = 514
+              Name       = 'A_Development'
+              ParentId   = 511
+              MovedToBin = 'False'
+              ObjectType = 'tcdirectory'
+            }
+            @{
+              Id         = 594
+              Name       = 'QA'
+              ParentId   = 511
+              MovedToBin = 'False'
+              ObjectType = 'tcdirectory'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+        Element = @{
+          Params1  = @{
+            #DirectoryColl = 'Get-UMSDeviceDirectory'
+            #ElementColl   = 'Get-UMSDevice'
+            Id = 511 # Augsburg
+          }
+          Expected = @(
+            @{
+              Id         = 512
+              ObjectType = 'tc'
+              UnitId     = '0A0000000005'
+              Mac        = '0A0000000005'
+              Name       = 'A-DEV-005'
+              ParentId   = 514
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+            @{
+              Id         = 513
+              ObjectType = 'tc'
+              UnitId     = '0A0000000006'
+              Mac        = '0A0000000006'
+              Name       = 'A-DEV-006'
+              ParentId   = 514
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+            @{
+              Id         = 518
+              ObjectType = 'tc'
+              UnitId     = '0A0000000009'
+              Mac        = '0A0000000009'
+              Name       = 'A-DEV-009'
+              ParentId   = 514
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+            @{
+              Id         = 578
+              ObjectType = 'tc'
+              UnitId     = '0A0000000010'
+              Mac        = '0A0000000010'
+              Name       = 'A-DEV-010'
+              ParentId   = 514
+              FirmwareId = 2
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+            @{
+              Id         = 595
+              ObjectType = 'tc'
+              UnitId     = '0A0000000007'
+              Mac        = '0A0000000007'
+              Name       = 007
+              ParentId   = 594
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+            @{
+              Id         = 596
+              ObjectType = 'tc'
+              UnitId     = '0A0000000008'
+              Mac        = '0A0000000008'
+              Name       = 008
+              ParentId   = 594
+              FirmwareId = 1
+              LastIp     = ''
+              MovedToBin = 'False'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
   )
 }
