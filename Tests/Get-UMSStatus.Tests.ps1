@@ -115,9 +115,9 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:WebSession' = New-UMSAPICookie
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
 
-    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = Get-UMSStatus } | Should Not Throw

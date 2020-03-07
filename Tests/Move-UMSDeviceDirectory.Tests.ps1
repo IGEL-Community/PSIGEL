@@ -133,13 +133,17 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
 
-    $TestCfg = ($Cfg.Tests).where{ $_.Function -eq $FunctionName }
+    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Default
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1
-      { $Script:Result = Move-UMSDeviceDirectory @Params1 } | Should Not Throw
+      $Params2 = $TestCfg.Params2
+      { $Script:Result = @(
+          Move-UMSDeviceDirectory @Params1
+          Move-UMSDeviceDirectory @Params2
+        ) } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -155,7 +159,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     }
 
     It "Result should be Equivalent to Expected" {
-      $Expected = foreach ($item In $TestCfg.Expected)
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
       {
         New-Object psobject -Property $item
       }

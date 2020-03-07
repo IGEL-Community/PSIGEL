@@ -13,313 +13,362 @@ Integration Tests Config
 
   Tests            = @(
     @{
-      Function = 'Get-UMSStatus'
-      Expected = @{
-        RmGuiServerVersion = '6.3.130'
-        BuildNumber        = 44584
-        ActiveMqVersion    = '5.7.0'
-        DerbyVersion       = '10.12.1.1'
-        ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
-        Server             = 'igelrmserver:8443'
-      }
-      Options  = @{
-        ExcludedPaths = ''
+      Function      = 'Get-UMSStatus'
+      ParameterSets = @{
+        Default = @{
+          Expected = @{
+            RmGuiServerVersion = '6.3.130'
+            BuildNumber        = 44584
+            ActiveMqVersion    = '5.7.0'
+            DerbyVersion       = '10.12.1.1'
+            ServerUuid         = 'f30fb3a2-37d4-4cbb-b884-4f4060d3160e'
+            Server             = 'igelrmserver:8443'
+          }
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
       }
     }
     @{
-      Function = 'New-UMSDeviceDirectory'
-      Params1  = @{
-        Name = 'QA'
-      }
-      Expected = @{
-        Message = 'Directory successfully inserted.'
-        Id      = 593
-        Name    = 'QA'
-      }
-      Options  = @{
-        #ExcludedPaths = 'Id'
+      Function      = 'New-UMSDeviceDirectory'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Name = 'QA'
+          }
+          Expected = @{
+            Message = 'Directory successfully inserted.'
+            Id      = 593
+            Name    = 'QA'
+          }
+          Options  = @{
+            #ExcludedPaths = 'Id'
+          }
+        }
       }
     }
     @{
-      Function = 'New-UMSDevice'
-      Params1  = @{
-        Mac        = '0A0000000007'
-        Name       = 'A-QA-007'
-        FirmwareId = 1
-        ParentId   = -1
-      }
-      Params2  = @{
-        Mac        = '0A0000000008'
-        Name       = 'A-QA-008'
-        FirmwareId = 1
-        ParentId   = -1
-      }
-      Expected = @(
-        @{
-          Mac      = '0A0000000007'
-          Message  = 'Device successfully inserted.'
-          Id       = 594
-          Name     = 'A-QA-007'
-          ParentId = -1
+      Function      = 'New-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Mac        = '0A0000000007'
+            Name       = '007'
+            FirmwareId = 1
+            ParentId   = -1
+          }
+          Params2  = @{
+            Mac        = '0A0000000008'
+            Name       = '008'
+            FirmwareId = 1
+            ParentId   = -1
+          }
+          Expected = @(
+            @{
+              Mac      = '0A0000000007'
+              Message  = 'Device successfully inserted.'
+              Id       = 594
+              Name     = '007'
+              ParentId = -1
+            }
+            @{
+              Mac      = '0A0000000008'
+              Message  = 'Device successfully inserted.'
+              Id       = 595
+              Name     = '008'
+              ParentId = - 1
+            }
+          )
+          Options  = @{
+            #ExcludedPaths = 'Id'
+          }
         }
-        @{
-          Mac      = '0A0000000008'
-          Message  = 'Device successfully inserted.'
-          Id       = 595
-          Name     = 'A-QA-008'
-          ParentId = - 1
-        }
-      )
-      Options  = @{
-        #ExcludedPaths = 'Id'
       }
     }
     @{
-      Function = 'New-UMSProfileDirectory'
-      Params1  = @{
-        Name = 'Devices'
-      }
-      Expected = @{
-        Message = 'Directory successfully inserted.'
-        Id      = 596
-        Name    = 'Devices'
-      }
-      Options  = @{
-        #ExcludedPaths = 'Id'
+      Function      = 'New-UMSProfileDirectory'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Name = 'Devices'
+          }
+          Expected = @{
+            Message = 'Directory successfully inserted.'
+            Id      = 596
+            Name    = 'Devices'
+          }
+          Options  = @{
+            #ExcludedPaths = 'Id'
+          }
+        }
       }
     }
     @{
-      Function = 'Get-UMSFirmware'
-      Expected = @(
-        @{
-          Id           = 1
-          Product      = 'IGEL OS 11'
-          Version      = '11.3.100.1'
-          FirmwareType = 'LX'
+      Function      = 'Get-UMSFirmware'
+      ParameterSets = @{
+        Default = @{
+          Expected = @(
+            @{
+              Id           = 1
+              Product      = 'IGEL OS 11'
+              Version      = '11.3.100.1'
+              FirmwareType = 'LX'
+            }
+            @{
+              Id           = 2
+              Product      = 'IGEL OS 11'
+              Version      = '11.3.110.1'
+              FirmwareType = 'LX'
+            }
+          )
+          Options  = @{
+            #ExcludedPaths             = 'Id'
+          }
         }
-        @{
-          Id           = 2
-          Product      = 'IGEL OS 11'
-          Version      = '11.3.110.1'
-          FirmwareType = 'LX'
-        }
-      )
-      Options  = @{
-        #ExcludedPaths             = 'Id'
       }
     }
     @{
-      Function = 'New-UMSProfileAssignment'
-      Params1  = @{
-        Id           = 538 # NW_WLAN
-        ReceiverId   = 504 # BR_HR
-        ReceiverType = 'tcdirectory'
-      }
-      Params2  = @{
-        Id           = 538 # NW_WLAN
-        ReceiverId   = 577 # BR-MKT-003
-        ReceiverType = 'tc'
-      }
-      Expected = @(
-        @{
-          Id           = 538
-          Message      = '1 asssignments successfully assigned to device directory <{1}>.'
-          ReceiverId   = 504
-          ReceiverType = 'tcdirectory'
+      Function      = 'New-UMSProfileAssignment'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id           = 538 # NW_WLAN
+            ReceiverId   = 504 # BR_HR
+            ReceiverType = 'tcdirectory'
+          }
+          Params2  = @{
+            Id           = 538 # NW_WLAN
+            ReceiverId   = 577 # BR-MKT-003
+            ReceiverType = 'tc'
+          }
+          Expected = @(
+            @{
+              Id           = 538
+              Message      = '1 asssignments successfully assigned to device directory <{1}>.'
+              ReceiverId   = 504
+              ReceiverType = 'tcdirectory'
+            }
+            @{
+              Id           = 538
+              Message      = '1 asssignments successfully assigned to device <{1}>.'
+              ReceiverId   = 577
+              ReceiverType = 'tc'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
         }
-        @{
-          Id           = 538
-          Message      = '1 asssignments successfully assigned to device <{1}>.'
-          ReceiverId   = 577
-          ReceiverType = 'tc'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
       }
     }
     @{
-      Function = 'Remove-UMSDevice'
-      Params1  = @{
-        Id = 572 # L-DIS-011
-      }
-      Params2  = @{
-        Id = 522 # L-DIS-012
-      }
-      Expected = @(
-        @{
-          Id      = 572
-          Message = 'Offline deletion successful.'
+      Function      = 'Remove-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 572 # L-DIS-011
+          }
+          Params2  = @{
+            Id = 522 # L-DIS-012
+          }
+          Expected = @(
+            @{
+              Id      = 572
+              Message = 'Offline deletion successful.'
+            }
+            @{
+              Id      = 522
+              Message = 'Offline deletion successful.'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
         }
-        @{
-          Id      = 522
-          Message = 'Offline deletion successful.'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
       }
     }
     @{
-      Function = 'Remove-UMSDeviceDirectory'
-      Params1  = @{
-        Id = 520 # L_Distribution
-      }
-      Expected = @(
-        @{
-          Id      = 520
-          Message = 'Deletion successful.'
+      Function      = 'Remove-UMSDeviceDirectory'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 520 # L_Distribution
+          }
+          Expected = @(
+            @{
+              Id      = 520
+              Message = 'Deletion successful.'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
         }
-      )
-      Options  = @{
-        ExcludedPaths = ''
       }
     }
     @{
-      Function = 'Remove-UMSProfile'
-      Params1  = @{
-        Id = 542 # SYS_TZ_CET
-      }
-      Expected = @{
-        Message = 'Deleted profile.'
-        Id      = 542
-      }
-      Options  = @{
-        ExcludedPaths = ''
+      Function      = 'Remove-UMSProfile'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 542 # SYS_TZ_CET
+          }
+          Expected = @{
+            Message = 'Deleted profile.'
+            Id      = 542
+          }
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
       }
     }
     @{
-      Function = 'Remove-UMSProfileDirectory'
-      Params1  = @{
-        Id = 541 # System
-      }
-      Expected = @{
-        Message = 'Deletion successful.'
-        Id      = 541
-      }
-      Options  = @{
-        ExcludedPaths = ''
+      Function      = 'Remove-UMSProfileDirectory'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 541 # System
+          }
+          Expected = @{
+            Message = 'Deletion successful.'
+            Id      = 541
+          }
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
       }
     }
     @{
-      Function = 'Remove-UMSProfileAssignment'
-      Params1  = @{
-        Id           = 538 # NW_WLAN
-        ReceiverId   = 505 # BR-HR-01
-        ReceiverType = 'tc'
-      }
-      Params2  = @{
-        Id           = 540 # SEC_PW_Root
-        ReceiverId   = 502 # PSIGEL
-        ReceiverType = 'tcdirectory'
-      }
-      Expected = @(
-        @{
-          Message      = 'deleted profile assignment.'
-          Id           = 538
-          ReceiverId   = 505
-          ReceiverType = 'tc'
+      Function      = 'Remove-UMSProfileAssignment'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id           = 538 # NW_WLAN
+            ReceiverId   = 505 # BR-HR-01
+            ReceiverType = 'tc'
+          }
+          Params2  = @{
+            Id           = 540 # SEC_PW_Root
+            ReceiverId   = 502 # PSIGEL
+            ReceiverType = 'tcdirectory'
+          }
+          Expected = @(
+            @{
+              Message      = 'deleted profile assignment.'
+              Id           = 538
+              ReceiverId   = 505
+              ReceiverType = 'tc'
+            }
+            @{
+              Message      = 'deleted profile assignment.'
+              Id           = 540
+              ReceiverId   = 502
+              ReceiverType = 'tcdirectory'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
         }
-        @{
-          Message      = 'deleted profile assignment.'
-          Id           = 540
-          ReceiverId   = 502
-          ReceiverType = 'tcdirectory'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
       }
     }
     @{
-      Function = 'Move-UMSDeviceDirectory'
-      Params1  = @{
-        Id     = 593 # QA
-        DestId = 511 # Augsburg
-      }
-      Expected = @(
-        @{
-          Id      = 593
-          Message = 'successful.'
+      Function      = 'Move-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id     = 518 # L-DEV-009
+            DestId = 514 # A_Development
+          }
+          Params2  = @{
+            Id     = 578 # L-DEV-010
+            DestId = 514 # A_Development
+          }
+          Params3  = @{
+            Id     = 594 # 007
+            DestId = 593 # QA
+          }
+          Params4  = @{
+            Id     = 595 # 008
+            DestId = 593 # QA
+          }
+          Expected = @(
+            @{
+              Id      = 518
+              Message = 'successful.'
+            }
+            @{
+              Id      = 578
+              Message = 'successful.'
+            }
+            @{
+              Id      = 594
+              Message = 'successful.'
+            }
+            @{
+              Id      = 595
+              Message = 'successful.'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
         }
-      )
-      Options  = @{
-        ExcludedPaths = ''
+      }
+    }
+    @{
+      Function      = 'Move-UMSDeviceDirectory'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id     = 593 # QA
+            DestId = 511 # Augsburg
+          }
+          Params2  = @{
+            Id     = 517 # L_Development
+            DestId = 503 # Bremen
+          }
+          Expected = @(
+            @{
+              Id      = 593
+              Message = 'successful.'
+            }
+            @{
+              Id      = 517
+              Message = 'successful.'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
+    @{
+      Function      = 'Move-UMSProfile'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id     = 535 # UI_LNG_DE
+            DestId = 534 # User Interface
+          }
+          Expected = @(
+            @{
+              Id      = 535
+              Message = 'successful'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
       }
     }
     ##hier
-    @{
-      Function = 'Move-UMSDevice'
-      Params1  = @{
-        Id     = 518 # ???
-        DestId = 514 # ???
-      }
-      Expected = @(
-        @{
-          Id      = 518
-          Message = 'successful.'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
-      }
-    }
-    @{
-      Function = 'Move-UMSDevice'
-      Params1  = @{
-        Id     = 617 # ???
-        DestId = 613 # ???
-      }
-      Params2  = @{
-        Id     = 621 # ???
-        DestId = 613 # ???
-      }
-      Expected = @(
-        @{
-          Id      = 617
-          Message = 'successful.'
-        }
-        @{
-          Id      = 621
-          Message = 'successful.'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
-      }
-    }
-    @{
-      Function = 'Move-UMSDeviceDirectory'
-      Params1  = @{
-        Id     = 517 # ???
-        DestId = 503 # ???
-      }
-      Expected = @(
-        @{
-          Id      = 517
-          Message = 'successful.'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
-      }
-    }
-    @{
-      Function = 'Move-UMSProfile'
-      Params1  = @{
-        Id     = 535 # ???
-        DestId = 534 # ???
-      }
-      Expected = @(
-        @{
-          Id      = 535
-          Message = 'successful.'
-        }
-      )
-      Options  = @{
-        ExcludedPaths = ''
-      }
-    }
+    <#
     @{
       Function = 'Move-UMSProfileDirectory'
       Params1  = @{
@@ -424,6 +473,8 @@ Integration Tests Config
         ExcludedPaths = ''
       }
     }
+    #>
+    ### neu:
     <#
     # with Parametersets
     @{

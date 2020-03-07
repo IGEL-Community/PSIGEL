@@ -21,7 +21,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -34,7 +34,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       It 'Move-UMSProfile -Id 2 -DestId 2 Should not throw' {
         { Move-UMSProfile -Id 2 -DestId 2 } | Should -Not -Throw
@@ -83,7 +83,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       $Result = Move-UMSProfile -Id 2 -DestId 2 -WhatIf
 
@@ -102,7 +102,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
 
       It 'Move-UMSProfile -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop Should throw' {
         { Move-UMSProfile -Id 2 -DestId 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -116,18 +116,15 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $Id = $UMS.UMSProfile[0].Id
-  $DestId = $UMS.UMSProfile[0].DestId
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Id'               = $Id
-    '*-UMS*:DestId'           = $DestId
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
+    '*-UMS*:Confirm'          = $False
   }
 
   $WebSession = New-UMSAPICookie
@@ -135,10 +132,13 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
+
+    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Default
 
     It "doesn't throw" {
-      { $Script:Result = Move-UMSProfile } | Should Not Throw
+      $Params1 = $TestCfg.Params1
+      { $Script:Result = Move-UMSProfile @Params1 } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -149,12 +149,19 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result[0].Id should be exactly $Id" {
-      $Result[0].Id | Should -BeExactly $Id
+    It 'Result[0].Message should have type [String]' {
+      $Result[0].Message | Should -HaveType [String]
     }
 
-    It "Result[0].Message should be exactly 'successful.'" {
-      $Result[0].Message | Should -BeExactly 'successful'
+    It "Result should be Equivalent to Expected" {
+      $Expected = foreach ($item In $TestCfg.Expected)
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
+
   }
 }
