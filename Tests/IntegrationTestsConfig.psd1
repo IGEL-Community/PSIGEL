@@ -395,9 +395,17 @@ Integration Tests Config
             Id   = 517 # L_Develpoment
             Name = 'BR_Development'
           }
+          Params2  = @{
+            Id   = 594 # QA
+            Name = 'A_QA'
+          }
           Expected = @(
             @{
               Id      = 517
+              Message = 'Updated directory successfully.'
+            }
+            @{
+              Id      = 594
               Message = 'Updated directory successfully.'
             }
           )
@@ -417,7 +425,15 @@ Integration Tests Config
           }
           Params2  = @{
             Id   = 578 # L-DEV-010
-            Name = 'A-DEV-010' # ???
+            Name = 'A-DEV-010'
+          }
+          Params3  = @{
+            Id   = 595 # 007
+            Name = 'A-QA-007'
+          }
+          Params4  = @{
+            Id   = 596 # 008
+            Name = 'A-QA-008'
           }
           Expected = @(
             @{
@@ -426,6 +442,14 @@ Integration Tests Config
             }
             @{
               Id      = 578
+              Message = 'Update successful.'
+            }
+            @{
+              Id      = 595
+              Message = 'Update successful.'
+            }
+            @{
+              Id      = 596
               Message = 'Update successful.'
             }
           )
@@ -575,7 +599,7 @@ Integration Tests Config
               ObjectType = 'tc'
               UnitId     = '0A0000000007'
               Mac        = '0A0000000007'
-              Name       = '007'
+              Name       = 'A-QA-007'
               ParentId   = 594
               FirmwareId = 1
               LastIp     = ''
@@ -586,7 +610,7 @@ Integration Tests Config
               ObjectType = 'tc'
               UnitId     = '0A0000000008'
               Mac        = '0A0000000008'
-              Name       = '008'
+              Name       = 'A-QA-008'
               ParentId   = 594
               FirmwareId = 1
               LastIp     = ''
@@ -700,7 +724,7 @@ Integration Tests Config
             }
             @{
               Id         = 594
-              Name       = 'QA'
+              Name       = 'A_QA'
               ParentId   = 511
               MovedToBin = 'False'
               ObjectType = 'tcdirectory'
@@ -1128,7 +1152,7 @@ Integration Tests Config
             }
             @{
               Id         = 594
-              Name       = 'QA'
+              Name       = 'A_QA'
               ParentId   = 511
               MovedToBin = 'False'
               ObjectType = 'tcdirectory'
@@ -1194,7 +1218,7 @@ Integration Tests Config
               ObjectType = 'tc'
               UnitId     = '0A0000000007'
               Mac        = '0A0000000007'
-              Name       = 007
+              Name       = 'A-QA-007'
               ParentId   = 594
               FirmwareId = 1
               LastIp     = ''
@@ -1205,7 +1229,7 @@ Integration Tests Config
               ObjectType = 'tc'
               UnitId     = '0A0000000008'
               Mac        = '0A0000000008'
-              Name       = 008
+              Name       = 'A-QA-008'
               ParentId   = 594
               FirmwareId = 1
               LastIp     = ''

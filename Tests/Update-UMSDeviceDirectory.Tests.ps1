@@ -149,8 +149,10 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1
+      $Params2 = $TestCfg.Params2
       { $Script:Result = @(
           Update-UMSDeviceDirectory @Params1
+          Update-UMSDeviceDirectory @Params2
         ) } | Should Not Throw
     }
 
