@@ -12,6 +12,7 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices/PSIGEL
 
   Tests            = @(
+    # Get-UMSStatus
     @{
       Function      = 'Get-UMSStatus'
       ParameterSets = @{
@@ -30,6 +31,7 @@ Integration Tests Config
         }
       }
     }
+    # New-UMSDeviceDirectory
     @{
       Function      = 'New-UMSDeviceDirectory'
       ParameterSets = @{
@@ -48,6 +50,7 @@ Integration Tests Config
         }
       }
     }
+    # New-UMSDevice
     @{
       Function      = 'New-UMSDevice'
       ParameterSets = @{
@@ -86,6 +89,7 @@ Integration Tests Config
         }
       }
     }
+    # New-UMSProfileDirectory
     @{
       Function      = 'New-UMSProfileDirectory'
       ParameterSets = @{
@@ -104,30 +108,7 @@ Integration Tests Config
         }
       }
     }
-    @{
-      Function      = 'Get-UMSFirmware'
-      ParameterSets = @{
-        Default = @{
-          Expected = @(
-            @{
-              Id           = 1
-              Product      = 'IGEL OS 11'
-              Version      = '11.3.100.1'
-              FirmwareType = 'LX'
-            }
-            @{
-              Id           = 2
-              Product      = 'IGEL OS 11'
-              Version      = '11.3.110.1'
-              FirmwareType = 'LX'
-            }
-          )
-          Options  = @{
-            #ExcludedPaths             = 'Id'
-          }
-        }
-      }
-    }
+    # New-UMSProfileAssignment
     @{
       Function      = 'New-UMSProfileAssignment'
       ParameterSets = @{
@@ -162,6 +143,7 @@ Integration Tests Config
         }
       }
     }
+    # Remove-UMSDevice
     @{
       Function      = 'Remove-UMSDevice'
       ParameterSets = @{
@@ -188,6 +170,7 @@ Integration Tests Config
         }
       }
     }
+    # Remove-UMSDeviceDirectory
     @{
       Function      = 'Remove-UMSDeviceDirectory'
       ParameterSets = @{
@@ -207,6 +190,7 @@ Integration Tests Config
         }
       }
     }
+    # Remove-UMSProfile
     @{
       Function      = 'Remove-UMSProfile'
       ParameterSets = @{
@@ -224,6 +208,7 @@ Integration Tests Config
         }
       }
     }
+    # Remove-UMSProfileDirectory
     @{
       Function      = 'Remove-UMSProfileDirectory'
       ParameterSets = @{
@@ -241,6 +226,7 @@ Integration Tests Config
         }
       }
     }
+    # Remove-UMSProfileAssignment
     @{
       Function      = 'Remove-UMSProfileAssignment'
       ParameterSets = @{
@@ -275,6 +261,7 @@ Integration Tests Config
         }
       }
     }
+    # Move-UMSDevice
     @{
       Function      = 'Move-UMSDevice'
       ParameterSets = @{
@@ -319,6 +306,7 @@ Integration Tests Config
         }
       }
     }
+    # Move-UMSDeviceDirectory
     @{
       Function      = 'Move-UMSDeviceDirectory'
       ParameterSets = @{
@@ -347,6 +335,7 @@ Integration Tests Config
         }
       }
     }
+    # Move-UMSProfileDirectory
     @{
       Function      = 'Move-UMSProfileDirectory'
       ParameterSets = @{
@@ -367,6 +356,7 @@ Integration Tests Config
         }
       }
     }
+    # Move-UMSProfile
     @{
       Function      = 'Move-UMSProfile'
       ParameterSets = @{
@@ -387,6 +377,7 @@ Integration Tests Config
         }
       }
     }
+    # Update-UMSDeviceDirectory
     @{
       Function      = 'Update-UMSDeviceDirectory'
       ParameterSets = @{
@@ -415,6 +406,7 @@ Integration Tests Config
         }
       }
     }
+    #Update-UMSDevice
     @{
       Function      = 'Update-UMSDevice'
       ParameterSets = @{
@@ -459,6 +451,7 @@ Integration Tests Config
         }
       }
     }
+    # Update-UMSProfileDirectory
     @{
       Function      = 'Update-UMSProfileDirectory'
       ParameterSets = @{
@@ -479,6 +472,7 @@ Integration Tests Config
         }
       }
     }
+    # Update-UMSProfile
     @{
       Function      = 'Update-UMSProfile'
       ParameterSets = @{
@@ -499,6 +493,385 @@ Integration Tests Config
         }
       }
     }
+    # Pipeline.UMSProfileAssignment
+    @{
+      Function      = 'Pipeline.UMSProfileAssignment'
+      ParameterSets = @{
+        ValueFromPipeline               = @{
+          NewAssignmentParams    = @{
+            Id           = 595 # SES_RDP_Session02
+            ReceiverId   = 512 # A-DEV-005
+            ReceiverType = 'tc'
+          }
+          RemoveAssignmentParams = @{
+            Id           = 595 # SES_RDP_Session02
+            ReceiverId   = 512 # A-DEV-005
+            ReceiverType = 'tc'
+          }
+          Expected               = @(
+            @{
+              Id           = 595
+              Message      = '1 asssignments successfully assigned to device <{1}>.'
+              ReceiverId   = 512
+              ReceiverType = 'tc'
+            }
+            @{
+              Id           = 595
+              Message      = 'deleted profile assignment.'
+              ReceiverId   = 512
+              ReceiverType = 'tc'
+            }
+          )
+          Options                = @{
+            ExcludedPaths = ''
+          }
+        }
+        ValueFromPipelineByPropertyName = @{
+          NewAssignmentParams    = @{
+            Id           = 596 # SES_RDP_Session03
+            ReceiverId   = 514 # A_Development
+            ReceiverType = 'tcdirectory'
+          }
+          RemoveAssignmentParams = @{
+            Id           = 596 # SES_RDP_Session03
+            ReceiverId   = 514 # A_Development
+            ReceiverType = 'tcdirectory'
+          }
+          Expected               = @(
+            @{
+              Id           = 596
+              Message      = '1 asssignments successfully assigned to device directory <{1}>.'
+              ReceiverId   = 514
+              ReceiverType = 'tcdirectory'
+            }
+            @{
+              Id           = 596
+              Message      = 'deleted profile assignment.'
+              ReceiverId   = 514
+              ReceiverType = 'tcdirectory'
+            }
+          )
+          Options                = @{
+            ExcludedPaths = ''
+          }
+        }
+
+      }
+    }
+    # Pipeline.UMSDevice
+    @{
+      Function      = 'Pipeline.UMSDevice'
+      ParameterSets = @{
+        ValueFromPipeline               = @{
+          NewParams    = @{
+            Mac        = '0A00000000AA'
+            Name       = 'NewDevice01'
+            FirmwareId = 1
+            ParentId   = -1
+          }
+          MoveParams   = @{
+            DestId = 502 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedDevice01'
+          }
+          Expected     = @(
+            @{
+              Mac      = '0A00000000AA'
+              Message  = 'Device successfully inserted.'
+              Id       = 629
+              Name     = 'NewDevice'
+              ParentId = -1
+            }
+            @{
+              Id      = 629
+              Message = 'successful.'
+            }
+            @{
+              Message = 'Update successful.'
+              Id      = 629
+            }
+            @{
+              Message = 'Offline deletion successful.'
+              Id      = 629
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+        ValueFromPipelineByPropertyName = @{
+          NewParams    = @{
+            Mac        = '0A00000000AB'
+            Name       = 'NewDevice02'
+            FirmwareId = 1
+            ParentId   = -1
+          }
+          MoveParams   = @{
+            DestId = 502 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedDevice02'
+          }
+          Expected     = @(
+            @{
+              Mac      = '0A00000000AB'
+              Message  = 'Device successfully inserted.'
+              Id       = 629
+              Name     = 'NewDevice'
+              ParentId = -1
+            }
+            @{
+              Id      = 629
+              Message = 'successful.'
+            }
+            @{
+              Message = 'Update successful.'
+              Id      = 629
+            }
+            @{
+              Message = 'Offline deletion successful.'
+              Id      = 629
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+
+      }
+    }
+    # Pipeline.UMSDeviceDirectory
+    @{
+      Function      = 'Pipeline.UMSDeviceDirectory'
+      ParameterSets = @{
+        ValueFromPipeline               = @{
+          NewParams    = @{
+            Name = 'NewDeviceDirectory01'
+          }
+          MoveParams   = @{
+            DestId = 502 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedDeviceDirectory01'
+          }
+          Expected     = @(
+            @{
+              Message = 'Directory successfully inserted.'
+              Id      = 629
+              Name    = 'NewDeviceDirectory01'
+            }
+            @{
+              Id      = 629
+              Message = 'successful.'
+            }
+            @{
+              Message = 'Update successful.'
+              Id      = 629
+            }
+            @{
+              Message = 'Offline deletion successful.'
+              Id      = 629
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+        ValueFromPipelineByPropertyName = @{
+          NewParams    = @{
+            Name = 'NewDeviceDirectory02'
+          }
+          MoveParams   = @{
+            DestId = 502 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedDeviceDirectory02'
+          }
+          Expected     = @(
+            @{
+              Message  = 'Directory successfully inserted.'
+              Id       = 629
+              Name     = 'NewDeviceDirectory02'
+              ParentId = -1
+            }
+            @{
+              Id      = 629
+              Message = 'successful.'
+            }
+            @{
+              Message = 'Update successful.'
+              Id      = 629
+            }
+            @{
+              Message = 'Offline deletion successful.'
+              Id      = 629
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
+    # Pipeline.UMSProfile
+    @{
+      Function      = 'Pipeline.UMSProfile'
+      ParameterSets = @{
+        ValueFromPipeline               = @{
+          MoveParams   = @{
+            Id     = 595 # SES_RDP_Session02
+            DestId = 527 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedProfile'
+          }
+          Expected     = @(
+            @{
+              Id      = 595
+              Message = 'successful'
+            }
+            @{
+              Message = 'Update successful.'
+              Id      = 595
+            }
+            @{
+              Message = 'Deleted profile.'
+              Id      = 595
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+        ValueFromPipelineByPropertyName = @{
+          MoveParams   = @{
+            Id     = 596 # SES_RDP_Session03
+            DestId = 527 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedProfile'
+          }
+          Expected     = @(
+            @{
+              Id      = 596
+              Message = 'successful'
+            }
+            @{
+              Message = 'Update successful.'
+              Id      = 596
+            }
+            @{
+              Message = 'Deleted profile.'
+              Id      = 596
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+
+      }
+    }
+    # Pipeline.UMSProfileDirectory
+    @{
+      Function      = 'Pipeline.UMSProfileDirectory'
+      ParameterSets = @{
+        ValueFromPipeline               = @{
+          NewParams    = @{
+            Name = 'NewProfileDirectory01'
+          }
+          MoveParams   = @{
+            DestId = 527 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedProfileDirectory01'
+          }
+          Expected     = @(
+            @{
+              Message = 'Directory successfully inserted.'
+              Id      = 629
+              Name    = 'NewProfileDirectory01'
+            }
+            @{
+              Id      = 629
+              Message = 'successful.'
+            }
+            @{
+              Message = 'Updated directory successfully.'
+              Id      = 629
+            }
+            @{
+              Message = 'Deletion successful.'
+              Id      = 629
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+        ValueFromPipelineByPropertyName = @{
+          NewParams    = @{
+            Name = 'NewProfileDirectory02'
+          }
+          MoveParams   = @{
+            DestId = 527 # PSIGEL
+          }
+          UpdateParams = @{
+            Name = 'UpdatedProfileDirectory02'
+          }
+          Expected     = @(
+            @{
+              Message  = 'Directory successfully inserted.'
+              Id       = 629
+              Name     = 'NewProfileDirectory02'
+              ParentId = -1
+            }
+            @{
+              Id      = 629
+              Message = 'successful.'
+            }
+            @{
+              Message = 'Updated directory successfully.'
+              Id      = 629
+            }
+            @{
+              Message = 'Deletion successful.'
+              Id      = 629
+            }
+          )
+          Options      = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
+    }
+    # Get-UMSFirmware
+    @{
+      Function      = 'Get-UMSFirmware'
+      ParameterSets = @{
+        Default = @{
+          Expected = @(
+            @{
+              Id           = 1
+              Product      = 'IGEL OS 11'
+              Version      = '11.3.100.1'
+              FirmwareType = 'LX'
+            }
+            @{
+              Id           = 2
+              Product      = 'IGEL OS 11'
+              Version      = '11.3.110.1'
+              FirmwareType = 'LX'
+            }
+          )
+          Options  = @{
+            #ExcludedPaths             = 'Id'
+          }
+        }
+      }
+    }
+    # Get-UMSDevice
     @{
       Function      = 'Get-UMSDevice'
       ParameterSets = @{
@@ -708,6 +1081,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSDeviceDirectory
     @{
       Function      = 'Get-UMSDeviceDirectory'
       ParameterSets = @{
@@ -821,6 +1195,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSProfile
     @{
       Function      = 'Get-UMSProfile'
       ParameterSets = @{
@@ -895,6 +1270,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSProfileDirectory
     @{
       Function      = 'Get-UMSProfileDirectory'
       ParameterSets = @{
@@ -986,6 +1362,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSProfileAssignment
     @{
       Function      = 'Get-UMSProfileAssignment'
       ParameterSets = @{
@@ -1033,6 +1410,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSDeviceAssignment
     @{
       Function      = 'Get-UMSDeviceAssignment'
       ParameterSets = @{
@@ -1080,6 +1458,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSDeviceDirectoryAssignment
     @{
       Function      = 'Get-UMSDeviceDirectoryAssignment'
       ParameterSets = @{
@@ -1127,6 +1506,7 @@ Integration Tests Config
         }
       }
     }
+    # Get-UMSDirectoryRecursive
     @{
       Function      = 'Get-UMSDirectoryRecursive'
       ParameterSets = @{
@@ -1234,91 +1614,6 @@ Integration Tests Config
               FirmwareId = 1
               LastIp     = ''
               MovedToBin = 'False'
-            }
-          )
-          Options  = @{
-            ExcludedPaths = ''
-          }
-        }
-      }
-    }
-    @{
-      Function      = 'Pipeline'
-      ParameterSets = @{
-        UMSDevice           = @{
-          Params1  = @{
-            Mac        = '0A00000000FF'
-            Name       = 'PipelineDevice'
-            FirmwareId = 1
-            ParentId   = -1
-          }
-          Params2  = @{
-            DeviceDirectoryId = 502
-            DeviceUpdateName  = 'PipelineDeviceUpdated'
-          }
-          Expected = @(
-            @{
-
-            }
-            @{
-
-            }
-          )
-          Options  = @{
-            ExcludedPaths = ''
-          }
-        }
-        UMSDeviceDirectory  = @{
-          Params1  = @{
-            Id = 111
-          }
-          Params2  = @{
-            Id = 222
-          }
-          Expected = @(
-            @{
-
-            }
-            @{
-
-            }
-          )
-          Options  = @{
-            ExcludedPaths = ''
-          }
-        }
-        UMSProfile          = @{
-          Params1  = @{
-            Id = 111
-          }
-          Params2  = @{
-            Id = 222
-          }
-          Expected = @(
-            @{
-
-            }
-            @{
-
-            }
-          )
-          Options  = @{
-            ExcludedPaths = ''
-          }
-        }
-        UMSProfileDirectory = @{
-          Params1  = @{
-            Id = 111
-          }
-          Params2  = @{
-            Id = 222
-          }
-          Expected = @(
-            @{
-
-            }
-            @{
-
             }
           )
           Options  = @{

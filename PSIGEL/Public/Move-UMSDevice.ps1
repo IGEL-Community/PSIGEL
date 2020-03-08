@@ -50,7 +50,7 @@ function Move-UMSDevice
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     if ($PSCmdlet.ShouldProcess(('Id: {0} to DestId: {1}' -f $Id, $DestId)))
