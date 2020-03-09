@@ -80,7 +80,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $UpdateParams = $TestCfg.UpdateParams
       { $Script:Result = @(
           $null = ((($NewParams.Mac |
-                New-UMSDevice -FirmwareId $NewParams.FirmwareId | Tee-Object -Variable 'NewUMSDevice').Id |
+                New-UMSDevice -FirmwareId $NewParams.FirmwareId -Name $NewParams.Name | Tee-Object -Variable 'NewUMSDevice').Id |
               Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice').Id |
             Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice').Id |
           Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'

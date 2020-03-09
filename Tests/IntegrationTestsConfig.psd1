@@ -41,7 +41,7 @@ Integration Tests Config
           }
           Expected = @{
             Message = 'Directory successfully inserted.'
-            Id      = 594
+            Id      = 597
             Name    = 'QA'
           }
           Options  = @{
@@ -71,14 +71,14 @@ Integration Tests Config
             @{
               Mac      = '0A0000000007'
               Message  = 'Device successfully inserted.'
-              Id       = 595
+              Id       = 598
               Name     = '007'
               ParentId = -1
             }
             @{
               Mac      = '0A0000000008'
               Message  = 'Device successfully inserted.'
-              Id       = 596
+              Id       = 599
               Name     = '008'
               ParentId = - 1
             }
@@ -99,7 +99,7 @@ Integration Tests Config
           }
           Expected = @{
             Message = 'Directory successfully inserted.'
-            Id      = 597
+            Id      = 600
             Name    = 'Devices'
           }
           Options  = @{
@@ -275,12 +275,12 @@ Integration Tests Config
             DestId = 514 # A_Development
           }
           Params3  = @{
-            Id     = 595 # 007
-            DestId = 594 # QA
+            Id     = 598 # 007
+            DestId = 597 # QA
           }
           Params4  = @{
-            Id     = 596 # 008
-            DestId = 594 # QA
+            Id     = 599 # 008
+            DestId = 597 # QA
           }
           Expected = @(
             @{
@@ -292,11 +292,11 @@ Integration Tests Config
               Message = 'successful.'
             }
             @{
-              Id      = 595
+              Id      = 598
               Message = 'successful.'
             }
             @{
-              Id      = 596
+              Id      = 599
               Message = 'successful.'
             }
           )
@@ -312,7 +312,7 @@ Integration Tests Config
       ParameterSets = @{
         Default = @{
           Params1  = @{
-            Id     = 594 # QA
+            Id     = 597 # QA
             DestId = 511 # Augsburg
           }
           Params2  = @{
@@ -321,7 +321,7 @@ Integration Tests Config
           }
           Expected = @(
             @{
-              Id      = 594
+              Id      = 597
               Message = 'successful.'
             }
             @{
@@ -387,7 +387,7 @@ Integration Tests Config
             Name = 'BR_Development'
           }
           Params2  = @{
-            Id   = 594 # QA
+            Id   = 597 # QA
             Name = 'A_QA'
           }
           Expected = @(
@@ -396,7 +396,7 @@ Integration Tests Config
               Message = 'Updated directory successfully.'
             }
             @{
-              Id      = 594
+              Id      = 597
               Message = 'Updated directory successfully.'
             }
           )
@@ -420,11 +420,11 @@ Integration Tests Config
             Name = 'A-DEV-010'
           }
           Params3  = @{
-            Id   = 595 # 007
+            Id   = 598 # 007
             Name = 'A-QA-007'
           }
           Params4  = @{
-            Id   = 596 # 008
+            Id   = 599 # 008
             Name = 'A-QA-008'
           }
           Expected = @(
@@ -437,11 +437,11 @@ Integration Tests Config
               Message = 'Update successful.'
             }
             @{
-              Id      = 595
+              Id      = 598
               Message = 'Update successful.'
             }
             @{
-              Id      = 596
+              Id      = 599
               Message = 'Update successful.'
             }
           )
@@ -579,21 +579,21 @@ Integration Tests Config
             @{
               Mac      = '0A00000000AA'
               Message  = 'Device successfully inserted.'
-              Id       = 629
-              Name     = 'NewDevice'
+              Id       = 601
+              Name     = 'NewDevice01'
               ParentId = -1
             }
             @{
-              Id      = 629
+              Id      = 601
               Message = 'successful.'
             }
             @{
               Message = 'Update successful.'
-              Id      = 629
+              Id      = 601
             }
             @{
               Message = 'Offline deletion successful.'
-              Id      = 629
+              Id      = 601
             }
           )
           Options      = @{
@@ -617,21 +617,21 @@ Integration Tests Config
             @{
               Mac      = '0A00000000AB'
               Message  = 'Device successfully inserted.'
-              Id       = 629
-              Name     = 'NewDevice'
+              Id       = 602
+              Name     = 'NewDevice02'
               ParentId = -1
             }
             @{
-              Id      = 629
+              Id      = 602
               Message = 'successful.'
             }
             @{
               Message = 'Update successful.'
-              Id      = 629
+              Id      = 602
             }
             @{
               Message = 'Offline deletion successful.'
-              Id      = 629
+              Id      = 602
             }
           )
           Options      = @{
@@ -658,20 +658,20 @@ Integration Tests Config
           Expected     = @(
             @{
               Message = 'Directory successfully inserted.'
-              Id      = 629
+              Id      = 603
               Name    = 'NewDeviceDirectory01'
             }
             @{
-              Id      = 629
+              Id      = 603
               Message = 'successful.'
             }
             @{
-              Message = 'Update successful.'
-              Id      = 629
+              Message = 'Updated directory successfully.'
+              Id      = 603
             }
             @{
-              Message = 'Offline deletion successful.'
-              Id      = 629
+              Message = 'Deletion successful.'
+              Id      = 603
             }
           )
           Options      = @{
@@ -690,22 +690,21 @@ Integration Tests Config
           }
           Expected     = @(
             @{
-              Message  = 'Directory successfully inserted.'
-              Id       = 629
-              Name     = 'NewDeviceDirectory02'
-              ParentId = -1
+              Message = 'Directory successfully inserted.'
+              Id      = 604
+              Name    = 'NewDeviceDirectory02'
             }
             @{
-              Id      = 629
+              Id      = 604
               Message = 'successful.'
             }
             @{
-              Message = 'Update successful.'
-              Id      = 629
+              Message = 'Updated directory successfully.'
+              Id      = 604
             }
             @{
-              Message = 'Offline deletion successful.'
-              Id      = 629
+              Message = 'Deletion successful.'
+              Id      = 604
             }
           )
           Options      = @{
@@ -790,20 +789,20 @@ Integration Tests Config
           Expected     = @(
             @{
               Message = 'Directory successfully inserted.'
-              Id      = 629
+              Id      = 605
               Name    = 'NewProfileDirectory01'
             }
             @{
-              Id      = 629
+              Id      = 605
               Message = 'successful.'
             }
             @{
               Message = 'Updated directory successfully.'
-              Id      = 629
+              Id      = 605
             }
             @{
               Message = 'Deletion successful.'
-              Id      = 629
+              Id      = 605
             }
           )
           Options      = @{
@@ -822,22 +821,21 @@ Integration Tests Config
           }
           Expected     = @(
             @{
-              Message  = 'Directory successfully inserted.'
-              Id       = 629
-              Name     = 'NewProfileDirectory02'
-              ParentId = -1
+              Message = 'Directory successfully inserted.'
+              Id      = 606
+              Name    = 'NewProfileDirectory02'
             }
             @{
-              Id      = 629
+              Id      = 606
               Message = 'successful.'
             }
             @{
               Message = 'Updated directory successfully.'
-              Id      = 629
+              Id      = 606
             }
             @{
               Message = 'Deletion successful.'
-              Id      = 629
+              Id      = 606
             }
           )
           Options      = @{
@@ -968,23 +966,23 @@ Integration Tests Config
               MovedToBin = 'False'
             }
             @{
-              Id         = 595
+              Id         = 598
               ObjectType = 'tc'
               UnitId     = '0A0000000007'
               Mac        = '0A0000000007'
               Name       = 'A-QA-007'
-              ParentId   = 594
+              ParentId   = 597
               FirmwareId = 1
               LastIp     = ''
               MovedToBin = 'False'
             }
             @{
-              Id         = 596
+              Id         = 599
               ObjectType = 'tc'
               UnitId     = '0A0000000008'
               Mac        = '0A0000000008'
               Name       = 'A-QA-008'
-              ParentId   = 594
+              ParentId   = 597
               FirmwareId = 1
               LastIp     = ''
               MovedToBin = 'False'
@@ -1097,7 +1095,7 @@ Integration Tests Config
               ObjectType = 'tcdirectory'
             }
             @{
-              Id         = 594
+              Id         = 597
               Name       = 'A_QA'
               ParentId   = 511
               MovedToBin = 'False'
@@ -1300,16 +1298,16 @@ Integration Tests Config
               ObjectType = 'profiledirectory'
             }
             @{
-              Id         = 597
-              Name       = 'Devices'
-              ParentId   = -2
+              Id         = 534
+              Name       = 'User Interface'
+              ParentId   = 527
               MovedToBin = 'False'
               ObjectType = 'profiledirectory'
             }
             @{
-              Id         = 534
-              Name       = 'User Interface'
-              ParentId   = 527
+              Id         = 600
+              Name       = 'Devices'
+              ParentId   = -2
               MovedToBin = 'False'
               ObjectType = 'profiledirectory'
             }
@@ -1531,7 +1529,7 @@ Integration Tests Config
               ObjectType = 'tcdirectory'
             }
             @{
-              Id         = 594
+              Id         = 597
               Name       = 'A_QA'
               ParentId   = 511
               MovedToBin = 'False'
@@ -1594,23 +1592,23 @@ Integration Tests Config
               MovedToBin = 'False'
             }
             @{
-              Id         = 595
+              Id         = 598
               ObjectType = 'tc'
               UnitId     = '0A0000000007'
               Mac        = '0A0000000007'
               Name       = 'A-QA-007'
-              ParentId   = 594
+              ParentId   = 597
               FirmwareId = 1
               LastIp     = ''
               MovedToBin = 'False'
             }
             @{
-              Id         = 596
+              Id         = 599
               ObjectType = 'tc'
               UnitId     = '0A0000000008'
               Mac        = '0A0000000008'
               Name       = 'A-QA-008'
-              ParentId   = 594
+              ParentId   = 597
               FirmwareId = 1
               LastIp     = ''
               MovedToBin = 'False'
