@@ -6,10 +6,6 @@ Currently the module  only supports PowerShell version **5.1** .
 
 **API** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
 
-**SSH** functions got the noun-prefix **OS** (for Device), e.g. Get-**OS**Something
-
-To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
-
 The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/Docs/New-UMSAPICookie.md):
 
 ```powershell
@@ -29,14 +25,6 @@ Install-Module -Name PSIGEL
 Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
 
 ## PSIGEL Cmdlets
-### [Get-OSFirmware](/Docs/Get-OSFirmware.md)
-Gets firmware from a device.
-
-### [Get-OSUpdateConfiguration](/Docs/Get-OSUpdateConfiguration.md)
-Gets firmware from a device.
-
-### [Get-OSWifiConnection](/Docs/Get-OSWifiConnection.md)
-Gets wifi connection from a device.
 
 ### [Get-UMSDevice](/Docs/Get-UMSDevice.md)
 Gets information on a device.
