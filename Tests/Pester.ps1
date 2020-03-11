@@ -3,71 +3,34 @@ param
   [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
   [String]
   #$Tags = 'All'
-  #$Tags = 'UnitTests'
-  $Tags = 'IntegrationTests'
+  $Tags = 'UnitTests'
+  #$Tags = 'IntegrationTests'
 )
 $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
 $ModuleName = Split-Path $ModuleRoot -Leaf
 $OutputPath = '{0}\Tests\Data' -f $ProjectRoot
 
-
-<#
-$UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $ProjectRoot) |
-ConvertFrom-Json
-#>
 $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
 $Credential = Import-Clixml -Path $Cfg.CredPath
 
 $PSDefaultParameterValues = @{
   '*-UMS*:Credential'       = $Credential
   '*-UMS*:Computername'     = $Cfg.Computername
-  #'New-UMSAPICookie:Credential' = Import-Clixml -Path $UMS.Credpath
   '*-UMS*:TCPPort'          = $Cfg.TCPPort
   '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   '*-UMS*:Confirm'          = $false
-  #'Invoke-Pester:Show'          = 'Failed'
+  'Invoke-Pester:Show'      = 'Failed'
 }
 
-<#
-$IgelRmGuiServerService = Get-Service -Name 'IGELRMGUIServer'
-switch ($IgelRmGuiServerService)
-{
-  $false
-  {
-    throw "Service $IgelRmGuiServerService not found!"
-  }
-  {$_.Status -eq 'Stopped'}
-  {
-    "Stopped"
-    $i = 0
-    $IgelRmGuiServerService | Start-Service -ErrorAction Stop
-    do
-    {
-      Start-Sleep -Seconds 3
-      $i++
-      if ($i -ge 10)
-      {
-        throw "TCPPort $UMS.TCPPort not responding!"
-      }
-    }
-    until ((Test-NetConnection -Port $UMS.TCPPort).TcpTestSucceeded -eq $true )
-  }
-}
-#>
-
-#$WebSession = New-UMSAPICookie -Credential $Credential
 $PSDefaultParameterValues += @{
-  #'*-UMS*:WebSession' = $WebSession
   '*-UMS*:WebSession' = (New-UMSAPICookie)
 }
 
-#Invoke-Pester -Script ('{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $ModuleName) -OutputFile ('{0}\{1}.Tests.xml' -f $OutputPath, $ModuleName)
+Invoke-Pester -Script ('{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $ModuleName) -OutputFile ('{0}\{1}.Tests.xml' -f $OutputPath, $ModuleName)
 
 foreach ($Test in $Cfg.Tests)
 {
-  #$Test.Function
-  #<#
   $IVPParams = @{
     Script     = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.Function
     OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.Function
@@ -76,18 +39,25 @@ foreach ($Test in $Cfg.Tests)
   {
     'All'
     {
-      $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.Function
+      if ($Test.Function)
+      {
+        $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.Function
+        Invoke-Pester @IVPParams
+      }
     }
     'UnitTests'
     {
-      $IVPParams.Tag = 'UnitTests'
-      $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.Function
+      if ($Test.Function)
+      {
+        $IVPParams.Tag = 'UnitTests'
+        $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.Function
+        Invoke-Pester @IVPParams
+      }
     }
     'IntegrationTests'
     {
       $IVPParams.Tag = 'IntegrationTests'
+      Invoke-Pester @IVPParams
     }
   }
-  Invoke-Pester @IVPParams
-  #>
 }

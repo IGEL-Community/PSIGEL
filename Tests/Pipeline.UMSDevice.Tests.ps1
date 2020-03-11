@@ -2,10 +2,10 @@ $Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
-$Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
+$Script:SpecialName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
 Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
+Describe "$Script:SpecialName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
   $Credential = Import-Clixml -Path $Cfg.CredPath
 
@@ -24,7 +24,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ValueFromPipeline" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.ValueFromPipeline
+    $TestCfg = (($Cfg.Tests).where{ $_.Special -eq $SpecialName }).ParameterSets.ValueFromPipeline
 
     It "doesn't throw" {
       $NewParams = $TestCfg.NewParams
@@ -74,7 +74,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
   Context "ValueFromPipelineByPropertyName" {
 
 
-    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.ValueFromPipelineByPropertyName
+    $TestCfg = (($Cfg.Tests).where{ $_.Special -eq $SpecialName }).ParameterSets.ValueFromPipelineByPropertyName
 
     It "doesn't throw" {
       $NewParams = $TestCfg.NewParams

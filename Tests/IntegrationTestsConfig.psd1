@@ -495,7 +495,7 @@ Integration Tests Config
     }
     # Pipeline.UMSProfileAssignment
     @{
-      Function      = 'Pipeline.UMSProfileAssignment'
+      Special       = 'Pipeline.UMSProfileAssignment'
       ParameterSets = @{
         ValueFromPipeline               = @{
           NewAssignmentParams    = @{
@@ -560,7 +560,7 @@ Integration Tests Config
     }
     # Pipeline.UMSDevice
     @{
-      Function      = 'Pipeline.UMSDevice'
+      Special       = 'Pipeline.UMSDevice'
       ParameterSets = @{
         ValueFromPipeline               = @{
           NewParams    = @{
@@ -665,7 +665,7 @@ Integration Tests Config
     }
     # Pipeline.UMSDeviceDirectory
     @{
-      Function      = 'Pipeline.UMSDeviceDirectory'
+      Special       = 'Pipeline.UMSDeviceDirectory'
       ParameterSets = @{
         ValueFromPipeline               = @{
           NewParams    = @{
@@ -737,7 +737,7 @@ Integration Tests Config
     }
     # Pipeline.UMSProfile
     @{
-      Function      = 'Pipeline.UMSProfile'
+      Special       = 'Pipeline.UMSProfile'
       ParameterSets = @{
         ValueFromPipeline               = @{
           MoveParams   = @{
@@ -796,7 +796,7 @@ Integration Tests Config
     }
     # Pipeline.UMSProfileDirectory
     @{
-      Function      = 'Pipeline.UMSProfileDirectory'
+      Special       = 'Pipeline.UMSProfileDirectory'
       ParameterSets = @{
         ValueFromPipeline               = @{
           NewParams    = @{
