@@ -15,26 +15,31 @@ $PSDefaultParameterValues += @{
 }
 
 $NewParams = @{
-  Name = 'NewDeviceDirectory02'
+  Mac        = '0A00000000AA'
+  Name       = 'NewDevice01'
+  FirmwareId = 1
+  ParentId   = -1
 }
 $MoveParams = @{
   DestId = 502 # PSIGEL
 }
 $UpdateParams = @{
-  Name = 'UpdatedDeviceDirectory02'
+  Name = 'UpdatedDevice01'
 }
 
 #<#
 $Result = @(
-  $null = ((($NewParams.Name |
-        New-UMSDeviceDirectory | Tee-Object -Variable 'NewUMSDeviceDirectory').Id |
-      Move-UMSDeviceDirectory @MoveParams | Tee-Object -Variable 'MoveUMSDeviceDirectory').Id |
-    Update-UMSDeviceDirectory @UpdateParams | Tee-Object -Variable 'UpdateUMSDeviceDirectory').Id |
-  Remove-UMSDeviceDirectory | Tee-Object -Variable 'RemoveUMSDeviceDirectory'
-  $NewUMSDeviceDirectory
-  $MoveUMSDeviceDirectory
-  $UpdateUMSDeviceDirectory
-  $RemoveUMSDeviceDirectory
+  $null = [pscustomobject]$NewParams |
+  New-UMSDevice | Tee-Object -Variable 'NewUMSDevice' |
+  Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice' |
+  Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice' |
+  Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice' |
+  Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'
+  $NewUMSDevice
+  $MoveUMSDevice
+  $UpdateUMSDevice
+  $GetUMSDevice
+  $RemoveUMSDevice
 )
 $Result
 #>

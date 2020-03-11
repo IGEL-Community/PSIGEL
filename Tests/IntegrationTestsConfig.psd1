@@ -592,6 +592,17 @@ Integration Tests Config
               Id      = 601
             }
             @{
+              FirmwareId = 1
+              Id         = 601
+              LastIp     = ''
+              Mac        = '0A00000000AA'
+              MovedToBin = 'False'
+              Name       = 'UpdatedDevice01'
+              ObjectType = 'tc'
+              ParentId   = 502
+              UnitId     = '0A00000000AA'
+            }
+            @{
               Message = 'Offline deletion successful.'
               Id      = 601
             }
@@ -628,6 +639,17 @@ Integration Tests Config
             @{
               Message = 'Update successful.'
               Id      = 602
+            }
+            @{
+              FirmwareId = 1
+              Id         = 602
+              LastIp     = ''
+              Mac        = '0A00000000AB'
+              MovedToBin = 'False'
+              Name       = 'UpdatedDevice02'
+              ObjectType = 'tc'
+              ParentId   = 502
+              UnitId     = '0A00000000AB'
             }
             @{
               Message = 'Offline deletion successful.'

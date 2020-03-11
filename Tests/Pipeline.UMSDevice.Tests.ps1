@@ -36,10 +36,12 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
           New-UMSDevice | Tee-Object -Variable 'NewUMSDevice' |
           Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice' |
           Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice' |
+          Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice' |
           Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'
           $NewUMSDevice
           $MoveUMSDevice
           $UpdateUMSDevice
+          $GetUMSDevice
           $RemoveUMSDevice
         ) } | Should Not Throw
     }
@@ -79,14 +81,16 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $MoveParams = $TestCfg.MoveParams
       $UpdateParams = $TestCfg.UpdateParams
       { $Script:Result = @(
-          $null = ((($NewParams.Mac |
-                New-UMSDevice -FirmwareId $NewParams.FirmwareId -Name $NewParams.Name | Tee-Object -Variable 'NewUMSDevice').Id |
-              Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice').Id |
-            Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice').Id |
+          $null = (((($NewParams.Mac |
+                  New-UMSDevice -FirmwareId $NewParams.FirmwareId -Name $NewParams.Name | Tee-Object -Variable 'NewUMSDevice').Id |
+                Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice').Id |
+              Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice').Id |
+            Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice').Id |
           Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'
           $NewUMSDevice
           $MoveUMSDevice
           $UpdateUMSDevice
+          $GetUMSDevice
           $RemoveUMSDevice
         ) } | Should Not Throw
     }
