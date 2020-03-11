@@ -2,26 +2,26 @@ $Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
-$Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
+$Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
 Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
 
-Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
+Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
-      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName) -ErrorAction Stop
+      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:ScriptName) -ErrorAction Stop
       $ErrorColl = $Null
       $Null = [System.Management.Automation.PSParser]::Tokenize($Content, [ref]$ErrorColl)
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
+    [object[]]$params = (Get-ChildItem function:\$Script:ScriptName).Parameters.Keys
     $KnownParameters = 'Computername', 'TCPPort', 'Credential', 'ApiVersion', 'SecurityProtocol'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -107,9 +107,9 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
+Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
+  ConvertFrom-Json
   $CredPath = $UMS.CredPath
   $Password = Get-Content $CredPath | ConvertTo-SecureString
   $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)

@@ -1,5 +1,5 @@
 <#
-Integration Tests Config
+Tests Config
 #>
 
 @{
@@ -12,9 +12,61 @@ Integration Tests Config
   DeviceRootDirId  = 502 # Devices/PSIGEL
 
   Tests            = @(
+    # PSIGEL
+    @{
+      General = 'PSIGEL'
+    }
+    # New-UMSAPICookie
+    <#
+    @{
+      UnitTests = 'New-UMSAPICookie'
+    }
+    #>
+    # Reset-UMSDevice
+    <#
+    @{
+      UnitTests = 'Reset-UMSDevice'
+    }
+    #>
+    # Restart-UMSDevice
+    <#
+    @{
+      UnitTests = 'Restart-UMSDevice'
+    }
+    #>
+    # Send-UMSDeviceSetting
+    <#
+    @{
+      UnitTests = 'Send-UMSDeviceSetting'
+    }
+    #>
+    # Start-UMSDevice
+    <#
+    @{
+      UnitTests = 'Start-UMSDevice'
+    }
+    #>
+    # Stop-UMSDevice
+    <#
+    @{
+      UnitTests = 'Stop-UMSDevice'
+    }
+    #>
+    # Invoke-UMSRestMethodWebSession
+    <#
+    @{
+      PrivateUnitTests = 'Invoke-UMSRestMethodWebSession'
+    }
+    #>
+    # New-UMSFilterString
+    <#
+    @{
+      PrivateUnitTests = 'New-UMSFilterString'
+    }
+    #>
     # Get-UMSStatus
     @{
-      Function      = 'Get-UMSStatus'
+      All           = 'Get-UMSStatus'
       ParameterSets = @{
         Default = @{
           Expected = @{
@@ -33,7 +85,7 @@ Integration Tests Config
     }
     # New-UMSDeviceDirectory
     @{
-      Function      = 'New-UMSDeviceDirectory'
+      All           = 'New-UMSDeviceDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -52,7 +104,7 @@ Integration Tests Config
     }
     # New-UMSDevice
     @{
-      Function      = 'New-UMSDevice'
+      All           = 'New-UMSDevice'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -91,7 +143,7 @@ Integration Tests Config
     }
     # New-UMSProfileDirectory
     @{
-      Function      = 'New-UMSProfileDirectory'
+      All           = 'New-UMSProfileDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -110,7 +162,7 @@ Integration Tests Config
     }
     # New-UMSProfileAssignment
     @{
-      Function      = 'New-UMSProfileAssignment'
+      All           = 'New-UMSProfileAssignment'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -145,7 +197,7 @@ Integration Tests Config
     }
     # Remove-UMSDevice
     @{
-      Function      = 'Remove-UMSDevice'
+      All           = 'Remove-UMSDevice'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -172,7 +224,7 @@ Integration Tests Config
     }
     # Remove-UMSDeviceDirectory
     @{
-      Function      = 'Remove-UMSDeviceDirectory'
+      All           = 'Remove-UMSDeviceDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -192,7 +244,7 @@ Integration Tests Config
     }
     # Remove-UMSProfile
     @{
-      Function      = 'Remove-UMSProfile'
+      All           = 'Remove-UMSProfile'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -210,7 +262,7 @@ Integration Tests Config
     }
     # Remove-UMSProfileDirectory
     @{
-      Function      = 'Remove-UMSProfileDirectory'
+      All           = 'Remove-UMSProfileDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -228,7 +280,7 @@ Integration Tests Config
     }
     # Remove-UMSProfileAssignment
     @{
-      Function      = 'Remove-UMSProfileAssignment'
+      All           = 'Remove-UMSProfileAssignment'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -263,7 +315,7 @@ Integration Tests Config
     }
     # Move-UMSDevice
     @{
-      Function      = 'Move-UMSDevice'
+      All           = 'Move-UMSDevice'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -308,7 +360,7 @@ Integration Tests Config
     }
     # Move-UMSDeviceDirectory
     @{
-      Function      = 'Move-UMSDeviceDirectory'
+      All           = 'Move-UMSDeviceDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -337,7 +389,7 @@ Integration Tests Config
     }
     # Move-UMSProfileDirectory
     @{
-      Function      = 'Move-UMSProfileDirectory'
+      All           = 'Move-UMSProfileDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -358,7 +410,7 @@ Integration Tests Config
     }
     # Move-UMSProfile
     @{
-      Function      = 'Move-UMSProfile'
+      All           = 'Move-UMSProfile'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -379,7 +431,7 @@ Integration Tests Config
     }
     # Update-UMSDeviceDirectory
     @{
-      Function      = 'Update-UMSDeviceDirectory'
+      All           = 'Update-UMSDeviceDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -408,7 +460,7 @@ Integration Tests Config
     }
     #Update-UMSDevice
     @{
-      Function      = 'Update-UMSDevice'
+      All           = 'Update-UMSDevice'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -453,7 +505,7 @@ Integration Tests Config
     }
     # Update-UMSProfileDirectory
     @{
-      Function      = 'Update-UMSProfileDirectory'
+      All           = 'Update-UMSProfileDirectory'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -474,7 +526,7 @@ Integration Tests Config
     }
     # Update-UMSProfile
     @{
-      Function      = 'Update-UMSProfile'
+      All           = 'Update-UMSProfile'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -495,8 +547,8 @@ Integration Tests Config
     }
     # Pipeline.UMSProfileAssignment
     @{
-      Special       = 'Pipeline.UMSProfileAssignment'
-      ParameterSets = @{
+      IntegrationTests = 'Pipeline.UMSProfileAssignment'
+      ParameterSets    = @{
         ValueFromPipeline               = @{
           NewAssignmentParams    = @{
             Id           = 595 # SES_RDP_Session02
@@ -560,8 +612,8 @@ Integration Tests Config
     }
     # Pipeline.UMSDevice
     @{
-      Special       = 'Pipeline.UMSDevice'
-      ParameterSets = @{
+      IntegrationTests = 'Pipeline.UMSDevice'
+      ParameterSets    = @{
         ValueFromPipeline               = @{
           NewParams    = @{
             Mac        = '0A00000000AA'
@@ -665,8 +717,8 @@ Integration Tests Config
     }
     # Pipeline.UMSDeviceDirectory
     @{
-      Special       = 'Pipeline.UMSDeviceDirectory'
-      ParameterSets = @{
+      IntegrationTests = 'Pipeline.UMSDeviceDirectory'
+      ParameterSets    = @{
         ValueFromPipeline               = @{
           NewParams    = @{
             Name = 'NewDeviceDirectory01'
@@ -737,8 +789,8 @@ Integration Tests Config
     }
     # Pipeline.UMSProfile
     @{
-      Special       = 'Pipeline.UMSProfile'
-      ParameterSets = @{
+      IntegrationTests = 'Pipeline.UMSProfile'
+      ParameterSets    = @{
         ValueFromPipeline               = @{
           MoveParams   = @{
             Id     = 595 # SES_RDP_Session02
@@ -796,8 +848,8 @@ Integration Tests Config
     }
     # Pipeline.UMSProfileDirectory
     @{
-      Special       = 'Pipeline.UMSProfileDirectory'
-      ParameterSets = @{
+      IntegrationTests = 'Pipeline.UMSProfileDirectory'
+      ParameterSets    = @{
         ValueFromPipeline               = @{
           NewParams    = @{
             Name = 'NewProfileDirectory01'
@@ -868,7 +920,7 @@ Integration Tests Config
     }
     # Get-UMSFirmware
     @{
-      Function      = 'Get-UMSFirmware'
+      All           = 'Get-UMSFirmware'
       ParameterSets = @{
         Default = @{
           Expected = @(
@@ -893,7 +945,7 @@ Integration Tests Config
     }
     # Get-UMSDevice
     @{
-      Function      = 'Get-UMSDevice'
+      All           = 'Get-UMSDevice'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -1103,7 +1155,7 @@ Integration Tests Config
     }
     # Get-UMSDeviceDirectory
     @{
-      Function      = 'Get-UMSDeviceDirectory'
+      All           = 'Get-UMSDeviceDirectory'
       ParameterSets = @{
         Default  = @{
           Params1  = @{
@@ -1217,7 +1269,7 @@ Integration Tests Config
     }
     # Get-UMSProfile
     @{
-      Function      = 'Get-UMSProfile'
+      All           = 'Get-UMSProfile'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -1292,7 +1344,7 @@ Integration Tests Config
     }
     # Get-UMSProfileDirectory
     @{
-      Function      = 'Get-UMSProfileDirectory'
+      All           = 'Get-UMSProfileDirectory'
       ParameterSets = @{
         Default  = @{
           Params1  = @{
@@ -1384,7 +1436,7 @@ Integration Tests Config
     }
     # Get-UMSProfileAssignment
     @{
-      Function      = 'Get-UMSProfileAssignment'
+      All           = 'Get-UMSProfileAssignment'
       ParameterSets = @{
         Default   = @{
           Params1  = @{
@@ -1432,7 +1484,7 @@ Integration Tests Config
     }
     # Get-UMSDeviceAssignment
     @{
-      Function      = 'Get-UMSDeviceAssignment'
+      All           = 'Get-UMSDeviceAssignment'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -1480,7 +1532,7 @@ Integration Tests Config
     }
     # Get-UMSDeviceDirectoryAssignment
     @{
-      Function      = 'Get-UMSDeviceDirectoryAssignment'
+      All           = 'Get-UMSDeviceDirectoryAssignment'
       ParameterSets = @{
         Default = @{
           Params1  = @{
@@ -1528,7 +1580,7 @@ Integration Tests Config
     }
     # Get-UMSDirectoryRecursive
     @{
-      Function      = 'Get-UMSDirectoryRecursive'
+      All           = 'Get-UMSDirectoryRecursive'
       ParameterSets = @{
         Default = @{
           Params1  = @{

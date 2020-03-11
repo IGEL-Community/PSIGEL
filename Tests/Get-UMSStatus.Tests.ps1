@@ -2,21 +2,21 @@ $Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
-$Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
+$Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
 Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
-Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
+Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
-      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName) -ErrorAction Stop
+      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:ScriptName) -ErrorAction Stop
       $ErrorColl = $Null
       $Null = [System.Management.Automation.PSParser]::Tokenize($Content, [ref]$ErrorColl)
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
+    [object[]]$params = (Get-ChildItem function:\$Script:ScriptName).Parameters.Keys
     $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession'
 
     It "Should contain our specific parameters" {
@@ -100,8 +100,8 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
   $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
@@ -117,7 +117,7 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.Function -eq $FunctionName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = Get-UMSStatus } | Should Not Throw

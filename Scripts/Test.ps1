@@ -67,7 +67,7 @@ $Result
     Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice').Id |
     Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice').Id |
     Remove-UMSDevice @RemoveParams | Tee-Object -Variable 'RemoveUMSDevice'
-    
+
     $NewUMSDevice
     $MoveUMSDevice
     $UpdateUMSDevice
@@ -75,8 +75,8 @@ $Result
     )
     $Result
     #>
-    
-    
+
+
 <#
 $Result = @(
   $null = [pscustomobject]$NewParams |

@@ -1,14 +1,15 @@
-$ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
-$ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
-$ModuleName = Split-Path $ModuleRoot -Leaf
-$ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $ModuleRoot, $ModuleName)
+$Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
+$Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
+$Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
+$Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "General project validation: $ModuleName" {
 
   Context 'Basic Module Testing' {
     $ScriptColl = Get-ChildItem $ModuleRoot -Include *.ps1, *.psm1, *.psd1 -Recurse
 
-    $TestCase = $ScriptColl | Foreach-Object {
+    $TestCase = $ScriptColl | ForEach-Object {
       @{
         File = $_
       }
@@ -68,19 +69,19 @@ Describe "General project validation: $ModuleName" {
     $PublicFunctionColl = (Get-ChildItem -Path ('{0}\Public' -f $ModuleRoot) -Filter *.ps1 |
       Select-Object -ExpandProperty Name ) -replace '\.ps1$'
 
-    $TestCase = $PublicFunctionColl | Foreach-Object {
+    $TestCase = $PublicFunctionColl | ForEach-Object {
       @{
-        FunctionName = $_
+        ScriptName = $_
       }
     }
 
-    It "Function <FunctionName> should be in manifest" -TestCases $TestCase {
+    It "Function <ScriptName> should be in manifest" -TestCases $TestCase {
       param(
-        $FunctionName
+        $ScriptName
       )
 
       $ManifestFunctionColl = $Manifest.ExportedFunctions.Keys
-      $FunctionName -in $ManifestFunctionColl | Should Be $true
+      $ScriptName -in $ManifestFunctionColl | Should Be $true
     }
 
     It 'Proper Number of Functions Exported compared to Manifest' {
@@ -102,17 +103,17 @@ Describe "General project validation: $ModuleName" {
   Context 'Private Functions' {
     $PrivateFunctionColl = (Get-ChildItem -Path ('{0}\Private' -f $ModuleRoot) -Filter *.ps1 |
       Select-Object -ExpandProperty Name ) -replace '\.ps1$'
-    $TestCase = $PrivateFunctionColl | Foreach-Object {
+    $TestCase = $PrivateFunctionColl | ForEach-Object {
       @{
-        FunctionName = $_
+        ScriptName = $_
       }
     }
 
-    It "Private function <FunctionName> is not directly accessible outside the module" -TestCases $TestCase {
+    It "Private function <ScriptName> is not directly accessible outside the module" -TestCases $TestCase {
       param(
-        $FunctionName
+        $ScriptName
       )
-      { . ('\{0}' -f $FunctionName) } | Should Throw
+      { . ('\{0}' -f $ScriptName) } | Should Throw
     }
   }
 
@@ -151,7 +152,7 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   $FunctionWithErrorColl = $ScriptAnalyzerErrorColl.ScriptName | Sort-Object -Unique
   if ($ScriptAnalyzerErrorColl)
   {
-    $TestCase = $ScriptAnalyzerErrorColl | Foreach-Object {
+    $TestCase = $ScriptAnalyzerErrorColl | ForEach-Object {
       @{
         RuleName   = $_.RuleName
         ScriptName = $_.ScriptName
@@ -181,7 +182,7 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   }
 
   Context 'Successful ScriptAnalyzer Testing' {
-    $TestCase = $FunctionWithoutErrorColl | Foreach-Object {
+    $TestCase = $FunctionWithoutErrorColl | ForEach-Object {
       @{
         ScriptName = $_
       }

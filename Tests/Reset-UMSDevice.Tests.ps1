@@ -2,26 +2,26 @@ $Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
-$Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
+$Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
 Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
 
-Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
+Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
-      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName) -ErrorAction Stop
+      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:ScriptName) -ErrorAction Stop
       $ErrorColl = $Null
       $Null = [System.Management.Automation.PSParser]::Tokenize($Content, [ref]$ErrorColl)
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$Params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
+    [object[]]$Params = (Get-ChildItem function:\$Script:ScriptName).Parameters.Keys
     $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Id'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -35,7 +35,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       It "Reset-UMSDevice -Id 2 Should not throw" {
         { Reset-UMSDevice -Id 2 } | Should -Not -Throw
@@ -94,7 +94,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethodWebSession' { }
 
       $Result = Reset-UMSDevice -Id 2 -WhatIf
 
@@ -113,7 +113,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
 
       It "Reset-UMSDevice -Id 2 -ApiVersion 10 -ErrorAction Stop Should throw" {
         { Reset-UMSDevice -Id 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -126,9 +126,9 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
+Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
+  ConvertFrom-Json
   $Credential = Import-Clixml -Path $UMS.CredPath
   $Id = $UMS.UMSDevice[1].Id
   $Mac = $UMS.UMSDevice[1].Mac

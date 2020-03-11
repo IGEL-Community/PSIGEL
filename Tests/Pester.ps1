@@ -2,62 +2,135 @@ param
 (
   [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
   [String]
-  #$Tags = 'All'
-  $Tags = 'UnitTests'
-  #$Tags = 'IntegrationTests'
+  $Tags = 'UnitTests',
+
+  [ValidateSet('Default', 'Passed', 'Failed', 'Pending', 'Skipped', 'Inconclusive', 'Describe', 'Context', 'Summary')]
+  [String]
+  $Show = 'Summary',
+
+  [Switch]
+  $EnableExit = $false
 )
 $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
 $ModuleName = Split-Path $ModuleRoot -Leaf
 $OutputPath = '{0}\Tests\Data' -f $ProjectRoot
 
-$Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\IntegrationTestsConfig.psd1' -f $Script:ProjectRoot)
+$Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
 $Credential = Import-Clixml -Path $Cfg.CredPath
 
 $PSDefaultParameterValues = @{
-  '*-UMS*:Credential'       = $Credential
-  '*-UMS*:Computername'     = $Cfg.Computername
-  '*-UMS*:TCPPort'          = $Cfg.TCPPort
-  '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
-  '*-UMS*:Confirm'          = $false
-  'Invoke-Pester:Show'      = 'Failed'
+  '*-UMS*:Credential'        = $Credential
+  '*-UMS*:Computername'      = $Cfg.Computername
+  '*-UMS*:TCPPort'           = $Cfg.TCPPort
+  '*-UMS*:SecurityProtocol'  = $Cfg.SecurityProtocol
+  '*-UMS*:Confirm'           = $false
+  'Invoke-Pester:Show'       = $Show
+  'Invoke-Pester:EnableExit' = $EnableExit
 }
 
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = (New-UMSAPICookie)
 }
 
-Invoke-Pester -Script ('{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $ModuleName) -OutputFile ('{0}\{1}.Tests.xml' -f $OutputPath, $ModuleName)
-
 foreach ($Test in $Cfg.Tests)
 {
-  $IVPParams = @{
-    Script     = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.Function
-    OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.Function
-  }
-  switch ($Tags)
+  $IVPParams = @{ }
+  switch ($Test)
   {
-    'All'
+    ( { $PSItem.All } )
     {
-      if ($Test.Function)
+      $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.All
+      $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.All
+      switch ($Tags)
       {
-        $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.Function
-        Invoke-Pester @IVPParams
+        'All'
+        {
+          $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.All
+          Invoke-Pester @IVPParams
+        }
+        'UnitTests'
+        {
+          $IVPParams.Tag = 'UnitTests'
+          $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.All
+          Invoke-Pester @IVPParams
+        }
+        'IntegrationTests'
+        {
+          $IVPParams.Tag = 'IntegrationTests'
+          Invoke-Pester @IVPParams
+        }
       }
     }
-    'UnitTests'
+    ( { $PSItem.IntegrationTests } )
     {
-      if ($Test.Function)
+      $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.IntegrationTests
+      $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.IntegrationTests
+      switch ($Tags)
       {
-        $IVPParams.Tag = 'UnitTests'
-        $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.Function
-        Invoke-Pester @IVPParams
+        'All'
+        {
+          $IVPParams.Tag = 'IntegrationTests'
+          Invoke-Pester @IVPParams
+        }
+        'IntegrationTests'
+        {
+          $IVPParams.Tag = 'IntegrationTests'
+          Invoke-Pester @IVPParams
+        }
       }
     }
-    'IntegrationTests'
+    ( { $PSItem.UnitTests } )
     {
-      $IVPParams.Tag = 'IntegrationTests'
-      Invoke-Pester @IVPParams
+      $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.UnitTests
+      $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.UnitTests
+      switch ($Tags)
+      {
+        'All'
+        {
+          $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.UnitTests
+          Invoke-Pester @IVPParams
+        }
+        'UnitTests'
+        {
+          $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.UnitTests
+          Invoke-Pester @IVPParams
+        }
+      }
+    }
+    ( { $PSItem.PrivateUnitTests } )
+    {
+      $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.PrivateUnitTests
+      $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.PrivateUnitTests
+      switch ($Tags)
+      {
+        'All'
+        {
+          $IVPParams.CodeCoverage = '{0}\{1}\Private\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.PrivateUnitTests
+          Invoke-Pester @IVPParams
+        }
+        'UnitTests'
+        {
+          $IVPParams.CodeCoverage = '{0}\{1}\Private\{2}.ps1' -f $ProjectRoot, $ModuleName, $Test.PrivateUnitTests
+          Invoke-Pester @IVPParams
+        }
+      }
+    }
+    ( { $PSItem.General } )
+    {
+      $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.General
+      $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.General
+      switch ($Tags)
+      {
+        'All'
+        {
+          Invoke-Pester @IVPParams
+        }
+        'UnitTests'
+        {
+          Invoke-Pester @IVPParams
+        }
+      }
     }
   }
 }
