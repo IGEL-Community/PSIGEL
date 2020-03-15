@@ -16,25 +16,6 @@ Tests Config
     @{
       General = 'PSIGEL'
     }
-    #>
-    # Restart-UMSDevice
-    <#
-    @{
-      UnitTests = 'Restart-UMSDevice'
-    }
-    #>
-    # Send-UMSDeviceSetting
-    <#
-    @{
-      UnitTests = 'Send-UMSDeviceSetting'
-    }
-    #>
-    # Stop-UMSDevice
-    <#
-    @{
-      UnitTests = 'Stop-UMSDevice'
-    }
-    #>
     # Invoke-UMSRestMethodWebSession
     <#
     @{
@@ -42,7 +23,7 @@ Tests Config
     }
     #>
     # New-UMSFilterString
-    <#
+    #<#
     @{
       PrivateUnitTests = 'New-UMSFilterString'
     }
