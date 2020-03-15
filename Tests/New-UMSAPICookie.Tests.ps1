@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
@@ -27,24 +27,23 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
   InModuleScope $Script:ModuleName {
 
-    <#
     $PSDefaultParameterValues = @{
-      '*-UMS*:Computername' = 'igelrmserver.acme.org'
-      '*:Credential'        = New-MockObject -Type 'System.Management.Automation.PSCredential'
+      '*:Credential'   = New-MockObject -Type 'System.Management.Automation.PSCredential'
+      '*:Computername' = 'igelrmserver.acme.org'
     }
 
     Context "General Execution" {
 
-      New-UMSAPICookie -Credential $Credential
       It "New-UMSAPICookie" {
         { New-UMSAPICookie } | Should -Not -Throw
       }
 
-      It 'New-UMSAPICookie -ApiVersion 10 Stop Should throw' {
+      It 'New-UMSAPICookie -ApiVersion 10 -ErrorAction Stop Should throw' {
         { New-UMSAPICookie -ApiVersion 10 -ErrorAction Stop } | Should -Throw
       }
 
     }
+    <#
 
     Context "All" {
 
@@ -107,6 +106,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
+<#
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
   ConvertFrom-Json
@@ -139,3 +139,5 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
     }
   }
 }
+
+#>

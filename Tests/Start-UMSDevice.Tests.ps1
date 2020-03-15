@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
@@ -127,18 +127,15 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 }
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-  ConvertFrom-Json
-  $Credential = Import-Clixml -Path $UMS.CredPath
-  $Id = $UMS.UMSDevice[1].Id
-  $Mac = $UMS.UMSDevice[1].Mac
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
+  $Credential = Import-Clixml -Path $Cfg.CredPath
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Id'               = $Id
-    '*-UMS*:Confirm'          = $false
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
+    '*-UMS*:Confirm'          = $False
   }
 
   $WebSession = New-UMSAPICookie
@@ -146,10 +143,15 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
+
+    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
-      { $Script:Result = Start-UMSDevice } | Should Not Throw
+      $Params1 = $TestCfg.Params1
+      { $Script:Result = @(
+          Start-UMSDevice @Params1
+        ) } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -160,16 +162,19 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result[0].Id should be exactly $Id" {
-      $Result[0].Id | Should -BeExactly $Id
+    It 'Result[0].Message should have type [String]' {
+      $Result[0].Message | Should -HaveType [String]
     }
 
-    It "Result[0].Mac should be exactly $Mac" {
-      $Result[0].Mac | Should -BeExactly $Mac
+    It "Result should be Equivalent to Expected" {
+      [array]$Expected = foreach ($item In $TestCfg.Expected)
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
     }
 
-    It "Result[0].Message should be exactly 'OK.'" {
-      $Result[0].Message | Should -BeExactly 'OK.'
-    }
   }
 }

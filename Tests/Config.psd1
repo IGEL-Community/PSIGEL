@@ -16,17 +16,6 @@ Tests Config
     @{
       General = 'PSIGEL'
     }
-    # New-UMSAPICookie
-    <#
-    @{
-      UnitTests = 'New-UMSAPICookie'
-    }
-    #>
-    # Reset-UMSDevice
-    <#
-    @{
-      UnitTests = 'Reset-UMSDevice'
-    }
     #>
     # Restart-UMSDevice
     <#
@@ -38,12 +27,6 @@ Tests Config
     <#
     @{
       UnitTests = 'Send-UMSDeviceSetting'
-    }
-    #>
-    # Start-UMSDevice
-    <#
-    @{
-      UnitTests = 'Start-UMSDevice'
     }
     #>
     # Stop-UMSDevice
@@ -62,6 +45,29 @@ Tests Config
     <#
     @{
       PrivateUnitTests = 'New-UMSFilterString'
+    }
+    #>
+    # New-UMSAPICookie
+    <#
+    @{
+      All           = 'New-UMSAPICookie'
+      ParameterSets = @{
+        Default = @{
+          Expected = @{
+            Headers               = @{ }
+            Cookies               = 'System.Net.CookieContainer'
+            UseDefaultCredentials = 'False'
+            Credentials           = ''
+            Certificates          = ''
+            UserAgent             = 'Mozilla / 5.0 (Windows NT; Windows NT 10.0; de-DE) WindowsPowerShell / 5.1.18362.628'
+            Proxy                 =
+            MaximumRedirection    = -1
+          }
+          Options  = @{
+            ExcludedPaths = ''
+          }
+        }
+      }
     }
     #>
     # Get-UMSStatus
@@ -545,6 +551,126 @@ Tests Config
         }
       }
     }
+    # Start-UMSDevice
+    @{
+      All           = 'Start-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 576 # BR-MKT-004
+          }
+          Expected = @(
+            @{
+              ExecId   = 'ID-igelrmserver-40687-1583585133100-2-0'
+              ExecTime = '1583588923907'
+              Id       = 576
+              Mac      = '0A0000000004'
+              Message  = 'OK.'
+              State    = 'SUCCESS'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = 'ExecId', 'ExecTime'
+          }
+        }
+      }
+    }
+    # Send-UMSDeviceSetting
+    @{
+      All           = 'Send-UMSDeviceSetting'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 576 # BR-MKT-004
+          }
+          Expected = @(
+            @{
+              ExecId   = 'ID-igelrmserver-40687-1583585133100-5-0'
+              ExecTime = '1583589223680'
+              Id       = 576
+              Mac      = '0A0000000004'
+              Message  = 'Found no IP address for device.'
+              State    = 'FAILED'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = 'ExecId', 'ExecTime'
+          }
+        }
+      }
+    }
+    # Restart-UMSDevice
+    @{
+      All           = 'Restart-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 576 # BR-MKT-004
+          }
+          Expected = @(
+            @{
+              ExecId   = 'ID-igelrmserver-40687-1583585133100-5-0'
+              ExecTime = '1583589223680'
+              Id       = 576
+              Mac      = '0A0000000004'
+              Message  = 'Found no IP address for device.'
+              State    = 'FAILED'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = 'ExecId', 'ExecTime'
+          }
+        }
+      }
+    }
+    # Stop-UMSDevice
+    @{
+      All           = 'Stop-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 576 # BR-MKT-004
+          }
+          Expected = @(
+            @{
+              ExecId   = 'ID-igelrmserver-40687-1583585133100-5-0'
+              ExecTime = '1583589223680'
+              Id       = 576
+              Mac      = '0A0000000004'
+              Message  = 'Found no IP address for device.'
+              State    = 'FAILED'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = 'ExecId', 'ExecTime'
+          }
+        }
+      }
+    }
+    # Reset-UMSDevice
+    @{
+      All           = 'Reset-UMSDevice'
+      ParameterSets = @{
+        Default = @{
+          Params1  = @{
+            Id = 576 # BR-MKT-004
+          }
+          Expected = @(
+            @{
+              ExecId   = 'ID-igelrmserver-40687-1583585133100-2-0'
+              ExecTime = '1583586682807'
+              Id       = 576
+              Mac      = '0A0000000004'
+              Message  = 'Found no IP address for device.'
+              State    = 'FAILED'
+            }
+          )
+          Options  = @{
+            ExcludedPaths = 'ExecId', 'ExecTime'
+          }
+        }
+      }
+    }
     # Pipeline.UMSProfileAssignment
     @{
       IntegrationTests = 'Pipeline.UMSProfileAssignment'
@@ -655,6 +781,30 @@ Tests Config
               UnitId     = '0A00000000AA'
             }
             @{
+              Id      = 601
+              Mac     = '0A00000000AA'
+              Message = 'OK.'
+              State   = 'SUCCESS'
+            }
+            @{
+              Id      = 601
+              Mac     = '0A00000000AA'
+              Message = 'Found no IP address for device.'
+              State   = 'FAILED'
+            }
+            @{
+              Id      = 601
+              Mac     = '0A00000000AA'
+              Message = 'Found no IP address for device.'
+              State   = 'FAILED'
+            }
+            @{
+              Id      = 601
+              Mac     = '0A00000000AA'
+              Message = 'Found no IP address for device.'
+              State   = 'FAILED'
+            }
+            @{
               Message = 'Offline deletion successful.'
               Id      = 601
             }
@@ -702,6 +852,30 @@ Tests Config
               ObjectType = 'tc'
               ParentId   = 502
               UnitId     = '0A00000000AB'
+            }
+            @{
+              Id      = 602
+              Mac     = '0A00000000AB'
+              Message = 'OK.'
+              State   = 'SUCCESS'
+            }
+            @{
+              Id      = 602
+              Mac     = '0A00000000AB'
+              Message = 'Found no IP address for device.'
+              State   = 'FAILED'
+            }
+            @{
+              Id      = 602
+              Mac     = '0A00000000AB'
+              Message = 'Found no IP address for device.'
+              State   = 'FAILED'
+            }
+            @{
+              Id      = 602
+              Mac     = '0A00000000AB'
+              Message = 'Found no IP address for device.'
+              State   = 'FAILED'
             }
             @{
               Message = 'Offline deletion successful.'

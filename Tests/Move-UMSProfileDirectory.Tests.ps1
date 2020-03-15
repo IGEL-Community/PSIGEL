@@ -3,7 +3,7 @@ $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:Project
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
 $Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 

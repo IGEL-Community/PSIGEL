@@ -9,10 +9,13 @@ $PSDefaultParameterValues = @{
   #'*-UMS*:SecurityProtocol'     = 'Tls'
 }
 
+#<#
 $WebSession = New-UMSAPICookie
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
+#>
+
 
 $NewParams = @{
   Mac        = '0A00000000AA'
@@ -34,33 +37,26 @@ $Result = @(
   Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice' |
   Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice' |
   Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice' |
+  Start-UMSDevice | Tee-Object -Variable 'StartUMSDevice' |
+  Send-UMSDeviceSetting | Tee-Object -Variable 'SendUMSDeviceSettings' |
   Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'
+
   $NewUMSDevice
   $MoveUMSDevice
   $UpdateUMSDevice
   $GetUMSDevice
+  $StartUMSDevice
+  $SendUMSDeviceSettings
   $RemoveUMSDevice
 )
 $Result
 #>
 
+
+#Get-UMSDevice -WebSession $Result
+
 <#
-  $NewParams = @{
-    Mac        = '0A00000000FF'
-    Name       = 'NewDevice'
-    FirmwareId = 1
-    ParentId   = -1
-  }
-  $MoveParams = @{
-    Id     = 540 # eff
-    DestId = 527
-  }
-  $UpdateParams = @{
-    Name = 'UpdatedProfile'
-  }
-  $RemoveParams = @{
-    Confirm = $false
-  }
+
   $Result = @(
     $null = ((($NewParams.Mac |
     New-UMSDevice -FirmwareId $NewParams.FirmwareId | Tee-Object -Variable 'NewUMSDevice').Id |
@@ -77,21 +73,7 @@ $Result
     #>
 
 
-<#
-$Result = @(
-  $null = [pscustomobject]$NewParams |
-  New-UMSDevice | Tee-Object -Variable 'NewUMSDevice' |
-  Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice' |
-  Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice' |
-  Remove-UMSDevice @RemoveParams | Tee-Object -Variable 'RemoveUMSDevice'
 
-  $NewUMSDevice
-  $MoveUMSDevice
-  $UpdateUMSDevice
-  $RemoveUMSDevice
-)
-$Result
-#>
 
 
 <#

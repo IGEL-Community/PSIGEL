@@ -37,11 +37,21 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
           Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice' |
           Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice' |
           Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice' |
+          Start-UMSDevice | Tee-Object -Variable 'StartUMSDevice' |
+          Send-UMSDeviceSetting | Tee-Object -Variable 'SendUMSDeviceSetting' |
+          Restart-UMSDevice | Tee-Object -Variable 'RestartUMSDevice' |
+          Stop-UMSDevice | Tee-Object -Variable 'StopUMSDevice' |
+          Reset-UMSDevice | Tee-Object -Variable 'ResetUMSDevice' |
           Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'
           $NewUMSDevice
           $MoveUMSDevice
           $UpdateUMSDevice
           $GetUMSDevice
+          $StartUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $SendUMSDeviceSettings | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $RestartUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $StopUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $ResetUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
           $RemoveUMSDevice
         ) } | Should Not Throw
     }
@@ -81,16 +91,26 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
       $MoveParams = $TestCfg.MoveParams
       $UpdateParams = $TestCfg.UpdateParams
       { $Script:Result = @(
-          $null = (((($NewParams.Mac |
-                  New-UMSDevice -FirmwareId $NewParams.FirmwareId -Name $NewParams.Name | Tee-Object -Variable 'NewUMSDevice').Id |
-                Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice').Id |
-              Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice').Id |
-            Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice').Id |
+          $null = ((((((((($NewParams.Mac |
+                            New-UMSDevice -FirmwareId $NewParams.FirmwareId -Name $NewParams.Name | Tee-Object -Variable 'NewUMSDevice').Id |
+                          Move-UMSDevice @MoveParams | Tee-Object -Variable 'MoveUMSDevice').Id |
+                        Update-UMSDevice @UpdateParams | Tee-Object -Variable 'UpdateUMSDevice').Id |
+                      Get-UMSDevice | Tee-Object -Variable 'GetUMSDevice').Id |
+                    Start-UMSDevice | Tee-Object -Variable 'StartUMSDevice').Id |
+                  Send-UMSDeviceSetting | Tee-Object -Variable 'SendUMSDeviceSetting').Id |
+                Restart-UMSDevice | Tee-Object -Variable 'RestartUMSDevice').Id |
+              Stop-UMSDevice | Tee-Object -Variable 'StopUMSDevice').Id |
+            Reset-UMSDevice | Tee-Object -Variable 'ResetUMSDevice').Id |
           Remove-UMSDevice | Tee-Object -Variable 'RemoveUMSDevice'
           $NewUMSDevice
           $MoveUMSDevice
           $UpdateUMSDevice
           $GetUMSDevice
+          $StartUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $SendUMSDeviceSettings | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $RestartUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $StopUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
+          $ResetUMSDevice | Select-Object -Property * -ExcludeProperty 'ExecId', 'ExecTime'
           $RemoveUMSDevice
         ) } | Should Not Throw
     }
