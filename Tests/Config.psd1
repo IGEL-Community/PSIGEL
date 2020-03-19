@@ -17,17 +17,13 @@ Tests Config
       General = 'PSIGEL'
     }
     # Invoke-UMSRestMethodWebSession
-    <#
     @{
       PrivateUnitTests = 'Invoke-UMSRestMethodWebSession'
     }
-    #>
     # New-UMSFilterString
-    #<#
     @{
       PrivateUnitTests = 'New-UMSFilterString'
     }
-    #>
     # New-UMSAPICookie
     <#
     @{

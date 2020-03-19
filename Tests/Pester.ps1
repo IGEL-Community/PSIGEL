@@ -19,18 +19,26 @@ $OutputPath = '{0}\Tests\Data' -f $ProjectRoot
 $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
 $Credential = Import-Clixml -Path $Cfg.CredPath
 
-$PSDefaultParameterValues = @{
-  '*-UMS*:Credential'        = $Credential
-  '*-UMS*:Computername'      = $Cfg.Computername
-  '*-UMS*:TCPPort'           = $Cfg.TCPPort
-  '*-UMS*:SecurityProtocol'  = $Cfg.SecurityProtocol
-  '*-UMS*:Confirm'           = $false
-  'Invoke-Pester:Show'       = $Show
-  'Invoke-Pester:EnableExit' = $EnableExit
+if ($Tags -contains { 'IntegrationTest ' -or 'All' })
+{
+
+  $PSDefaultParameterValues = @{
+    '*-UMS*:Credential'       = $Credential
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
+    '*-UMS*:Confirm'          = $false
+  }
+
+  $PSDefaultParameterValues += @{
+    '*-UMS*:WebSession' = (New-UMSAPICookie)
+  }
+
 }
 
 $PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = (New-UMSAPICookie)
+  'Invoke-Pester:Show'       = $Show
+  'Invoke-Pester:EnableExit' = $EnableExit
 }
 
 foreach ($Test in $Cfg.Tests)

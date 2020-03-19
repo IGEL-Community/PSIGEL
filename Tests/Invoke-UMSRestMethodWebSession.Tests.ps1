@@ -7,6 +7,7 @@ Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
+  <#
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
@@ -16,12 +17,95 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$params = (Get-ChildItem function:\$Script:ScriptName).Parameters.Keys
-    $KnownParameters = 'WebSession', 'SecurityProtocol', 'Uri', 'Body', 'ContentType', 'Headers', 'Method'
+    InModuleScope $Script:ModuleName {
 
-    It "Should contain our specific parameters" {
-      (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
-          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+      [object[]]$params = (Get-ChildItem function:\$Script:ScriptName).Parameters.Keys
+      $KnownParameters = 'WebSession', 'SecurityProtocol', 'Uri', 'Body', 'ContentType', 'Headers', 'Method'
+
+      It "Should contain our specific parameters" {
+        (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
+            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+      }
     }
+  }
+  #>
+
+  InModuleScope $Script:ModuleName {
+
+    $PSDefaultParameterValues = @{
+      #'*:WebSession'       = New-MockObject -Type 'System.Management.Automation.PSCustomObject'
+      '*:WebSession'       = New-MockObject -Type 'Microsoft.PowerShell.Commands.WebRequestSession'
+      '*:SecurityProtocol' = 'Tls12'
+      #'*:Uri'              = 'Uri'
+      '*:Uri'              = 'https://igelrmserver/api/'
+      #'*:Body'             = 'Body'
+      #'*:ContentType'      = 'ContentType'
+      #'*:Headers'          = @{ }
+      '*:Method'           = 'Get'
+    }
+
+    Context "General Execution" {
+
+      Mock 'Invoke-RestMethod' {
+        [pscustomobject]@{ }
+      }
+
+      It "Invoke-UMSRestMethodWebSession Should not throw" {
+        { Invoke-UMSRestMethodWebSession } | Should -Not -Throw
+      }
+
+      It "Invoke-UMSRestMethodWebSession -Method 'nonexisting' -ErrorAction Stop Should throw" {
+        { Invoke-UMSRestMethodWebSession -Method 'nonexisting' -ErrorAction Stop } | Should -Throw
+      }
+
+    }
+
+    Context "Method Get" {
+
+      Mock 'Invoke-RestMethod' {
+        [pscustomobject]@{ Test = 'Test' }
+      }
+
+      $Result = Invoke-UMSRestMethodWebSession
+
+      It 'Assert Invoke-RestMethod is called exactly 1 time' {
+        $AMCParams = @{
+          CommandName = 'Invoke-RestMethod'
+          Times       = 1
+          Exactly     = $true
+        }
+        Assert-MockCalled @AMCParams
+      }
+
+      It 'Result should have type PSCustomObject' {
+        $Result | Should -HaveType ([PSCustomObject])
+      }
+
+      It 'Result should have 1 element' {
+        @($Result).Count | Should BeExactly 1
+      }
+
+      It "Result.Test should be exactly 'Test'" {
+        $Result.Test | Should BeExactly 'Test'
+      }
+    }
+
+
+    <#
+    Context "Mock an exception" {
+
+      Mock 'Invoke-RestMethod' {
+        [System.Net.WebException]::new('400') |
+        Add-Member -NotePropertyName Response -PassThru -Force -NotePropertyValue (
+          [PSCustomObject]@{ StatusCode = [System.Net.HttpStatusCode]::BadRequest }
+        )
+      }
+
+      It Invoke-UMSRestMethodWebSession' should throw' {
+        { Invoke-UMSRestMethodWebSession } | Should Throw 'some error'
+      }
+    }
+    #>
+
   }
 }

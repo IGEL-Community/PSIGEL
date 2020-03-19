@@ -34,6 +34,10 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
+      Mock 'Invoke-RestMethod' {
+        [pscustomobject]@{ }
+      }
+
       It "New-UMSAPICookie" {
         { New-UMSAPICookie } | Should -Not -Throw
       }

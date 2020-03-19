@@ -16,12 +16,15 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$params = (Get-ChildItem function:\$Content).Parameters.Keys
-    $KnownParameters = 'Filter'
+    InModuleScope $Script:ModuleName {
 
-    It "Should contain our specific parameters" {
-      (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
-          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+      [object[]]$params = (Get-ChildItem function:\$Content).Parameters.Keys
+      $KnownParameters = 'Filter'
+
+      It "Should contain our specific parameters" {
+        (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $params -IncludeEqual |
+            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+      }
     }
   }
 
