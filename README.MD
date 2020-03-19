@@ -1,6 +1,6 @@
-# PSIGEL
+![Logo](PSIGEL_1280_320.png)
 
-This is a module to interact with the IGEL UMS via API and IGEL OS Devices via SSH.
+**PSIGEL** is a module to interact with the IGEL UMS via API and IGEL OS Devices via SSH.
 
 Currently the module  only supports PowerShell version **5.1** .
 
