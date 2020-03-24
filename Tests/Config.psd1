@@ -25,28 +25,12 @@ Tests Config
       PrivateUnitTests = 'New-UMSFilterString'
     }
     # New-UMSAPICookie
-    <#
     @{
       All           = 'New-UMSAPICookie'
       ParameterSets = @{
-        Default = @{
-          Expected = @{
-            Headers               = @{ }
-            Cookies               = 'System.Net.CookieContainer'
-            UseDefaultCredentials = 'False'
-            Credentials           = ''
-            Certificates          = ''
-            UserAgent             = 'Mozilla / 5.0 (Windows NT; Windows NT 10.0; de-DE) WindowsPowerShell / 5.1.18362.628'
-            Proxy                 =
-            MaximumRedirection    = -1
-          }
-          Options  = @{
-            ExcludedPaths = ''
-          }
-        }
+        Default = @{ }
       }
     }
-    #>
     # Get-UMSStatus
     @{
       All           = 'Get-UMSStatus'
