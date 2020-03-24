@@ -9,13 +9,21 @@ $PSDefaultParameterValues = @{
   #'*-UMS*:SecurityProtocol'     = 'Tls'
 }
 
-#<#
 $WebSession = New-UMSAPICookie
+
+
+$WebSession.Cookies.GetCookies('https://igelrmserver').Name
+
+
+
+<#
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
 #>
 
+
+<#
 
 $NewParams = @{
   Mac        = '0A00000000AA'
@@ -30,7 +38,6 @@ $UpdateParams = @{
   Name = 'UpdatedDevice01'
 }
 
-#<#
 $Result = @(
   $null = [pscustomobject]$NewParams |
   New-UMSDevice | Tee-Object -Variable 'NewUMSDevice' |
