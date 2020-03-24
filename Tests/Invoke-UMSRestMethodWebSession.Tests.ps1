@@ -90,22 +90,19 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
       }
     }
 
-
-    <#
     Context "Mock an exception" {
 
-      Mock 'Invoke-RestMethod' {
+      Mock 'Invoke-RestMethod' -Skip {
         [System.Net.WebException]::new('400') |
         Add-Member -NotePropertyName Response -PassThru -Force -NotePropertyValue (
           [PSCustomObject]@{ StatusCode = [System.Net.HttpStatusCode]::BadRequest }
-        )
+        ) # work in progress
       }
 
-      It Invoke-UMSRestMethodWebSession' should throw' {
+      It Invoke-UMSRestMethodWebSession' should throw' -Skip {
         { Invoke-UMSRestMethodWebSession } | Should Throw 'some error'
-      }
+      } # makes no sense without above
     }
-    #>
 
   }
 }
