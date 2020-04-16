@@ -8,19 +8,14 @@ $PSDefaultParameterValues = @{
   '*-UMS*:Confirm'              = $False
   #'*-UMS*:SecurityProtocol'     = 'Tls'
 }
-
-$WebSession = New-UMSAPICookie
-
-
-$WebSession.Cookies.GetCookies('https://igelrmserver').Name
-
-
-
-<#
 $PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = $WebSession
+  '*-UMS*:WebSession' = New-UMSAPICookie
 }
-#>
+
+$Result = ''
+$Result = Get-UMSDeviceAssignment -Id 505
+$Result
+
 
 
 <#
