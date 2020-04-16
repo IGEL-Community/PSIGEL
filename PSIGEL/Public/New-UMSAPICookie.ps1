@@ -27,20 +27,26 @@
 
   Begin
   {
-    Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
-    Add-Type -TypeDefinition @'
-    using System.Net;
-    using System.Security.Cryptography.X509Certificates;
-    public class TrustAllCertsPolicy : ICertificatePolicy {
-        public bool CheckValidationResult(
-            ServicePoint srvPoint, X509Certificate certificate,
-            WebRequest request, int certificateProblem) {
-              return true;
-            }
-          }
+    switch ($PSEdition)
+    {
+      'Desktop'
+      {
+        Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
+        Add-Type -TypeDefinition @'
+          using System.Net;
+          using System.Security.Cryptography.X509Certificates;
+          public class TrustAllCertsPolicy : ICertificatePolicy {
+              public bool CheckValidationResult(
+                  ServicePoint srvPoint, X509Certificate certificate,
+                  WebRequest request, int certificateProblem) {
+                    return true;
+                  }
+                }
 '@
-    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
+        [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+        [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
+      }
+    }
   }
   Process
   {
@@ -60,6 +66,14 @@
       Method      = 'Post'
       ContentType = 'application/json'
       ErrorAction = 'Stop'
+    }
+    switch ($PSEdition)
+    {
+      'Core'
+      {
+        $Params.Add('SkipCertificateCheck', $true)
+        $Params.Add('SslProtocol', $SecurityProtocol)
+      }
     }
 
     Try
