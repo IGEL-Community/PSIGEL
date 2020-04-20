@@ -31,9 +31,9 @@ if ($WebSession)
   }
   #<#
   $Result = ''
-  #$Result = Get-UMSDeviceAssignment -Id 505
+  $Result = Get-UMSDeviceAssignment -Id 505
   #$Result = Get-UMSDevice
-  $Result = Get-UMSFirmware
+  #$Result = Get-UMSFirmware
   $Result
 
   Remove-UMSAPICookie #-Verbose
