@@ -32,29 +32,38 @@ function Invoke-UMSRestMethodWebSession
 
   #>
 
-  [CmdletBinding()]
+  [CmdletBinding(DefaultParameterSetName = 'Login')]
   param (
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'Function')]
     $WebSession,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'Function')]
+    [Parameter(Mandatory, ParameterSetName = 'Login')]
     [ValidateSet('Tls12', 'Tls11', 'Tls', 'Ssl3')]
     [String[]]
     $SecurityProtocol,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'Function')]
+    [Parameter(Mandatory, ParameterSetName = 'Login')]
     [String]
     $Uri,
 
+    [Parameter(ParameterSetName = 'Function')]
+    [Parameter(ParameterSetName = 'Login')]
     [String]
     $Body,
 
+    [Parameter(ParameterSetName = 'Function')]
+    [Parameter(ParameterSetName = 'Login')]
     [String]
     $ContentType,
 
+    [Parameter(ParameterSetName = 'Function')]
+    [Parameter(Mandatory, ParameterSetName = 'Login')]
     $Headers,
 
-    [Parameter(Mandatory)]
+    [Parameter(Mandatory, ParameterSetName = 'Function')]
+    [Parameter(Mandatory, ParameterSetName = 'Login')]
     [ValidateSet('Get', 'Post', 'Put', 'Delete')]
     [String]
     $Method
@@ -62,25 +71,18 @@ function Invoke-UMSRestMethodWebSession
 
   begin
   {
-    $null = $PSBoundParameters.Remove('SecurityProtocol')
-    switch ($PSEdition)
-    {
-      'Core'
-      {
-        $PSBoundParameters.Add('SkipCertificateCheck', $true)
-        $PSBoundParameters.Add('SslProtocol', $SecurityProtocol)
-      }
-    }
   }
   process
   {
-    switch ($PSEdition)
+    $null = $PSBoundParameters.Remove('SecurityProtocol')
+    $null = $PSBoundParameters.Add('ErrorAction', 'Stop')
+    Switch ($PSEdition)
     {
       'Desktop'
       {
         try
         {
-          Invoke-RestMethod @PSBoundParameters -ErrorAction Stop
+          Invoke-RestMethod @PSBoundParameters
         }
         catch [System.Net.WebException]
         {
@@ -111,14 +113,16 @@ function Invoke-UMSRestMethodWebSession
               Write-Warning -Message ('Some error occured see HTTP status code {0} for further details. Uri: {1} Method: {2}' -f $PSItem.Exception.Response.StatusCode, $Uri, $Method)
             }
           }
-
+          
         }
       }
       'Core'
       {
         try
         {
-          Invoke-RestMethod @PSBoundParameters -ErrorAction Stop
+          $null = $PSBoundParameters.Add('SslProtocol', $SecurityProtocol)
+          $null = $PSBoundParameters.Add('SkipCertificateCheck', $true)
+          Invoke-RestMethod @PSBoundParameters
         }
         catch [Microsoft.PowerShell.Commands.HttpResponseException]
         {
