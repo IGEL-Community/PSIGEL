@@ -27,6 +27,23 @@
 
   Begin
   {
+  }
+  Process
+  {
+    $Username = $Credential.Username
+    $Password = $Credential.GetNetworkCredential().password
+    $BUArray = @($Computername, $TCPPort, $ApiVersion)
+    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
+    $Header = @{
+      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Username + ':' + $Password))
+    }
+    $Params = @{
+      Uri              = '{0}login' -f $BaseURL
+      Headers          = $Header
+      Method           = 'Post'
+      ContentType      = 'application/json'
+      SecurityProtocol = $SecurityProtocol
+    }
     switch ($PSEdition)
     {
       'Desktop'
@@ -47,55 +64,23 @@
         [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
       }
     }
-  }
-  Process
-  {
-    $Username = $Credential.Username
-    $Password = $Credential.GetNetworkCredential().password
+    $SessionResponse = Invoke-UMSRestMethodWebsession @Params
 
-
-    $BUArray = @($Computername, $TCPPort, $ApiVersion)
-    $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
-    $Header = @{
-      'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Username + ':' + $Password))
-    }
-
-    $Params = @{
-      Uri         = '{0}login' -f $BaseURL
-      Headers     = $Header
-      Method      = 'Post'
-      ContentType = 'application/json'
-      ErrorAction = 'Stop'
-    }
-    switch ($PSEdition)
+    if ($SessionResponse)
     {
-      'Core'
-      {
-        $Params.Add('SkipCertificateCheck', $true)
-        $Params.Add('SslProtocol', $SecurityProtocol)
-      }
-    }
-
-    Try
-    {
-      $SessionResponse = Invoke-RestMethod @Params
       $Cookie = New-Object -TypeName System.Net.Cookie
       $Cookie.Name = ($SessionResponse.Message).Split('=')[0]
       $Cookie.Path = '/'
       $Cookie.Value = ($SessionResponse.Message).Split('=')[1]
       $Cookie.Domain = $Computername
-    }
-    Catch
-    {
-      $_.Exception.Message
-    }
 
-    if ($PSCmdlet.ShouldProcess($Computername))
-    {
-      $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
-      $WebSession.Cookies.Add($Cookie)
-      $Result = $WebSession
-      $Result
+      if ($PSCmdlet.ShouldProcess($Computername))
+      {
+        $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
+        $WebSession.Cookies.Add($Cookie)
+        $Result = $WebSession
+        $Result
+      }
     }
   }
   End
