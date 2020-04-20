@@ -88,6 +88,7 @@
     'New-UMSDeviceDirectory'
     'New-UMSProfileAssignment'
     'New-UMSProfileDirectory'
+    'Remove-UMSAPICookie'
     'Remove-UMSDevice'
     'Remove-UMSDeviceDirectory'
     'Remove-UMSProfile'
