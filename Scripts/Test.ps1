@@ -35,6 +35,9 @@ if ($WebSession)
   #$Result = Get-UMSDevice
   $Result = Get-UMSFirmware
   $Result
+
+  Remove-UMSAPICookie #-Verbose
+
 }
 #>
 
