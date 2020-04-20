@@ -18,19 +18,25 @@ elseif ($PSEdition -eq 'core' -and (-Not $IsWindows) )
 {
   # PS7 on Linux OR MacOS
   Import-Module -FullyQualifiedName ('/mnt/c/{0}' -f $PSIGELPath) -Force
-  $Credential = Get-Credential
-  $PSDefaultParameterValues.Add('New-UMSAPICookie:Credential', $Credential)
+  # Dont use the following method in production, since on linux the clixml file is not encrypted
+  $PSDefaultParameterValues.Add('New-UMSAPICookie:Credential', (Import-Clixml -Path '/mnt/c/Credentials/UmsRmdbWsl.cred'))
 }
 
-$PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = New-UMSAPICookie
-}
+$WebSession = New-UMSAPICookie
 
-$Result = ''
-#$Result = Get-UMSDeviceAssignment -Id 505
-#$Result = Get-UMSDevice
-$Result = Get-UMSFirmware
-$Result
+if ($WebSession)
+{
+  $PSDefaultParameterValues += @{
+    '*-UMS*:WebSession' = $WebSession
+  }
+  #<#
+  $Result = ''
+  #$Result = Get-UMSDeviceAssignment -Id 505
+  #$Result = Get-UMSDevice
+  $Result = Get-UMSFirmware
+  $Result
+}
+#>
 
 
 
