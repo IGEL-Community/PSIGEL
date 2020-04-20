@@ -12,7 +12,7 @@
   RootModule        = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '0.9.0'
+  ModuleVersion     = '0.10.0'
 
   # Unterstuetzte PSEditions
   # CompatiblePSEditions = @()
@@ -29,7 +29,7 @@
   Copyright         = '(c) 2018 Falk Heiland. Alle Rechte vorbehalten.'
 
   # Beschreibung der von diesem Modul bereitgestellten Funktionen
-  Description       = 'Tools for use with device products of IGEL Technology GmbH'
+  Description       = 'API functions for use with UMS of IGEL TECHNOLOGY'
 
   # Die fuer dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
   PowerShellVersion = '5.1'
@@ -129,7 +129,7 @@
     PSData = @{
 
       # 'Tags' wurde auf das Modul angewendet und unterstuetzt die Modulermittlung in Onlinekatalogen.
-      Tags         = @('IGEL')
+      Tags         = @('IGEL', 'UMS', 'IMI')
 
       # Eine URL zur Lizenz fuer dieses Modul.
       LicenseUri   = 'https://github.com/IGEL-Community/PSIGEL/blob/master/LICENSE'
@@ -142,12 +142,15 @@
 
       # 'ReleaseNotes' des Moduls
       ReleaseNotes = @'
-0.9.1 2019xxxx
-* set minimum Powershell Requirement for the module to 5.1 (Core not supported)
+0.10.0 20200420
+* added cross platform support
+* added Remove-UMSAPICookie
+* set minimum Powershell Requirement for the module to 5.1
 * added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter detail
-* support for Datatype Version in Get-OSFirmware, Get-UMSFirmware, Get-UMSStatus
+* support for Datatype Version in Get-UMSFirmware, Get-UMSStatus
 * added Get-UMSDirectoryRecursive
 * edited SerialNumber Length to 18
+* remove *-OS* functions
 '@
 
     } # Ende der PSData-Hashtabelle
