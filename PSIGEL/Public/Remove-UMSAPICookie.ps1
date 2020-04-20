@@ -42,8 +42,10 @@ function Remove-UMSAPICookie
       ContentType      = 'application/json'
       SecurityProtocol = $SecurityProtocol
     }
-    $Result = (Invoke-UMSRestMethodWebsession @Params).Message
-
+    if ($PSCmdlet.ShouldProcess($Cookie.Value))
+    {
+      $Result = (Invoke-UMSRestMethodWebsession @Params).Message
+    }
     switch ($Result)
     {
       $null
