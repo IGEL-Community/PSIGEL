@@ -4,9 +4,9 @@ param
   [String]
   $Tags = 'UnitTests',
 
-  [ValidateSet('Default', 'Passed', 'Failed', 'Pending', 'Skipped', 'Inconclusive', 'Describe', 'Context', 'Summary')]
-  [String]
-  $Show = 'Summary',
+  #[ValidateSet('Default', 'Passed', 'Failed', 'Pending', 'Skipped', 'Inconclusive', 'Describe', 'Context', 'Summary')]
+  [String[]]
+  $Show = 'Summary, Failed',
 
   [Switch]
   $EnableExit = $false
@@ -15,9 +15,13 @@ $ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
 $ModuleName = Split-Path $ModuleRoot -Leaf
 $OutputPath = '{0}\Tests\Data' -f $ProjectRoot
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
 $Credential = Import-Clixml -Path $Cfg.CredPath
+
+# PS7 on Windows
+#Import-Module 'C:\Program Files\PowerShell\7\Modules\CimCmdlets\CimCmdlets.psd1'
 
 if ($Tags -contains { 'IntegrationTest ' -or 'All' })
 {
@@ -48,6 +52,7 @@ foreach ($Test in $Cfg.Tests)
   {
     ( { $PSItem.All } )
     {
+      Write-Host $Test.All
       $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.All
       $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.All
       switch ($Tags)
@@ -72,6 +77,7 @@ foreach ($Test in $Cfg.Tests)
     }
     ( { $PSItem.IntegrationTests } )
     {
+      Write-Host $Test.IntegrationTests
       $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.IntegrationTests
       $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.IntegrationTests
       switch ($Tags)
@@ -90,6 +96,7 @@ foreach ($Test in $Cfg.Tests)
     }
     ( { $PSItem.UnitTests } )
     {
+      Write-Host $Test.UnitTests
       $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.UnitTests
       $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.UnitTests
       switch ($Tags)
@@ -108,6 +115,7 @@ foreach ($Test in $Cfg.Tests)
     }
     ( { $PSItem.PrivateUnitTests } )
     {
+      Write-Host $Test.PrivateUnitTests
       $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.PrivateUnitTests
       $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.PrivateUnitTests
       switch ($Tags)
@@ -126,6 +134,7 @@ foreach ($Test in $Cfg.Tests)
     }
     ( { $PSItem.General } )
     {
+      Write-Host $Test.General
       $IVPParams.Script = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Test.General
       $IVPParams.OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Test.General
       switch ($Tags)

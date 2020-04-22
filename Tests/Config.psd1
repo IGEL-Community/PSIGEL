@@ -16,9 +16,9 @@ Tests Config
     @{
       General = 'PSIGEL'
     }
-    # Invoke-UMSRestMethodWebSession
+    # Invoke-UMSRestMethod
     @{
-      PrivateUnitTests = 'Invoke-UMSRestMethodWebSession'
+      PrivateUnitTests = 'Invoke-UMSRestMethod'
     }
     # New-UMSFilterString
     @{

@@ -34,7 +34,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It 'Get-UMSProfileDirectory Should not throw' {
         { Get-UMSProfileDirectory } | Should -Not -Throw
@@ -48,7 +48,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           SyncRoot = @{
             id         = '2'
@@ -62,9 +62,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Get-UMSProfileDirectory
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -90,7 +90,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName ID" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           id         = '2'
           name       = 'ProfileName'
@@ -102,9 +102,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Get-UMSProfileDirectory -Id 2
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -130,7 +130,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Filter children" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           DirectoryChildren = @(
             @{
@@ -162,9 +162,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -189,7 +189,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It 'should throw Error' {
         { Get-UMSProfileDirectory } | Should throw 'Error'

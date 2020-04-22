@@ -44,7 +44,7 @@ function Remove-UMSAPICookie
     }
     if ($PSCmdlet.ShouldProcess($Cookie.Value))
     {
-      $Result = (Invoke-UMSRestMethodWebsession @Params).Message
+      $Result = (Invoke-UMSRestMethod @Params).Message
     }
     switch ($Result)
     {

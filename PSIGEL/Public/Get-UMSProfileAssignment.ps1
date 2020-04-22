@@ -41,7 +41,7 @@
       WebSession       = $WebSession
       Method           = 'Get'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
 
@@ -56,7 +56,7 @@
         $Params.Add('Uri', ('{0}/{1}/assignments/tcdirectories' -f $BaseURL, $Id))
       }
     }
-    $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+    $APIObjectColl = (Invoke-UMSRestMethod @Params).SyncRoot
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $ProfileColl = foreach ($child in $APIObject)

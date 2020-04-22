@@ -34,7 +34,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It "New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc'" {
         { New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' } | Should -Not -Throw
@@ -48,7 +48,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "tc" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = '1 asssignments successfully assigned'
@@ -58,9 +58,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc'
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -94,7 +94,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "tcdirectory" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = '1 asssignments successfully assigned'
@@ -104,9 +104,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = $Result = New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory'
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -140,13 +140,13 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       $Result = New-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' -WhatIf
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 0 times' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 0
           Exactly     = $true
         }
@@ -159,7 +159,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It 'should throw Error' {
         { New-UMSProfileAssignment  -Id 2 -ReceiverId 2 -ReceiverType 'tc' } | Should throw 'Error'

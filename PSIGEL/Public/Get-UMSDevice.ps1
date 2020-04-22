@@ -50,12 +50,12 @@
       'All'
       {
         $Params.Add('Uri', ('{0}{1}' -f $BaseURL, $FilterString))
-        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+        $APIObjectColl = (Invoke-UMSRestMethod @Params).SyncRoot
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}{2}' -f $BaseURL, $Id, $FilterString))
-        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethod @Params
       }
     }
 

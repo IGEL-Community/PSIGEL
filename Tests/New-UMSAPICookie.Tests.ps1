@@ -57,7 +57,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "All" {
 
-      Mock 'Invoke-RestMethod' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = 'JSESSIONID=3FB2F3F6A089FE9029DFD6DAFEF146DC'
@@ -67,9 +67,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = New-UMSAPICookie
 
-      It 'Assert Invoke-RestMethod is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-RestMethod'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }

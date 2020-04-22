@@ -50,12 +50,12 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         [pscustomobject]@{ }
       }
 
-      It "Invoke-UMSRestMethodWebSession Should not throw" {
-        { Invoke-UMSRestMethodWebSession } | Should -Not -Throw
+      It "Invoke-UMSRestMethod Should not throw" {
+        { Invoke-UMSRestMethod } | Should -Not -Throw
       }
 
-      It "Invoke-UMSRestMethodWebSession -Method 'nonexisting' -ErrorAction Stop Should throw" {
-        { Invoke-UMSRestMethodWebSession -Method 'nonexisting' -ErrorAction Stop } | Should -Throw
+      It "Invoke-UMSRestMethod -Method 'nonexisting' -ErrorAction Stop Should throw" {
+        { Invoke-UMSRestMethod -Method 'nonexisting' -ErrorAction Stop } | Should -Throw
       }
 
     }
@@ -66,7 +66,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         [pscustomobject]@{ Test = 'Test' }
       }
 
-      $Result = Invoke-UMSRestMethodWebSession
+      $Result = Invoke-UMSRestMethod
 
       It 'Assert Invoke-RestMethod is called exactly 1 time' {
         $AMCParams = @{
@@ -92,15 +92,15 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Mock an exception" {
 
-      Mock 'Invoke-RestMethod' -Skip {
+      Mock 'Invoke-RestMethod' {
         [System.Net.WebException]::new('400') |
         Add-Member -NotePropertyName Response -PassThru -Force -NotePropertyValue (
           [PSCustomObject]@{ StatusCode = [System.Net.HttpStatusCode]::BadRequest }
         ) # work in progress
       }
 
-      It Invoke-UMSRestMethodWebSession' should throw' -Skip {
-        { Invoke-UMSRestMethodWebSession } | Should Throw 'some error'
+      It Invoke-UMSRestMethod' should throw' -Skip {
+        { Invoke-UMSRestMethod } | Should Throw 'some error'
       } # makes no sense without above
     }
 

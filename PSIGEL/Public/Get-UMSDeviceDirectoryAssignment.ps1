@@ -39,10 +39,10 @@ function Get-UMSDeviceDirectoryAssignment
       Uri              = ('{0}/{1}/assignments/profiles' -f $BaseURL, $Id)
       Method           = 'Get'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+    $APIObjectColl = Invoke-UMSRestMethod @Params
     $Result = foreach ($APIObject in $APIObjectColl)
     {
       $ProfileColl = foreach ($child in $APIObject)

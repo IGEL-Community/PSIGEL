@@ -35,7 +35,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It "Send-UMSDeviceSetting -Id 2 Should not throw" {
         { Send-UMSDeviceSetting -Id 2 } | Should -Not -Throw
@@ -44,7 +44,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             CommandExecList = (
@@ -62,9 +62,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Send-UMSDeviceSetting -Id 2
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -94,13 +94,13 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       $Result = Send-UMSDeviceSetting -Id 2 -WhatIf
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 0 times' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 0
           Exactly     = $true
         }
@@ -113,7 +113,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It "Send-UMSDeviceSetting -Id 2 -ApiVersion 10 -ErrorAction Stop Should throw" {
         { Send-UMSDeviceSetting -Id 2 -ApiVersion 10 -ErrorAction Stop } | Should -Throw

@@ -55,7 +55,7 @@ function Move-UMSDevice
     }
     if ($PSCmdlet.ShouldProcess(('Id: {0} to DestId: {1}' -f $Id, $DestId)))
     {
-      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethod @Params
     }
     $Result = foreach ($APIObject in $APIObjectColl)
     {

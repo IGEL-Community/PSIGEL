@@ -64,7 +64,7 @@
         [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
       }
     }
-    $SessionResponse = Invoke-UMSRestMethodWebsession @Params
+    $SessionResponse = Invoke-UMSRestMethod @Params
 
     if ($SessionResponse)
     {

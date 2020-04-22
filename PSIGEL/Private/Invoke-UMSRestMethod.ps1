@@ -1,4 +1,4 @@
-function Invoke-UMSRestMethodWebSession
+function Invoke-UMSRestMethod
 {
   <#
     .SYNOPSIS
@@ -16,7 +16,7 @@ function Invoke-UMSRestMethodWebSession
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    Invoke-UMSRestMethodWebSession @Params
+    Invoke-UMSRestMethod @Params
 
     .EXAMPLE
     $Params = @{
@@ -28,7 +28,7 @@ function Invoke-UMSRestMethodWebSession
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    Invoke-UMSRestMethodWebSession @Params
+    Invoke-UMSRestMethod @Params
 
   #>
 
