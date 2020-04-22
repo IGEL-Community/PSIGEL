@@ -7,6 +7,7 @@ Tests Config
   Computername     = 'igelrmserver'
   TCPPort          = 9443
   CredPath         = 'C:\Credentials\UMSRmdb.cred'
+  CredPathWsl      = '/mnt/c/Credentials/UmsRmdbWsl.cred'
   SecurityProtocol = 'Tls12'
   ProfileRootDirId = 527 # Profiles/PSIGEL
   DeviceRootDirId  = 502 # Devices/PSIGEL
@@ -14,27 +15,35 @@ Tests Config
   Tests            = @(
     # PSIGEL
     @{
-      General = 'PSIGEL'
+      Name = 'PSIGEL'
     }
     # Invoke-UMSRestMethod
     @{
-      PrivateUnitTests = 'Invoke-UMSRestMethod'
+      Name = 'Invoke-UMSRestMethod'
+      Tags = 'UnitTests'
+      #CodeCoveragePath = 'Private'
     }
     # New-UMSFilterString
     @{
-      PrivateUnitTests = 'New-UMSFilterString'
+      Name             = 'New-UMSFilterString'
+      Tags             = 'UnitTests'
+      CodeCoveragePath = 'Private'
     }
     # New-UMSAPICookie
     @{
-      All           = 'New-UMSAPICookie'
+      Name          = 'New-UMSAPICookie'
+      Tags          = 'UnitTests, IntegrationTests'
+      #CodeCoveragePath = 'Public'
       ParameterSets = @{
         Default = @{ }
       }
     }
     # Get-UMSStatus
     @{
-      All           = 'Get-UMSStatus'
-      ParameterSets = @{
+      Name             = 'Get-UMSStatus'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Expected = @{
             RmGuiServerVersion = '6.3.130'
@@ -52,8 +61,10 @@ Tests Config
     }
     # New-UMSDeviceDirectory
     @{
-      All           = 'New-UMSDeviceDirectory'
-      ParameterSets = @{
+      Name             = 'New-UMSDeviceDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Name = 'QA'
@@ -71,8 +82,10 @@ Tests Config
     }
     # New-UMSDevice
     @{
-      All           = 'New-UMSDevice'
-      ParameterSets = @{
+      Name             = 'New-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Mac        = '0A0000000007'
@@ -110,8 +123,10 @@ Tests Config
     }
     # New-UMSProfileDirectory
     @{
-      All           = 'New-UMSProfileDirectory'
-      ParameterSets = @{
+      Name             = 'New-UMSProfileDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Name = 'Devices'
@@ -129,8 +144,10 @@ Tests Config
     }
     # New-UMSProfileAssignment
     @{
-      All           = 'New-UMSProfileAssignment'
-      ParameterSets = @{
+      Name             = 'New-UMSProfileAssignment'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id           = 538 # NW_WLAN
@@ -164,8 +181,10 @@ Tests Config
     }
     # Remove-UMSDevice
     @{
-      All           = 'Remove-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Remove-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 572 # L-DIS-011
@@ -191,8 +210,10 @@ Tests Config
     }
     # Remove-UMSDeviceDirectory
     @{
-      All           = 'Remove-UMSDeviceDirectory'
-      ParameterSets = @{
+      Name             = 'Remove-UMSDeviceDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 520 # L_Distribution
@@ -211,8 +232,10 @@ Tests Config
     }
     # Remove-UMSProfile
     @{
-      All           = 'Remove-UMSProfile'
-      ParameterSets = @{
+      Name             = 'Remove-UMSProfile'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 542 # SYS_TZ_CET
@@ -229,8 +252,10 @@ Tests Config
     }
     # Remove-UMSProfileDirectory
     @{
-      All           = 'Remove-UMSProfileDirectory'
-      ParameterSets = @{
+      Name             = 'Remove-UMSProfileDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 541 # System
@@ -247,8 +272,10 @@ Tests Config
     }
     # Remove-UMSProfileAssignment
     @{
-      All           = 'Remove-UMSProfileAssignment'
-      ParameterSets = @{
+      Name             = 'Remove-UMSProfileAssignment'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id           = 538 # NW_WLAN
@@ -282,8 +309,10 @@ Tests Config
     }
     # Move-UMSDevice
     @{
-      All           = 'Move-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Move-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id     = 518 # L-DEV-009
@@ -327,8 +356,10 @@ Tests Config
     }
     # Move-UMSDeviceDirectory
     @{
-      All           = 'Move-UMSDeviceDirectory'
-      ParameterSets = @{
+      Name             = 'Move-UMSDeviceDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id     = 597 # QA
@@ -356,8 +387,10 @@ Tests Config
     }
     # Move-UMSProfileDirectory
     @{
-      All           = 'Move-UMSProfileDirectory'
-      ParameterSets = @{
+      Name             = 'Move-UMSProfileDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id     = 534 # Network User Interface
@@ -377,8 +410,10 @@ Tests Config
     }
     # Move-UMSProfile
     @{
-      All           = 'Move-UMSProfile'
-      ParameterSets = @{
+      Name             = 'Move-UMSProfile'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id     = 535 # NW_LNG_DE
@@ -398,8 +433,10 @@ Tests Config
     }
     # Update-UMSDeviceDirectory
     @{
-      All           = 'Update-UMSDeviceDirectory'
-      ParameterSets = @{
+      Name             = 'Update-UMSDeviceDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id   = 517 # L_Develpoment
@@ -427,8 +464,10 @@ Tests Config
     }
     #Update-UMSDevice
     @{
-      All           = 'Update-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Update-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id   = 518 # L-DEV-009
@@ -472,8 +511,10 @@ Tests Config
     }
     # Update-UMSProfileDirectory
     @{
-      All           = 'Update-UMSProfileDirectory'
-      ParameterSets = @{
+      Name             = 'Update-UMSProfileDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id   = 534 # Network user Interface
@@ -493,8 +534,10 @@ Tests Config
     }
     # Update-UMSProfile
     @{
-      All           = 'Update-UMSProfile'
-      ParameterSets = @{
+      Name             = 'Update-UMSProfile'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id   = 535 # NW_LNG_DE
@@ -514,8 +557,10 @@ Tests Config
     }
     # Start-UMSDevice
     @{
-      All           = 'Start-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Start-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 576 # BR-MKT-004
@@ -538,8 +583,10 @@ Tests Config
     }
     # Send-UMSDeviceSetting
     @{
-      All           = 'Send-UMSDeviceSetting'
-      ParameterSets = @{
+      Name             = 'Send-UMSDeviceSetting'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 576 # BR-MKT-004
@@ -562,8 +609,10 @@ Tests Config
     }
     # Restart-UMSDevice
     @{
-      All           = 'Restart-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Restart-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 576 # BR-MKT-004
@@ -586,8 +635,10 @@ Tests Config
     }
     # Stop-UMSDevice
     @{
-      All           = 'Stop-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Stop-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 576 # BR-MKT-004
@@ -610,8 +661,10 @@ Tests Config
     }
     # Reset-UMSDevice
     @{
-      All           = 'Reset-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Reset-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 576 # BR-MKT-004
@@ -634,8 +687,9 @@ Tests Config
     }
     # Pipeline.UMSProfileAssignment
     @{
-      IntegrationTests = 'Pipeline.UMSProfileAssignment'
-      ParameterSets    = @{
+      Name          = 'Pipeline.UMSProfileAssignment'
+      Tags          = 'IntegrationTests'
+      ParameterSets = @{
         ValueFromPipeline               = @{
           NewAssignmentParams    = @{
             Id           = 595 # SES_RDP_Session02
@@ -699,8 +753,9 @@ Tests Config
     }
     # Pipeline.UMSDevice
     @{
-      IntegrationTests = 'Pipeline.UMSDevice'
-      ParameterSets    = @{
+      Name          = 'Pipeline.UMSDevice'
+      Tags          = 'IntegrationTests'
+      ParameterSets = @{
         ValueFromPipeline               = @{
           NewParams    = @{
             Mac        = '0A00000000AA'
@@ -852,8 +907,9 @@ Tests Config
     }
     # Pipeline.UMSDeviceDirectory
     @{
-      IntegrationTests = 'Pipeline.UMSDeviceDirectory'
-      ParameterSets    = @{
+      Name          = 'Pipeline.UMSDeviceDirectory'
+      Tags          = 'IntegrationTests'
+      ParameterSets = @{
         ValueFromPipeline               = @{
           NewParams    = @{
             Name = 'NewDeviceDirectory01'
@@ -924,8 +980,9 @@ Tests Config
     }
     # Pipeline.UMSProfile
     @{
-      IntegrationTests = 'Pipeline.UMSProfile'
-      ParameterSets    = @{
+      Name          = 'Pipeline.UMSProfile'
+      Tags          = 'IntegrationTests'
+      ParameterSets = @{
         ValueFromPipeline               = @{
           MoveParams   = @{
             Id     = 595 # SES_RDP_Session02
@@ -983,8 +1040,9 @@ Tests Config
     }
     # Pipeline.UMSProfileDirectory
     @{
-      IntegrationTests = 'Pipeline.UMSProfileDirectory'
-      ParameterSets    = @{
+      Name          = 'Pipeline.UMSProfileDirectory'
+      Tags          = 'IntegrationTests'
+      ParameterSets = @{
         ValueFromPipeline               = @{
           NewParams    = @{
             Name = 'NewProfileDirectory01'
@@ -1055,8 +1113,10 @@ Tests Config
     }
     # Get-UMSFirmware
     @{
-      All           = 'Get-UMSFirmware'
-      ParameterSets = @{
+      Name             = 'Get-UMSFirmware'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Expected = @(
             @{
@@ -1080,8 +1140,10 @@ Tests Config
     }
     # Get-UMSDevice
     @{
-      All           = 'Get-UMSDevice'
-      ParameterSets = @{
+      Name             = 'Get-UMSDevice'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
           }
@@ -1290,8 +1352,10 @@ Tests Config
     }
     # Get-UMSDeviceDirectory
     @{
-      All           = 'Get-UMSDeviceDirectory'
-      ParameterSets = @{
+      Name             = 'Get-UMSDeviceDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default  = @{
           Params1  = @{
           }
@@ -1404,8 +1468,10 @@ Tests Config
     }
     # Get-UMSProfile
     @{
-      All           = 'Get-UMSProfile'
-      ParameterSets = @{
+      Name             = 'Get-UMSProfile'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
           }
@@ -1479,8 +1545,10 @@ Tests Config
     }
     # Get-UMSProfileDirectory
     @{
-      All           = 'Get-UMSProfileDirectory'
-      ParameterSets = @{
+      Name             = 'Get-UMSProfileDirectory'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default  = @{
           Params1  = @{
           }
@@ -1571,8 +1639,10 @@ Tests Config
     }
     # Get-UMSProfileAssignment
     @{
-      All           = 'Get-UMSProfileAssignment'
-      ParameterSets = @{
+      Name             = 'Get-UMSProfileAssignment'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default   = @{
           Params1  = @{
             Id = 538 # NW_LAN
@@ -1619,8 +1689,10 @@ Tests Config
     }
     # Get-UMSDeviceAssignment
     @{
-      All           = 'Get-UMSDeviceAssignment'
-      ParameterSets = @{
+      Name             = 'Get-UMSDeviceAssignment'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 577 # BR-MKT-003
@@ -1667,8 +1739,10 @@ Tests Config
     }
     # Get-UMSDeviceDirectoryAssignment
     @{
-      All           = 'Get-UMSDeviceDirectoryAssignment'
-      ParameterSets = @{
+      Name             = 'Get-UMSDeviceDirectoryAssignment'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             Id = 504 # BR_HR
@@ -1715,8 +1789,10 @@ Tests Config
     }
     # Get-UMSDirectoryRecursive
     @{
-      All           = 'Get-UMSDirectoryRecursive'
-      ParameterSets = @{
+      Name             = 'Get-UMSDirectoryRecursive'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
         Default = @{
           Params1  = @{
             #DirectoryColl = 'Get-UMSDeviceDirectory'

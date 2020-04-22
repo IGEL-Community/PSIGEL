@@ -76,7 +76,7 @@ function Invoke-UMSRestMethod
   {
     $null = $PSBoundParameters.Remove('SecurityProtocol')
     $null = $PSBoundParameters.Add('ErrorAction', 'Stop')
-    Switch ($PSEdition)
+    Switch (Get-Variable -Name PSEdition -ValueOnly)
     {
       'Desktop'
       {
@@ -113,7 +113,6 @@ function Invoke-UMSRestMethod
               Write-Warning -Message ('Some error occured see HTTP status code {0} for further details. Uri: {1} Method: {2}' -f $PSItem.Exception.Response.StatusCode, $Uri, $Method)
             }
           }
-          
         }
       }
       'Core'

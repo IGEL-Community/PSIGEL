@@ -7,7 +7,6 @@ Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
-  <#
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
@@ -28,7 +27,6 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
       }
     }
   }
-  #>
 
   InModuleScope $Script:ModuleName {
 
@@ -44,7 +42,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
       '*:Method'           = 'Get'
     }
 
-    Context "General Execution" {
+    Context "Desktop General Execution" {
 
       Mock 'Invoke-RestMethod' {
         [pscustomobject]@{ }
@@ -60,33 +58,82 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     }
 
-    Context "Method Get" {
+    Switch (Get-Variable -Name PSEdition -ValueOnly)
+    {
+      'Desktop'
+      {
 
-      Mock 'Invoke-RestMethod' {
-        [pscustomobject]@{ Test = 'Test' }
-      }
+        Context "Desktop Desktop:Invoke-UMSRestMethod" {
 
-      $Result = Invoke-UMSRestMethod
+          Mock 'Get-Variable' {
+            'Desktop'
+          }
 
-      It 'Assert Invoke-RestMethod is called exactly 1 time' {
-        $AMCParams = @{
-          CommandName = 'Invoke-RestMethod'
-          Times       = 1
-          Exactly     = $true
+          Mock 'Invoke-RestMethod' {
+            [pscustomobject]@{ Test = 'Test' }
+          }
+
+          $Result = Invoke-UMSRestMethod
+
+          It 'Assert Invoke-RestMethod is called exactly 1 time' {
+            $AMCParams = @{
+              CommandName = 'Invoke-RestMethod'
+              Times       = 1
+              Exactly     = $true
+            }
+            Assert-MockCalled @AMCParams
+          }
+
+          It 'Result should have type PSCustomObject' {
+            $Result | Should -HaveType ([PSCustomObject])
+          }
+
+          It 'Result should have 1 element' {
+            @($Result).Count | Should BeExactly 1
+          }
+
+          It "Result.Test should be exactly 'Test'" {
+            $Result.Test | Should BeExactly 'Test'
+          }
         }
-        Assert-MockCalled @AMCParams
+        Mock 'Get-Variable' {
+          'Desktop'
+        }
       }
+      'Core'
+      {
+        Mock 'Get-Variable' {
+          'Core'
+        }
+        Context "Core Invoke-RestMethod" {
 
-      It 'Result should have type PSCustomObject' {
-        $Result | Should -HaveType ([PSCustomObject])
-      }
+          Mock 'Invoke-RestMethod' {
+            [pscustomobject]@{ Test = 'Test' }
+          }
 
-      It 'Result should have 1 element' {
-        @($Result).Count | Should BeExactly 1
-      }
+          $Result = Invoke-UMSRestMethod
 
-      It "Result.Test should be exactly 'Test'" {
-        $Result.Test | Should BeExactly 'Test'
+          It 'Assert Invoke-RestMethod is called exactly 1 time' {
+            $AMCParams = @{
+              CommandName = 'Invoke-RestMethod'
+              Times       = 1
+              Exactly     = $true
+            }
+            Assert-MockCalled @AMCParams
+          }
+
+          It 'Result should have type PSCustomObject' {
+            $Result | Should -HaveType ([PSCustomObject])
+          }
+
+          It 'Result should have 1 element' {
+            @($Result).Count | Should BeExactly 1
+          }
+
+          It "Result.Test should be exactly 'Test'" {
+            $Result.Test | Should BeExactly 'Test'
+          }
+        }
       }
     }
 

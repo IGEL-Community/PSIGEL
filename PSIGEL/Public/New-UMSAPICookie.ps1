@@ -44,7 +44,7 @@
       ContentType      = 'application/json'
       SecurityProtocol = $SecurityProtocol
     }
-    switch ($PSEdition)
+    switch (Get-Variable -Name PSEdition -ValueOnly)
     {
       'Desktop'
       {
