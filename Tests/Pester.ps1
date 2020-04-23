@@ -27,6 +27,7 @@ elseif ($IsWindows -and $PSEdition -eq 'Core')
   $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot, $Cfg.OutputPath.CoreW10
   Import-Module ('{0}\PowerShell\7\Modules\CimCmdlets\CimCmdlets.psd1' -f [Environment]::GetEnvironmentVariable('ProgramFiles')) -Force
   Import-Module -Name Pester -Force
+  #Import-Module C:\Users\fheiland\Documents\WindowsPowerShell\Modules\Assert\Assert.psd1
 }
 elseif ($IsLinux)
 {
@@ -36,7 +37,7 @@ else
 {
   $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot
 }
-if ($Tags -contains { 'IntegrationTest ' -or 'All' })
+if (($Tags -eq 'IntegrationTests') -or ($Tags -eq 'All'))
 {
   if ($IsLinux)
   {
@@ -68,12 +69,9 @@ foreach ($Test in $Cfg.Tests)
   $IVPParams.Add('EnableExit', $EnableExit)
   $IVPParams.Add('Script', ('{1}{0}Tests{0}{2}.Tests.ps1' -f $DSC, $ProjectRoot, $Test.Name))
   $IVPParams.Add('Outputfile', ('{1}{0}{2}.Tests.xml' -f $DSC, $OutputPath, $Test.Name))
-  switch ($Test)
+  if (($Test.CodeCoveragePath) -and ($Tags -ne 'IntegrationTests'))
   {
-    ( { $PSItem.CodeCoveragePath } )
-    {
-      $IVPParams.Add('CodeCoverage', ('{1}{0}{2}{0}{3}{0}{4}.ps1' -f $DSC, $ProjectRoot, $ModuleName, $PSItem.CodeCoveragePath, $Test.Name))
-    }
+    $IVPParams.Add('CodeCoverage', ('{1}{0}{2}{0}{3}{0}{4}.ps1' -f $DSC, $ProjectRoot, $ModuleName, $PSItem.CodeCoveragePath, $Test.Name))
   }
   Invoke-Pester @IVPParams
 }

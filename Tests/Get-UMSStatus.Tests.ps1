@@ -102,7 +102,14 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -117,7 +124,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = Get-UMSStatus } | Should Not Throw

@@ -449,7 +449,28 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    if ($IsLinux)
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+    }
+    else
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPath
+    }
+  }
+  else
+  {
+    if ($IsLinux)
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+    }
+    else
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPath
+    }
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -466,7 +487,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = @(
@@ -504,7 +525,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName Details" {
 
     $Script:Result = ''
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Details
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Details
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1
@@ -543,7 +564,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName Online" {
 
     $Script:Result = ''
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Online
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Online
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1

@@ -30,9 +30,9 @@ Tests Config
     }
     # New-UMSFilterString
     @{
-      Name             = 'New-UMSFilterString'
-      Tags             = 'UnitTests'
-      CodeCoveragePath = 'Private'
+      Name = 'New-UMSFilterString'
+      Tags = 'UnitTests'
+      #CodeCoveragePath = 'Private'
     }
     # New-UMSAPICookie
     @{
@@ -1912,10 +1912,10 @@ Tests Config
     }
     # Remove-UMSAPICookie
     @{
-      Name             = 'Remove-UMSAPICookie'
-      Tags             = 'UnitTests, IntegrationTests'
-      CodeCoveragePath = 'Public'
-      ParameterSets    = @{
+      Name          = 'Remove-UMSAPICookie'
+      Tags          = 'UnitTests, IntegrationTests'
+      #CodeCoveragePath = 'Public'
+      ParameterSets = @{
         Default = @{ }
       }
     }
