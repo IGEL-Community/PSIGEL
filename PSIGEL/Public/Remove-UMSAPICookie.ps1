@@ -44,19 +44,20 @@ function Remove-UMSAPICookie
     }
     if ($PSCmdlet.ShouldProcess($Cookie.Value))
     {
-      $Result = (Invoke-UMSRestMethod @Params).Message
+      $Result = (Invoke-UMSRestMethod @Params)
     }
     switch ($Result)
     {
-      $null
+      'null'
       {
-        Write-Verbose $Cookie.Value
+        $Cookie.Value
       }
       Default
       {
         Write-Warning ('Could not remove Cookie {0}={1}!' -f $Cookie.Name, $Cookie.Value)
       }
     }
+    #>
 
   }
   End

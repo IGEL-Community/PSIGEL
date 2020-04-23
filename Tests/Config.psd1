@@ -11,6 +11,11 @@ Tests Config
   SecurityProtocol = 'Tls12'
   ProfileRootDirId = 527 # Profiles/PSIGEL
   DeviceRootDirId  = 502 # Devices/PSIGEL
+  OutputPath       = @{
+    Desktop = 'Desktop'
+    CoreW10 = 'CoreW10'
+    CoreWSL = 'CoreWSL'
+  }
 
   Tests            = @(
     # PSIGEL
@@ -1903,6 +1908,15 @@ Tests Config
             ExcludedPaths = ''
           }
         }
+      }
+    }
+    # Remove-UMSAPICookie
+    @{
+      Name             = 'Remove-UMSAPICookie'
+      Tags             = 'UnitTests, IntegrationTests'
+      CodeCoveragePath = 'Public'
+      ParameterSets    = @{
+        Default = @{ }
       }
     }
   )

@@ -24,21 +24,22 @@ elseif ($PSEdition -eq 'core' -and (-Not $IsWindows) )
 
 $WebSession = New-UMSAPICookie
 
-if ($WebSession)
-{
-  $PSDefaultParameterValues += @{
-    '*-UMS*:WebSession' = $WebSession
-  }
-  #<#
-  $Result = ''
-  $Result = Get-UMSDeviceAssignment -Id 505
-  #$Result = Get-UMSDevice
-  #$Result = Get-UMSFirmware
-  $Result
-
-  Remove-UMSAPICookie #-Verbose
-
+$PSDefaultParameterValues += @{
+  '*-UMS*:WebSession' = $WebSession
 }
+#<#
+#$Result = ''
+$Result = Get-UMSDeviceAssignment -Id 505
+#$Result = Get-UMSDevice
+#$Result = Get-UMSFirmware
+#$Result
+
+$Result2 = Remove-UMSAPICookie
+#$Result2.Gettype()
+$Result2 | Get-Member
+$Result2.Length
+
+
 #>
 
 
