@@ -38,6 +38,9 @@ $Result2 = Remove-UMSAPICookie
 #$Result2.Gettype()
 $Result2 | Get-Member
 $Result2.Length
+#[String]
+($WebSession.Cookies.GetCookies('https://igelrmserver').Value)
+
 
 
 #>
