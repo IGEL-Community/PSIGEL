@@ -27,7 +27,6 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
   InModuleScope $Script:ModuleName {
 
-
     $User = "User"
     $PassWord = ConvertTo-SecureString -String "Password" -AsPlainText -Force
     $PSDefaultParameterValues = @{
@@ -37,7 +36,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-RestMethod' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = 'JSESSIONID=3FB2F3F6A089FE9029DFD6DAFEF146DC'
