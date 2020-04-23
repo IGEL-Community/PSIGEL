@@ -32,22 +32,16 @@ $PSDefaultParameterValues += @{
 $Result = Get-UMSDeviceAssignment -Id 505
 #$Result = Get-UMSDevice
 #$Result = Get-UMSFirmware
-#$Result
+$Result
 
-$Result2 = Remove-UMSAPICookie
-#$Result2.Gettype()
-$Result2 | Get-Member
-$Result2.Length
-#[String]
-($WebSession.Cookies.GetCookies('https://igelrmserver').Value)
-
-
+$null = Remove-UMSAPICookie
 
 #>
 
 
 
 <#
+($WebSession.Cookies.GetCookies('https://igelrmserver').Value)
 
 $NewParams = @{
   Mac        = '0A00000000AA'
