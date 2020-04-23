@@ -48,7 +48,7 @@ function Remove-UMSAPICookie
     }
     switch ($Result)
     {
-      'null'
+      { 'null' -or $null }
       {
         $Cookie.Value
       }
