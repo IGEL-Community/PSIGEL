@@ -1,8 +1,8 @@
 param
 (
-  [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
+  [ValidateSet('UnitTests', 'IntegrationTests')]
   [String]
-  $Tags = 'UnitTests',
+  $Tags,
 
   [String[]]
   $Show = ('Header', 'Summary', 'Failed'),
@@ -37,7 +37,7 @@ else
 {
   $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot
 }
-if (($Tags -eq 'IntegrationTests') -or ($Tags -eq 'All'))
+if ($Tags -eq 'IntegrationTests')
 {
   if ($IsLinux)
   {
@@ -71,7 +71,7 @@ foreach ($Test in $Cfg.Tests)
   $IVPParams.Add('Outputfile', ('{1}{0}{2}.Tests.xml' -f $DSC, $OutputPath, $Test.Name))
   if (($Test.CodeCoveragePath) -and ($Tags -ne 'IntegrationTests'))
   {
-    $IVPParams.Add('CodeCoverage', ('{1}{0}{2}{0}{3}{0}{4}.ps1' -f $DSC, $ProjectRoot, $ModuleName, $PSItem.CodeCoveragePath, $Test.Name))
+    $IVPParams.Add('CodeCoverage', ('{1}{0}{2}{0}{3}{0}{4}.ps1' -f $DSC, $ProjectRoot, $ModuleName, $Test.CodeCoveragePath, $Test.Name))
   }
   Invoke-Pester @IVPParams
 }
