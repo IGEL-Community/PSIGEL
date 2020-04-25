@@ -38,7 +38,7 @@
       Uri              = $BaseURL
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
-    $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+    $APIObjectColl = Invoke-UMSRestMethod @Params
 
     $Result = foreach ($APIObject in $APIObjectColl)
     {

@@ -7,7 +7,14 @@ Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -24,7 +31,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ValueFromPipeline" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.IntegrationTests -eq $ScriptName }).ParameterSets.ValueFromPipeline
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.ValueFromPipeline
 
     It "doesn't throw" {
       $MoveParams = $TestCfg.MoveParams
@@ -67,7 +74,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   Context "ValueFromPipelineByPropertyName" {
 
     $Script:Result
-    $TestCfg = (($Cfg.Tests).where{ $_.IntegrationTests -eq $ScriptName }).ParameterSets.ValueFromPipelineByPropertyName
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.ValueFromPipelineByPropertyName
 
     It "doesn't throw" {
       $MoveParams = $TestCfg.MoveParams

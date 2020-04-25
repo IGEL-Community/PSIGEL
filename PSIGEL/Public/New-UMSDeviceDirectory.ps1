@@ -43,12 +43,12 @@ function New-UMSDeviceDirectory
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     if ($PSCmdlet.ShouldProcess('Name: {0}' -f $Name))
     {
-      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethod @Params
     }
     $Result = foreach ($APIObject in $APIObjectColl)
     {

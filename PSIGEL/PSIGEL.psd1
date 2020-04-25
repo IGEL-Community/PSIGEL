@@ -9,30 +9,30 @@
 @{
 
   # Die diesem Manifest zugeordnete Skript- oder Binaermoduldatei.
-  RootModule        = 'PSIGEL.psm1'
+  RootModule           = 'PSIGEL.psm1'
 
   # Die Versionsnummer dieses Moduls
-  ModuleVersion     = '0.9.0'
+  ModuleVersion        = '0.10.0'
 
   # Unterstuetzte PSEditions
-  # CompatiblePSEditions = @()
+  CompatiblePSEditions = @('Desktop', 'Core')
 
   # ID zur eindeutigen Kennzeichnung dieses Moduls
-  GUID              = '4834fbc2-faf6-469c-b685-0195954fd878'
+  GUID                 = '4834fbc2-faf6-469c-b685-0195954fd878'
 
   # Autor dieses Moduls
-  Author            = 'Falk Heiland'
+  Author               = 'Falk Heiland'
 
   # Company or vendor of this module
 
   # Urheberrechtserklaerung fuer dieses Modul
-  Copyright         = '(c) 2018 Falk Heiland. Alle Rechte vorbehalten.'
+  Copyright            = '(c) 2018 Falk Heiland. Alle Rechte vorbehalten.'
 
   # Beschreibung der von diesem Modul bereitgestellten Funktionen
-  Description       = 'Tools for use with device products of IGEL Technology GmbH'
+  Description          = 'API functions for use with UMS of IGEL TECHNOLOGY'
 
   # Die fuer dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
-  PowerShellVersion = '5.1'
+  PowerShellVersion    = '5.1'
 
   # Der Name des fuer dieses Modul erforderlichen Windows PowerShell-Hosts
   # PowerShellHostName = ''
@@ -68,7 +68,7 @@
   # NestedModules = @()
 
   # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
-  FunctionsToExport = @(
+  FunctionsToExport    = @(
     'Get-UMSDevice'
     'Get-UMSDeviceAssignment'
     'Get-UMSDeviceDirectory'
@@ -88,6 +88,7 @@
     'New-UMSDeviceDirectory'
     'New-UMSProfileAssignment'
     'New-UMSProfileDirectory'
+    'Remove-UMSAPICookie'
     'Remove-UMSDevice'
     'Remove-UMSDeviceDirectory'
     'Remove-UMSProfile'
@@ -105,13 +106,13 @@
   )
 
   # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.
-  CmdletsToExport   = @()
+  CmdletsToExport      = @()
 
   # Die aus diesem Modul zu exportierenden Variablen
-  VariablesToExport = @()
+  VariablesToExport    = @()
 
   # Aus diesem Modul zu exportierende Aliase. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und loeschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Aliase vorhanden sind.
-  AliasesToExport   = @()
+  AliasesToExport      = @()
 
   # Aus diesem Modul zu exportierende DSC-Ressourcen
   # DscResourcesToExport = @()
@@ -123,12 +124,12 @@
   # FileList = @()
 
   # Die privaten Daten, die an das in "RootModule/ModuleToProcess" angegebene Modul uebergeben werden sollen. Diese koennen auch eine PSData-Hashtabelle mit zusaetzlichen von PowerShell verwendeten Modulmetadaten enthalten.
-  PrivateData       = @{
+  PrivateData          = @{
 
     PSData = @{
 
       # 'Tags' wurde auf das Modul angewendet und unterstuetzt die Modulermittlung in Onlinekatalogen.
-      Tags         = @('IGEL')
+      Tags         = @('IGEL', 'UMS', 'IMI')
 
       # Eine URL zur Lizenz fuer dieses Modul.
       LicenseUri   = 'https://github.com/IGEL-Community/PSIGEL/blob/master/LICENSE'
@@ -141,12 +142,15 @@
 
       # 'ReleaseNotes' des Moduls
       ReleaseNotes = @'
-0.9.1 2019xxxx
-* set minimum Powershell Requirement for the module to 5.1 (Core not supported)
+0.10.0 20200420
+* added cross platform support
+* added Remove-UMSAPICookie
+* set minimum Powershell Requirement for the module to 5.1
 * added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter detail
-* support for Datatype Version in Get-OSFirmware, Get-UMSFirmware, Get-UMSStatus
+* support for Datatype Version in Get-UMSFirmware, Get-UMSStatus
 * added Get-UMSDirectoryRecursive
 * edited SerialNumber Length to 18
+* remove *-OS* functions
 '@
 
     } # Ende der PSData-Hashtabelle

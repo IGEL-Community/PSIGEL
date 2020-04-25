@@ -34,7 +34,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It 'Get-UMSDevice Should not throw' {
         { Get-UMSDevice } | Should -Not -Throw
@@ -48,7 +48,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           SyncRoot = @{
             mac        = '0123456789AB'
@@ -76,9 +76,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -104,7 +104,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName ID" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           mac        = '0123456789AB'
           firmwareID = '1'
@@ -130,9 +130,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -158,7 +158,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Filter online" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           mac        = '0123456789AB'
           firmwareID = '1'
@@ -184,9 +184,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -212,7 +212,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Filter shadow" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           mac          = '0123456789AB'
           firmwareID   = '1'
@@ -241,9 +241,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -265,7 +265,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Filter details" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           mac                       = '0123456789AB'
           firmwareID                = '1'
@@ -322,9 +322,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -350,7 +350,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Filter details no datetime" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           mac                       = '0123456789AB'
           firmwareID                = '1'
@@ -407,9 +407,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -434,7 +434,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It 'should throw Error' {
         { Get-UMSDevice } | Should throw 'Error'
@@ -449,7 +449,28 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    if ($IsLinux)
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+    }
+    else
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPath
+    }
+  }
+  else
+  {
+    if ($IsLinux)
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+    }
+    else
+    {
+      $Credential = Import-Clixml -Path $Cfg.CredPath
+    }
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -466,7 +487,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = @(
@@ -504,7 +525,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName Details" {
 
     $Script:Result = ''
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Details
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Details
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1
@@ -543,7 +564,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName Online" {
 
     $Script:Result = ''
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Online
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Online
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1

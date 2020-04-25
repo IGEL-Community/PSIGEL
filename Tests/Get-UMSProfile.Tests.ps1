@@ -34,7 +34,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It 'Get-UMSProfile Should not throw' {
         { Get-UMSProfile } | Should -Not -Throw
@@ -48,7 +48,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           SyncRoot = @{
             firmwareID        = '2'
@@ -65,9 +65,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Get-UMSProfile
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -97,7 +97,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName ID" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           firmwareID        = '2'
           isMasterProfile   = 'false'
@@ -112,9 +112,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Get-UMSProfile -Id 2
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -143,7 +143,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It 'should throw Error' {
         { Get-UMSProfile } | Should throw 'Error'
@@ -158,7 +158,14 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -175,7 +182,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = @(

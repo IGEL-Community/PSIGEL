@@ -1,29 +1,47 @@
-Import-Module C:\GitHub\PSIGEL\PSIGEL\PSIGEL.psd1 -Force
-$UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
+$DSC = [IO.Path]::DirectorySeparatorChar
+$PSIGELPath = 'GitHub{0}PSIGEL{0}PSIGEL{0}PSIGEL.psd1' -f $DSC
 
 $PSDefaultParameterValues = @{
-  'New-UMSAPICookie:Credential' = Import-Clixml -Path $UMSCredPath
-  '*-UMS*:Computername'         = 'igelrmserver'
-  '*-UMS*:TCPPort'              = 9443
-  '*-UMS*:Confirm'              = $False
+  '*-UMS*:Computername' = 'igelrmserver'
+  '*-UMS*:TCPPort'      = 9443
+  '*-UMS*:Confirm'      = $False
   #'*-UMS*:SecurityProtocol'     = 'Tls'
+}
+
+if (($PSEdition -eq 'Core' -and $IsWindows) -or ($PSEdition -eq 'Desktop' -and ($PSVersionTable.PSVersion.Major -eq 5 -and $PSVersionTable.PSVersion.Minor -eq 1)))
+{
+  # PS7 on Windows or Windows PowerShell 5.1
+  Import-Module -FullyQualifiedName ('C:\{0}' -f $PSIGELPath) -Force
+  $PSDefaultParameterValues.Add('New-UMSAPICookie:Credential', (Import-Clixml -Path 'C:\Credentials\UmsRmdb.cred'))
+}
+elseif ($PSEdition -eq 'core' -and (-Not $IsWindows) )
+{
+  # PS7 on Linux OR MacOS
+  Import-Module -FullyQualifiedName ('/mnt/c/{0}' -f $PSIGELPath) -Force
+  # Dont use the following method in production, since on linux the clixml file is not encrypted
+  $PSDefaultParameterValues.Add('New-UMSAPICookie:Credential', (Import-Clixml -Path '/mnt/c/Credentials/UmsRmdbWsl.cred'))
 }
 
 $WebSession = New-UMSAPICookie
 
-
-$WebSession.Cookies.GetCookies('https://igelrmserver').Name
-
-
-
-<#
 $PSDefaultParameterValues += @{
   '*-UMS*:WebSession' = $WebSession
 }
+#<#
+#$Result = ''
+$Result = Get-UMSDeviceAssignment -Id 505
+#$Result = Get-UMSDevice
+#$Result = Get-UMSFirmware
+$Result
+
+$null = Remove-UMSAPICookie
+
 #>
 
 
+
 <#
+($WebSession.Cookies.GetCookies('https://igelrmserver').Value)
 
 $NewParams = @{
   Mac        = '0A00000000AA'

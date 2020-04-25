@@ -35,7 +35,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It "Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' Should not throw" {
         { Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' } | Should -Not -Throw
@@ -44,7 +44,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "tc" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = 'deleted profile assignment'
@@ -54,9 +54,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc'
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -90,7 +90,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "tcdirectory" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = 'deleted profile assignment'
@@ -100,9 +100,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory'
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -136,13 +136,13 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       $Result = Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tcdirectory' -WhatIf
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 0 times' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 0
           Exactly     = $true
         }
@@ -155,7 +155,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It "Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' -ApiVersion 10 -ErrorAction Stop Should throw" {
         { Remove-UMSProfileAssignment -Id 2 -ReceiverId 2 -ReceiverType 'tc' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -170,7 +170,14 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -187,7 +194,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1

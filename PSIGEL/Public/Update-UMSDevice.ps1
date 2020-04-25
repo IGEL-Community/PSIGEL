@@ -44,7 +44,7 @@
     $CostCenter,
 
     [Parameter(ParameterSetName = 'Set')]
-    [ValidateScript( {$_ -match [IPAddress]$_})]
+    [ValidateScript( { $_ -match [IPAddress]$_ })]
     [String]
     $LastIP,
 
@@ -77,7 +77,7 @@
     {
       'Set'
       {
-        $BodyHashTable = @{}
+        $BodyHashTable = @{ }
         if ($Name)
         {
           $BodyHashTable.Add('name', $Name)
@@ -121,12 +121,12 @@
           Body             = $Body
           Method           = 'Put'
           ContentType      = 'application/json'
-          Headers          = @{}
+          Headers          = @{ }
           SecurityProtocol = ($SecurityProtocol -join ',')
         }
         if ($PSCmdlet.ShouldProcess(('Id: {0}' -f $Id)))
         {
-          $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+          $APIObjectColl = Invoke-UMSRestMethod @Params
         }
         $Result = foreach ($APIObject in $APIObjectColl)
         {

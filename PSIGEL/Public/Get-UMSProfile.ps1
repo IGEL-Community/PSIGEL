@@ -38,7 +38,7 @@
       WebSession       = $WebSession
       Method           = 'Get'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     Switch ($PsCmdlet.ParameterSetName)
@@ -46,12 +46,12 @@
       'All'
       {
         $Params.Add('Uri', ('{0}' -f $BaseURL))
-        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).SyncRoot
+        $APIObjectColl = (Invoke-UMSRestMethod @Params).SyncRoot
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
-        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethod @Params
       }
     }
     $Result = foreach ($APIObject in $APIObjectColl)

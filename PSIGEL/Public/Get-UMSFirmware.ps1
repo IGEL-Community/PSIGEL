@@ -46,12 +46,12 @@
       'All'
       {
         $Params.Add('Uri', ('{0}' -f $BaseURL))
-        $APIObjectColl = (Invoke-UMSRestMethodWebSession @Params).FwResource
+        $APIObjectColl = (Invoke-UMSRestMethod @Params).FwResource
       }
       'Id'
       {
         $Params.Add('Uri', ('{0}/{1}' -f $BaseURL, $Id))
-        $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+        $APIObjectColl = Invoke-UMSRestMethod @Params
       }
     }
     $Result = foreach ($APIObject in $APIObjectColl)

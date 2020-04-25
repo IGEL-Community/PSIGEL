@@ -47,12 +47,12 @@
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     if ($PSCmdlet.ShouldProcess(('Id: {0}' -f $Id)))
     {
-      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethod @Params
     }
     $Result = foreach ($APIObject in $APIObjectColl)
     {

@@ -35,7 +35,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It "New-UMSDeviceDirectory -Name 'NameNew' Should not throw" {
         { New-UMSDeviceDirectory -Name 'NameNew' } | Should -Not -Throw
@@ -44,7 +44,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message = 'Directory successfully inserted.'
@@ -56,9 +56,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = New-UMSDeviceDirectory -Name 'NameNew'
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -84,13 +84,13 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       $Result = New-UMSDeviceDirectory -Name 'NameNew' -WhatIf
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 0 times' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 0
           Exactly     = $true
         }
@@ -103,7 +103,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It "New-UMSDeviceDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop Should throw" {
         { New-UMSDeviceDirectory -Name 'NameNew' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -118,7 +118,14 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -133,7 +140,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1

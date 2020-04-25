@@ -34,7 +34,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' { }
+      Mock 'Invoke-UMSRestMethod' { }
 
       It 'Get-UMSProfileDirectory Should not throw' {
         { Get-UMSProfileDirectory } | Should -Not -Throw
@@ -48,7 +48,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           SyncRoot = @{
             id         = '2'
@@ -62,9 +62,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Get-UMSProfileDirectory
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -90,7 +90,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "ParameterSetName ID" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           id         = '2'
           name       = 'ProfileName'
@@ -102,9 +102,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
       $Result = Get-UMSProfileDirectory -Id 2
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -130,7 +130,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
     Context "Filter children" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         [pscustomobject]@{
           DirectoryChildren = @(
             @{
@@ -162,9 +162,9 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
         Assert-MockCalled @AMCParams
       }
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -189,7 +189,7 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' { throw 'Error' }
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It 'should throw Error' {
         { Get-UMSProfileDirectory } | Should throw 'Error'
@@ -204,7 +204,14 @@ Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
 Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
-  $Credential = Import-Clixml -Path $Cfg.CredPath
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
@@ -221,7 +228,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
 
   Context "ParameterSetName Default" {
 
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Default
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
       { $Script:Result = @(
@@ -259,7 +266,7 @@ Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
   Context "ParameterSetName Children" {
 
     $Script:Result = ''
-    $TestCfg = (($Cfg.Tests).where{ $_.All -eq $ScriptName }).ParameterSets.Children
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Children
 
     It "doesn't throw" {
       $Params1 = $TestCfg.Params1
