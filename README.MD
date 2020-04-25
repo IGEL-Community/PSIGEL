@@ -1,126 +1,96 @@
+# PSIGEL
+
+![MIT licensed](https://img.shields.io/github/license/IGEL-Community/PSIGEL?logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/IGEL-Community/PSIGEL?logo=github)
+![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/PSIGEL?logo=powershell)
+![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSIGEL?logo=powershell)
+![GitHub stars](https://img.shields.io/github/stars/IGEL-Community/PSIGEL?logo=github)
+![IGEL-Community Slack](https://img.shields.io/badge/chat-IGEL%20Community-brightgreen?logo=slack&link=https://igelcommunity.slack.com/archives/C9XFWLXA8&link=https://igelcommunity.slack.com/archives/C9XFWLXA8)
 ![Logo](PSIGEL_1280_320.png)
+
+Table of contents:
+
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+- [Maintainer](#maintainer)
+- [License](#license)
+
+## Overview
 
 **PSIGEL** is a module to interact with the IGEL UMS via API.
 
-Currently the module  only supports PowerShell version **5.1** .
+All functions got the noun-prefix **UMS** (Universal Management Server), e.g. Get-**UMS**Something .
 
-**API** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
+## Prerequisites
 
-The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/Docs/New-UMSAPICookie.md):
+|OS|min. PS Version (Edition)|
+|-|-|
+|Windows|5.1 (Desktop)\*|
+|Windows|7 (Core)\*|
+|Linux|7 (Core)\*|
+|MacOS|7 (Core)|
 
-```powershell
-$Websession = New-UMSAPICookie -Computername igelrmserver
-```
-
-My goal is to support all [API-functionalities](https://kb.igel.com/igelimi-v3/en/imi-api-v3-reference-2723425.html) IGEL provides. Use at own risk! Suggestions are welcome.
+\* tested
 
 ## Installation
 
 If you have the [PowerShellGet](https://github.com/powershell/powershellget) module installed you can enter the following command:
 
 ```powershell
-Install-Module -Name PSIGEL
+C:\> Install-Module -Name PSIGEL
 ```
 
 Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
 
-## PSIGEL Cmdlets
+## Getting Started
 
-### [Get-UMSDevice](/Docs/Get-UMSDevice.md)
-Gets information on a device.
+Import Module:
 
-### [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
-Gets information on a profile or master profile assignment of a device.
+```powershell
+C:\> Import-Module -Name PSIGEL
+```
 
-### [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
-Gets information on a device directory.
+Create a WebSession
 
-### [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
-Gets information on a profile or master profile assignment of a device directory.
+```powershell
+C:\> $WebSession = New-UMSAPICookie -Computername igelrmserver -Credential (Get-Credential)
+```
 
-### [Get-UMSDirectoryRecursive](/Docs/Get-UMSDirectoryRecursive.md)
-Gets either all directory or element ids from below given directory id.
+Call a Function - e.g. get status information from the UMS server:
 
-### [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
-Gets information on a firmware.
+```powershell
+C:\> Get-UMSStatus -Computername igelrmserver -WebSession $WebSession
 
-### [Get-UMSProfile](/Docs/Get-UMSProfile.md)
-Gets information on a profile.
+RmGuiServerVersion : 6.3.130
+BuildNumber        : 44584
+ActiveMqVersion    : 5.7.0
+DerbyVersion       : 10.12.1.1
+ServerUuid         : f30fb3a2-37d4-4cbb-b884-4f5061d3260e
+Server             : igelrmserver:8443
+```
 
-### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
-Gets information on a device or device directory assignment of a profile.
+Remove WebSession:
 
-### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
-Gets information on a profile directory.
+```powershell
+C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSession
+```
 
-### [Get-UMSStatus](/Docs/Get-UMSStatus.md)
-Gets information on the UMS.
+## Documentation
 
-### [Move-UMSDevice](/Docs/Move-UMSDevice.md)
-Moves a device to a device directory.
+You can learn how to use PSIGEL by reading our documentation:
 
-### [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
-Moves a device directory to a device directory.
+- [Functions](docs/en-US/Functions.md)
 
-### [Move-UMSProfile](/Docs/Move-UMSProfile.md)
-Moves a profile to a profile directory.
+## Maintainer
 
-### [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
-Moves a profile directory to profile directory.
+- Falk Heiland
+![https://github.com/falkheiland](https://img.shields.io/badge/github-black?logo=github&link=https://github.com/falkheiland&link=https://github.com/falkheiland)
+![http://twitter.com/falkheiland](https://img.shields.io/badge/twitter-black?logo=twitter&link=http://twitter.com/falkheiland&link=http://twitter.com/falkheiland)
 
-### [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
-Creates a websession cookie.
+## License
 
-### [New-UMSDevice](/Docs/New-UMSDevice.md)
-Creates a new device.
-
-### [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
-Creates a device directory.
-
-### [New-UMSProfileAssignment](/Docs/New-UMSProfileAssignment.md)
-Creates a profile assignment on a device or device directory.
-
-### [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
-Creates a profile directory.
-
-### [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
-Removes a device.
-
-### [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
-Removes a device directory.
-
-### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
-Removes a profile.
-
-### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
-Removes a profile assignment from a device or device directory.
-
-### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
-Removes a profile directory.
-
-### [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
-Resets a device to factory defaults.
-
-### [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
-Restarts a device.
-
-### [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
-Sends settings to a device.
-
-### [Start-UMSDevice](/Docs/Start-UMSDevice.md)
-Wakes up a device.
-
-### [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
-Shuts down a device.
-
-### [Update-UMSDevice](/Docs/Update-UMSDevice.md)
-Updates properties of a device.
-
-### [Update-UMSDeviceDirectory](/Docs/Update-UMSDeviceDirectory.md)
-Updates the name of a device directory.
-
-### [Update-UMSProfile](/Docs/Update-UMSProfile.md)
-Updates the name of a profile.
-
-### [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
-Updates the name of a profile directory.
+This project is [licensed under the MIT License](LICENSE).
