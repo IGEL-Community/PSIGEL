@@ -104,8 +104,8 @@ This project is [licensed under the MIT License](LICENSE).
 [mit-license]: LICENSE.md
 [github-commit-badge]: https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github
 [github-psigel]: https://github.com/IGEL-Community/PSIGEL
-[github-release-badge]: https://img.shields.io/github/v/release/IGEL-Community/PSIGEL?logo=github
-[psgallery-v-badge]: https://img.shields.io/powershellgallery/v/PSIGEL?logo=powershell
+[github-release-badge]: https://img.shields.io/github/release/IGEL-Community/PSIGEL/all.svg?logo=github
+[psgallery-v-badge]: https://img.shields.io/powershellgallery/v/PSIGEL?include_prereleases
 [github-start-badge]: https://img.shields.io/github/stars/IGEL-Community/PSIGEL?logo=github
 [slack-badge]: https://img.shields.io/badge/chat-IGEL%20Community-brightgreen?logo=slack
 [slack-igelcommunity]: http://join.igelcommunity.com
