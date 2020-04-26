@@ -29,7 +29,7 @@ $PSDefaultParameterValues += @{
 }
 #<#
 #$Result = ''
-$Result = Get-UMSDeviceAssignment -Id 505
+$Result = Get-UMSDevice -Id 512
 #$Result = Get-UMSDevice
 #$Result = Get-UMSFirmware
 $Result

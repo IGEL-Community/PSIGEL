@@ -22,9 +22,10 @@ Table of contents:
 
 ## Overview
 
-**PSIGEL** is a module to interact with the IGEL UMS via API.
+**PSIGEL** is a powershell module that makes use of the REST API of the [**IGEL**](https://www.igel.com) Management Interface (IMI).
 
-All functions got the noun-prefix **UMS** (Universal Management Server), e.g. Get-**UMS**Something .
+via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.html) :
+> IGEL Management Interface (IMI) enables you to connect UMS to systems management tools. It is a programming interface that can create and delete thin clients, move them between directories, reboot them and much more. Its implementation as a REST API makes IMIagnostic of hardware platforms, operating systems and programming languages, thus ensuring maximum interoperability.
 
 ## Prerequisites
 
@@ -84,12 +85,47 @@ C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSess
 
 You can learn how to use PSIGEL by reading our documentation:
 
-- [Functions](docs/Functions.md)
+### Functions
+
+- [Get-UMSDevice](/docs/Get-UMSDevice.md)
+- [Get-UMSDeviceAssignment](/docs/Get-UMSDeviceAssignment.md)
+- [Get-UMSDeviceDirectory](/docs/Get-UMSDeviceDirectory.md)
+- [Get-UMSDeviceDirectoryAssignment](/docs/Get-UMSDeviceDirectoryAssignment.md)
+- [Get-UMSDirectoryRecursive](/docs/Get-UMSDirectoryRecursive.md)
+- [Get-UMSFirmware](/docs/Get-UMSFirmware.md)
+- [Get-UMSProfile](/docs/Get-UMSProfile.md)
+- [Get-UMSProfileAssignment](/docs/Get-UMSProfileAssignment.md)
+- [Get-UMSProfileDirectory](/docs/Get-UMSProfileDirectory.md)
+- [Get-UMSStatus](/docs/Get-UMSStatus.md)
+- [Move-UMSDevice](/docs/Move-UMSDevice.md)
+- [Move-UMSDeviceDirectory](/docs/Move-UMSDeviceDirectory.md)
+- [Move-UMSProfile](/docs/Move-UMSProfile.md)
+- [Move-UMSProfileDirectory](/docs/Move-UMSProfileDirectory.md)
+- [New-UMSAPICookie](/docs/New-UMSAPICookie.md)
+- [New-UMSDevice](/docs/New-UMSDevice.md)
+- [New-UMSDeviceDirectory](/docs/New-UMSDeviceDirectory.md)
+- [New-UMSProfileAssignment](/docs/New-UMSProfileAssignment.md)
+- [New-UMSProfileDirectory](/docs/New-UMSProfileDirectory.md)
+- [Remove-UMSAPICookie](/docs/Remove-UMSAPICookie.md)
+- [Remove-UMSDevice](/docs/Remove-UMSDevice.md)
+- [Remove-UMSDeviceDirectory](/docs/Remove-UMSDeviceDirectory.md)
+- [Remove-UMSProfile](/docs/Remove-UMSProfile.md)
+- [Remove-UMSProfileAssignment](/docs/Remove-UMSProfileAssignment.md)
+- [Remove-UMSProfileDirectory](/docs/Remove-UMSProfileDirectory.md)
+- [Reset-UMSDevice](/docs/Reset-UMSDevice.md)
+- [Restart-UMSDevice](/docs/Restart-UMSDevice.md)
+- [Send-UMSDeviceSetting](/docs/Send-UMSDeviceSetting.md)
+- [Start-UMSDevice](/docs/Start-UMSDevice.md)
+- [Stop-UMSDevice](/docs/Stop-UMSDevice.md)
+- [Update-UMSDevice](/docs/Update-UMSDevice.md)
+- [Update-UMSDeviceDirectory](/docs/Update-UMSDeviceDirectory.md)
+- [Update-UMSProfile](/docs/Update-UMSProfile.md)
+- [Update-UMSProfileDirectory](/docs/Update-UMSProfileDirectory.md)
 
 ## Maintainer
 
-### Falk Heiland
-[![https://github.com/falkheiland][github-fh-badge]][github-fh]
+- Falk Heiland
+[![https://github.com/falkheiland][github-fh-badge]][github-fh
 [![http://twitter.com/falkheiland][twitter-fh-badge]][twitter-fh]
 
 ## License
@@ -105,10 +141,10 @@ This project is [licensed under the MIT License](LICENSE).
 [github-commit-badge]: https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github
 [github-psigel]: https://github.com/IGEL-Community/PSIGEL
 [github-release-badge]: https://img.shields.io/github/release/IGEL-Community/PSIGEL/all.svg?logo=github
-[psgallery-v-badge]: https://img.shields.io/powershellgallery/v/PSIGEL?include_prereleases
+[psgallery-v-badge]: https://img.shields.io/powershellgallery/v/PSIGEL?include_prereleases&logo=powershell
 [github-start-badge]: https://img.shields.io/github/stars/IGEL-Community/PSIGEL?logo=github
 [slack-badge]: https://img.shields.io/badge/chat-IGEL%20Community-brightgreen?logo=slack
-[slack-igelcommunity]: http://join.igelcommunity.com
+[slack-igelcommunity]: https://igelcommunity.slack.com/
 [github-fh-badge]: https://img.shields.io/badge/Github-falkheiland-green?logo=github
 [github-fh]: https://github.com/falkheiland
 [twitter-fh-badge]: https://img.shields.io/badge/Twitter-falkheiland-blue?logo=twitter
