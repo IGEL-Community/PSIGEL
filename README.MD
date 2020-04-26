@@ -1,12 +1,13 @@
 # PSIGEL
 
-![MIT licensed](https://img.shields.io/github/license/IGEL-Community/PSIGEL?logo=github)
-![GitHub last commit](https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/IGEL-Community/PSIGEL?logo=github)
-![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/PSIGEL?logo=powershell)
-![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/PSIGEL?logo=powershell)
-![GitHub stars](https://img.shields.io/github/stars/IGEL-Community/PSIGEL?logo=github)
-![IGEL-Community Slack](https://img.shields.io/badge/chat-IGEL%20Community-brightgreen?logo=slack&link=https://igelcommunity.slack.com/archives/C9XFWLXA8&link=https://igelcommunity.slack.com/archives/C9XFWLXA8)
+[![GitHub last commit][github-commit-badge]][github-psigel]
+[![GitHub release (latest by date)][github-release-badge]][github-psigel]
+[![PowerShell Gallery Version][psgallery-v-badge]][powershell-gallery]
+[![PS Gallery][psgallery-dl-badge]][powershell-gallery]
+[![GitHub stars][github-start-badge]][github-psigel]
+[![IGEL-Community Slack][slack-badge]][slack-igelcommunity]
+
+
 ![Logo](PSIGEL_1280_320.png)
 
 Table of contents:
@@ -83,14 +84,32 @@ C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSess
 
 You can learn how to use PSIGEL by reading our documentation:
 
-- [Functions](docs/en-US/Functions.md)
+- [Functions](docs/Functions.md)
 
 ## Maintainer
 
-- Falk Heiland
-![https://github.com/falkheiland](https://img.shields.io/badge/github-black?logo=github&link=https://github.com/falkheiland&link=https://github.com/falkheiland)
-![http://twitter.com/falkheiland](https://img.shields.io/badge/twitter-black?logo=twitter&link=http://twitter.com/falkheiland&link=http://twitter.com/falkheiland)
+### Falk Heiland
+[![https://github.com/falkheiland][github-fh-badge]][github-fh]
+[![http://twitter.com/falkheiland][twitter-fh-badge]][twitter-fh]
 
 ## License
 
 This project is [licensed under the MIT License](LICENSE).
+
+[![MIT licensed][mit-badge]][mit-license]
+
+[psgallery-dl-badge]: https://img.shields.io/powershellgallery/dt/PSIGEL.svg?logo=powershell
+[powershell-gallery]: https://www.powershellgallery.com/packages/PSIGEL/
+[mit-badge]: https://img.shields.io/github/license/IGEL-Community/PSIGEL?logo=github
+[mit-license]: LICENSE.md
+[github-commit-badge]: https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github
+[github-psigel]: https://github.com/IGEL-Community/PSIGEL
+[github-release-badge]: https://img.shields.io/github/v/release/IGEL-Community/PSIGEL?logo=github
+[psgallery-v-badge]: https://img.shields.io/powershellgallery/v/PSIGEL?logo=powershell
+[github-start-badge]: https://img.shields.io/github/stars/IGEL-Community/PSIGEL?logo=github
+[slack-badge]: https://img.shields.io/badge/chat-IGEL%20Community-brightgreen?logo=slack
+[slack-igelcommunity]: http://join.igelcommunity.com
+[github-fh-badge]: https://img.shields.io/badge/Github-falkheiland-green?logo=github
+[github-fh]: https://github.com/falkheiland
+[twitter-fh-badge]: https://img.shields.io/badge/Twitter-falkheiland-blue?logo=twitter
+[twitter-fh]: https://twitter.com/falkheiland
