@@ -22,7 +22,7 @@ Table of contents:
 
 ## Overview
 
-**PSIGEL** is a powershell module that makes use of the REST API of the [**IGEL**](https://www.igel.com) Management Interface (IMI).
+**PSIGEL** is a powershell module that makes use of the REST API provided by the [**IGEL**](https://www.igel.com) Management Interface (IMI).
 
 via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.html) :
 > IGEL Management Interface (IMI) enables you to connect UMS to systems management tools. It is a programming interface that can create and delete thin clients, move them between directories, reboot them and much more. Its implementation as a REST API makes IMIagnostic of hardware platforms, operating systems and programming languages, thus ensuring maximum interoperability.
@@ -87,40 +87,40 @@ You can learn how to use PSIGEL by reading our documentation:
 
 ### Functions
 
-- [Get-UMSDevice](/docs/Get-UMSDevice.md)
-- [Get-UMSDeviceAssignment](/docs/Get-UMSDeviceAssignment.md)
-- [Get-UMSDeviceDirectory](/docs/Get-UMSDeviceDirectory.md)
-- [Get-UMSDeviceDirectoryAssignment](/docs/Get-UMSDeviceDirectoryAssignment.md)
-- [Get-UMSDirectoryRecursive](/docs/Get-UMSDirectoryRecursive.md)
-- [Get-UMSFirmware](/docs/Get-UMSFirmware.md)
-- [Get-UMSProfile](/docs/Get-UMSProfile.md)
-- [Get-UMSProfileAssignment](/docs/Get-UMSProfileAssignment.md)
-- [Get-UMSProfileDirectory](/docs/Get-UMSProfileDirectory.md)
-- [Get-UMSStatus](/docs/Get-UMSStatus.md)
-- [Move-UMSDevice](/docs/Move-UMSDevice.md)
-- [Move-UMSDeviceDirectory](/docs/Move-UMSDeviceDirectory.md)
-- [Move-UMSProfile](/docs/Move-UMSProfile.md)
-- [Move-UMSProfileDirectory](/docs/Move-UMSProfileDirectory.md)
-- [New-UMSAPICookie](/docs/New-UMSAPICookie.md)
-- [New-UMSDevice](/docs/New-UMSDevice.md)
-- [New-UMSDeviceDirectory](/docs/New-UMSDeviceDirectory.md)
-- [New-UMSProfileAssignment](/docs/New-UMSProfileAssignment.md)
-- [New-UMSProfileDirectory](/docs/New-UMSProfileDirectory.md)
-- [Remove-UMSAPICookie](/docs/Remove-UMSAPICookie.md)
-- [Remove-UMSDevice](/docs/Remove-UMSDevice.md)
-- [Remove-UMSDeviceDirectory](/docs/Remove-UMSDeviceDirectory.md)
-- [Remove-UMSProfile](/docs/Remove-UMSProfile.md)
-- [Remove-UMSProfileAssignment](/docs/Remove-UMSProfileAssignment.md)
-- [Remove-UMSProfileDirectory](/docs/Remove-UMSProfileDirectory.md)
-- [Reset-UMSDevice](/docs/Reset-UMSDevice.md)
-- [Restart-UMSDevice](/docs/Restart-UMSDevice.md)
-- [Send-UMSDeviceSetting](/docs/Send-UMSDeviceSetting.md)
-- [Start-UMSDevice](/docs/Start-UMSDevice.md)
-- [Stop-UMSDevice](/docs/Stop-UMSDevice.md)
-- [Update-UMSDevice](/docs/Update-UMSDevice.md)
-- [Update-UMSDeviceDirectory](/docs/Update-UMSDeviceDirectory.md)
-- [Update-UMSProfile](/docs/Update-UMSProfile.md)
-- [Update-UMSProfileDirectory](/docs/Update-UMSProfileDirectory.md)
+- [Get-UMSDevice](/Docs/Get-UMSDevice.md)
+- [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
+- [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
+- [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
+- [Get-UMSDirectoryRecursive](/Docs/Get-UMSDirectoryRecursive.md)
+- [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
+- [Get-UMSProfile](/Docs/Get-UMSProfile.md)
+- [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
+- [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
+- [Get-UMSStatus](/Docs/Get-UMSStatus.md)
+- [Move-UMSDevice](/Docs/Move-UMSDevice.md)
+- [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
+- [Move-UMSProfile](/Docs/Move-UMSProfile.md)
+- [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
+- [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
+- [New-UMSDevice](/Docs/New-UMSDevice.md)
+- [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
+- [New-UMSProfileAssignment](/Docs/New-UMSProfileAssignment.md)
+- [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
+- [Remove-UMSAPICookie](/Docs/Remove-UMSAPICookie.md)
+- [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
+- [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
+- [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
+- [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
+- [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
+- [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
+- [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
+- [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
+- [Start-UMSDevice](/Docs/Start-UMSDevice.md)
+- [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
+- [Update-UMSDevice](/Docs/Update-UMSDevice.md)
+- [Update-UMSDeviceDirectory](/Docs/Update-UMSDeviceDirectory.md)
+- [Update-UMSProfile](/Docs/Update-UMSProfile.md)
+- [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
 
 ## Maintainer
 
