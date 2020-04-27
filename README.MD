@@ -7,10 +7,9 @@
 [![GitHub stars][github-start-badge]][github-psigel]
 [![IGEL-Community Slack][slack-badge]][slack-igelcommunity]
 
-
 ![Logo](PSIGEL_1280_320.png)
 
-Table of contents:
+## Table of contents
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
@@ -25,7 +24,7 @@ Table of contents:
 **PSIGEL** is a powershell module that makes use of the REST API provided by the [**IGEL**](https://www.igel.com) Management Interface (IMI).
 
 via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.html) :
-> IGEL Management Interface (IMI) enables you to connect UMS to systems management tools. It is a programming interface that can create and delete thin clients, move them between directories, reboot them and much more. Its implementation as a REST API makes IMIagnostic of hardware platforms, operating systems and programming languages, thus ensuring maximum interoperability.
+> IGEL Management Interface (IMI) enables you to connect UMS to systems management tools. It is a programming interface that can create and delete thin clients, move them between directories, reboot them and much more. Its implementation as a REST API makes IMI agnostic of hardware platforms, operating systems and programming languages, thus ensuring maximum interoperability.
 
 ## Prerequisites
 
@@ -38,7 +37,9 @@ via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.ht
 
 \* tested
 
-## Installation
+## Quickstart
+
+### Installation
 
 If you have the [PowerShellGet](https://github.com/powershell/powershellget) module installed you can enter the following command:
 
@@ -48,7 +49,7 @@ C:\> Install-Module -Name PSIGEL
 
 Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
 
-## Getting Started
+### Basic usage
 
 Import Module:
 
@@ -83,49 +84,50 @@ C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSess
 
 ## Documentation
 
-You can learn how to use PSIGEL by reading our documentation:
-
-### Functions
-
-- [Get-UMSDevice](/Docs/Get-UMSDevice.md)
-- [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
-- [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
-- [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
-- [Get-UMSDirectoryRecursive](/Docs/Get-UMSDirectoryRecursive.md)
-- [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
-- [Get-UMSProfile](/Docs/Get-UMSProfile.md)
-- [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
-- [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
-- [Get-UMSStatus](/Docs/Get-UMSStatus.md)
-- [Move-UMSDevice](/Docs/Move-UMSDevice.md)
-- [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
-- [Move-UMSProfile](/Docs/Move-UMSProfile.md)
-- [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
-- [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
-- [New-UMSDevice](/Docs/New-UMSDevice.md)
-- [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
-- [New-UMSProfileAssignment](/Docs/New-UMSProfileAssignment.md)
-- [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
-- [Remove-UMSAPICookie](/Docs/Remove-UMSAPICookie.md)
-- [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
-- [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
-- [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
-- [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
-- [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
-- [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
-- [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
-- [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
-- [Start-UMSDevice](/Docs/Start-UMSDevice.md)
-- [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
-- [Update-UMSDevice](/Docs/Update-UMSDevice.md)
-- [Update-UMSDeviceDirectory](/Docs/Update-UMSDeviceDirectory.md)
-- [Update-UMSProfile](/Docs/Update-UMSProfile.md)
-- [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
+- [Scripting with PSIGEL](/Docs/Scripting-with-PSIGEL.md)
+  - [Setup](/Docs/Scripting.md#setup)
+- Functions
+  - [Get-UMSDevice](/Docs/Get-UMSDevice.md)
+  - [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
+  - [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
+  - [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
+  - [Get-UMSDirectoryRecursive](/Docs/Get-UMSDirectoryRecursive.md)
+  - [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
+  - [Get-UMSProfile](/Docs/Get-UMSProfile.md)
+  - [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
+  - [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
+  - [Get-UMSStatus](/Docs/Get-UMSStatus.md)
+  - [Move-UMSDevice](/Docs/Move-UMSDevice.md)
+  - [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
+  - [Move-UMSProfile](/Docs/Move-UMSProfile.md)
+  - [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
+  - [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
+  - [New-UMSDevice](/Docs/New-UMSDevice.md)
+  - [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
+  - [New-UMSProfileAssignment](/Docs/New-UMSProfileAssignment.md)
+  - [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
+  - [Remove-UMSAPICookie](/Docs/Remove-UMSAPICookie.md)
+  - [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
+  - [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
+  - [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
+  - [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
+  - [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
+  - [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
+  - [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
+  - [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
+  - [Start-UMSDevice](/Docs/Start-UMSDevice.md)
+  - [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
+  - [Update-UMSDevice](/Docs/Update-UMSDevice.md)
+  - [Update-UMSDeviceDirectory](/Docs/Update-UMSDeviceDirectory.md)
+  - [Update-UMSProfile](/Docs/Update-UMSProfile.md)
+  - [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
+- Other sources
+  - [igelexperts.com](https://www.igelexperts.com/category/igel/psigel/) 
 
 ## Maintainer
 
 - Falk Heiland
-[![https://github.com/falkheiland][github-fh-badge]][github-fh
+[![https://github.com/falkheiland][github-fh-badge]][github-fh]
 [![http://twitter.com/falkheiland][twitter-fh-badge]][twitter-fh]
 
 ## License
