@@ -22,23 +22,45 @@ elseif ($PSEdition -eq 'core' -and (-Not $IsWindows) )
   $PSDefaultParameterValues.Add('New-UMSAPICookie:Credential', (Import-Clixml -Path '/mnt/c/Credentials/UmsRmdbWsl.cred'))
 }
 
-$WebSession = New-UMSAPICookie
 
-$PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = $WebSession
-}
+$WebSession = New-UMSAPICookie
+$PSDefaultParameterValues.Add('*-UMS*:WebSession', $WebSession)
 #<#
 #$Result = ''
-$Result = Get-UMSDevice -Id 512
+#$Result = Get-UMSDevice -Id 512
 #$Result = Get-UMSDevice
-#$Result = Get-UMSFirmware
-$Result
+#$Result = (Get-UMSFirmware | Sort-Object -Property Version -Descending | Select-Object -First 1 ).Id
+#$Result
+
+$FirmwareColl = Get-UMSFirmware
+#$FirmwareColl
+
+$LatestFirmwareId = ($FirmwareColl | Sort-Object -Property Version -Descending |
+  Select-Object -First 1 ).Id
+#$LatestFirmwareId
+
+$UpdateDeviceColl = Get-UMSDevice -Filter online | Where-Object {
+  $_.Online -eq $false -and $_.FirmwareId -ne $LatestFirmwareId
+}
+#$UpdateDeviceColl
+
+$UpdateDeviceColl | Update-UMSDevice -Comment 'update'
+
+#$UpdateDeviceColl | Get-UMSDevice -Filter details |
+#Select-Object -Property Id, Name, Comment -First 1
+
+#$UpdateDeviceColl | Restart-UMSDevice -Confirm:$False
+
+$null = Get-UMSDevice -Filter details | Where-Object {
+  $_.Comment -eq 'update' -and $_.FirmwareId -ne $LatestFirmwareId
+} | Update-UMSDevice -Comment ''
 
 $null = Remove-UMSAPICookie
+#>
 
 #>
 
-
+### if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Comment' })
 
 <#
 ($WebSession.Cookies.GetCookies('https://igelrmserver').Value)
