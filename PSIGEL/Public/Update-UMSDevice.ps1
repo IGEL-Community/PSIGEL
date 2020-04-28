@@ -78,39 +78,39 @@
       'Set'
       {
         $BodyHashTable = @{ }
-        if ($Name)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Name' })
         {
           $BodyHashTable.Add('name', $Name)
         }
-        if ($Site)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Site' })
         {
           $BodyHashTable.Add('site', $Site)
         }
-        if ($Department)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Department' })
         {
           $BodyHashTable.Add('department', $Department)
         }
-        if ($CostCenter)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'CostCenter' })
         {
           $BodyHashTable.Add('costCenter', $CostCenter)
         }
-        if ($LastIP)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'LastIP' })
         {
           $BodyHashTable.Add('lastIP', $LastIP)
         }
-        if ($Comment)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Comment' })
         {
           $BodyHashTable.Add('comment', $Comment)
         }
-        if ($AssetId)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'AssetId' })
         {
           $BodyHashTable.Add('assetID', $AssetId)
         }
-        if ($InserviceDate)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'InserviceDate' })
         {
           $BodyHashTable.Add('inserviceDate', $InserviceDate)
         }
-        if ($SerialNumber)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'SerialNumber' })
         {
           $BodyHashTable.Add('serialNumber', $SerialNumber)
         }
