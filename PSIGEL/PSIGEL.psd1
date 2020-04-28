@@ -143,14 +143,16 @@
       # 'ReleaseNotes' des Moduls
       ReleaseNotes = @'
 0.10.0 20200420
-* added cross platform support
+* cross platform support (Windows, Linux, MacOS)
+* support for Powershell 7
 * added Remove-UMSAPICookie
 * set minimum Powershell Requirement for the module to 5.1
-* added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter detail
+* added Site, Department, CostCenter, AssetID, InServiceDate and SerialNumber to Get-UMSDevice -Filter details
 * support for Datatype Version in Get-UMSFirmware, Get-UMSStatus
 * added Get-UMSDirectoryRecursive
 * edited SerialNumber Length to 18
 * remove *-OS* functions
+* fixed reset / update empty values of devices
 '@
 
     } # Ende der PSData-Hashtabelle
