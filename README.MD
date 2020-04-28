@@ -37,10 +37,6 @@ via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.ht
 
 \* tested
 
-## Changelog
-
-
-
 ## Quickstart
 
 ### Installation
