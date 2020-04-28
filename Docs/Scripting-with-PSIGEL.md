@@ -240,7 +240,7 @@ $FirmwareColl = Get-UMSFirmware
 $LatestFirmwareId = ($FirmwareColl | Sort-Object -Property Version -Descending |
   Select-Object -First 1 ).Id
 
-# remove a comment "update" from all devices
+# remove a comment "update" from all devices with the latest firmware
 $null = Get-UMSDevice -Filter details | Where-Object {
   $_.Comment -eq 'update' -and $_.FirmwareId -eq $LatestFirmwareId
 } | Update-UMSDevice -Comment ''
