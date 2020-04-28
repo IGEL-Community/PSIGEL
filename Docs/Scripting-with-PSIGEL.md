@@ -256,7 +256,7 @@ $UpdateDeviceColl | Update-UMSDevice -Comment 'update'
 # remove the used websession
 $null = Remove-UMSAPICookie
 
-# timely after the execution of this script, a scheduled job "update on Shutdown" on a view for all devices with the comment "update" shut start.
+# timely after the execution of this script, a scheduled job "update on Shutdown" on a view for all devices with the comment "update" should start in the UMS.
 ```
 
 Output:
