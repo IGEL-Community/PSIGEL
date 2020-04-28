@@ -245,7 +245,7 @@ $null = Get-UMSDevice -Filter details | Where-Object {
   $_.Comment -eq 'update' -and $_.FirmwareId -eq $LatestFirmwareId
 } | Update-UMSDevice -Comment ''
 
-# get all devices that do not have the latest firmware
+# get all online devices that do not have the latest firmware
 $UpdateDeviceColl = Get-UMSDevice -Filter online | Where-Object {
   $_.Online -eq $false -and $_.FirmwareId -ne $LatestFirmwareId
 }
@@ -255,6 +255,8 @@ $UpdateDeviceColl | Update-UMSDevice -Comment 'update'
 
 # remove the used websession
 $null = Remove-UMSAPICookie
+
+# timely after the execution of this script, a scheduled job "update on Shutdown" on a view for all devices with the comment "update" shut start.
 ```
 
 Output:
