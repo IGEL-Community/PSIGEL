@@ -198,7 +198,7 @@ After the reboot we remove the comment "update" from all devices that now have t
 
 ```powershell
 C:\> Get-UMSDevice -Filter details | Where-Object {
-    $_.Comment -eq 'update' -and $_.FirmwareId -ne $LatestFirmwareId
+    $_.Comment -eq 'update' -and $_.FirmwareId -eq $LatestFirmwareId
     } | Update-UMSDevice -Comment ''
 
 Message : Update successful.
@@ -242,7 +242,7 @@ $LatestFirmwareId = ($FirmwareColl | Sort-Object -Property Version -Descending |
 
 # remove a comment "update" from all devices
 $null = Get-UMSDevice -Filter details | Where-Object {
-  $_.Comment -eq 'update' -and $_.FirmwareId -ne $LatestFirmwareId
+  $_.Comment -eq 'update' -and $_.FirmwareId -eq $LatestFirmwareId
 } | Update-UMSDevice -Comment ''
 
 # get all devices that do not have the latest firmware
