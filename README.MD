@@ -37,6 +37,10 @@ via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.ht
 
 \* tested
 
+## Changelog
+
+
+
 ## Quickstart
 
 ### Installation
@@ -84,8 +88,12 @@ C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSess
 
 ## Documentation
 
-- [Scripting with PSIGEL](/Docs/Scripting-with-PSIGEL.md)
-  - [Setup](/Docs/Scripting.md#setup)
+- [Scripting with PSIGEL](/Docs/Scripting-with-PSIGEL-with-PSIGEL.md)
+  - [Installation](/Docs/Scripting-with-PSIGEL.md#installation)
+  - [Setup](/Docs/Scripting-with-PSIGEL.md#setup)
+  - [Configuration](/Docs/Scripting-with-PSIGEL.md#configuration)
+  - [Authentication](/Docs/Scripting-with-PSIGEL.md#authentication)
+  - [Creating a script](/Docs/Scripting-with-PSIGEL.md#creating-a-script)
 - Functions
   - [Get-UMSDevice](/Docs/Get-UMSDevice.md)
   - [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
@@ -122,7 +130,8 @@ C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSess
   - [Update-UMSProfile](/Docs/Update-UMSProfile.md)
   - [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
 - Other sources
-  - [igelexperts.com](https://www.igelexperts.com/category/igel/psigel/) 
+  - [igelexperts.com](https://www.igelexperts.com/category/igel/psigel/)
+- [Changelog](CHANGELOG.md)
 
 ## Maintainer
 
