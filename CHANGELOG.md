@@ -1,6 +1,6 @@
 # PSIGEL Changelog
 
-## v0.10.0 - May dd, 2020
+## v0.10.0 - 20200429
 
 ### Added
 
