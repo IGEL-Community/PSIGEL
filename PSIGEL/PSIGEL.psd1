@@ -142,7 +142,7 @@
 
       # 'ReleaseNotes' des Moduls
       ReleaseNotes = @'
-0.10.0 20200420
+v0.10.0 20200429
 * cross platform support (Windows, Linux, MacOS)
 * support for Powershell 7
 * added Remove-UMSAPICookie
