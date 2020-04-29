@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version:
+online version: https://github.com/IGEL-Community/PSIGEL/Docs/Reference/Update-UMSDevice.md
 schema: 2.0.0
 ---
 
