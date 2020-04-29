@@ -87,7 +87,6 @@ Name       : Room2204
 ParentId   : 208
 MovedToBin : False
 ObjectType : tcdirectory
-
 ```
 
 ### Example 2

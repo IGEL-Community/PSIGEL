@@ -1,70 +1,38 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Stop-UMSDevice.md
+online version: https://github.com/IGEL-Community/PSIGEL/Docs/Reference/Remove-UMSAPICookie.md
 schema: 2.0.0
 ---
 
-# Update-UMSProfileDirectory
+# Remove-UMSAPICookie
 
 ## SYNOPSIS
-Updates the name of a profile directory.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ```
-Update-UMSProfileDirectory [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
- [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [-Name] <String> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Remove-UMSAPICookie [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
+ [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-Updates the name of a profile directory via API.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
-
-Update property name of the profile directory with ID 417 to 'NewName':
-
 ```powershell
-Update-UMSProfileDirectory -Computername 'igelrmserver' -WebSession $WebSession -Id 417 -Name 'NewName'
-
-Message                          Id
--------                          --
-Updated directory successfully. 417
+PS C:\> {{ Add example code here }}
 ```
 
-### Example 2
-
-Update property name for all profile directories which names start with '01' to '08' and extends their names with '|IGELOS' ('01' -> '01|IGELOS'):
-
-```powershell
-$PSDefaultParameterValues = @{
-  '*-UMS*:Credential'   = (Get-Credential)
-  '*-UMS*:Computername' = 'igelrmserver'
-  '*-UMS*:Confirm'      = $false
-}
-$PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = New-UMSAPICookie
-}
-
-(Get-UMSProfileDirectory).where{$_.Name -match '^0[1-8]'} |
-  ForEach-Object {
-  $_ | Update-UMSProfileDirectory -Name ('{0}|IGELOS' -f $_.Name)
-}
-
-Message                          Id
--------                          --
-Updated directory successfully. 417
-Updated directory successfully. 230
-Updated directory successfully. 668
-```
+{{ Add example description here }}
 
 ## PARAMETERS
 
 ### -ApiVersion
-API Version to use
+{{ Fill ApiVersion Description }}
 
 ```yaml
 Type: Int32
@@ -80,7 +48,7 @@ Accept wildcard characters: False
 ```
 
 ### -Computername
-Computername of the UMS Server
+{{ Fill Computername Description }}
 
 ```yaml
 Type: String
@@ -109,38 +77,8 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
-ID of the profile directory
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 5
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -Name
-Device property name
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: 6
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
 ### -SecurityProtocol
-Set SSL/TLS protocol
+{{ Fill SecurityProtocol Description }}
 
 ```yaml
 Type: String[]
@@ -156,7 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCPPort
-TCP Port API
+{{ Fill TCPPort Description }}
 
 ```yaml
 Type: Int32
@@ -165,13 +103,13 @@ Aliases:
 
 Required: False
 Position: 1
-Default value: None
+Default value: 8443
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -WebSession
-Websession Cookie
+{{ Fill WebSession Description }}
 
 ```yaml
 Type: Object
@@ -206,9 +144,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int32
-
-### System.String
+### Keine
 
 ## OUTPUTS
 

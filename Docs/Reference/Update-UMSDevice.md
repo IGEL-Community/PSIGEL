@@ -62,11 +62,10 @@ Update successful.  58
 Update successful. 195
 ```
 
-
 ## PARAMETERS
 
 ### -ApiVersion
-API Version to use (Default: 3)
+API Version to use
 
 ```yaml
 Type: Int32
@@ -76,7 +75,7 @@ Accepted values: 3
 
 Required: False
 Position: Benannt
-Default value: None
+Default value: 3
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -242,7 +241,7 @@ Accepted values: Tls12, Tls11, Tls, Ssl3
 
 Required: False
 Position: Benannt
-Default value: None
+Default value: Tls12
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -324,8 +323,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
