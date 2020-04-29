@@ -84,7 +84,7 @@ C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSess
 
 ## Documentation
 
-- [Scripting with PSIGEL](/Docs/Scripting-with-PSIGEL-with-PSIGEL.md)
+- [Scripting with PSIGEL](/Docs/Scripting-with-PSIGEL.md)
   - [Installation](/Docs/Scripting-with-PSIGEL.md#installation)
   - [Setup](/Docs/Scripting-with-PSIGEL.md#setup)
   - [Configuration](/Docs/Scripting-with-PSIGEL.md#configuration)
@@ -144,7 +144,7 @@ This project is [licensed under the MIT License](LICENSE).
 [psgallery-dl-badge]: https://img.shields.io/powershellgallery/dt/PSIGEL.svg?logo=powershell
 [powershell-gallery]: https://www.powershellgallery.com/packages/PSIGEL/
 [mit-badge]: https://img.shields.io/github/license/IGEL-Community/PSIGEL?logo=github
-[mit-license]: LICENSE.md
+[mit-license]: LICENSE
 [github-commit-badge]: https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github
 [github-psigel]: https://github.com/IGEL-Community/PSIGEL
 [github-release-badge]: https://img.shields.io/github/release/IGEL-Community/PSIGEL/all.svg?logo=github
