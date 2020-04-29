@@ -1,14 +1,15 @@
-$ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
-$ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
-$ModuleName = Split-Path $ModuleRoot -Leaf
-$ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $ModuleRoot, $ModuleName)
+$Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
+$Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
+$Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
+$Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
 Describe "General project validation: $ModuleName" {
 
   Context 'Basic Module Testing' {
     $ScriptColl = Get-ChildItem $ModuleRoot -Include *.ps1, *.psm1, *.psd1 -Recurse
 
-    $TestCase = $ScriptColl | Foreach-Object {
+    $TestCase = $ScriptColl | ForEach-Object {
       @{
         File = $_
       }
@@ -27,7 +28,7 @@ Describe "General project validation: $ModuleName" {
     }
 
     It "Module '$ModuleName' can import cleanly" {
-      {Import-Module ( '{0}/{1}.psm1' -f $ModuleRoot, $ModuleName) } | Should Not Throw
+      { Import-Module ( '{0}/{1}.psm1' -f $ModuleRoot, $ModuleName) } | Should Not Throw
     }
   }
 
@@ -66,60 +67,60 @@ Describe "General project validation: $ModuleName" {
 
   Context 'Public Functions' {
     $PublicFunctionColl = (Get-ChildItem -Path ('{0}\Public' -f $ModuleRoot) -Filter *.ps1 |
-        Select-Object -ExpandProperty Name ) -replace '\.ps1$'
+      Select-Object -ExpandProperty Name ) -replace '\.ps1$'
 
-    $TestCase = $PublicFunctionColl | Foreach-Object {
+    $TestCase = $PublicFunctionColl | ForEach-Object {
       @{
-        FunctionName = $_
+        ScriptName = $_
       }
     }
 
-    It "Function <FunctionName> should be in manifest" -TestCases $TestCase {
+    It "Function <ScriptName> should be in manifest" -TestCases $TestCase {
       param(
-        $FunctionName
+        $ScriptName
       )
 
       $ManifestFunctionColl = $Manifest.ExportedFunctions.Keys
-      $FunctionName -in $ManifestFunctionColl | Should Be $true
+      $ScriptName -in $ManifestFunctionColl | Should Be $true
     }
 
     It 'Proper Number of Functions Exported compared to Manifest' {
       $ExportedCount = Get-Command -Module $ModuleName -CommandType Function |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $ManifestCount = $Manifest.ExportedFunctions.Count
       $ExportedCount | Should be $ManifestCount
     }
 
     It 'Proper Number of Functions Exported compared to Files' {
       $ExportedCount = Get-Command -Module $ModuleName -CommandType Function |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $FileCount = Get-ChildItem -Path ('{0}\Public' -f $ModuleRoot) -Filter *.ps1 |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $ExportedCount | Should be $FileCount
     }
   }
 
   Context 'Private Functions' {
     $PrivateFunctionColl = (Get-ChildItem -Path ('{0}\Private' -f $ModuleRoot) -Filter *.ps1 |
-        Select-Object -ExpandProperty Name ) -replace '\.ps1$'
-    $TestCase = $PrivateFunctionColl | Foreach-Object {
+      Select-Object -ExpandProperty Name ) -replace '\.ps1$'
+    $TestCase = $PrivateFunctionColl | ForEach-Object {
       @{
-        FunctionName = $_
+        ScriptName = $_
       }
     }
 
-    It "Private function <FunctionName> is not directly accessible outside the module" -TestCases $TestCase {
+    It "Private function <ScriptName> is not directly accessible outside the module" -TestCases $TestCase {
       param(
-        $FunctionName
+        $ScriptName
       )
-      { . ('\{0}' -f $FunctionName) } | Should Throw
+      { . ('\{0}' -f $ScriptName) } | Should Throw
     }
   }
 
   Context 'Exported Aliases' {
     It 'Proper Number of Aliases Exported compared to Manifest' {
       $ExportedCount = Get-Command -Module $ModuleName -CommandType Alias |
-        Measure-Object | Select-Object -ExpandProperty Count
+      Measure-Object | Select-Object -ExpandProperty Count
       $ManifestCount = $Manifest.ExportedAliases.Count
 
       $ExportedCount | Should be $ManifestCount
@@ -127,10 +128,10 @@ Describe "General project validation: $ModuleName" {
 
     It 'Proper Number of Aliases Exported compared to Files' {
       $AliasCount = Get-ChildItem -Path "$ModuleRoot\Public" -Filter *.ps1 |
-        Select-String "New-Alias" | Measure-Object | Select-Object -ExpandProperty Count
+      Select-String "New-Alias" | Measure-Object | Select-Object -ExpandProperty Count
       $ManifestCount = $Manifest.ExportedAliases.Count
 
-      $AliasCount  | Should be $ManifestCount
+      $AliasCount | Should be $ManifestCount
     }
   }
 }
@@ -144,14 +145,14 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   $ScriptAnalyzerErrorColl += Invoke-ScriptAnalyzer -Path "$ModuleRoot\Public" @PSScriptAnalyzerSettingColl
   $ScriptAnalyzerErrorColl += Invoke-ScriptAnalyzer -Path "$ModuleRoot\Private" @PSScriptAnalyzerSettingColl
   $PrivateFunctionColl = Get-ChildItem -Path "$ModuleRoot\Private" -Filter *.ps1 |
-    Select-Object -ExpandProperty Name
+  Select-Object -ExpandProperty Name
   $PublicFunctionColl = Get-ChildItem -Path "$ModuleRoot\Public" -Filter *.ps1 |
-    Select-Object -ExpandProperty Name
+  Select-Object -ExpandProperty Name
   $AllFunctionColl = ($PrivateFunctionColl + $PublicFunctionColl) | Sort-Object
   $FunctionWithErrorColl = $ScriptAnalyzerErrorColl.ScriptName | Sort-Object -Unique
   if ($ScriptAnalyzerErrorColl)
   {
-    $TestCase = $ScriptAnalyzerErrorColl | Foreach-Object {
+    $TestCase = $ScriptAnalyzerErrorColl | ForEach-Object {
       @{
         RuleName   = $_.RuleName
         ScriptName = $_.ScriptName
@@ -161,7 +162,7 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
       }
     }
     $FunctionWithoutErrorColl = Compare-Object -ReferenceObject $AllFunctionColl -DifferenceObject $FunctionWithErrorColl |
-      Select-Object -ExpandProperty InputObject
+    Select-Object -ExpandProperty InputObject
     Context 'ScriptAnalyzer Testing' {
       It "Function <ScriptName> should not use <Message> on line <Line>" -TestCases $TestCase {
         param(
@@ -181,7 +182,7 @@ Describe "$ModuleName ScriptAnalyzer" -Tag 'Compliance' {
   }
 
   Context 'Successful ScriptAnalyzer Testing' {
-    $TestCase = $FunctionWithoutErrorColl | Foreach-Object {
+    $TestCase = $FunctionWithoutErrorColl | ForEach-Object {
       @{
         ScriptName = $_
       }

@@ -1,85 +1,77 @@
 param
 (
-  [ValidateSet('All', 'UnitTests', 'IntegrationTests')]
+  [ValidateSet('UnitTests', 'IntegrationTests')]
   [String]
-  #$Tags = 'All'
-  #$Tags = 'UnitTests'
-  $Tags = 'IntegrationTests'
+  $Tags,
+
+  [String[]]
+  $Show = ('Header', 'Summary', 'Failed'),
+
+  [Switch]
+  $EnableExit = $false
 )
-$ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
-$ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $ProjectRoot))
+$DSC = [IO.Path]::DirectorySeparatorChar
+$ProjectRoot = Resolve-Path ('{1}{0}..' -f $DSC, $PSScriptRoot)
+$ModuleRoot = Split-Path (Resolve-Path ('{1}{0}*{0}*.psm1' -f $DSC, $ProjectRoot))
 $ModuleName = Split-Path $ModuleRoot -Leaf
-$OutputPath = '{0}\Tests\Data' -f $ProjectRoot
+Import-Module ( '{1}{0}{2}.psm1' -f $DSC, $Script:ModuleRoot, $Script:ModuleName) -Force
 
+$Cfg = Import-PowerShellDataFile -Path ('{1}{0}Tests{0}Config.psd1' -f $DSC, $Script:ProjectRoot)
 
-$UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $ProjectRoot) |
-  ConvertFrom-Json
-$Password = Get-Content $UMS.CredPath | ConvertTo-SecureString
-$Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-
-$PSDefaultParameterValues = @{
-  '*:Computername'          = $UMS.Computername
-  '*-UMS*:TCPPort'          = [Int]$UMS.TCPPort
-  '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-  '*-UMS*:Confirm'          = $false
-  'Invoke-Pester:Show'      = 'Failed'
-}
-
-<#
-$IgelRmGuiServerService = Get-Service -Name 'IGELRMGUIServer'
-switch ($IgelRmGuiServerService)
+if ($PSEdition -eq 'Desktop')
 {
-  $false
-  {
-    throw "Service $IgelRmGuiServerService not found!"
-  }
-  {$_.Status -eq 'Stopped'}
-  {
-    "Stopped"
-    $i = 0
-    $IgelRmGuiServerService | Start-Service -ErrorAction Stop
-    do
-    {
-      Start-Sleep -Seconds 3
-      $i++
-      if ($i -ge 10)
-      {
-        throw "TCPPort $UMS.TCPPort not responding!"
-      }
-    }
-    until ((Test-NetConnection -Port $UMS.TCPPort).TcpTestSucceeded -eq $true )
-  }
+  $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot, $Cfg.OutputPath.Desktop
 }
-#>
-
-$WebSession = New-UMSAPICookie -Credential $Credential
-$PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = $WebSession
-}
-
-Invoke-Pester -Script ('{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $ModuleName) -OutputFile ('{0}\{1}.Tests.xml' -f $OutputPath, $ModuleName)
-
-foreach ($Function in $UMS.TestOrder.Public)
+elseif ($IsWindows -and $PSEdition -eq 'Core')
 {
-  $IVPParams = @{
-    Script     = '{0}\Tests\{1}.Tests.ps1' -f $ProjectRoot, $Function
-    OutputFile = '{0}\{1}.Tests.xml' -f $OutputPath, $Function
-  }
-  switch ($Tags)
+  $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot, $Cfg.OutputPath.CoreW10
+  Import-Module ('{0}\PowerShell\7\Modules\CimCmdlets\CimCmdlets.psd1' -f [Environment]::GetEnvironmentVariable('ProgramFiles')) -Force
+  Import-Module -Name Pester -Force
+  #Import-Module C:\Users\fheiland\Documents\WindowsPowerShell\Modules\Assert\Assert.psd1
+}
+elseif ($IsLinux)
+{
+  $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot, $Cfg.OutputPath.CoreWSL
+}
+else
+{
+  $OutputPath = '{1}{0}Tests{0}Data{0}{2}{0}' -f $DSC, $ProjectRoot
+}
+if ($Tags -eq 'IntegrationTests')
+{
+  if ($IsLinux)
   {
-    'All'
-    {
-      $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Function
-    }
-    'UnitTests'
-    {
-      $IVPParams.Tag = 'UnitTests'
-      $IVPParams.CodeCoverage = '{0}\{1}\Public\{2}.ps1' -f $ProjectRoot, $ModuleName, $Function
-    }
-    'IntegrationTests'
-    {
-      $IVPParams.Tag = 'IntegrationTests'
-    }
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
+  }
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
+  $PSDefaultParameterValues = @{
+    '*-UMS*:Credential'       = $Credential
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
+    '*-UMS*:Confirm'          = $false
+  }
+
+  $PSDefaultParameterValues += @{
+    '*-UMS*:WebSession' = (New-UMSAPICookie)
+  }
+
+}
+
+foreach ($Test in $Cfg.Tests)
+{
+  $IVPParams = @{ }
+  $IVPParams.Add('Tags', $Tags)
+  $IVPParams.Add('Show', $Show)
+  $IVPParams.Add('EnableExit', $EnableExit)
+  $IVPParams.Add('Script', ('{1}{0}Tests{0}{2}.Tests.ps1' -f $DSC, $ProjectRoot, $Test.Name))
+  $IVPParams.Add('Outputfile', ('{1}{0}{2}.Tests.xml' -f $DSC, $OutputPath, $Test.Name))
+  if (($Test.CodeCoveragePath) -and ($Tags -ne 'IntegrationTests'))
+  {
+    $IVPParams.Add('CodeCoverage', ('{1}{0}{2}{0}{3}{0}{4}.ps1' -f $DSC, $ProjectRoot, $ModuleName, $Test.CodeCoveragePath, $Test.Name))
   }
   Invoke-Pester @IVPParams
 }

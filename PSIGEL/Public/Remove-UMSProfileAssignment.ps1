@@ -22,7 +22,7 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
+    [Parameter(Mandatory, ValueFromPipelineByPropertyName, ValueFromPipeline)]
     [Int]
     $Id,
 
@@ -59,13 +59,13 @@
       Uri              = $Uri
       Method           = 'Delete'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     $SPArray = @($Id, $ReceiverId, $ReceiverType)
     if ($PSCmdlet.ShouldProcess(('Id: {0}, ReceiverID {1}, ReceiverType: {2}' -f $SPArray)))
     {
-      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethod @Params
     }
     $Result = foreach ($APIObject in $APIObjectColl)
     {

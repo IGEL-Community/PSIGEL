@@ -44,7 +44,7 @@
     $CostCenter,
 
     [Parameter(ParameterSetName = 'Set')]
-    [ValidateScript( {$_ -match [IPAddress]$_})]
+    [ValidateScript( { $_ -match [IPAddress]$_ })]
     [String]
     $LastIP,
 
@@ -61,7 +61,7 @@
     $InserviceDate,
 
     [Parameter(ParameterSetName = 'Set')]
-    [ValidateLength(19, 19)]
+    [ValidateLength(18, 18)]
     [String]
     $SerialNumber
   )
@@ -77,40 +77,40 @@
     {
       'Set'
       {
-        $BodyHashTable = @{}
-        if ($Name)
+        $BodyHashTable = @{ }
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Name' })
         {
           $BodyHashTable.Add('name', $Name)
         }
-        if ($Site)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Site' })
         {
           $BodyHashTable.Add('site', $Site)
         }
-        if ($Department)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Department' })
         {
           $BodyHashTable.Add('department', $Department)
         }
-        if ($CostCenter)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'CostCenter' })
         {
           $BodyHashTable.Add('costCenter', $CostCenter)
         }
-        if ($LastIP)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'LastIP' })
         {
           $BodyHashTable.Add('lastIP', $LastIP)
         }
-        if ($Comment)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'Comment' })
         {
           $BodyHashTable.Add('comment', $Comment)
         }
-        if ($AssetId)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'AssetId' })
         {
           $BodyHashTable.Add('assetID', $AssetId)
         }
-        if ($InserviceDate)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'InserviceDate' })
         {
           $BodyHashTable.Add('inserviceDate', $InserviceDate)
         }
-        if ($SerialNumber)
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'SerialNumber' })
         {
           $BodyHashTable.Add('serialNumber', $SerialNumber)
         }
@@ -121,12 +121,12 @@
           Body             = $Body
           Method           = 'Put'
           ContentType      = 'application/json'
-          Headers          = @{}
+          Headers          = @{ }
           SecurityProtocol = ($SecurityProtocol -join ',')
         }
         if ($PSCmdlet.ShouldProcess(('Id: {0}' -f $Id)))
         {
-          $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+          $APIObjectColl = Invoke-UMSRestMethod @Params
         }
         $Result = foreach ($APIObject in $APIObjectColl)
         {

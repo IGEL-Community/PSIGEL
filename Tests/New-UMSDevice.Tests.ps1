@@ -2,34 +2,27 @@ $Script:ProjectRoot = Resolve-Path ('{0}\..' -f $PSScriptRoot)
 $Script:ModuleRoot = Split-Path (Resolve-Path ('{0}\*\*.psm1' -f $Script:ProjectRoot))
 $Script:ModuleName = Split-Path $Script:ModuleRoot -Leaf
 $Script:ModuleManifest = Resolve-Path ('{0}/{1}.psd1' -f $Script:ModuleRoot, $Script:ModuleName)
-$Script:FunctionName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
-Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName)
+$Script:ScriptName = $MyInvocation.MyCommand.Name.Replace(".Tests.ps1", "")
+Import-Module ( '{0}/{1}.psm1' -f $Script:ModuleRoot, $Script:ModuleName) -Force
 
-Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
-
-  BeforeAll {
-    if ($null -ne $Result)
-    {
-      Clear-Variable -Name $Result
-    }
-  }
+Describe "$Script:ScriptName Unit Tests" -Tag 'UnitTests' {
 
   Context "Basics" {
 
     It "Is valid Powershell (Has no script errors)" {
-      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:FunctionName) -ErrorAction Stop
+      $Content = Get-Content -Path ( '{0}\Public\{1}.ps1' -f $Script:ModuleRoot, $Script:ScriptName) -ErrorAction Stop
       $ErrorColl = $Null
       $Null = [System.Management.Automation.PSParser]::Tokenize($Content, [ref]$ErrorColl)
       $ErrorColl | Should -HaveCount 0
     }
 
-    [object[]]$Params = (Get-ChildItem function:\$Script:FunctionName).Parameters.Keys
+    [object[]]$Params = (Get-ChildItem function:\$Script:ScriptName).Parameters.Keys
     $KnownParameters = 'Computername', 'TCPPort', 'ApiVersion', 'SecurityProtocol', 'WebSession', 'Mac', 'FirmwareId', 'Name',
     'ParentId', 'Site', 'Department', 'CostCenter', 'LastIP', 'Comment', 'AssetId', 'InserviceDate', 'SerialNumber'
 
     It "Should contain our specific parameters" {
       (@(Compare-Object -ReferenceObject $KnownParameters -DifferenceObject $Params -IncludeEqual |
-            Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
+          Where-Object SideIndicator -eq "==").Count) | Should Be $KnownParameters.Count
     }
   }
 
@@ -43,7 +36,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "General Execution" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethod' { }
 
       It "New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' Should not throw" {
         { New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' } | Should -Not -Throw
@@ -52,7 +45,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "All" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {
+      Mock 'Invoke-UMSRestMethod' {
         (
           [pscustomobject]@{
             message  = 'Thin client successfully inserted.'
@@ -65,9 +58,9 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
       $Result = New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1'
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 1 time' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 1 time' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 1
           Exactly     = $true
         }
@@ -93,13 +86,13 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
 
     Context "Whatif" {
 
-      Mock 'Invoke-UMSRestMethodWebSession' {}
+      Mock 'Invoke-UMSRestMethod' { }
 
       $Result = New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -WhatIf
 
-      It 'Assert Invoke-UMSRestMethodWebSession is called exactly 0 times' {
+      It 'Assert Invoke-UMSRestMethod is called exactly 0 times' {
         $AMCParams = @{
-          CommandName = 'Invoke-UMSRestMethodWebSession'
+          CommandName = 'Invoke-UMSRestMethod'
           Times       = 0
           Exactly     = $true
         }
@@ -112,7 +105,7 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
     }
 
     Context "Error Handling" {
-      Mock 'Invoke-UMSRestMethodWebSession' {throw 'Error'}
+      Mock 'Invoke-UMSRestMethod' { throw 'Error' }
 
       It "New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop Should throw" {
         { New-UMSDevice -Mac '001122334455' -FirmwareId 2 -LastIP '192.168.0.1' -ApiVersion 10 -ErrorAction Stop } | Should -Throw
@@ -125,32 +118,22 @@ Describe "$Script:FunctionName Unit Tests" -Tag 'UnitTests' {
   }
 }
 
-Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
-  BeforeAll {
-    if ($null -ne $Result)
-    {
-      Clear-Variable -Name $Result
-    }
+Describe "$Script:ScriptName Integration Tests" -Tag "IntegrationTests" {
+  $Cfg = Import-PowerShellDataFile -Path ('{0}\Tests\Config.psd1' -f $Script:ProjectRoot)
+  if ($IsLinux)
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPathWsl
   }
-
-  $UMS = Get-Content -Raw -Path ('{0}\Tests\UMS.json' -f $Script:ProjectRoot) |
-    ConvertFrom-Json
-  $CredPath = $UMS.CredPath
-  $Password = Get-Content $CredPath | ConvertTo-SecureString
-  $Credential = New-Object System.Management.Automation.PSCredential($UMS.User, $Password)
-  $Name = $UMS.UMSDevice[2].NameNew
-  $Mac = $UMS.UMSDevice[2].MacNew
-  $FirmwareId = $UMS.UMSDevice[2].FirmwareIdNew
-  $ParentId = $UMS.UMSDevice[2].ParentId
+  else
+  {
+    $Credential = Import-Clixml -Path $Cfg.CredPath
+  }
 
   $PSDefaultParameterValues = @{
     '*-UMS*:Credential'       = $Credential
-    '*-UMS*:Computername'     = $UMS.Computername
-    '*-UMS*:SecurityProtocol' = $UMS.SecurityProtocol
-    '*-UMS*:Name'             = $Name
-    '*-UMS*:Mac'              = $Mac
-    '*-UMS*:FirmwareId'       = $FirmwareId
-    '*-UMS*:ParentId'         = $ParentId
+    '*-UMS*:Computername'     = $Cfg.Computername
+    '*-UMS*:TCPPort'          = $Cfg.TCPPort
+    '*-UMS*:SecurityProtocol' = $Cfg.SecurityProtocol
   }
 
   $WebSession = New-UMSAPICookie
@@ -158,10 +141,17 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
     '*-UMS*:WebSession' = $WebSession
   }
 
-  Context "ParameterSetName All" {
+  Context "ParameterSetName Default" {
+
+    $TestCfg = (($Cfg.Tests).where{ $_.Name -eq $ScriptName }).ParameterSets.Default
 
     It "doesn't throw" {
-      { $Script:Result = New-UMSDevice } | Should Not Throw
+      $Params1 = $TestCfg.Params1
+      $Params2 = $TestCfg.Params2
+      { $Script:Result = @(
+          New-UMSDevice @Params1
+          New-UMSDevice @Params2
+        ) } | Should Not Throw
     }
 
     It 'Result should not be null or empty' {
@@ -172,16 +162,31 @@ Describe "$Script:FunctionName Integration Tests" -Tag "IntegrationTests" {
       $Result[0].Id | Should -HaveType [Int]
     }
 
-    It "Result[0].Name should be exactly $Name" {
-      $Result[0].Name | Should -BeExactly $Name
+    It 'Result[0].Mac should have type [String]' {
+      $Result[0].Mac | Should -HaveType [String]
     }
 
-    It "Result[0].Mac should be exactly $Mac" {
-      $Result[0].Mac | Should -BeExactly $Mac
+    It 'Result[0].Message should have type [String]' {
+      $Result[0].Message | Should -HaveType [String]
     }
 
-    It "Result[0].ParentId should be exactly $ParentId" {
-      $Result[0].ParentId | Should -BeExactly $ParentId
+    It 'Result[0].Name should have type [String]' {
+      $Result[0].Name | Should -HaveType [String]
     }
+
+    It 'Result[0].ParentId should have type [Int]' {
+      $Result[0].ParentId | Should -HaveType [Int]
+    }
+
+    It "Result should be Equivalent to Expected" {
+      $Expected = foreach ($item In $TestCfg.Expected)
+      {
+        New-Object psobject -Property $item
+      }
+      Assert-Equivalent -Actual $Result -Expected $Expected -Options @{
+        ExcludedPaths = $TestCfg.Options.ExcludedPaths
+      }
+    }
+
   }
 }

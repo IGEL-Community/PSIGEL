@@ -53,7 +53,7 @@
     $CostCenter,
 
     [Parameter(ValueFromPipelineByPropertyName)]
-    [ValidateScript( {$_ -match [IPAddress]$_})]
+    [ValidateScript( { $_ -match [IPAddress]$_ })]
     [String]
     $LastIP,
 
@@ -70,7 +70,7 @@
     $InserviceDate,
 
     [Parameter(ValueFromPipelineByPropertyName)]
-    [ValidateLength(19, 19)]
+    [ValidateLength(18, 18)]
     [String]
     $SerialNumber
   )
@@ -102,12 +102,12 @@
       Body             = $Body
       Method           = 'Put'
       ContentType      = 'application/json'
-      Headers          = @{}
+      Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
     if ($PSCmdlet.ShouldProcess('MAC: {0}' -f $Mac))
     {
-      $APIObjectColl = Invoke-UMSRestMethodWebSession @Params
+      $APIObjectColl = Invoke-UMSRestMethod @Params
     }
     $Result = foreach ($APIObject in $APIObjectColl)
     {

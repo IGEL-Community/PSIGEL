@@ -1,35 +1,57 @@
-$UMSCredPath = 'C:\Credentials\UmsRmdb.cred'
-$UMSUser = 'rmdb'
-$UMSPassword = Get-Content $UMSCredPath | ConvertTo-SecureString
-$RootCredPath = 'C:\Credentials\TCRoot.cred'
-$RootCredential = (Import-Clixml -Path $RootCredPath)
-#Id of the devicedirectory
-[Int]$TcDirId = 999
+<#
+  requires function Invoke-Parallel:
+  https://raw.githubusercontent.com/RamblingCookieMonster/Invoke-Parallel/master/Invoke-Parallel/Invoke-Parallel.ps1
+#>
+
+[Int]$DeviceDirId = 75
+[String]$Computername = 'igelrmserver'
+[String[]]$SecurityProtocol = 'Tls12'
+[String]$UMSCPath = 'C:\Credentials\UmsRmdb.cred'
+[String]$DeviceCPath = 'C:\Credentials\DeviceRoot.cred'
+[Switch]$Online = $false
+[String]$PathToInvokeParallel = '{0}\Invoke-Parallel.ps1' -f $PSScriptRoot
+$SSHCredential = (Import-Clixml -Path $DeviceCPath)
 
 $PSDefaultParameterValues = @{
-  '*-UMS*:Credential'       = (New-Object System.Management.Automation.PsCredential($UMSUser, $UMSPassword))
-  '*-UMS*:Computername'     = 'igelrmserver.acme.org'
-  '*-UMS*:SecurityProtocol' = 'Tls12'
+  '*-UMS*:Credential'       = (Import-Clixml -Path $UMSCPath)
+  '*-UMS*:Computername'     = $Computername
+  '*-UMS*:SecurityProtocol' = $SecurityProtocol
 }
-
-$WebSession = New-UMSAPICookie
 
 $PSDefaultParameterValues += @{
-  '*-UMS*:WebSession' = $WebSession
+  '*-UMS*:WebSession' = (New-UMSAPICookie)
 }
 
-$DirColl = (Get-UMSDeviceDirectory -Id $TcDirId -Filter children).DirectoryChildren
-$DeviceColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSDevice -Filter online
-$OnlineDeviceColl = $DeviceColl.Where{$_.Online -eq $true}
-
-$UpdateConfigurationColl = $OnlineDeviceColl |
-  Invoke-Parallel -RunspaceTimeout 10 -ScriptBlock {
-  $SshSession = New-SSHSession -Computername $_.Name -Credential $Using:RootCredential -AcceptKey
-  Get-OSWifiConnection -SSHSession $SshSession
-  $null = Remove-SSHSession -SSHSession $SshSession
+if (!(Get-Command Invoke-Parallel -ErrorAction SilentlyContinue))
+{
+  . $PathToInvokeParallel
 }
 
-$UpdateConfigurationColl | Select-Object Host, Interface, ESSID, Mode, Frequency, AccessPoint, BitRate, @{
+$DirColl = (Get-UMSDeviceDirectory -Id $DeviceDirId -Filter children).DirectoryChildren
+
+switch ($Online)
+{
+  $true
+  {
+    $DeviceColl = ($DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSDevice -Filter online).where{$_.Online -eq $true}
+  }
+  Default
+  {
+    $DeviceColl = $DirColl.where{$_.ObjectType -eq 'tc'} | Get-UMSDevice
+  }
+}
+
+$DeviceWifiColl = $DeviceColl |
+  Invoke-Parallel -RunspaceTimeout 20 -ScriptBlock {
+  $SshSession = New-SSHSession -Computername $_.Name -Credential $Using:SSHCredential -AcceptKey -ErrorAction SilentlyContinue
+  if ($SshSession)
+  {
+    Get-OSWifiConnection -SSHSession $SshSession
+    $null = Remove-SSHSession -SSHSession $SshSession
+  }
+}
+
+$DeviceWifiColl | Select-Object Host, Interface, ESSID, Mode, Frequency, AccessPoint, BitRate, @{
   name       = 'LinkQuality'
   expression = { [math]::Round(($_.LinkQualityActual / $_.LinkQualityMax * 100), 0) }
 }, SignalLevel |

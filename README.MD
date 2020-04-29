@@ -1,133 +1,158 @@
 # PSIGEL
 
-This is a module to interact with the IGEL UMS via API and IGEL OS Devices via SSH.
+[![GitHub last commit][github-commit-badge]][github-psigel]
+[![GitHub release (latest by date)][github-release-badge]][github-psigel]
+[![PowerShell Gallery Version][psgallery-v-badge]][powershell-gallery]
+[![PS Gallery][psgallery-dl-badge]][powershell-gallery]
+[![GitHub stars][github-start-badge]][github-psigel]
+[![IGEL-Community Slack][slack-badge]][slack-igelcommunity]
 
-**API** functions got the noun-prefix **UMS** (for Universal Management Server), e.g. Get-**UMS**Something
+![Logo](/Docs/Media/PSIGEL_1280_320.png)
 
-**SSH** functions got the noun-prefix **OS** (for Device), e.g. Get-**OS**Something
+## Table of contents
 
-To connect to the Devices via **SSH**, the Module [Posh-SSH](https://github.com/darkoperator/Posh-SSH) by Carlos Perez aka darkoperator is required.
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
+- [Maintainer](#maintainer)
+- [License](#license)
 
-The **API** uses a cookie as authentication. You can create it with [New-UMSAPICookie](/#new-umsapicookie):
+## Overview
 
-```powershell
-$Websession = New-UMSAPICookie -Computername igelrmserver
-```
+**PSIGEL** is a powershell module that makes use of the REST API provided by the [**IGEL**](https://www.igel.com) Management Interface (IMI).
 
-My goal is to support all [API-functionalities](https://kb.igel.com/igelimi-v3/en/imi-api-v3-reference-2723425.html) IGEL provides. Use at own risk! Suggestions are welcome.
+via [IGEL Knowledgebase](https://kb.igel.com/igelimi-v3/en/imi-manual-2723216.html) :
+> IGEL Management Interface (IMI) enables you to connect UMS to systems management tools. It is a programming interface that can create and delete thin clients, move them between directories, reboot them and much more. Its implementation as a REST API makes IMI agnostic of hardware platforms, operating systems and programming languages, thus ensuring maximum interoperability.
 
-## Installation
+## Prerequisites
+
+|OS|min. PS Version (Edition)|
+|-|-|
+|Windows|5.1 (Desktop)\*|
+|Windows|7 (Core)\*|
+|Linux|7 (Core)\*|
+|MacOS|7 (Core)|
+
+\* tested
+
+## Quickstart
+
+### Installation
 
 If you have the [PowerShellGet](https://github.com/powershell/powershellget) module installed you can enter the following command:
 
 ```powershell
-Install-Module -Name PSIGEL
+C:\> Install-Module -Name PSIGEL
 ```
 
 Alternatively you can download a ZIP file of the latest version from our [Releases](https://github.com/IGEL-Community/PSIGEL/releases) page.
 
-## PSIGEL Cmdlets
-### [Get-OSFirmware](/Docs/Get-OSFirmware.md)
-Gets firmware from a device.
+### Basic usage
 
-### [Get-OSUpdateConfiguration](/Docs/Get-OSUpdateConfiguration.md)
-Gets firmware from a device.
+Import Module:
 
-### [Get-OSWifiConnection](/Docs/Get-OSWifiConnection.md)
-Gets wifi connection from a device.
+```powershell
+C:\> Import-Module -Name PSIGEL
+```
 
-### [Get-UMSDevice](/Docs/Get-UMSDevice.md)
-Gets information on a device.
+Create a WebSession
 
-### [Get-UMSDeviceAssignment](/Docs/Get-UMSDeviceAssignment.md)
-Gets information on a profile or master profile assignment of a device.
+```powershell
+C:\> $WebSession = New-UMSAPICookie -Computername igelrmserver -Credential (Get-Credential)
+```
 
-### [Get-UMSDeviceDirectory](/Docs/Get-UMSDeviceDirectory.md)
-Gets information on a device directory.
+Call a Function - e.g. get status information from the UMS server:
 
-### [Get-UMSDeviceDirectoryAssignment](/Docs/Get-UMSDeviceDirectoryAssignment.md)
-Gets information on a profile or master profile assignment of a device directory.
+```powershell
+C:\> Get-UMSStatus -Computername igelrmserver -WebSession $WebSession
 
-### [Get-UMSFirmware](/Docs/Get-UMSFirmware.md)
-Gets information on a firmware.
+RmGuiServerVersion : 6.3.130
+BuildNumber        : 44584
+ActiveMqVersion    : 5.7.0
+DerbyVersion       : 10.12.1.1
+ServerUuid         : f30fb3a2-37d4-4cbb-b884-4f5061d3260e
+Server             : igelrmserver:8443
+```
 
-### [Get-UMSProfile](/Docs/Get-UMSProfile.md)
-Gets information on a profile.
+Remove WebSession:
 
-### [Get-UMSProfileAssignment](/Docs/Get-UMSProfileAssignment.md)
-Gets information on a device or device directory assignment of a profile.
+```powershell
+C:\> $null = Remove-UMSAPICookie -Computername igelrmserver -WebSession $WebSession
+```
 
-### [Get-UMSProfileDirectory](/Docs/Get-UMSProfileDirectory.md)
-Gets information on a profile directory.
+## Documentation
 
-### [Get-UMSStatus](/Docs/Get-UMSStatus.md)
-Gets information on the UMS.
+- [Scripting with PSIGEL](/Docs/Guides/Scripting-with-PSIGEL.md)
+  - [Installation](/Docs/Guides/Scripting-with-PSIGEL.md#installation)
+  - [Setup](/Docs/Guides/Scripting-with-PSIGEL.md#setup)
+  - [Configuration](/Docs/Guides/Scripting-with-PSIGEL.md#configuration)
+  - [Authentication](/Docs/Guides/Scripting-with-PSIGEL.md#authentication)
+  - [Creating a script](/Docs/Guides/Scripting-with-PSIGEL.md#creating-a-script)
+- Functions
+  - [Get-UMSDevice](/Docs/Reference/Get-UMSDevice.md)
+  - [Get-UMSDeviceAssignment](/Docs/Reference/Get-UMSDeviceAssignment.md)
+  - [Get-UMSDeviceDirectory](/Docs/Reference/Get-UMSDeviceDirectory.md)
+  - [Get-UMSDeviceDirectoryAssignment](/Docs/Reference/Get-UMSDeviceDirectoryAssignment.md)
+  - [Get-UMSDirectoryRecursive](/Docs/Reference/Get-UMSDirectoryRecursive.md)
+  - [Get-UMSFirmware](/Docs/Reference/Get-UMSFirmware.md)
+  - [Get-UMSProfile](/Docs/Reference/Get-UMSProfile.md)
+  - [Get-UMSProfileAssignment](/Docs/Reference/Get-UMSProfileAssignment.md)
+  - [Get-UMSProfileDirectory](/Docs/Reference/Get-UMSProfileDirectory.md)
+  - [Get-UMSStatus](/Docs/Reference/Get-UMSStatus.md)
+  - [Move-UMSDevice](/Docs/Reference/Move-UMSDevice.md)
+  - [Move-UMSDeviceDirectory](/Docs/Reference/Move-UMSDeviceDirectory.md)
+  - [Move-UMSProfile](/Docs/Reference/Move-UMSProfile.md)
+  - [Move-UMSProfileDirectory](/Docs/Reference/Move-UMSProfileDirectory.md)
+  - [New-UMSAPICookie](/Docs/Reference/New-UMSAPICookie.md)
+  - [New-UMSDevice](/Docs/Reference/New-UMSDevice.md)
+  - [New-UMSDeviceDirectory](/Docs/Reference/New-UMSDeviceDirectory.md)
+  - [New-UMSProfileAssignment](/Docs/Reference/New-UMSProfileAssignment.md)
+  - [New-UMSProfileDirectory](/Docs/Reference/New-UMSProfileDirectory.md)
+  - [Remove-UMSAPICookie](/Docs/Reference/Remove-UMSAPICookie.md)
+  - [Remove-UMSDevice](/Docs/Reference/Remove-UMSDevice.md)
+  - [Remove-UMSDeviceDirectory](/Docs/Reference/Remove-UMSDeviceDirectory.md)
+  - [Remove-UMSProfile](/Docs/Reference/Remove-UMSProfile.md)
+  - [Remove-UMSProfileAssignment](/Docs/Reference/Remove-UMSProfileAssignment.md)
+  - [Remove-UMSProfileDirectory](/Docs/Reference/Remove-UMSProfileDirectory.md)
+  - [Reset-UMSDevice](/Docs/Reference/Reset-UMSDevice.md)
+  - [Restart-UMSDevice](/Docs/Reference/Restart-UMSDevice.md)
+  - [Send-UMSDeviceSetting](/Docs/Reference/Send-UMSDeviceSetting.md)
+  - [Start-UMSDevice](/Docs/Reference/Start-UMSDevice.md)
+  - [Stop-UMSDevice](/Docs/Reference/Stop-UMSDevice.md)
+  - [Update-UMSDevice](/Docs/Reference/Update-UMSDevice.md)
+  - [Update-UMSDeviceDirectory](/Docs/Reference/Update-UMSDeviceDirectory.md)
+  - [Update-UMSProfile](/Docs/Reference/Update-UMSProfile.md)
+  - [Update-UMSProfileDirectory](/Docs/Reference/Update-UMSProfileDirectory.md)
+- Other sources
+  - [igelexperts.com](https://www.igelexperts.com/category/igel/psigel/)
+- [Changelog](CHANGELOG.md)
 
-### [Move-UMSDevice](/Docs/Move-UMSDevice.md)
-Moves a device to a device directory.
+## Maintainer
 
-### [Move-UMSDeviceDirectory](/Docs/Move-UMSDeviceDirectory.md)
-Moves a device directory to a device directory.
+- Falk Heiland
+[![https://github.com/falkheiland][github-fh-badge]][github-fh]
+[![http://twitter.com/falkheiland][twitter-fh-badge]][twitter-fh]
 
-### [Move-UMSProfile](/Docs/Move-UMSProfile.md)
-Moves a profile to a profile directory.
+## License
 
-### [Move-UMSProfileDirectory](/Docs/Move-UMSProfileDirectory.md)
-Moves a profile directory to profile directory.
+This project is [licensed under the MIT License](LICENSE).
 
-### [New-UMSAPICookie](/Docs/New-UMSAPICookie.md)
-Creates a websession cookie.
+[![MIT licensed][mit-badge]][mit-license]
 
-### [New-UMSDevice](/Docs/New-UMSDevice.md)
-Creates a new device.
-
-### [New-UMSDeviceDirectory](/Docs/New-UMSDeviceDirectory.md)
-Creates a device directory.
-
-### [New-UMSProfileAssignment](/Docs/New-UMSProfileAssignment.md)
-Creates a profile assignment on a device or device directory.
-
-### [New-UMSProfileDirectory](/Docs/New-UMSProfileDirectory.md)
-Creates a profile directory.
-
-### [Remove-UMSDevice](/Docs/Remove-UMSDevice.md)
-Removes a device.
-
-### [Remove-UMSDeviceDirectory](/Docs/Remove-UMSDeviceDirectory.md)
-Removes a device directory.
-
-### [Remove-UMSProfile](/Docs/Remove-UMSProfile.md)
-Removes a profile.
-
-### [Remove-UMSProfileAssignment](/Docs/Remove-UMSProfileAssignment.md)
-Removes a profile assignment from a device or device directory.
-
-### [Remove-UMSProfileDirectory](/Docs/Remove-UMSProfileDirectory.md)
-Removes a profile directory.
-
-### [Reset-UMSDevice](/Docs/Reset-UMSDevice.md)
-Resets a device to factory defaults.
-
-### [Restart-UMSDevice](/Docs/Restart-UMSDevice.md)
-Restarts a device.
-
-### [Send-UMSDeviceSetting](/Docs/Send-UMSDeviceSetting.md)
-Sends settings to a device.
-
-### [Start-UMSDevice](/Docs/Start-UMSDevice.md)
-Wakes up a device.
-
-### [Stop-UMSDevice](/Docs/Stop-UMSDevice.md)
-Shuts down a device.
-
-### [Update-UMSDevice](/Docs/Update-UMSDevice.md)
-Updates properties of a device.
-
-### [Update-UMSDeviceDirectory](/Docs/Update-UMSDeviceDirectory.md)
-Updates the name of a device directory.
-
-### [Update-UMSProfile](/Docs/Update-UMSProfile.md)
-Updates the name of a profile.
-
-### [Update-UMSProfileDirectory](/Docs/Update-UMSProfileDirectory.md)
-Updates the name of a profile directory.
+[psgallery-dl-badge]: https://img.shields.io/powershellgallery/dt/PSIGEL.svg?logo=powershell
+[powershell-gallery]: https://www.powershellgallery.com/packages/PSIGEL/
+[mit-badge]: https://img.shields.io/github/license/IGEL-Community/PSIGEL?logo=github
+[mit-license]: LICENSE
+[github-commit-badge]: https://img.shields.io/github/last-commit/IGEL-Community/PSIGEL?logo=github
+[github-psigel]: https://github.com/IGEL-Community/PSIGEL
+[github-release-badge]: https://img.shields.io/github/release/IGEL-Community/PSIGEL/all.svg?logo=github
+[psgallery-v-badge]: https://img.shields.io/powershellgallery/v/PSIGEL?include_prereleases&logo=powershell
+[github-start-badge]: https://img.shields.io/github/stars/IGEL-Community/PSIGEL?logo=github
+[slack-badge]: https://img.shields.io/badge/chat-IGEL%20Community-brightgreen?logo=slack
+[slack-igelcommunity]: https://igelcommunity.slack.com/
+[github-fh-badge]: https://img.shields.io/badge/Github-falkheiland-green?logo=github
+[github-fh]: https://github.com/falkheiland
+[twitter-fh-badge]: https://img.shields.io/badge/Twitter-falkheiland-blue?logo=twitter
+[twitter-fh]: https://twitter.com/falkheiland

@@ -27,61 +27,60 @@
 
   Begin
   {
-    Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
-    Add-Type -TypeDefinition @'
-    using System.Net;
-    using System.Security.Cryptography.X509Certificates;
-    public class TrustAllCertsPolicy : ICertificatePolicy {
-        public bool CheckValidationResult(
-            ServicePoint srvPoint, X509Certificate certificate,
-            WebRequest request, int certificateProblem) {
-              return true;
-            }
-          }
-'@
-    [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
-    [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
   }
   Process
   {
     $Username = $Credential.Username
     $Password = $Credential.GetNetworkCredential().password
-
-
     $BUArray = @($Computername, $TCPPort, $ApiVersion)
     $BaseURL = 'https://{0}:{1}/umsapi/v{2}/' -f $BUArray
     $Header = @{
       'Authorization' = 'Basic ' + [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($Username + ':' + $Password))
     }
-
     $Params = @{
-      Uri         = '{0}login' -f $BaseURL
-      Headers     = $Header
-      Method      = 'Post'
-      ContentType = 'application/json'
-      ErrorAction = 'Stop'
+      Uri              = '{0}login' -f $BaseURL
+      Headers          = $Header
+      Method           = 'Post'
+      ContentType      = 'application/json'
+      SecurityProtocol = $SecurityProtocol
     }
-
-    Try
+    switch (Get-Variable -Name PSEdition -ValueOnly)
     {
-      $SessionResponse = Invoke-RestMethod @Params
+      'Desktop'
+      {
+        Add-Type -AssemblyName Microsoft.PowerShell.Commands.Utility
+        Add-Type -TypeDefinition @'
+          using System.Net;
+          using System.Security.Cryptography.X509Certificates;
+          public class TrustAllCertsPolicy : ICertificatePolicy {
+              public bool CheckValidationResult(
+                  ServicePoint srvPoint, X509Certificate certificate,
+                  WebRequest request, int certificateProblem) {
+                    return true;
+                  }
+                }
+'@
+        [Net.ServicePointManager]::CertificatePolicy = New-Object -TypeName TrustAllCertsPolicy
+        [Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -join ','
+      }
+    }
+    $SessionResponse = Invoke-UMSRestMethod @Params
+
+    if ($SessionResponse)
+    {
       $Cookie = New-Object -TypeName System.Net.Cookie
       $Cookie.Name = ($SessionResponse.Message).Split('=')[0]
       $Cookie.Path = '/'
       $Cookie.Value = ($SessionResponse.Message).Split('=')[1]
       $Cookie.Domain = $Computername
-    }
-    Catch
-    {
-      $_.Exception.Message
-    }
 
-    if ($PSCmdlet.ShouldProcess($Computername))
-    {
-      $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
-      $WebSession.Cookies.Add($Cookie)
-      $Result = $WebSession
-      $Result
+      if ($PSCmdlet.ShouldProcess($Computername))
+      {
+        $WebSession = New-Object -TypeName Microsoft.Powershell.Commands.Webrequestsession
+        $WebSession.Cookies.Add($Cookie)
+        $Result = $WebSession
+        $Result
+      }
     }
   }
   End
