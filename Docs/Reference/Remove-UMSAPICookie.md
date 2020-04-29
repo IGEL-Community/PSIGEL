@@ -8,7 +8,7 @@ schema: 2.0.0
 # Remove-UMSAPICookie
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Removes a websession cookie.
 
 ## SYNTAX
 
@@ -18,21 +18,32 @@ Remove-UMSAPICookie [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+Removes a websession cookie for the UMS API.
 
 ## EXAMPLES
 
 ### Example 1
+
+Removes a websession cookie, gets the cookie value back as output.
+
 ```powershell
-PS C:\> {{ Add example code here }}
+Remove-UMSAPICookie -ComputerName 'igelrmserver' -WebSession $WebSession
+
+D7588A4A667B3B76650245A8BF335036
 ```
 
-{{ Add example description here }}
+### Example 1
+
+Removes a websession cookie, omits output.
+
+```powershell
+$null = Remove-UMSAPICookie -ComputerName 'igelrmserver' -WebSession $WebSession
+```
 
 ## PARAMETERS
 
 ### -ApiVersion
-{{ Fill ApiVersion Description }}
+API Version to use
 
 ```yaml
 Type: Int32
@@ -48,7 +59,7 @@ Accept wildcard characters: False
 ```
 
 ### -Computername
-{{ Fill Computername Description }}
+Computername of the UMS Server
 
 ```yaml
 Type: String
@@ -78,7 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -SecurityProtocol
-{{ Fill SecurityProtocol Description }}
+Set SSL/TLS protocol
 
 ```yaml
 Type: String[]
@@ -94,7 +105,7 @@ Accept wildcard characters: False
 ```
 
 ### -TCPPort
-{{ Fill TCPPort Description }}
+TCP Port API
 
 ```yaml
 Type: Int32
@@ -109,7 +120,7 @@ Accept wildcard characters: False
 ```
 
 ### -WebSession
-{{ Fill WebSession Description }}
+Websession Cookie
 
 ```yaml
 Type: Object
