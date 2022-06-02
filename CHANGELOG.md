@@ -1,5 +1,11 @@
 # PSIGEL Changelog
 
+## new
+
+### Changed
+
+* support  for german "Umlaute"
+
 ## v0.10.0 - 20200429
 
 ### Added
