@@ -41,7 +41,7 @@
     $Params = @{
       WebSession       = $WebSession
       Method           = 'Delete'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }

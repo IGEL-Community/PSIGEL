@@ -33,7 +33,7 @@
     $Params = @{
       WebSession       = $WebSession
       Method           = 'Get'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{ }
       Uri              = $BaseURL
       SecurityProtocol = ($SecurityProtocol -join ',')

@@ -12,7 +12,7 @@ function Invoke-UMSRestMethod
       WebSession       = $WebSession
       Uri              = $Uri
       Method           = 'Put'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
@@ -24,7 +24,7 @@ function Invoke-UMSRestMethod
       Uri              = $Uri
       Body             = $Body
       Method           = 'Put'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{}
       SecurityProtocol = ($SecurityProtocol -join ',')
     }

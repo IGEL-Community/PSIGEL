@@ -49,7 +49,7 @@ function Move-UMSDevice
       Uri              = ('{0}/{1}?operation=move' -f $BaseURL, $DestId)
       Body             = $Body
       Method           = 'Put'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }
