@@ -45,7 +45,7 @@
       Uri              = ('{0}?command=shutdown' -f $BaseURL)
       Body             = $Body
       Method           = 'Post'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }

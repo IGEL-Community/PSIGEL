@@ -41,7 +41,7 @@
       Uri              = '{0}login' -f $BaseURL
       Headers          = $Header
       Method           = 'Post'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       SecurityProtocol = $SecurityProtocol
     }
     switch (Get-Variable -Name PSEdition -ValueOnly)

@@ -38,7 +38,7 @@ function Get-UMSDeviceDirectoryAssignment
       WebSession       = $WebSession
       Uri              = ('{0}/{1}/assignments/profiles' -f $BaseURL, $Id)
       Method           = 'Get'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       Headers          = @{ }
       SecurityProtocol = ($SecurityProtocol -join ',')
     }

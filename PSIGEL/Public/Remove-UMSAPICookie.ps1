@@ -39,7 +39,7 @@ function Remove-UMSAPICookie
       WebSession       = $WebSession
       Headers          = $Header
       Method           = 'Post'
-      ContentType      = 'application/json'
+      ContentType      = 'application/json; charset=utf-8'
       SecurityProtocol = $SecurityProtocol
     }
     if ($PSCmdlet.ShouldProcess($Cookie.Value))

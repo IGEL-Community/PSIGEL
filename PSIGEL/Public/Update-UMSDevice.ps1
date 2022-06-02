@@ -120,7 +120,7 @@
           Uri              = ('{0}/{1}' -f $BaseURL, $Id)
           Body             = $Body
           Method           = 'Put'
-          ContentType      = 'application/json'
+          ContentType      = 'application/json; charset=utf-8'
           Headers          = @{ }
           SecurityProtocol = ($SecurityProtocol -join ',')
         }
