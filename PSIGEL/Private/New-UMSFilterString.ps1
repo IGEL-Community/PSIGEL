@@ -15,13 +15,19 @@ function New-UMSFilterString
 
   .EXAMPLE
   New-UMSFilterString -Filter 'children'
+  
+  .EXAMPLE
+  New-UMSFilterString -Filter 'deviceattributes'
+  
+  .EXAMPLE
+  New-UMSFilterString -Filter 'networkadapters'
 
   #>
 
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param (
     [Parameter(Mandatory)]
-    [ValidateSet('short', 'details', 'online', 'shadow', 'children')]
+    [ValidateSet('short', 'details', 'online', 'shadow', 'children', 'deviceattributes', 'netwokadapters')]
     [String]
     $Filter
   )
