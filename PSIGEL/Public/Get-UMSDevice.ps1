@@ -168,7 +168,7 @@
                 }
               }
               $AttributePropertiesObject = New-Object PSObject -Property $AttributeProperties
-              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier)), $AttributePropertiesObject)
+              $Properties.Add(-join('DeviceAttribute_', $([String]$DeviceAttribute.identifier)), $AttributePropertiesObject)
               $AttributeCount += 1
             }
           } else {
