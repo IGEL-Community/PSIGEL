@@ -147,16 +147,40 @@
         }
         deviceattributes
         {
-          $Properties += [ordered]@{
-            #TODO
+          $AttributeCount = 0
+          if ($APIObject.deviceAttributes) {
+            $Properties.Add('DeviceAttributes', $APIObject.deviceAttributes)
+            foreach ($DeviceAttribute in $APIObject.deviceAttributes) {
+              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Type'), [String]$DeviceAttribute.type)
+              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Name'), [String]$DeviceAttribute.name)
+              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Value'), [String]$DeviceAttribute.value)
+              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Identifier'), [String]$DeviceAttribute.identifier)
+              if ([String]$DeviceAttribute.type -eq 'range') {
+                $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-AllowedValues'), [String]$DeviceAttribute.allowedValues)
+              }
+              $AttributeCount += 1
+            }
+          } else {
+            $Properties.Add('DeviceAttributes', '')
           }
+          $Properties.Add('DeviceAttributeCount', [Int]$AttributeCount)
         }
         networkadapters
         {
-          
-          $Properties += [ordered]@{
-            #TODO
+          $AdapterCount = 0
+          if ($APIObject.networkAdapters) {
+            $Properties.Add('NetworkAdapters', $APIObject.networkAdapters)
+            foreach ($NetworkAdapter in $APIObject.networkAdapters) {
+              $Properties.Add(-join('NetworkAdapter', $($AdapterCount), '-Type'), [String]$NetworkAdapter.type)
+              $Properties.Add(-join('NetworkAdapter', $($AdapterCount), '-Mac'), [String]$NetworkAdapter.mac)
+              $Properties.Add(-join('NetworkAdapter', $($AdapterCount), '-Name'), [String]$NetworkAdapter.name)
+              $Properties.Add(-join('NetworkAdapter', $($AdapterCount), '-State'), [String]$NetworkAdapter.state)
+              $AdapterCount += 1
+            }
+          } else {
+            $Properties.Add('NetworkAdapters', '')
           }
+          $Properties.Add('NetworkAdapterCount', [Int]$AdapterCount)
         }
       }
       New-Object psobject -Property $Properties
