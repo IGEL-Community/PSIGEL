@@ -151,11 +151,28 @@
           if ($APIObject.deviceAttributes) {
             $Properties.Add('DeviceAttributes', $APIObject.deviceAttributes)
             foreach ($DeviceAttribute in $APIObject.deviceAttributes) {
+              $AttributeProperties = [ordered]@{
+                'Identifier' = [String]$DeviceAttribute.identifier
+                'Name' = [String]$DeviceAttribute.name
+                'Type' = [String]$DeviceAttribute.type
+              }
+              switch ([String]$DeviceAttribute.type) {
+                range
+                {
+                  $AttributeProperties.Add('Value', [String]$DeviceAttribute.value)
+                  $AttributeProperties.Add('AllowedValues', $DeviceAttribute.allowedValues)
+                }
+                date
+                {
+                  $AttributeProperties.Add('Value', [datetime]$DeviceAttribute.value)
+                }
+              }
+              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier)), $AttributeProperties)
+              
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Identifier'), [String]$DeviceAttribute.identifier)
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Name'), [String]$DeviceAttribute.name)
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Type'), [String]$DeviceAttribute.type)
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Value'), [String]$DeviceAttribute.value)
-              
               if ([String]$DeviceAttribute.type -eq 'range') {
                 $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-AllowedValues'), $DeviceAttribute.allowedValues)
               }
