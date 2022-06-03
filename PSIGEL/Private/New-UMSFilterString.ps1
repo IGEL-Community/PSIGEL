@@ -27,7 +27,7 @@ function New-UMSFilterString
   [cmdletbinding(SupportsShouldProcess, ConfirmImpact = 'Low')]
   param (
     [Parameter(Mandatory)]
-    [ValidateSet('short', 'details', 'online', 'shadow', 'children', 'deviceattributes', 'netwokadapters')]
+    [ValidateSet('short', 'details', 'online', 'shadow', 'children', 'deviceattributes', 'networkadapters')]
     [String]
     $Filter
   )
