@@ -156,7 +156,7 @@
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Value'), [String]$DeviceAttribute.value)
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Identifier'), [String]$DeviceAttribute.identifier)
               if ([String]$DeviceAttribute.type -eq 'range') {
-                $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-AllowedValues'), [String]$DeviceAttribute.allowedValues)
+                $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-AllowedValues'), $DeviceAttribute.allowedValues)
               }
               $AttributeCount += 1
             }
