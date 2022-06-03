@@ -22,7 +22,7 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [ValidateSet('short', 'details', 'online', 'shadow')]
+    [ValidateSet('short', 'details', 'online', 'shadow', 'deviceattributes', 'networkadapters')]
     [String]
     $Filter = 'short',
 
@@ -143,6 +143,19 @@
           else
           {
             $Properties.Add('BiosDate', '')
+          }
+        }
+        deviceattributes
+        {
+          $Properties += [ordered]@{
+            #TODO
+          }
+        }
+        networkadapters
+        {
+          
+          $Properties += [ordered]@{
+            #TODO
           }
         }
       }
