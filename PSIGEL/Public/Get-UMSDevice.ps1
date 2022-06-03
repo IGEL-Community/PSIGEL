@@ -159,12 +159,20 @@
               switch ([String]$DeviceAttribute.type) {
                 range
                 {
-                  $AttributeProperties.Add('Value', [String]$DeviceAttribute.value)
+                  $AttributeProperties.Add('Value', $DeviceAttribute.value)
                   $AttributeProperties.Add('AllowedValues', $DeviceAttribute.allowedValues)
                 }
                 date
                 {
                   $AttributeProperties.Add('Value', [datetime]$DeviceAttribute.value)
+                }
+                string
+                {
+                  $AttributeProperties.Add('Value', [Single]$DeviceAttribute.value)
+                }
+                number
+                {
+                  $AttributeProperties.Add('Value', [String]$DeviceAttribute.value)
                 }
               }
               $AttributePropertiesObject = New-Object PSObject -Property $AttributeProperties
