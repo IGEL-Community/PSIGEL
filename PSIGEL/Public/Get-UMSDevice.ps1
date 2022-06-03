@@ -189,7 +189,7 @@
                 'State' = [String]$NetworkAdapter.state
               }
               $AdapterPropertiesObject = New-Object PSObject -Property $AdapterProperties
-              $Properties.Add(-join('NetworkAdapter-', $($AdapterCount)), $AttributePropertiesObject)
+              $Properties.Add(-join('NetworkAdapter', $($AdapterCount)), $AdapterPropertiesObject)
               $AdapterCount += 1
             }
           } else {
