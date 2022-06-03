@@ -52,6 +52,8 @@
             <command:parameterValue required="false" command:variableLength="false">details</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">online</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">shadow</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">deviceattributes</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">networkadapters</command:parameterValue>
           </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
