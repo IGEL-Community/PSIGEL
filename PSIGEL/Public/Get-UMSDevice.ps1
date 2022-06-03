@@ -167,7 +167,8 @@
                   $AttributeProperties.Add('Value', [datetime]$DeviceAttribute.value)
                 }
               }
-              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier)), $AttributeProperties)
+              $AttributePropertiesObject = New-Object PSObject -Property $AttributeProperties
+              $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier)), $AttributePropertiesObject)
               
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Identifier'), [String]$DeviceAttribute.identifier)
               $Properties.Add(-join('DeviceAttribute-', $([String]$DeviceAttribute.identifier), '-Name'), [String]$DeviceAttribute.name)
