@@ -2,9 +2,18 @@
 
 ## new
 
+### Added
+
+* added support for networkadapters and deviceattributes to Get-UMSDevice
+
 ### Changed
 
-* support  for german "Umlaute"
+* support for german "Umlaute"
+* changed casting of properties version to String (Get-UMSStatus and Get-UMSFirmware)
+
+### Fixed
+
+* fixed links to license and online help
 
 ## v0.10.0 - 20200429
 
