@@ -46,7 +46,7 @@
         'RmGuiServerVersion' = [Version]::new($APIObject.rmGuiServerVersion)
         'BuildNumber'        = [Int]$APIObject.buildNumber
         'ActiveMqVersion'    = [Version]::new($APIObject.activeMQVersion)
-        'DerbyVersion'       = [Version]::new($APIObject.derbyVersion)
+        'DerbyVersion'       = [String]$APIObject.derbyVersion
         'ServerUuid'         = [String]$APIObject.serverUUID
         'Server'             = [String]$APIObject.server
       }

@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/Docs/Reference/Send-UMSDeviceSetting.md
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Reference/Send-UMSDeviceSetting.md
 schema: 2.0.0
 ---
 

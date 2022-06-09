@@ -59,7 +59,7 @@
       $Properties = [ordered]@{
         'Id'           = [Int]$APIObject.id
         'Product'      = [String]$APIObject.product
-        'Version'      = [Version]::new($APIObject.version)
+        'Version'      = [String]$APIObject.version
         'FirmwareType' = [String]$APIObject.firmwareType
       }
       New-Object psobject -Property $Properties
