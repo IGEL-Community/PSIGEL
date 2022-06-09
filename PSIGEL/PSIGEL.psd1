@@ -132,7 +132,7 @@
       Tags         = @('IGEL', 'UMS', 'IMI')
 
       # Eine URL zur Lizenz fuer dieses Modul.
-      LicenseUri   = 'https://github.com/IGEL-Community/PSIGEL/LICENSE'
+      LicenseUri   = 'https://github.com/IGEL-Community/PSIGEL/blob/master/LICENSE'
 
       # Eine URL zur Hauptwebsite fuer dieses Projekt.
       ProjectUri   = 'https://github.com/IGEL-Community/PSIGEL'

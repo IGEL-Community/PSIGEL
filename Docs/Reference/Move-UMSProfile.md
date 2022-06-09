@@ -1,7 +1,7 @@
 ---
 external help file: PSIGEL-help.xml
 Module Name: PSIGEL
-online version: https://github.com/IGEL-Community/PSIGEL/Docs/Reference/Move-UMSProfile.md
+online version: https://github.com/IGEL-Community/PSIGEL/blob/master/Docs/Reference/Move-UMSProfile.md
 schema: 2.0.0
 ---
 
