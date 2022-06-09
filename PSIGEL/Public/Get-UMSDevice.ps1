@@ -22,7 +22,7 @@
     [Parameter(Mandatory)]
     $WebSession,
 
-    [ValidateSet('short', 'details', 'online', 'shadow')]
+    [ValidateSet('short', 'details', 'online', 'shadow', 'deviceattributes', 'networkadapters')]
     [String]
     $Filter = 'short',
 
@@ -144,6 +144,66 @@
           {
             $Properties.Add('BiosDate', '')
           }
+        }
+        deviceattributes
+        {
+          $AttributeCount = 0
+          if ($APIObject.deviceAttributes) {
+            $Properties.Add('DeviceAttributes', $APIObject.deviceAttributes)
+            foreach ($DeviceAttribute in $APIObject.deviceAttributes) {
+              $AttributeProperties = [ordered]@{
+                'Identifier' = [String]$DeviceAttribute.identifier
+                'Name' = [String]$DeviceAttribute.name
+                'Type' = [String]$DeviceAttribute.type
+              }
+              switch ([String]$DeviceAttribute.type) {
+                range
+                {
+                  $AttributeProperties.Add('Value', $DeviceAttribute.value)
+                  $AttributeProperties.Add('AllowedValues', $DeviceAttribute.allowedValues)
+                }
+                date
+                {
+                  $AttributeProperties.Add('Value', [datetime]$DeviceAttribute.value)
+                }
+                string
+                {
+                  $AttributeProperties.Add('Value', [Single]$DeviceAttribute.value)
+                }
+                number
+                {
+                  $AttributeProperties.Add('Value', [String]$DeviceAttribute.value)
+                }
+              }
+              $AttributePropertiesObject = New-Object PSObject -Property $AttributeProperties
+              $Properties.Add(-join('DeviceAttribute_', $([String]$DeviceAttribute.identifier)), $AttributePropertiesObject)
+              $AttributeCount += 1
+            }
+          } else {
+            $Properties.Add('DeviceAttributes', '')
+          }
+          $Properties.Add('DeviceAttributeCount', [Int]$AttributeCount)
+        }
+        networkadapters
+        {
+          $AdapterCount = 0
+          if ($APIObject.networkAdapters) {
+            $Properties.Add('NetworkAdapters', $APIObject.networkAdapters)
+            foreach ($NetworkAdapter in $APIObject.networkAdapters) {
+              $AdapterProperties = [ordered]@{
+                'Name' = [String]$NetworkAdapter.name
+                'Type' = [String]$NetworkAdapter.type
+                'Mac' = [String]$NetworkAdapter.mac
+                'State' = [String]$NetworkAdapter.state
+              }
+              $AdapterPropertiesObject = New-Object PSObject -Property $AdapterProperties
+              $Properties.Add(-join('NetworkAdapter', $($AdapterCount)), $AdapterPropertiesObject)
+              $AdapterCount += 1
+            }
+          } else {
+            $Properties.Add('NetworkAdapters', '')
+          }
+          $Properties.Add('NetworkAdapterCount', [Int]$AdapterCount)
         }
       }
       New-Object psobject -Property $Properties
