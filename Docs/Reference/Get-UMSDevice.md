@@ -175,7 +175,7 @@ Optional filter
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: short, details, online, shadow
+Accepted values: short, details, online, shadow, deviceattributes, networkadapters
 
 Required: False
 Position: Benannt
