@@ -120,15 +120,15 @@
         }
         if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'DeviceAttributes' })
         {
-		      $DeviceAttributesArray = @()
-		      foreach ($DeviceAttribute in $DeviceAttributes.GetEnumerator()) {
-			      $DeviceAttributesArray += @(
-			        @{
-				        'identifier' = $DeviceAttribute.Key
-                'value' = $DeviceAttribute.Value
-			        }
-			      )
-	        }
+	  $DeviceAttributesArray = @()
+          foreach ($DeviceAttribute in $DeviceAttributes.GetEnumerator()) {
+            $DeviceAttributesArray += @(
+              @{
+               'identifier' = $DeviceAttribute.Key
+               'value' = $DeviceAttribute.Value
+              }
+            )
+          }
           $BodyHashTable.Add('deviceAttributes', $DeviceAttributesArray)
         }
         $Body = ConvertTo-Json $BodyHashTable
