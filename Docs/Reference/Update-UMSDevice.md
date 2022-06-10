@@ -16,7 +16,7 @@ Updates properties of a device.
 Update-UMSDevice [-Computername] <String> [[-TCPPort] <Int32>] [[-ApiVersion] <Int32>]
  [[-SecurityProtocol] <String[]>] [-WebSession] <Object> [-Id] <Int32> [[-Name] <String>] [[-Site] <String>]
  [[-Department] <String>] [[-CostCenter] <String>] [[-LastIP] <String>] [[-Comment] <String>]
- [[-AssetId] <String>] [[-InserviceDate] <String>] [[-SerialNumber] <String>] [-WhatIf] [-Confirm]
+ [[-AssetId] <String>] [[-InserviceDate] <String>] [[-SerialNumber] <String>] [[-DeviceAttributes] <Hashtable>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -59,6 +59,19 @@ $PSDefaultParameterValues += @{
 Message             Id
 -------             --
 Update successful.  58
+Update successful. 195
+```
+
+### Example 3
+
+Update the Value of the DeviceAttribute with the Identifier 'devattr1' on the device with ID 195 to 'NewValue' 
+and remove the Value of the DeviceAttribute with the Identifier 'devattr2' from the device with ID 195:
+
+```powershell
+Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -DeviceAttributes @{'devattr1' = 'NewName'; 'devattr2' = ''}
+
+Message             Id
+-------             --
 Update successful. 195
 ```
 
@@ -266,6 +279,21 @@ Device property site
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Benannt
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DeviceAttributes
+Custom Device Attributes
+
+```yaml
+Type: Hashtable
 Parameter Sets: (All)
 Aliases:
 
