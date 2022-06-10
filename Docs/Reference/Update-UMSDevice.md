@@ -68,7 +68,7 @@ Update the Value of the DeviceAttribute with the Identifier 'devattr1' on the de
 and remove the Value of the DeviceAttribute with the Identifier 'devattr2' from the device with ID 195:
 
 ```powershell
-Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -DeviceAttributes @{'devattr1' = 'NewName'; 'devattr2' = ''}
+Update-UMSDevice -Computername 'igelrmserver' -WebSession $WebSession -Id 195 -DeviceAttributes @{'devattr1' = 'NewValue'; 'devattr2' = ''}
 
 Message             Id
 -------             --
