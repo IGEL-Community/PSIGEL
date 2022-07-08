@@ -168,11 +168,11 @@
                 }
                 string
                 {
-                  $AttributeProperties.Add('Value', [Single]$DeviceAttribute.value)
+                  $AttributeProperties.Add('Value', [String]$DeviceAttribute.value)
                 }
                 number
                 {
-                  $AttributeProperties.Add('Value', [String]$DeviceAttribute.value)
+                  $AttributeProperties.Add('Value', [Single]$DeviceAttribute.value)
                 }
               }
               $AttributePropertiesObject = New-Object PSObject -Property $AttributeProperties
