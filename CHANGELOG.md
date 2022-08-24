@@ -5,6 +5,7 @@
 ### Added
 
 * added support for networkadapters and deviceattributes to Get-UMSDevice
+* added support for networkadapters and deviceattributes to Update-UMSDevice
 
 ### Changed
 
