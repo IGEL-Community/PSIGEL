@@ -63,7 +63,11 @@
     [Parameter(ParameterSetName = 'Set')]
     [ValidateLength(18, 18)]
     [String]
-    $SerialNumber
+    $SerialNumber,
+
+    [Parameter(ParameterSetName = 'Set')]
+    [Hashtable]
+    $DeviceAttributes
   )
 
   Begin
@@ -113,6 +117,19 @@
         if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'SerialNumber' })
         {
           $BodyHashTable.Add('serialNumber', $SerialNumber)
+        }
+        if ($PSBoundParameters.GetEnumerator().Where{ $_.Key -eq 'DeviceAttributes' })
+        {
+	  $DeviceAttributesArray = @()
+          foreach ($DeviceAttribute in $DeviceAttributes.GetEnumerator()) {
+            $DeviceAttributesArray += @(
+              @{
+               'identifier' = $DeviceAttribute.Key
+               'value' = $DeviceAttribute.Value
+              }
+            )
+          }
+          $BodyHashTable.Add('deviceAttributes', $DeviceAttributesArray)
         }
         $Body = ConvertTo-Json $BodyHashTable
         $Params = @{
